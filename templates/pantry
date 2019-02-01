@@ -1,0 +1,21 @@
+<div id="Pantry" class="module">
+  <h2>Pantry<button class="w3-card-toolbar w3-xlarge w3-round w3-right w3-hover-yellow"><i class="fas fa-plus"></i></button></h2>
+  <table class="w3-table w3-card">
+    <tr>
+      <td>Product</td>
+      <td class="w3-right">Options</td>
+      <td></td>
+    </tr>
+    {% for row in data.PAN %}
+    <tr>
+      <td><a href="{{ row.ingredient_link }}">{{ row.ingredient_name }} {{ row.ingredient_amount }} of {{ row.ingredient_amount_max }} {{ row.ingredient_measure }}</a></td>
+      <td class="w3-right">
+        <button class="w3-small w3-hover-yellow w3-button"><i alt="restock one" class="fas fa-redo"></i></button>
+        <button class="w3-small w3-hover-yellow w3-button"><i alt="add to shopping list" class="fas fa-check"></i></button>
+        <button class="w3-small w3-hover-yellow w3-button"><i class="fas fa-edit"></i></button>
+        <button class="w3-small w3-hover-yellow w3-button"><i class="fas fa-times"></i></button>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>

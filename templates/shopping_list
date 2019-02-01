@@ -1,0 +1,19 @@
+<div id="Shopping List" class="module">
+  <h2>Shopping List</h2>
+  <table class="w3-table w3-card">
+    <tr>
+      <td>Product</td>
+      <td class="w3-right">Options</td>
+      <td></td>
+    </tr>
+    {% for row in data.SL %}
+    <tr>
+      <td><a href="{{ row.ingredient_link }}">{{ row.ingredient_name }} {{ row.ingredient_amount_max }} {{ row.ingredient_measure }}</a></td>
+      <td class="w3-right">
+        <button class="w3-small w3-hover-yellow w3-button"><i class="fas fa-check"></i></button>
+        <button class="w3-small w3-hover-yellow w3-button"><i class="fas fa-edit"></i></button>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>

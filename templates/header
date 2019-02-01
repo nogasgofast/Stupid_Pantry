@@ -1,0 +1,30 @@
+<div class="w3-round w3-bar w3-card" >
+  <a class="w3-bar-item" onclick="searchFunc('')" href="/">Home</a>
+  <a class="w3-bar-item" onclick="searchFunc('Ready Meals')" href="#">Ready Meals</a>
+  <a class="w3-bar-item" onclick="searchFunc('Shopping List')" href="#">Shopping List</a>
+  <a class="w3-bar-item" onclick="searchFunc('Pantry')" href="#">Pantry</a>
+  <a class="w3-bar-item" onclick="searchFunc('Cookbook')" href="#">Cookbook</a>
+    <input type="text" id="search" onkeyup="searchFunc()" class="w3-right w3-round w3-bar-item w3-input" placeholder="Filter Apps.." />
+</div>
+
+<script>
+function searchFunc(filter) {
+    var divs, input, filter, i, txtValue;
+    if (filter){
+      input = filter;
+    }
+    else{
+      input = document.getElementById("search");
+    }
+    filter = input.value.toUpperCase();
+    divs = document.getElementsByClassName("module");
+    for (i = 0; i < divs.length; i++) {
+        txtValue = divs[i].id;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            divs[i].style.display = "";
+        } else {
+            divs[i].style.display = "none";
+        }
+    }
+}
+</script>
