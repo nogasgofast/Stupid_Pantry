@@ -1,142 +1,128 @@
 #!/bin/python3
 
-from flask import Flask
-from flask import render_template
+from flask import Flask, session, redirect, url_for, escape, request
+from flask import render_template, flash, abort, Blueprint
+from pony.orm import *
+import os
+import configparser
+import hashlib
+import sp_database
 
-app = Flask(__name__)
 
-@app.route('/')
+bp = Blueprint( 'main', __name__ )
+
+# Route for handling the login page logic
+@bp.route('/register', methods=['GET', 'POST'])
+def register():
+    error = None
+    if request.method == 'POST':
+        name = request.form.get('username')
+        pwshhh = request.form.get('password')
+        md5shhh = hashlib.md5(pwshhh.encode('utf8')).hexdigest()
+        if name:
+            with db_session:
+                usr = get( u for u in sp_database.User if u.name == name )
+                if not usr or md5shhh != usr.password:
+                    usr = sp_database.User(name=name, password=md5shhh,
+                        is_authenticated=False,is_active=False,is_anonymous=False)
+                    usr.is_authenticated = True
+                    return redirect(url_for('main.home'))
+                else:
+                    error = 'User already exists Sorry. Try another.'
+    return render_template('register.html', error=error)
+
+# Route for handling the login page logic
+@bp.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        name = request.form.get('username')
+        pwshhh = request.form.get('password')
+        md5shhh = hashlib.md5(pwshhh.encode('utf8')).hexdigest()
+        if name:
+            with db_session:
+                usr = get( u for u in sp_database.User if u.name == name )
+                if not usr or md5shhh != usr.password:
+                    error = 'Invalid Credentials. Please try again.'
+                else:
+                    usr.is_authenticated = True
+                    return redirect(url_for('main.home'))
+    return render_template('login.html', error=error)
+
+@bp.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('index'))
+
+@bp.route('/')
 def home():
-    data = {
-      "SAM": [{
-        "meal_count": 3,
-        "meal_link": "Speggitty dinner",
-        "meal_name": "Speggitty dinner"
-        },{
-        "meal_count": 2,
-        "meal_link": "Bacon sandwhiches",
-        "meal_name": "Bacon sandwhiches"
-        },{
-        "meal_count": 1,
-        "meal_link": "Bacon speggitty dinner",
-        "meal_name": "Bacon speggitty dinner"
-        }],
-      "SL": [{
-        "ingredient_link":"pumpkin filling",
-        "ingredient_name":"pumpkin filling",
-        "ingredient_amount_max":"16",
-        "ingredient_measure":"oz"
-        },{
-        "ingredient_link":"cheese slices",
-        "ingredient_name":"cheese slices",
-        "ingredient_amount_max":"24",
-        "ingredient_measure":"count"
-        },{
-        "ingredient_link":"round buns",
-        "ingredient_name":"round buns",
-        "ingredient_amount_max":"6",
-        "ingredient_measure":"count"
-        }],
-      "RM": [{
-        "meal_count": 3,
-        "meal_name": "Speggitty dinner",
-        },{
-        "meal_count": 2,
-        "meal_name": "Bacon Sandwhiches",
-        },{
-        "meal_count": 1,
-        "meal_name": "Bacon speggitty dinner"
-        }],
-      "CAM": [{
-        "ingredient_link":"tomato",
-        "ingredient_name":"tomato",
-        "ingredient_amount_max":"",
-        "ingredient_measure":"",
-        "amount": 2,
-        "meal_name": "burgers"
-        },{
-        "ingredient_link":"wieners",
-        "ingredient_name":"wieners pack",
-        "ingredient_amount_max": 8,
-        "ingredient_measure":"ct",
-        "amount": 8,
-        "meal_name": "hotdogs"
-        },{
-        "ingredient_link":"tuna can",
-        "ingredient_name":"tuna can",
-        "ingredient_amount_max": 6,
-        "ingredient_measure":"oz",
-        "amount": 1,
-        "meal_name": "tuna melt bowl"
-        }],
-      "PAN": [{
-        "ingredient_name":"pumpkin filling",
-        "ingredient_amount":"16",
-        "ingredient_amount_max":"16",
-        "ingredient_measure":"oz"
-        },{
-        "ingredient_name":"cheese slices",
-        "ingredient_amount":"0",
-        "ingredient_amount_max":"24",
-        "ingredient_measure":"count"
-        },{
-        "ingredient_name":"round buns",
-        "ingredient_amount":"0",
-        "ingredient_amount_max":"6",
-        "ingredient_measure":"count"
-        }],
-      "CKB": [{
-        "meal_name": "spaghetti au gratain",
-        "ING": [{
-          "ingredient_name":"pasta",
-          "ingredient_amount":"10",
-          "ingredient_amount_max":"34",
-          "ingredient_measure":"strands"
-          },{
-          "ingredient_name":"Olive Oil",
-          "ingredient_amount":"2",
-          "ingredient_amount_max":"16",
-          "ingredient_measure":"oz"
-          },{
-          "ingredient_name":"potato",
-          "ingredient_amount":"1",
-          "ingredient_amount_max":"",
-          "ingredient_measure":""
-          }],
-        "instructions": '<p>Chop your taters an cook them in an oven.</p><p>Boil your pasta in a pot until tender, about 10 mins</p>',
-        "keep_stocked": True
-        },{
-        "meal_name": "aue gratain",
-        "ING": [{
-          "ingredient_name":"Olive Oil",
-          "ingredient_amount":"2",
-          "ingredient_amount_max":"16",
-          "ingredient_measure":"oz"
-          },{
-          "ingredient_name":"potato",
-          "ingredient_amount":"3",
-          "ingredient_amount_max":"",
-          "ingredient_measure":""
-          },{
-          "ingredient_name":"metal tub",
-          "ingredient_amount":"1",
-          "ingredient_amount_max":"",
-          "ingredient_measure":""
-          }],
-        "instructions": '<p>Chop your taters an cook them in an oven.</p><p>Boil your toes, about 10 mins in salt water. Then towel dry to perfection</p>',
-        "keep_stocked": False
-        }]
-    }
-    return render_template('home.html', data=data)
+    if not session.get('logged_in'):
+        data = {}
+        return render_template('home.html', data=data)
+    else:
+        return "Hello Boss!"
 
-@app.route('/cookbook')
+@bp.route('/cookbook')
 def pantry():
     return render_template('cookbook.html')
 
-@app.route('/random')
+@bp.route('/random')
 def suggestions():
     return render_template('random.html')
 
-@app.route('/tomb')
+@bp.route('/tomb')
 def tomb():
     return render_template('tomb.html')
+
+def get_config():
+    config = configparser.ConfigParser()
+    config.read('/etc/stupid_pantry.conf')
+    return config
+
+def get_socket(config=False):
+    host = '0.0.0.0'
+    port = 5001
+
+    try:
+        sect = config['control']
+    except:
+        sect = False
+    if sect:
+        host = sect.get('host', host)
+        port = sect.getint('port', port)
+    return (host, port)
+
+def db_setup(config=False):
+    try:
+        sect = config['control']
+    except:
+        sect = False
+    if sect:
+        dbtype = sect.get('dbtype')
+        if dbtype:
+            dbconfig = [
+                sect.get('dbhost'),
+                sect.get('dbuser'),
+                sect.get('dbpasswd'),
+                sect.get('dbname')
+            ]
+            sp_database.spantry.bind('mysql', *dbconfig)
+        else:
+            sp_database.spantry.bind('sqlite',filename='sp.sqlite', create_db=True)
+    else:
+        sp_database.spantry.bind('sqlite',filename='sp.sqlite', create_db=True)
+    sp_database.spantry.generate_mapping(create_tables=True)
+
+def app_factory():
+    app = Flask(__name__)
+    app.secret_key = os.urandom(24)
+    app.register_blueprint(bp)
+    return app
+
+if __name__ == "__main__":
+    config = get_config()
+    db_setup(config)
+    host, port = get_socket(config)
+    app = app_factory()
+    app.run(host, port)
