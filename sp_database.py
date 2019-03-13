@@ -7,8 +7,14 @@ class Ingredients(spantry.Entity):
     uid = Required('User')
     applet = Required(str)
     name = Required(str)
-    quantity = Required(str)
+    amount = Required(int)
+    amount_pkg = Required(int)
+    amount_measure = Required('Measures')
     recipies = Optional('Recipies')
+
+class Measures(spantry.Entity):
+    name = Required(str)
+    ingredients = Set('Ingredients')
 
 class Recipies(spantry.Entity):
     uid = Required('User')

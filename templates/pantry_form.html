@@ -30,42 +30,26 @@
     <div class="w3-col" >
       <div class="w3-container w3-padding-16" >
         {% include "header.jinja2" ignore missing %}
-      </div>
-    </div>
-  </div>
+        </div></div></div>
   <div class="w3-row" >
     <div class="w3-col m6 l4" >
       <div class="w3-container" >
-        {% include "ready_meals_module.jinja2" ignore missing %}
-      </div>
-    </div>
-    <div class="w3-col m6 l4" >
-      <div class="w3-container" >
-        {% include "shopping_list_module.jinja2" ignore missing %}
-      </div>
-    </div>
-    <div class="w3-col m6 l4" >
-      <div class="w3-container" >
-        {% include "complete_a_meal_module.jinja2" ignore missing %}
-      </div>
-    </div>
-    <div class="w3-col m6 l4" >
-      <div class="w3-container" >
-        {% include "pantry_module.jinja2" ignore missing %}
-      </div>
-    </div>
-    <div class="w3-col m6 l4" >
-      <div class="w3-container" >
-        {% include "cookbook_module.jinja2" ignore missing %}
-      </div>
-    </div>
-    <div class="w3-col m6 l4" >
-      <div class="w3-container" >
-        {% include "suggest_a_meal_module.jinja2" ignore missing %}
-      </div>
-    </div>
-  </div>
-</div>
+        <div id="Pantry" class="module">
+          <h2>Add Pantry Item<a href="/" class="w3-button w3-card-toolbar w3-xlarge w3-round w3-right w3-hover-yellow"><i class="fas fa-home"></i></a></h2>
+          <table class="w3-table w3-card">
+            <tr>
+              <td>
+                <form action="/pantry" method="post">
+                  <label>Name*</label><div class="w3-right">(Required)</div>
+                  <input id="pan_add_name" name="name" class="w3-input" type="text" />
+                  <label>Amount</label>
+                  <input id="pan_add_amount" name="amount" class="w3-input" type="number" />
+                  <label>Meteric, I have 5 of what? oz,cups,bannanas?</label>
+                  <input id="pan_add_meteric" name="meteric" class="w3-input" type="text" />
+                  <label>Amount per package</label>
+                  <input id="pan_add_package_amount" name="pkg_amount" class="w3-input" type="number" />
+                  <input type="submit" class="w3-margin-top w3-input w3-btn w3-yellow w3-center" onclick="pantry_item_create()" type="button" value="Add" />
+                  </form></td></tr></table></div></div></div></div>
 <div class="w3-padding-32" />
 </body>
 </html>

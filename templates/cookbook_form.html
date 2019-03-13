@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stupid Pantry</title>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+<meta name="description" content="manage kitchen pantries and fridges">
+<meta name="author" content="Gene A. Guido III">
+<meta name="viewport" content="width=device-width, initial-scale=1",
+      "user-scalable=no">
+<link rel="stylesheet" type="text/css"
+            href="{{ url_for('static', filename='home.css') }}"></link>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+      crossorigin="anonymous"></link>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
+</head>
+<body>
+  <div class="w3-container" />
+    <div class="w3-row" >
+      <div class="w3-col" >
+        <div class="w3-container w3-padding-16" >
+          {% include "header.jinja2" ignore missing %}
+          </div></div></div>
+    <div class="w3-row" >
+      <div class="w3-col m6 l4" >
+        <div class="w3-container" >
+          {% include "cookbook_form.jinja2" ignore missing %}
+          </div></div></div></div>
+<div class="w3-padding-32" />
+</body>
+</html>
