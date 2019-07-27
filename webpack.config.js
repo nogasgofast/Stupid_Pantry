@@ -1,8 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './static/app.js',
+  entry: __dirname + '/static/app.js',
   mode: "development",
+  devtool: 'source-map',
   output: {
       path: path.resolve(__dirname, 'static/dist')
   },
@@ -14,7 +15,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-react']
           }
         }
       }

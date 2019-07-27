@@ -1,24 +1,22 @@
-
-let e = React.createElement;
+import React from 'react';
+import { Route, Redirect } from 'react-router';
 
 function username(props) {
-  return e('input', {type:"text",
-                         className: "w3-input w3-round w3-padding-16",
-                         value: props.username,
-                         placeholder: "username",
-                         name: "username",
-                         onChange: props.onChange},
-                         null);
+  return (<input type="text"
+                className="w3-input w3-round w3-padding-16"
+                value={props.username}
+                placeholder="username"
+                name="username"
+                onChange={props.onChange}></input>)
 };
 
 function password(props) {
-  return e('input', {type:"password",
-                         className: "w3-input w3-round w3-padding-16",
-                         value: props.password,
-                         placeholder: "password",
-                         name: "password",
-                         onChange: props.onChange},
-                         null);
+  return (<input type="password"
+                className="w3-input w3-round w3-padding-16"
+                value={props.password}
+                placeholder="password"
+                name="password"
+                onChange={props.onChange}></input>)
 }
 
 
@@ -65,7 +63,7 @@ export default class LoginForm extends React.Component {
       console.log(xhr.responseText);
       const json = JSON.parse(xhr.responseText);
       this.props.updateCallback(json.access_token, json.refresh_token);
-      this.props.navigate('catagoryView');
+      this.props.toggleLoggedIn();
     }else if (this.readyState == 4){
       console.log(this.readyState +
                   " " +
@@ -76,42 +74,34 @@ export default class LoginForm extends React.Component {
     }
   }
   render () {
-    return  e('div', { className: "w3-display"},
-              e('form',
-                {className: "w3-display-middle " +
+    return  (<div className="w3-display">
+              <form className={"w3-display-middle " +
                             "w3-card " +
                             "w3-round " +
-                            "w3-form ",
-                 onSubmit: (event) => this.handleSubmit(event)},
-                e('div',
-                  { className: "w3-container"},
-                  e('h2', null, 'Login'),
-                    e('label',
-                      { htmlFor: "username",
-                        hidden: true },
-                      'username:'),
-                  this.renderUsername(),
-                  e('label',
-                    { htmlFor: "password",
-                      hidden: true },
-                    'password:'),
-                  this.renderPassword(),
-                  e('div',
-                    {className: "w3-container w3-center w3-padding-16"},
-                    e('input',
-                      {type: "submit",
-                       value: "Log in",
-                       readOnly: true,
-                       className: "w3-btn w3-yellow w3-input"},
-                      null),
-                    e('a',
-                      {className: "w3-btn",
-                       href: '/register'},
-                      "Sign up here!"
-                    )
-                  )
-                )
-              )
-            )
+                            "w3-form "}
+                    onSubmit={(event) => this.handleSubmit(event)}>
+                <div className="w3-container">
+                  <h2>Login</h2>
+                  <label htmlFor="username" hidden={true}>
+                    username:
+                  </label>
+                  {this.renderUsername()}
+                  <label htmlFor="password" hidden={true}>
+                    password:
+                  </label>
+                  {this.renderPassword()}
+                  <div className="w3-container w3-center w3-padding-16">
+                    <input type="submit"
+                           value="Log in"
+                           readOnly={true}
+                           className="w3-btn w3-yellow w3-input">
+                    </input>
+                    <a className="w3-btn" href='/register'>
+                      Sign up here!
+                    </a>
+                  </div>
+                </div>
+              </form>
+            </div>)
   }
 }
