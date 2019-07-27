@@ -39,16 +39,42 @@
           <table class="w3-table w3-card">
             <tr>
               <td>
-                <form action="/pantry" method="post">
+                <form action="/pantry{{ '/{}'.format(data.id) if data.id is defined }}" method="post">
+                  <input  name="id"
+                          type="hidden"
+                          value="{{ data.id }}" />
                   <label>Name*</label><div class="w3-right">(Required)</div>
-                  <input id="pan_add_name" name="name" class="w3-input" type="text" />
+                  <input  name="name"
+                          type="text"
+                          value="{{ data.name }}"
+                          class="w3-input" />
                   <label>Amount</label>
-                  <input id="pan_add_amount" name="amount" class="w3-input" type="number" />
+                  <input  name="amount"
+                          type="number"
+                          value="{{ data.amount }}"
+                          class="w3-input"  />
                   <label>Meteric, I have 5 of what? oz,cups,bannanas?</label>
-                  <input id="pan_add_meteric" name="meteric" class="w3-input" type="text" />
+                  <input  name="meteric"
+                          type="text"
+                          value="{{ data.amount_measure }}"
+                          class="w3-input"  />
                   <label>Amount per package</label>
-                  <input id="pan_add_package_amount" name="pkg_amount" class="w3-input" type="number" />
-                  <input type="submit" class="w3-margin-top w3-input w3-btn w3-yellow w3-center" onclick="pantry_item_create()" type="button" value="Add" />
+                  <input  name="amount_pkg"
+                          type="number"
+                          value="{{ data.amount_pkg }}"
+                          class="w3-input" />
+                  <input name="keep_stocked"
+                         type="checkbox"
+                         {% if data.keep_stocked %}
+                             checked
+                         {% endif %}
+                         class="w3-check" >
+                  <label>Keep Stocked</label></input>
+                  <input  type="submit"
+                          class="w3-margin-top w3-input w3-btn w3-yellow w3-center"
+                          onclick="pantry_item_create()"
+                          type="button"
+                          value="Submit" />
                   </form></td></tr></table></div></div></div></div>
 <div class="w3-padding-32" />
 </body>

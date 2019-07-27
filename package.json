@@ -1,0 +1,31 @@
+{
+  "name": "stupid_pantry",
+  "version": "1.0.0",
+  "description": "You can save the unnecessary space in your repo and still deploy to a new server in a single command: virtualenv --no-site-packages --distribute .env && source .env/bin/activate && pip install -r requirements.txt",
+  "private": true,
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "dependencies": {
+    "sync-exec": "^0.6.2",
+    "webpack": "^4.0.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nogasgofast/Stupid_Pantry.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nogasgofast/Stupid_Pantry/issues"
+  },
+  "homepage": "https://github.com/nogasgofast/Stupid_Pantry#readme"
+}

@@ -4,33 +4,38 @@ from pony.orm import *
 spantry = Database()
 
 class Ingredients(spantry.Entity):
-    uid = Required('User')
-    applet = Required(str)
+    uid = Required('Users')
     name = Required(str)
-    amount = Required(int)
-    amount_pkg = Required(int)
-    amount_measure = Required('Measures')
-    recipies = Optional('Recipies')
+    amount = Required(int, default=0)
+    amount_pkg = Required(int, default=0)
+    amount_measure = Required(str)
+    keep_stocked = Required(bool, default=False)
+    required_by = Optional('Requirements')
+    PrimaryKey(uid, name)
 
-class Measures(spantry.Entity):
-    name = Required(str)
-    ingredients = Set('Ingredients')
+class Requirements(spantry.Entity):
+    uid = Required('Users')
+    ingredient = Required('Ingredients')
+    amount = Required(float)
+    recipe = Required('Recipes')
+    PrimaryKey(uid, recipe, ingredient)
 
-class Recipies(spantry.Entity):
-    uid = Required('User')
-    applet = Required(str)
+class Recipes(spantry.Entity):
+    uid = Required('Users')
     name = Required(str)
-    amounts = Required(str)
-    ingredients = Set('Ingredients')
+    instructions = Required(str)
+    requirements = Set('Requirements')
+    PrimaryKey(uid, name)
 
-class User(spantry.Entity):
-    name = Required(str)
+class Users(spantry.Entity):
+    username = Required(str)
+    pwHash = Required(str)
     ingredients = Set('Ingredients')
-    recipies = Set('Recipies')
-    password = Required(str)
-    is_authenticated = Required(bool)
-    is_active = Required(bool)
-    is_anonymous = Required(bool)
+    recipes = Set('Recipes')
+    requirements = Set('Requirements')
+    is_authenticated = Required(bool, default=False)
+    is_active = Required(bool, default=False)
+    is_anonymous = Required(bool, default=False)
 
 if __name__ == 'MAIN':
     spantry.bind(provider='sqlite', filename=':memory:', create_db=True)

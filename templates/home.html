@@ -3,16 +3,6 @@
 <head>
 <meta charset="utf-8">
 <title>Stupid Pantry</title>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-{% block body %}{% endblock %}
 <meta name="description" content="manage kitchen pantries and fridges">
 <meta name="author" content="Gene A. Guido III">
 <meta name="viewport" content="width=device-width, initial-scale=1",

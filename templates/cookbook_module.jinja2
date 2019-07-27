@@ -4,15 +4,17 @@
     {% for row in data.CKB %}
     <tr onclick="myFunction('{{ row.meal_name }}')" class="w3-hover-yellow" >
       <td>
-        <span class="w3-badge w3-yellow w3-margin-right">3</span>{{ row.meal_name }}
+        <span class="w3-badge w3-yellow w3-margin-right">{{ row.meal_count }}</span>{{ row.meal_name }}
       </td>
     </tr>
     <tr id="{{ row.meal_name }}" class="w3-container w3-card w3-hide">
       <td>
         <h5> Ingredients </h5>
         <ul>
-          {% for subrow in row.ING %}
-          <li>{{ subrow.ingredient_name }} {{ subrow.ingredient_amount }} of {{ subrow.ingredient_amount_max }} {{ subrow.ingredient_measure}}</li>
+          {% for subrow in row.ingredients %}
+          <li >
+            {{ subrow.amount }} {{ subrow.measure}} {{ subrow.name }}
+            {{ '<div class="w3-yellow">Not enough in pantry</div>' if subrow.low_stock }}</li>
           {% endfor %}
         </ul>
         <h5> Instructions </h5>

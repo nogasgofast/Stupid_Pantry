@@ -10,7 +10,12 @@
     <tr>
       <td><a id="{{ row.id }}"
              href="{{ row.link }}">
-             {{ row.name }} {{ row.amount }} of {{ row.amount_pkg }} {{ row.measure }}</a></td>
+             {{ row.amount or '' }}
+             {% if row.name not in row.amount_measure %}
+               {{ row.amount_measure }} {{ row.name }}
+             {% else %}
+               {{ row.amount_measure }}
+             {% endif %}</a></td>
       <td class="w3-right">
             <button onclick='pantry_item("{{ row.id }}","add",1)'
                     class="w3-small w3-hover-yellow w3-button">
@@ -20,8 +25,6 @@
                     class="w3-small w3-hover-yellow w3-button">
                       <i alt="remove"
                          class="fas fa-angle-down"></i></button>
-            <button class="w3-small w3-hover-yellow w3-button">
-                      <i class="fas fa-edit"></i></button>
             <button onclick='pantry_item_delete("{{ row.id }}")'
                     class="w3-small w3-hover-yellow w3-button">
                       <i class="fas fa-times"></i></button></td></tr>
@@ -37,8 +40,14 @@ function pantry_item(id,action,amount) {
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var ing = JSON.parse(this.responseText);
-      var updateTxt = ing['name'] + " " + ing['amount'] + " of " +
-        ing['amount_pkg'] + " " + ing['amount_measure']
+      var amount = ing['amount'];
+      var updateTxt = '';
+      if ( ing['amount_measure'].search( ing['name'] ) ){
+        updateTxt = ing['amount_measure'] +" "+ ing['name'];
+      }else{
+        updateTxt = ing['amount_measure'];
+      }
+      updateTxt = amount + " " + updateTxt;
       document.getElementById(id).innerHTML = updateTxt;
     }
   };
