@@ -1,8 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Redirect, Switch, Link } from "react-router-dom";
-import LoginForm from './login.js' ;
-import CatagoryView from './catagoryView.js';
+import { BrowserRouter, Route, Redirect, Switch, Link, withRouter } from "react-router-dom";
+import { LoginForm } from './login.js' ;
+import { LogoutForm } from './logout.js' ;
+import { RegisterForm } from './register.js' ;
+import { CatagoryView } from './catagoryView.js';
+import { ShoppingView } from './shoppingView.js';
+import { PantryView } from './pantryView.js';
+import { RecipesView } from './recipesView.js';
+import { RecipesAdd } from './recipesAdd.js';
+
+const ProtectedRoute = ({component: Component, isLoggedIn, ...rest}) => (
+  <Route render={(props) => (
+        isLoggedIn ? (
+        <Component {...props} {...rest} isLoggedIn={isLoggedIn} />
+        ) : (
+        <Redirect to={{pathname:'/login', state: {from: props.location}}} />
+        )
+      ) //end Lambda
+    } //end render
+  />
+);
+
 
 class App extends React.Component {
   constructor(props) {
@@ -10,8 +29,21 @@ class App extends React.Component {
     this.state = {
       accessToken: '',
       refreshToken: '',
-      isLoggedIn: false};
+      isLoggedIn: false
+    };
   }
+
+  setLoggedIn() {
+    this.setState({
+      isLoggedIn: true
+    })
+  }
+  setNotLoggedIn() {
+    this.setState({
+      isLoggedIn: false
+    })
+  }
+
   updateAccessToken(token) {
     this.setState({ accessToken: token });
   }
@@ -19,49 +51,53 @@ class App extends React.Component {
     this.setState({ accessToken: access,
                     refreshToken: refresh});
   }
-  toggleLoggedIn() {
-    this.setState({
-      isLoggedIn: this.state.isLoggedIn ? false : true
-    })
-  }
 
+  //<Redirect to={this.props.location.prev} />
   render() {
-    return(
-        <Switch>
-          <Route path="/" exact>
-            <h1>Welcome!</h1>
-            <Link to="/login">Go to Login Here!</Link>
-          </Route>
-          {/* add routes here! */}
-          <Route path="/login" exact>
-            { console.log(this.state.isLoggedIn) }
-            { this.state.isLoggedIn ? (<Redirect to="/nav" />) : (
-              <LoginForm accessToken={this.state.accessToken}
-                         refreshToken={this.state.refreshToken}
-                         updateCallback={(access,refresh) => this.updateAllTokens(access,refresh)}
-                         toggleLoggedIn={() => this.toggleLoggedIn()} />
-              )
-            }
-          </Route>
-          <Route path="/nav" exact>
-          <CatagoryView accessToken={this.state.accessToken}
-                     refreshToken={this.state.refreshToken}
-                     updateCallback={(access,refresh) => this.updateCallback(access,refresh)}
-                     toggleLoggedIn={() => this.toggleLoggedIn()} />
-          </Route>
-        </Switch>)
-    // return <ComponentRouter
-    //   accessToken={this.state.accessToken}
-    //   efreshToken={this.state.refreshToken}
-    //   updateCallback={(access, refresh) => this.updateAllTokens(access,refresh)} />
+    const preProps = {
+                    isLoggedIn: this.state.isLoggedIn,
+                    accessToken: this.state.accessToken,
+                    refreshToken: this.state.refreshToken,
+                    setLoggedIn: () => this.setLoggedIn(),
+                    setNotLoggedIn: () => this.setNotLoggedIn(),
+                    // I may want to combine these into a more useable single function
+                    // since they alsmot do the same thing.
+                    updateAccessToken: (access) => this.updateAccessToken(access),
+                    updateAllTokens: (access,refresh) => this.updateAllTokens(access,refresh)};
+    return (
+      <Switch>
+        <Route path="/register"
+               render={(props)=><RegisterForm {...props} {...preProps} />} />
+        <Route path="/login"
+               render={(props)=><LoginForm {...props} {...preProps} />} />
+        <Route path="/logout"
+               render={(props)=><LogoutForm {...props} {...preProps} />} />
+        { /* beyond this point login required */ }
+        <ProtectedRoute exact
+                        path="/" {...preProps}
+                        to="/nav"
+                        component={ Redirect } />
+        <ProtectedRoute path="/pantry" {...preProps}
+                        component={ PantryView } />
+        <ProtectedRoute path="/shopping" {...preProps}
+                        component={ ShoppingView } />
+        <ProtectedRoute exact
+                        path="/recipes" {...preProps}
+                        component={ RecipesView } />
+        <ProtectedRoute path="/recipes/add" {...preProps}
+                        component={ RecipesAdd } />
+        <ProtectedRoute path="/nav" {...preProps}
+                        component={ CatagoryView } />
+      </Switch>
+    )
   }
 }
 
-
+// (<Redirect to="/login" />)
 
 // ========================================
 ReactDOM.render((
-  <BrowserRouter>
+  <BrowserRouter >
     <App />
   </BrowserRouter>
   ),

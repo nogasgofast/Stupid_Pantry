@@ -304,6 +304,7 @@ def get_config():
 
 def get_socket(config=False):
     host = '0.0.0.0'
+    host = '192.168.1.70'
     port = 5001
 
     try:
@@ -372,7 +373,7 @@ def users():
         # attempt to query for this user.
         user = sp_database.Users.get(lambda u: u.username == username)
         if user:
-            return jsonify({"conflicts with previous user": 409}), 409
+            return jsonify({"response": "conflicts with previous user", "status": 409}), 409
         pwHash = myctx.hash(password)
         user = sp_database.Users(username = username,
                                 pwHash = pwHash,
@@ -710,9 +711,72 @@ def requirements():
 ####
 
 ### The old website stuff and grody api ###
-@bp.route('/')
-def home():
+@bp.route('/', defaults={'path': ''})
+@bp.route('/<path:path>')
+def home(path):
     return render_template('app.html')
+
+@bp.route('/v1/views/catagories', methods=['GET'])
+@jwt_required
+@db_session
+def catagoriesView():
+    data = {}
+    username = get_jwt_identity()
+    user = identify(username)
+    if request.method == 'GET':
+        recipes = sp_database.Recipes.select(lambda r: r.uid == user).count()
+        ingredients = sp_database.Ingredients.select(lambda r: r.uid == user).count()
+        keepStocked = lambda i: (i.uid == user and
+                                 i.keep_stocked and
+                                 (float(i.amount) / i.amount_pkg) >= 0.1)
+        shopping = sp_database.Ingredients.select(keepStocked).count()
+        #Other
+        return jsonify({ "recipes": recipes,
+                         "ingredients": ingredients,
+                         "shopping": shopping}), 200
+
+@bp.route('/v1/views/pantry', methods=['GET'])
+@jwt_required
+@db_session
+def pantryView():
+    data = {}
+    username = get_jwt_identity()
+    user = identify(username)
+    if request.method == 'GET':
+        allUserItems = lambda i: (i.uid == user)
+        shopping = sp_database.Ingredients.select(allUserItems)[:]
+        #Other
+        return jsonify({ "list": [ i.to_dict() for i in shopping ] }), 200
+
+@bp.route('/v1/views/shopping', methods=['GET'])
+@jwt_required
+@db_session
+def shoppingView():
+    data = {}
+    username = get_jwt_identity()
+    user = identify(username)
+    if request.method == 'GET':
+        keepStocked = lambda i: (i.uid == user and
+                                i.keep_stocked and
+                                ((float(i.amount) / i.amount_pkg) >= 0.1))
+        shopping = sp_database.Ingredients.select(keepStocked)[:]
+        #Other
+        return jsonify({ "list": [ i.to_dict() for i in shopping ] }), 200
+
+@bp.route('/v1/views/recipes', methods=['GET'])
+@jwt_required
+@db_session
+def recipesView():
+    data = {}
+    username = get_jwt_identity()
+    user = identify(username)
+    if request.method == 'GET':
+        allUserItems = lambda i: (i.uid == user)
+        shopping = sp_database.Recipes.select(allUserItems)[:]
+        #Other
+        return jsonify({ "list": [ i.to_dict() for i in shopping ] }), 200
+
+
     # data = {}
     # data['PAN'] = []
     # data['CKB'] = []

@@ -63,7 +63,7 @@ class Auth_route(unittest.TestCase):
         data = json.dumps(dict(username="test",
                                password="test"))
         rv = self.client.post(self.route, data=data, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertTrue( 'access_token' in rv.json )
 
 class Auth_refresh_route(unittest.TestCase):
@@ -105,5 +105,5 @@ class Auth_refresh_route(unittest.TestCase):
 
     def test_post_returns_created_and_creates(self):
         rv = self.client.post(self.route, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertTrue( 'access_token' in rv.json )

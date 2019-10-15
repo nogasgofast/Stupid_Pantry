@@ -112,6 +112,6 @@ class User_route(unittest.TestCase):
         # strangeness over
         data = json.dumps(dict(username="honey"))
         rv = self.client.delete('/v1/users', data=data, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         item = sp_database.spantry.Users.get(username="honey")
         self.assertTrue( item is None )

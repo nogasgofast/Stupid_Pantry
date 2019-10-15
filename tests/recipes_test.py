@@ -40,7 +40,7 @@ class Recipes_route(unittest.TestCase):
 
     def test_get_empty_request_responds_when_empty(self):
         rv = self.client.get(self.route, data='{}', headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertEqual(0, len(rv.json))
 
     @db_session
@@ -52,7 +52,7 @@ class Recipes_route(unittest.TestCase):
                                              )
         commit()
         rv = self.client.get(self.route, data='{}', headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertEqual(1, len(rv.json))
 
     @db_session
@@ -64,7 +64,7 @@ class Recipes_route(unittest.TestCase):
         commit()
         req = json.dumps(dict(name = 'hot dogs'))
         rv = self.client.get(self.route, data=req, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         item = rv.json
         self.assertEqual(item["name"], "hot dogs")
 
@@ -143,7 +143,7 @@ class Recipes_route(unittest.TestCase):
                                instructions="take it apart"))
         rv = self.client.put(self.route, data=data, headers=self.rH)
         item = sp_database.spantry.Recipes.get(name="boiled eggs")
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertEqual("take it apart", item.instructions)
 
     def test_delete_missing_target(self):
@@ -167,6 +167,6 @@ class Recipes_route(unittest.TestCase):
         commit()
         data = json.dumps(dict(name="boiled eggs"))
         rv = self.client.delete(self.route, data=data, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         item = sp_database.spantry.Recipes.get(name="boiled eggs")
         self.assertTrue( item is None )

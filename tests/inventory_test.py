@@ -40,7 +40,7 @@ class Inventory_route(unittest.TestCase):
 
     def test_get_empty_request_responds_when_empty(self):
         rv = self.client.get(self.route, data='{}', headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertEqual(0, len(rv.json))
 
     @db_session
@@ -54,7 +54,7 @@ class Inventory_route(unittest.TestCase):
                                              keep_stocked=True)
         commit()
         rv = self.client.get(self.route, data='{}', headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
 
     @db_session
     def test_get_request_for_item_by_name(self):
@@ -68,7 +68,7 @@ class Inventory_route(unittest.TestCase):
         commit()
         req = json.dumps(dict(name = 'honey'))
         rv = self.client.get(self.route,data=req, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         item = rv.json
         self.assertEqual(item["name"], "honey")
 
@@ -194,7 +194,7 @@ class Inventory_route(unittest.TestCase):
                                keep_stocked=False))
         rv = self.client.put(self.route, data=data, headers=self.rH)
         item = sp_database.spantry.Ingredients.get(name="honey")
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertEqual(2, item.amount)
         self.assertEqual(20, item.amount_pkg)
         self.assertEqual('sinks', item.amount_measure)
@@ -224,6 +224,6 @@ class Inventory_route(unittest.TestCase):
         commit()
         data = json.dumps(dict(name="honey"))
         rv = self.client.delete(self.route, data=data, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         item = sp_database.spantry.Ingredients.get(name="honey")
         self.assertTrue( item is None )

@@ -1,0 +1,8 @@
+Insomnia_2019-07-07.json
+node_modules
+node_modules/*
+__pycache__/*
+*.pyc
+sp.sqlite
+.env\*
+.env

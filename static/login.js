@@ -1,5 +1,9 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
+import { Header } from './header.js';
+import { W3Color } from './utils.js';
+
+const color = new W3Color;
 
 function username(props) {
   return (<input type="text"
@@ -19,15 +23,25 @@ function password(props) {
                 onChange={props.onChange}></input>)
 }
 
-
-export default class LoginForm extends React.Component {
+export class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { username: '',
-                   password: ''};
+                   password: '',
+                   isFailed: false,
+                   isLoading: false};
+    this.myIsMounted = false;
     this.handleChangeUser = this.handleChangeUser.bind(this);
     this.handleChangePass = this.handleChangePass.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.myIsMounted = true;
+  }
+
+  componentWillUnmount() {
+    this.myIsMounted = false;
   }
 
   handleChangeUser(event) {
@@ -36,72 +50,104 @@ export default class LoginForm extends React.Component {
   handleChangePass(event) {
     this.setState({ password: event.target.value});
   }
-  handleSubmit (event) {
-    const username = this.state.username;
-    const password = this.state.password;
-    let xhr = new XMLHttpRequest();
-    const url = '/v1/auth';
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = () => this.getAuthTokens(xhr);
-    const datas = JSON.stringify({username: username,
-                                  password: password});
-    xhr.send(datas);
-    event.preventDefault();
-  }
+
   renderUsername() {
     return username({password: this.state.username,
-              onChange: (event) => this.handleChangeUser(event)});
+                     onChange: (event) => this.handleChangeUser(event),
+                     failed: this.state.isFailed});
   }
   renderPassword() {
     return password({password: this.state.password,
-              onChange: (event) => this.handleChangePass(event)});
+                     onChange: (event) => this.handleChangePass(event),
+                     failed: this.state.isFailed});
   }
 
-  getAuthTokens(xhr) {
+  handleSubmit(event) {
+      this.myIsMounted && this.setState({isLoading: true})
+      event.preventDefault();
+      const username = this.state.username;
+      const password = this.state.password;
+      let xhr = new XMLHttpRequest();
+      const url = '/v1/auth';
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = (event) => this.setAuthTokens(xhr);
+      const datas = JSON.stringify({username: username,
+                                    password: password});
+      xhr.send(datas);
+  }
+
+  setAuthTokens(xhr) {
     if (xhr.readyState == 4 && xhr.status == 200) {
-      console.log(xhr.responseText);
       const json = JSON.parse(xhr.responseText);
-      this.props.updateCallback(json.access_token, json.refresh_token);
-      this.props.toggleLoggedIn();
-    }else if (this.readyState == 4){
-      console.log(this.readyState +
-                  " " +
-                  this.status +
-                  " " +
-                  xhr.responseText
-                   );
+      this.props.updateAllTokens(json.access_token, json.refresh_token);
+      this.props.setLoggedIn();
+      //go ahead and clear the username and password from memory
+      //we don't want to hold on to that for very long.
+      this.myIsMounted && this.setState({username: '',
+                                        password: '',
+                                        isLoading: false});
+      const isPassing = this.props.location.state && this.props.location.state.from;
+      if(isPassing) {
+        //console.log("I was passed to login!");
+        this.props.history.push(this.props.location.state.from);
+      }else{
+        //console.log("Not Passed to login!");
+        this.props.history.push("/");
+      }
+    }else if (xhr.status == 401){
+      this.myIsMounted && this.setState({isFailed: true,
+                                        isLoading: false});
     }
   }
+
   render () {
-    return  (<div className="w3-display">
-              <form className={"w3-display-middle " +
-                            "w3-card " +
-                            "w3-round " +
-                            "w3-form "}
-                    onSubmit={(event) => this.handleSubmit(event)}>
-                <div className="w3-container">
-                  <h2>Login</h2>
-                  <label htmlFor="username" hidden={true}>
-                    username:
+    return  (
+      <>
+        <Header inner="Login" isLoggedIn={this.props.isLoggedIn} />
+        <div className="w3-display">
+          <form method="POST"
+                className={"w3-display-middle " +
+                        "w3-card " +
+                        "w3-round " +
+                        "w3-form "}
+                onSubmit={(event) => this.handleSubmit(event)} >
+            <div className={"w3-container w3-margin-top " +
+                            (this.state.isFailed ? color.random() : "")
+                           }>
+              { this.state.isFailed ? ("Invalid user or password!") : ("")}
+              <label htmlFor="username" hidden={true}>
+                username:
+              </label>
+              {this.renderUsername()}
+              <label htmlFor="password" hidden={true}>
+                password:
+              </label>
+              { this.renderPassword() }
+              <div className="w3-container w3-center w3-padding-16">
+                { this.state.isLoading && <>
+                  <label htmlFor="login_btn">
+                    <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>
                   </label>
-                  {this.renderUsername()}
-                  <label htmlFor="password" hidden={true}>
-                    password:
-                  </label>
-                  {this.renderPassword()}
-                  <div className="w3-container w3-center w3-padding-16">
-                    <input type="submit"
-                           value="Log in"
-                           readOnly={true}
-                           className="w3-btn w3-yellow w3-input">
-                    </input>
-                    <a className="w3-btn" href='/register'>
-                      Sign up here!
-                    </a>
-                  </div>
-                </div>
-              </form>
-            </div>)
+                  <input  type="submit"
+                                style={{display: "none"}}
+                                id="login_btn"
+                                value="Log in"
+                                className="w3-btn w3-hover-yellow" /></>
+                }
+                { !this.state.isLoading &&
+                  <input  type="submit"
+                          value="Log in"
+                          className="w3-btn w3-hover-yellow"/>
+                }
+                <Link className="w3-btn w3-hover-yellow" to='/register' >
+                  Sign up here!
+                </Link>
+              </div>
+            </div>
+          </form>
+        </div>
+      </>
+    )
   }
 }

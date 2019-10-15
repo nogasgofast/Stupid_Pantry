@@ -25,6 +25,7 @@ class Recipes(spantry.Entity):
     name = Required(str)
     instructions = Required(str)
     requirements = Set('Requirements')
+    public = Optional(bool, default=False)
     PrimaryKey(uid, name)
 
 class Users(spantry.Entity):

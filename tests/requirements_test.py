@@ -39,7 +39,7 @@ class Requirements_route(unittest.TestCase):
 
     def test_get_empty_request_responds_when_empty(self):
         rv = self.client.get(self.route, data='{}', headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertEqual(0, len(rv.json))
 
     def test_get_missing_fields_returns_error(self):
@@ -68,7 +68,7 @@ class Requirements_route(unittest.TestCase):
                                          recipe=recipe)
         commit()
         rv = self.client.get(self.route, data='{}', headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
 
     @db_session
     def test_get_empty_request_responds_two_items(self):
@@ -122,7 +122,7 @@ class Requirements_route(unittest.TestCase):
         req = json.dumps(dict(ingredient = 'honey',
                               recipe = 'hot dogs'))
         rv = self.client.get(self.route,data=req, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         item = rv.json
         self.assertEqual(item["ingredient"][1], "honey")
 
@@ -252,7 +252,7 @@ class Requirements_route(unittest.TestCase):
                                 amount=2,
                                 recipe="hot dogs"))
         rv = self.client.put(self.route, data=data, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         item = sp_database.spantry.Requirements.get(ingredient=ing)
         self.assertEqual(2, item.amount)
 
@@ -289,7 +289,7 @@ class Requirements_route(unittest.TestCase):
         data = json.dumps(dict(ingredient="honey",
                                recipe="hot dogs"))
         rv = self.client.delete(self.route, data=data, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         item = sp_database.spantry.Requirements.get(ingredient=ing,
                                                     recipe=recipe)
         self.assertTrue( item is None )
@@ -328,7 +328,7 @@ class Requirements_search_route(unittest.TestCase):
 
     def test_get_empty_request_responds_when_empty(self):
         rv = self.client.get(self.route, data='{}', headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertEqual(0, len(rv.json))
 
     @db_session
@@ -349,7 +349,7 @@ class Requirements_search_route(unittest.TestCase):
                                          recipe=recipe)
         commit()
         rv = self.client.get(self.route, data='{}', headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
 
     @db_session
     def test_get_empty_request_responds_two_items(self):
@@ -411,12 +411,12 @@ class Requirements_search_route(unittest.TestCase):
         # Get honey requirement for hot dogs
         req = json.dumps(dict(ingredient = 'honey'))
         rv = self.client.get(self.route,data=req, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertEqual(rv.json[0]["ingredient"][1], "honey")
         # Get all requirements for hot dogs
         req = json.dumps(dict(recipe = 'hot dogs'))
         rv = self.client.get(self.route,data=req, headers=self.rH)
-        self.assertEqual(200, rv.status_code)
+        self.assertTrue(rv.status_code is 200)
         self.assertEqual(2, len(rv.json))
 
 
