@@ -7,7 +7,7 @@ from flask_jwt_extended import ( JWTManager,
                                  create_refresh_token)
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from pony.orm import db_session
+from pony.orm import *
 from flask import (Flask,
                    flash,
                    session,
@@ -19,12 +19,25 @@ from flask import (Flask,
 import configparser
 import sp_database
 from passlib.context import CryptContext
+import requests
+import re
 
 myctx = CryptContext(schemes="sha256_crypt",
                      sha256_crypt__min_rounds=131072)
 
 
 bp = Blueprint( 'main', __name__ )
+
+# def add_cors_headers(response):
+#     #response.headers['Access-Control-Allow-Origin'] = '*'
+#     response.headers['Access-Control-Allow-Origin'] = 'http://rancher:5000/uploader'
+#     if request.method == 'OPTIONS':
+#         #response.headers['Access-Control-Allow-Methods'] = 'DELETE, GET, POST, PUT'
+#         response.headers['Access-Control-Allow-Methods'] = 'POST'
+#         headers = request.headers.get('Access-Control-Request-Headers')
+#         if headers:
+#             response.headers['Access-Control-Allow-Headers'] = headers
+#     return response
 
 @db_session
 def authenticate(username, password):
@@ -50,7 +63,17 @@ def singular(name):
         name = s_name.group(1)
     return name
 
-def parse_recipe(recipe, uid):
+@bp.route('/v1/recipes/parse', methods=['POST'])
+@jwt_required
+@db_session
+def parse_recipe():
+    if not request.json:
+        return jsonify({"Must use json and set json header": 400}), 400
+    recipe = request.json.get('recipe')
+    if recipe is None:
+        return jsonify({"Missing attribute: recipe": 400}), 400
+    username = get_jwt_identity()
+    user = identify(username)
     data = {}
     data['input'] = recipe
     title_or_name = re.search(r'\W*[\w ]+(\r\n|\r|\n)', recipe)
@@ -83,7 +106,7 @@ def parse_recipe(recipe, uid):
                 if re.search(r'\w+',line):
                     ing = {
                         # strips whitespace from before and after line.
-                        "uid": uid,
+                        "uid": user.id,
                         "name": line.strip(),
                         "amount": 0,
                         "amount_measure": "?",
@@ -101,15 +124,17 @@ def parse_recipe(recipe, uid):
 
             # if we have a name then go ahead and try to pull info for that.
             if ing.get('name'):
-                discover_by_name = ingredient_search(ing['name'], uid)
+                discover_by_name = ingredient_search(ing['name'], user.id)
                 perfect_match = [ m for m in discover_by_name if m.get('perfect_match')]
                 if perfect_match:
-                    ing['perfect match'] = perfect_match
-                if discover_by_name:
+                    ing['is_matching'] = 'perfect'
+                    ing['pantry'] = perfect_match
+                elif discover_by_name:
+                    ing['is_matching'] = 'some'
                     ing['pantry'] = discover_by_name
                 else:
+                    ing['is_matching'] = 'no'
                     ing['pantry'] = []
-                    ing['no match'] = True
 
             # if that didn't work at all go ahead and search by the word
             # that came after the first number in the ingredient
@@ -133,14 +158,14 @@ def parse_recipe(recipe, uid):
                 ing['name'] = ing['amount_measure']
             # And findally ensure you always have a uid
             if not ing.get('uid'):
-                ing['uid'] = uid
+                ing['uid'] = user.id
             # if not ing.get('applet'):
             #     ing['applet'] = 'recipe'
             data['ingredients'].append(ing)
         if stop == True:
             if re.search(r'.+',line):
                 data['instructions'].append(line)
-    return data
+    return jsonify({"recipe": data }), 200
 
 def ingredient_search(name, uid):
     with db_session:
@@ -170,7 +195,7 @@ def ingredient_search(name, uid):
         top_three = dict(sorted_by_value[0:2]).keys()
         top_three_matches = []
         for ing in ings:
-             if ing.uid.id == uid and ing.name in top_three:
+             if ing.name in top_three:
                  item= ing.to_dict()
                  item['amount_measure'] = ing.amount_measure
                  top_three_matches.append(item)
@@ -305,6 +330,7 @@ def get_config():
 def get_socket(config=False):
     host = '0.0.0.0'
     host = '192.168.1.70'
+    host = '0.0.0.0'
     port = 5001
 
     try:
@@ -340,6 +366,7 @@ def db_setup(config=False):
 def app_factory():
     app = Flask(__name__)
     app.register_blueprint(bp)
+    # app.after_request(add_cors_headers)
     app.secret_key = b'\xfc\xef\x91EQ\xcb.N\x89\xc8\x97\xbb^\xd3\x863'
     return app
 
@@ -492,6 +519,49 @@ def inventory():
             return jsonify({ "DELETED": 200 }), 200
         else:
             return jsonify({ "Not Found": 404 }), 404
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg', 'gif' }
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@bp.route('/v1/recipes/ocr', methods=['POST'])
+@jwt_required
+def ocr_request():
+    username = get_jwt_identity()
+    user = identify(username)
+    print(request.mimetype)
+    print( request.files )
+    if 'file' not in request.files:
+        return jsonify({ "Error": 400,
+                         "response": 'No file part' }), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({ "Error": 400,
+                         "response": 'No selected file' }), 400
+    if file and allowed_file(file.filename):
+        myfile = {'file': file.read() }
+        response = requests.post('http://rancher:5000/uploader', files=myfile)
+        #response = requests.post('http://192.168.1.70:5001/v1/test',
+                                # files=myfile)
+        if response.status_code == 200:
+            return jsonify({"text": response.text }), 200
+        else:
+            return jsonify({ "Error": response.status_code,
+                             "response": "response.content" }), 502
+
+@bp.route('/v1/test', methods=['POST'])
+def testing():
+    print(request.mimetype)
+    print( request.files )
+    if 'file' not in request.files:
+        return jsonify({ "Error": 400,
+                         "response": 'No file part' }), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({ "Error": 400,
+                         "response": 'No selected file' }), 400
+    return jsonify({ "text": request.files['file'].filename }), 200
 
 @bp.route('/v1/recipes', methods=['GET','POST','PUT','DELETE'])
 @jwt_required

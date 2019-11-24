@@ -8,4 +8,4 @@ flask run
 
 
 # look into this
-# virtualenv --no-site-packages --distribute .env && source .env/bin/activate && pip install -r requirements.tx
+# virtualenv --no-site-packages --distribute .env && source .env/bin/activate && pip3 install -r requirements.txt

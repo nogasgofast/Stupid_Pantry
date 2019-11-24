@@ -9,6 +9,7 @@ import { ShoppingView } from './shoppingView.js';
 import { PantryView } from './pantryView.js';
 import { RecipesView } from './recipesView.js';
 import { RecipesAdd } from './recipesAdd.js';
+import { RecipesHelp } from './recipesHelp.js';
 
 const ProtectedRoute = ({component: Component, isLoggedIn, ...rest}) => (
   <Route render={(props) => (
@@ -86,6 +87,8 @@ class App extends React.Component {
                         component={ RecipesView } />
         <ProtectedRoute path="/recipes/add" {...preProps}
                         component={ RecipesAdd } />
+        <ProtectedRoute path="/recipes/help" {...preProps}
+                        component={ RecipesHelp } />
         <ProtectedRoute path="/nav" {...preProps}
                         component={ CatagoryView } />
       </Switch>
