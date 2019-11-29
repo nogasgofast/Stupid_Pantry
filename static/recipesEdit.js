@@ -256,7 +256,7 @@ class Ingredient_List extends GroupActionList {
   }
 }
 
-export class RecipesAdd extends React.Component {
+export class RecipesEdit extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -435,7 +435,7 @@ export class RecipesAdd extends React.Component {
   render() {
     return(
       <>
-        <Header inner="Add Recipe" isLoggedIn={this.props.isLoggedIn} />
+        <Header inner="Edit Recipe" isLoggedIn={this.props.isLoggedIn} />
         <div className="w3-margin w3-row-padding">
           <div className={"w3-center " +
                           "w3-content " +

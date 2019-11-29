@@ -8,6 +8,7 @@ import { CatagoryView } from './catagoryView.js';
 import { ShoppingView } from './shoppingView.js';
 import { PantryView } from './pantryView.js';
 import { RecipesView } from './recipesView.js';
+import { RecipesEdit } from './recipesEdit.js';
 import { RecipesAdd } from './recipesAdd.js';
 import { RecipesHelp } from './recipesHelp.js';
 
@@ -85,10 +86,14 @@ class App extends React.Component {
         <ProtectedRoute exact
                         path="/recipes" {...preProps}
                         component={ RecipesView } />
-        <ProtectedRoute path="/recipes/add" {...preProps}
+        <ProtectedRoute exact
+                        path="/recipes/add" {...preProps}
                         component={ RecipesAdd } />
-        <ProtectedRoute path="/recipes/help" {...preProps}
+        <ProtectedRoute exact
+                        path="/recipes/help" {...preProps}
                         component={ RecipesHelp } />
+        <ProtectedRoute path="/recipes/" {...preProps}
+                        component={ RecipesEdit } />
         <ProtectedRoute path="/nav" {...preProps}
                         component={ CatagoryView } />
       </Switch>

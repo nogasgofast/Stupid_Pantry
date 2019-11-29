@@ -16,6 +16,7 @@ from flask import (Flask,
                    Blueprint,
                    jsonify,
                    render_template)
+from fractions import Fraction
 import configparser
 import sp_database
 from passlib.context import CryptContext
@@ -76,9 +77,14 @@ def parse_recipe():
     user = identify(username)
     data = {}
     data['input'] = recipe
-    title_or_name = re.search(r'\W*[\w ]+(\r\n|\r|\n)', recipe)
+    title_or_name = re.search(r'(\W*[\w ]+)(\r\n|\r|\n)', recipe)
+    data['is_duplicate'] = False
     if title_or_name:
-        data['name'] = title_or_name.group()
+        data['name'] = title_or_name.group(1)
+        is_duplicate = sp_database.Recipes.get(lambda r: r.uid == user and
+                                                         r.name == data['name'] )
+        if is_duplicate:
+            data['is_duplicate'] = True
     data['ingredients'] = []
     data['instructions'] = []
 
@@ -109,8 +115,9 @@ def parse_recipe():
                         "uid": user.id,
                         "name": line.strip(),
                         "amount": 0,
+                        "amount_pkg": 0,
                         "amount_measure": "?",
-                        "keep_stocked": True}
+                        "keep_stocked": False}
                 else:
                     # This sir... is nothing of interest.
                     continue
@@ -151,10 +158,10 @@ def parse_recipe():
                 item['id'] = counter
 
             # just to make sure it has a name, it may not have one yet.
-            print("name {}".format(len(ing['name'])))
+            # print("name {}".format(len(ing['name'])))
             # look for word characters
             if not re.search(r'\w+', ing['name']):
-                print("not named")
+                # print("not named")
                 ing['name'] = ing['amount_measure']
             # And findally ensure you always have a uid
             if not ing.get('uid'):
@@ -172,7 +179,7 @@ def ingredient_search(name, uid):
         ings = select(ing for ing in sp_database.Ingredients if ing.uid.id == uid)[:]
         # look for a perfect match with a previous ingredient
         for ing in ings:
-            print("test singular:{}={}".format(singular(ing.name.lower()),singular(name.lower())))
+            # print("test singular:'{}'='{}'".format(singular(ing.name.lower()),singular(name.lower())))
             if singular(ing.name.lower()) == singular(name.lower()):
                 item = ing.to_dict()
                 item['perfect_match'] = True
@@ -209,7 +216,7 @@ def ingredient_line_parse(line):
     # match a word
     word = r'(\w+)'
     # matches any phrases that might be a description don't be greedy though.
-    desc = r'(.+)'
+    desc = r'((\w-? ?){2}(\w-? ?)*)'
     # number, w-spaces, a word.
     num_wrd = num + r'\s*' + word
     # number, w-spaces, a word, w-space, desc
@@ -218,13 +225,15 @@ def ingredient_line_parse(line):
     desc_num_wrd = desc + r'\s*' + num + r'\s*' + word
     #### end patterns ####
 
+    #clean up space before and after
+    line = line.strip(' ')
     # Capture data in parens, this can only handle one set in a line.
     prensCheck = r'\(([^()]+)\)'
     perens = re.search(prensCheck, line)
     if perens:
         ''' check for parens and strip that section out
             writing any good looking data to amount, measure '''
-        print("format3:{}".format(perens.group(1),))
+        # print("format3:{}".format(perens.group(1),))
         format0 = re.search(num_wrd, perens.group(1))
         amount, measure = format0.group(1), format0.group(2)
         line = re.sub(prensCheck,'', line)
@@ -233,35 +242,47 @@ def ingredient_line_parse(line):
     format2 = re.search(desc_num_wrd, line)
     format3 = re.search(num_wrd, line)
     if format1 and not perens:
-        print("format1 not perens:{}".format(format1.group(3)))
+        # print("format1 not perens:{}".format(format1.group(3)))
         return {"name": format1.group(3),
                 "amount": format1.group(1),
+                "amount_pkg": 0,
+                "keep_stocked": False,
                 "amount_measure": format1.group(2)}
     if format1 and perens:
-        print("format1 with perens:{}".format(format1.group(3)))
+        # print("format1 with perens:{}".format(format1.group(3)))
         return  {"name": format1.group(3),
                 "amount": format1.group(1),
+                "amount_pkg": 0,
+                "keep_stocked": False,
                 "amount_measure": format1.group(2),
                 "conversion": "({} {})".format(amount,measure)}
     if format2 and not perens:
-        print("format2 not perens:{}".format(format2.group(3)))
+        # print("format2 not perens:{}".format(format2.group(3)))
         return  {"name": format2.group(1),
                 "amount": format2.group(2),
+                "amount_pkg": 0,
+                "keep_stocked": False,
                 "amount_measure": format2.group(3)}
     if format2 and perens:
-        print("format2 with perens:{}".format(format2.group(3)))
+        # print("format2 with perens:{}".format(format2.group(3)))
         return  {"name": format2.group(1),
                 "amount": format2.group(2),
+                "amount_pkg": 0,
+                "keep_stocked": False,
                 "amount_measure": format2.group(3),
                 "conversion": "({} {})".format(amount,measure)}
     if format3 and not perens:
-        print("format3 not perens:{}".format(format3.group(2)))
-        return {"name": format3.group(2),
-                "amount": format3.group(1)}
-    if format3 and perens:
-        print("format3 with perens:{}".format(format3.group(2)))
+        # print("format3 not perens:{}".format(format3.group(2)))
         return {"name": format3.group(2),
                 "amount": format3.group(1),
+                "amount_pkg": 0,
+                "keep_stocked": False}
+    if format3 and perens:
+        # print("format3 with perens:{}".format(format3.group(2)))
+        return {"name": format3.group(2),
+                "amount": format3.group(1),
+                "amount_pkg": 0,
+                "keep_stocked": False,
                 "conversion": "({} {})".format(amount,measure)}
     # This is not a parsable ingredient!
     # print("not an ingredient: {}".format(line))
@@ -482,7 +503,7 @@ def inventory():
             ing = sp_database.Ingredients(
                 uid            = user.id,
                 name           = name,
-                amount         = assert_int_value(amount),
+                amount         = assert_int_value(to_math(amount)),
                 amount_pkg     = assert_int_value(amount_pkg),
                 amount_measure = meteric,
                 keep_stocked   = bool(request.json.get('keep_stocked')))
@@ -498,10 +519,10 @@ def inventory():
             return jsonify({"Not Found": 404}), 404
         amount = request.json.get('amount')
         if amount is not None:
-            item.amount = assert_int_value(amount)
+            item.amount = assert_int_value(to_math(amount))
         amount_pkg = request.json.get('amount_pkg')
         if amount_pkg is not None:
-            item.amount_pkg = assert_int_value(amount_pkg)
+            item.amount_pkg = assert_int_value(to_math(amount_pkg))
         amount_measure = request.json.get('amount_measure')
         if amount_measure is not None:
             item.amount_measure = str(amount_measure).strip()
@@ -530,8 +551,8 @@ def allowed_file(filename):
 def ocr_request():
     username = get_jwt_identity()
     user = identify(username)
-    print(request.mimetype)
-    print( request.files )
+    # print(request.mimetype)
+    # print( request.files )
     if 'file' not in request.files:
         return jsonify({ "Error": 400,
                          "response": 'No file part' }), 400
@@ -552,8 +573,8 @@ def ocr_request():
 
 @bp.route('/v1/test', methods=['POST'])
 def testing():
-    print(request.mimetype)
-    print( request.files )
+    # print(request.mimetype)
+    # print( request.files )
     if 'file' not in request.files:
         return jsonify({ "Error": 400,
                          "response": 'No file part' }), 400
@@ -582,21 +603,73 @@ def recipes():
         else:
             return jsonify({"not found": 404}), 404
     if request.method == 'POST':
+        # Test for missing fields
         if not request.json:
             return jsonify({"Must set json or json header": 400}), 400
-        name = request.json.get('name')
-        if name is None:
-            return jsonify({"Missing attribute name": 400}), 400
+        recipe_name = request.json.get('recipe_name')
+        if recipe_name is None:
+            return jsonify({"Missing attribute recipe_name": 400}), 400
+        ingredients = request.json.get('ingredients')
+        if ingredients is None:
+            return jsonify({"Missing attribute ingredients": 400}), 400
         instructions = request.json.get('instructions')
         if instructions is None:
             return jsonify({"Missing attribute instructions": 400}), 400
-        if not sp_database.Recipes.get(uid=user.id, name=name):
-            ing = sp_database.Recipes(
-                uid            = user.id,
-                name           = name,
-                instructions   = instructions)
+        # TODO start transaction ?
+        # TODO validate/create individual ingredients for this logged in session.
+        #        if not request.json:
+        for item in ingredients:
+            # print(item)
+            name = item.get('name')
+            if name is None:
+                return jsonify({"Missing attribute: name": 400}), 400
+            amount = item.get('amount')
+            if amount is None:
+                amount = 0
+            amount_pkg = item.get('amount_pkg')
+            if amount_pkg is None:
+                amount = 0
+            meteric = item.get('amount_measure')
+            if meteric is None:
+                metric = '?'
+            keep_stocked = item.get('keep_stocked')
+            if keep_stocked is None or (keep_stocked is not True and keep_stocked is not False):
+                return jsonify({"Missing or Not Bool type attribute: keep_stocked": 400}), 400
+            # meteric = meteric.strip()
+            verified_items = []
+            # verify the primary key is not taken before submit.
+            if not sp_database.Ingredients.get(uid=user.id, name=name):
+                ing = sp_database.Ingredients(
+                    uid            = user.id,
+                    name           = name,
+                    amount         = assert_int_value(to_math(amount)),
+                    amount_pkg     = assert_int_value(amount_pkg),
+                    amount_measure = meteric,
+                    keep_stocked   = bool(request.json.get('keep_stocked')))
+                verified_items.append(ing)
+        # TODO create a valid recipe entry which will likely look like this:
+        if not sp_database.Recipes.get(uid=user.id, name=recipe_name):
+            recipe = sp_database.Recipes(
+                        uid            = user.id,
+                        name           = recipe_name,
+                        instructions   = '\n'.join(instructions))
         else:
-            return jsonify({"Conflict: Duplicate Ingredient Name": 409}), 409
+            return jsonify({"Conflict: Duplicate recipe Name": 409}), 409
+        # TODO  Link all ingredients required to this recipe.
+        for item in verified_items:
+            if item is None:
+                return jsonify({"Missing attribute ingredient during linking": 404}), 404
+            if recipe is None:
+                return jsonify({"Missing attribute recipe during linking": 404}), 404
+            if not sp_database.Requirements.get(uid = user.id,
+                                                recipe = recipe,
+                                                ingredient = item):
+                ing = sp_database.Requirements(uid = user.id,
+                                               recipe = recipe,
+                                               ingredient = item,
+                                               amount = item.amount)
+            else:
+                return jsonify({"Conflict: Duplicate requirement": 409}), 409
         return jsonify({ "created": 201 }), 201
     if request.method == 'PUT':
         if not request.json:
@@ -1017,15 +1090,15 @@ def cookbook_form():
                             for item in ing['pantry']:
                                 if item['id'] == int(id):
                                     clear = True
-                            print("clear set to {}".format(clear))
+                            #print("clear set to {}".format(clear))
                             if clear == True:
-                                print('entered clear true')
+                                #print('entered clear true')
                                 ing['pantry'] = [ item for item in ing['pantry']
                                               if item['id'] == int(id) ]
-                                print('pantry {}'.format(ing['pantry'], ))
+                                #print('pantry {}'.format(ing['pantry'], ))
                                 if ing['pantry'] == []:
                                     ing['no match'] = True
-                                print(ing)
+                                #print(ing)
                                 break
             session['recipe'] = data
             return render_template('cookbook_form.html', data=data)

@@ -32,7 +32,7 @@ export class Request extends React.Component {
       r2.open('POST', url, true);
       r2.setRequestHeader("Content-Type", "application/json");
       r2.setRequestHeader("Accept", "application/json");
-      console.log("Bearer " + this.props.refreshToken);
+      //console.log("Bearer " + this.props.refreshToken);
       r2.setRequestHeader("Authorization", "Bearer " + this.props.refreshToken);
       r2.onreadystatechange = () => this.refreshResend(r2);
       r2.send();
@@ -100,30 +100,35 @@ export class GroupActionList extends React.Component {
     super(props);
     this.state = {
       buttons: new Set(),
-      selectedItems: new Set()
+      selectedItems: new Set(),
+      scroll: 50,
+      ticking: false
     };
   }
 
+  render_item(item){
+    return <li className={"w3-card w3-left-align " +
+               (this.state.selectedItems.has(item) ?
+               "w3-border-yellow w3-rightbar" :
+               "")}
+               key={ item }
+               onClick={() => this.handleSelect(item)}>{ item }</li>
+  }
+
   renderList(){
-    const list = Array();
-    for (let item of this.props.items) {
-      //console.log(item.name)
-      list.push(<li className={ "w3-card " +
-                              ( this.state.selectedItems.has(item) ? "w3-yellow ": "" ) }
-                    onClick={ () => this.handleSelect(item) }
-                    key={ item.name } >
-                  { item.name }
-                </li>);
+    let list = [];
+    for (const item of this.props.items) {
+      list.push(this.render_item(item));
     }
     return list;
   }
 
   renderButton(props){
     // TODO pass callback to operate actions on selected list items.
-    return  <button className="w3-bar-item w3-orange w3-button w3-hover-red"
+    return  <button className="w3-bar-item w3-orange w3-button w3-hover-yellow"
                     key={ props.action }
                     aria-label={ props.action }
-                    onClick={ () => props.do() } >
+                    onClick={ () => props.do() }>
                         { props.image }
             </button>
   }
@@ -156,19 +161,29 @@ export class GroupActionList extends React.Component {
     }
   }
 
+  renderStyleForButtons(){
+    if (this.state.selectedItems.size > 0) {
+      return {width:'20px' }
+    }
+    else {
+      return {display: 'none'}
+    }
+  }
+
   render() {
     return (
       <div className="w3-cell-row">
-        <ul className={"w3-cell w3-ul w3-border-black " +
+        <ul className={"w3-cell w3-ul w3-border-yellow w3-round" +
                        ( this.state.selectedItems.size > 0 ? "s9 m9 l11 w3-rightbar": "" )
                     //   ( this.state.selectedItems.size > 0 ? "w3-rightbar": "" )
                      }  >
           { this.renderList() }
         </ul>
-        <div className={( this.state.selectedItems.size > 0 ? "w3-cell w3-cell-middle s3 m3 l1 ": "" ) +
-                        " " +
-                        "w3-bar-block"}
-              style={ this.state.selectedItems.size > 0 ? {width:'20px'} : {display: 'none'}  }>
+        <div className={( this.state.selectedItems.size > 0 ? "w3-cell w3-cell-top s3 m3 l1 ":
+                "" ) +
+                " " +
+                "w3-bar-block w3-orange w3-round"}
+              style={ this.renderStyleForButtons() }>
           { this.renderButtonList() }
         </div>
       </div>
