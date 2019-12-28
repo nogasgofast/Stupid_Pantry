@@ -26,7 +26,6 @@ import re
 myctx = CryptContext(schemes="sha256_crypt",
                      sha256_crypt__min_rounds=131072)
 
-
 bp = Blueprint( 'main', __name__ )
 
 # def add_cors_headers(response):
@@ -64,6 +63,22 @@ def singular(name):
         name = s_name.group(1)
     return name
 
+convert = {
+ "teaspoon" : 0.25,
+ "teaspoons" : 0.25,
+ "tablespoon" : 0.5,
+ "tablespoons" : 0.5,
+ "cup" : 8.0,
+ "cups" : 8.0,
+ "pint" : 16.0,
+ "pints" : 16.0,
+ "quart" : 128.0,
+ "quarts" : 128.0,
+ "liter" : 256.0,
+ "liters" : 256.0,
+ "gallon" : 512.0,
+ "gallons" : 512.0}
+
 @bp.route('/v1/recipes/parse', methods=['POST'])
 @jwt_required
 @db_session
@@ -94,7 +109,7 @@ def parse_recipe():
     token_start = r'[Ii]ngredients'
     token_stop = r'[Mm]ake [Ii]t|[Ii]nstructions|[Dd]irections'
     # split on returns of all kinds!
-    for line in re.split(r'\r\n|\r|\n',recipe):
+    for line in re.split(r'\r\n|\r|\n', recipe):
         # The start and stop for ingredient parsing
         if re.search(token_start, line):
             start = True
@@ -105,18 +120,17 @@ def parse_recipe():
 
         # The ingredient parsing section.
         if start and not stop:
-            ing = ingredient_line_parse(line)
+            ing = ingredient_line_parse(line.lower())
             if ing is None:
                 # this ingredient is not parsable, we got little out of it.
                 # display it anyhow
-                if re.search(r'\w+',line):
+                if re.search(r'\w+',line.lower()):
                     ing = {
                         # strips whitespace from before and after line.
                         "uid": user.id,
                         "name": line.strip(),
-                        "amount": 0,
+                        "amount": 0, # in oz always!!!!
                         "amount_pkg": 0,
-                        "amount_measure": "?",
                         "keep_stocked": False}
                 else:
                     # This sir... is nothing of interest.
@@ -126,7 +140,6 @@ def parse_recipe():
             counter += 1
             ing['id'] = counter
             discover_by_name = []
-            discover_by_measure = []
             perfect_match = []
 
             # if we have a name then go ahead and try to pull info for that.
@@ -143,15 +156,6 @@ def parse_recipe():
                     ing['is_matching'] = 'no'
                     ing['pantry'] = []
 
-            # if that didn't work at all go ahead and search by the word
-            # that came after the first number in the ingredient
-            #if not discover_by_name:
-            #    discover_by_measure = ingredient_search(amount_measure, uid)
-            #    perfect_match = [ m for m in discover_by_measure if m.get('perfect_match')]
-            #    if perfect_match:
-            #        ing['perfect match'] = perfect_match
-
-
             # adjust id's and id pantry items as well.
             for item in ing['pantry']:
                 counter += 1
@@ -163,11 +167,6 @@ def parse_recipe():
             if not re.search(r'\w+', ing['name']):
                 # print("not named")
                 ing['name'] = ing['amount_measure']
-            # And findally ensure you always have a uid
-            if not ing.get('uid'):
-                ing['uid'] = user.id
-            # if not ing.get('applet'):
-            #     ing['applet'] = 'recipe'
             data['ingredients'].append(ing)
         if stop == True:
             if re.search(r'.+',line):
@@ -180,10 +179,9 @@ def ingredient_search(name, uid):
         # look for a perfect match with a previous ingredient
         for ing in ings:
             # print("test singular:'{}'='{}'".format(singular(ing.name.lower()),singular(name.lower())))
-            if singular(ing.name.lower()) == singular(name.lower()):
+            if singular(ing.name) == singular(name):
                 item = ing.to_dict()
                 item['perfect_match'] = True
-                item['amount_measure'] = ing.amount_measure
                 return (item, )
         # score ingredients on word association and offer suggestions
         scores = {}
@@ -192,7 +190,7 @@ def ingredient_search(name, uid):
             for ing in ings:
                 for ing_name_wrd in re.split('\W', ing.name):
                     # case insensitive scrore match
-                    if form_wrd.lower() and form_wrd.lower() in ing_name_wrd.lower():
+                    if form_wrd and form_wrd in ing_name_wrd:
                         # print("{} in {}".format(form_wrd.lower(), ing_name_wrd.lower()))
                         if not scores.get(ing.name):
                             scores[ing.name] = 1
@@ -204,7 +202,7 @@ def ingredient_search(name, uid):
         for ing in ings:
              if ing.name in top_three:
                  item= ing.to_dict()
-                 item['amount_measure'] = ing.amount_measure
+                 item['name'] = ing.name
                  top_three_matches.append(item)
         return top_three_matches
 
@@ -243,15 +241,21 @@ def ingredient_line_parse(line):
     format3 = re.search(num_wrd, line)
     if format1 and not perens:
         # print("format1 not perens:{}".format(format1.group(3)))
-        return {"name": format1.group(3),
-                "amount": format1.group(1),
+        if not convert.get(format1.group(2)):
+            name = format1.group(2) + " " + format1.group(3)
+        else:
+            name = format1.group(3)
+        return {"name":  name,
+                "amount": meteric2oz(int(format1.group(1)),
+                                     format1.group(2)),
                 "amount_pkg": 0,
                 "keep_stocked": False,
                 "amount_measure": format1.group(2)}
     if format1 and perens:
         # print("format1 with perens:{}".format(format1.group(3)))
         return  {"name": format1.group(3),
-                "amount": format1.group(1),
+                "amount": meteric2oz(int(format1.group(1)),
+                                     format1.group(2)),
                 "amount_pkg": 0,
                 "keep_stocked": False,
                 "amount_measure": format1.group(2),
@@ -259,14 +263,16 @@ def ingredient_line_parse(line):
     if format2 and not perens:
         # print("format2 not perens:{}".format(format2.group(3)))
         return  {"name": format2.group(1),
-                "amount": format2.group(2),
+                "amount": meteric2oz(int(format2.group(2)),
+                                     format2.group(3)),
                 "amount_pkg": 0,
                 "keep_stocked": False,
                 "amount_measure": format2.group(3)}
     if format2 and perens:
         # print("format2 with perens:{}".format(format2.group(3)))
         return  {"name": format2.group(1),
-                "amount": format2.group(2),
+                "amount": meteric2oz(int(format2.group(2)),
+                                     format2.group(3)),
                 "amount_pkg": 0,
                 "keep_stocked": False,
                 "amount_measure": format2.group(3),
@@ -274,15 +280,19 @@ def ingredient_line_parse(line):
     if format3 and not perens:
         # print("format3 not perens:{}".format(format3.group(2)))
         return {"name": format3.group(2),
-                "amount": format3.group(1),
+                "amount": meteric2oz(int(format3.group(1)),
+                                     ""),
                 "amount_pkg": 0,
+                "amount_measure": "",
                 "keep_stocked": False}
     if format3 and perens:
         # print("format3 with perens:{}".format(format3.group(2)))
         return {"name": format3.group(2),
-                "amount": format3.group(1),
+                "amount": meteric2oz(int(format3.group(1)),
+                                     ""),
                 "amount_pkg": 0,
                 "keep_stocked": False,
+                "amount_measure": "",
                 "conversion": "({} {})".format(amount,measure)}
     # This is not a parsable ingredient!
     # print("not an ingredient: {}".format(line))
@@ -299,7 +309,7 @@ def to_display(aNumber):
         aNumber = ''
     else:
         aNumber = Fraction(aNumber)
-    return ' '.join([str(wholeNum), str(aNumber)])
+    return ' '.join([str(wholeNum), str(aNumber)]).strip()
 
 def to_math(aString):
     aString = str(aString)
@@ -503,8 +513,8 @@ def inventory():
             ing = sp_database.Ingredients(
                 uid            = user.id,
                 name           = name,
-                amount         = assert_int_value(to_math(amount)),
-                amount_pkg     = assert_int_value(amount_pkg),
+                amount         = to_math(amount),
+                amount_pkg     = to_math(amount_pkg),
                 amount_measure = meteric,
                 keep_stocked   = bool(request.json.get('keep_stocked')))
         else:
@@ -519,10 +529,10 @@ def inventory():
             return jsonify({"Not Found": 404}), 404
         amount = request.json.get('amount')
         if amount is not None:
-            item.amount = assert_int_value(to_math(amount))
+            item.amount = to_math(amount)
         amount_pkg = request.json.get('amount_pkg')
         if amount_pkg is not None:
-            item.amount_pkg = assert_int_value(to_math(amount_pkg))
+            item.amount_pkg = to_math(amount_pkg)
         amount_measure = request.json.get('amount_measure')
         if amount_measure is not None:
             item.amount_measure = str(amount_measure).strip()
@@ -571,35 +581,83 @@ def ocr_request():
             return jsonify({ "Error": response.status_code,
                              "response": "response.content" }), 502
 
-@bp.route('/v1/test', methods=['POST'])
+@bp.route('/v1/test', methods=['GET','PUT','POST','DELETE'])
 def testing():
-    # print(request.mimetype)
-    # print( request.files )
-    if 'file' not in request.files:
-        return jsonify({ "Error": 400,
-                         "response": 'No file part' }), 400
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({ "Error": 400,
-                         "response": 'No selected file' }), 400
-    return jsonify({ "text": request.files['file'].filename }), 200
+    print(request.method)
+    print(request.content_type)
+    print(request.data)
+    print(request.json)
+    if request.json:
+        return jsonify({ "text": request.json["name"] }), 200
+    else:
+        return jsonify({ "text": "Nope" }), 200
 
-@bp.route('/v1/recipes', methods=['GET','POST','PUT','DELETE'])
+def apply_ingredients(user, recipe, ingredients):
+    in_pantry = []
+    for item in ingredients:
+        print(item)
+        name = item.get('name')
+        if name is None:
+            return jsonify({"Missing attribute: name": 400}), 400
+        amount = item.get('amount')
+        if amount is None:
+            amount = 0
+        amount_pkg = item.get('amount_pkg')
+        if amount_pkg is None:
+            amount = 0
+        meteric = item.get('amount_measure')
+        if meteric is None:
+            meteric = ''
+        keep_stocked = item.get('keep_stocked')
+        if keep_stocked is None or (keep_stocked is not True and keep_stocked is not False):
+            return jsonify({"Missing or Not Bool type attribute: keep_stocked": 400}), 400
+        # verify the primary key is not taken before submit.
+        ing = sp_database.Ingredients.get(uid=user.id, name=name)
+        if ing is None:
+            ing = sp_database.Ingredients(
+                uid            = user.id,
+                name           = name,
+                amount         = 0,
+                amount_pkg     = 1,
+                keep_stocked   = bool(request.json.get('keep_stocked')))
+            print("preped: " + str(ing.to_dict()))
+        if ing is None:
+            return jsonify({"Missing attribute ingredient during linking": 404}), 404
+        if recipe is None:
+            return jsonify({"Missing attribute recipe during linking": 404}), 404
+        req = sp_database.Requirements.get(uid = user.id,
+                                           recipe = recipe,
+                                           ingredient = ing)
+        if req is None:
+            sp_database.Requirements(uid = user.id,
+                                     recipe = recipe,
+                                     ingredient = ing,
+                                     amount = to_math(amount),
+                                     amount_measure = meteric)
+        else:
+            return jsonify({"Conflict: Duplicating requirement": 409}), 409
+
+@bp.route('/v1/recipes', methods=['GET','POST'])
+@bp.route('/v1/recipes/<recipeName>', methods=['GET','PUT','DELETE'])
 @jwt_required
 @db_session
-def recipes():
+def recipes(recipeName=None):
     username = get_jwt_identity()
     user = identify(username)
     if request.method == 'GET':
-        if not request.json:
+        if recipeName is None:
             ret = sp_database.Recipes.select(lambda r: r.uid == user)[:]
             all = [r.to_dict(exclude=['uid','requirements']) for r in ret]
             return jsonify(all), 200
-        name = request.json.get('name')
-        ret = None
-        ret = sp_database.Recipes.get(name=name, uid=user.id)
-        if ret is not None:
-            return jsonify(ret.to_dict(exclude=['uid','requirements']))
+        print(recipeName)
+        recipe = sp_database.Recipes.get(name=recipeName, uid=user.id)
+        if recipe is not None:
+            ingredients = [ (to_display(r.amount),
+                             r.amount_measure,
+                             r.ingredient.name) for r in recipe.requirements]
+            return jsonify({ "name": recipe.name,
+                             "ingredients": ingredients,
+                             "instructions": recipe.instructions})
         else:
             return jsonify({"not found": 404}), 404
     if request.method == 'POST':
@@ -615,39 +673,6 @@ def recipes():
         instructions = request.json.get('instructions')
         if instructions is None:
             return jsonify({"Missing attribute instructions": 400}), 400
-        # TODO start transaction ?
-        # TODO validate/create individual ingredients for this logged in session.
-        #        if not request.json:
-        for item in ingredients:
-            # print(item)
-            name = item.get('name')
-            if name is None:
-                return jsonify({"Missing attribute: name": 400}), 400
-            amount = item.get('amount')
-            if amount is None:
-                amount = 0
-            amount_pkg = item.get('amount_pkg')
-            if amount_pkg is None:
-                amount = 0
-            meteric = item.get('amount_measure')
-            if meteric is None:
-                metric = '?'
-            keep_stocked = item.get('keep_stocked')
-            if keep_stocked is None or (keep_stocked is not True and keep_stocked is not False):
-                return jsonify({"Missing or Not Bool type attribute: keep_stocked": 400}), 400
-            # meteric = meteric.strip()
-            verified_items = []
-            # verify the primary key is not taken before submit.
-            if not sp_database.Ingredients.get(uid=user.id, name=name):
-                ing = sp_database.Ingredients(
-                    uid            = user.id,
-                    name           = name,
-                    amount         = assert_int_value(to_math(amount)),
-                    amount_pkg     = assert_int_value(amount_pkg),
-                    amount_measure = meteric,
-                    keep_stocked   = bool(request.json.get('keep_stocked')))
-                verified_items.append(ing)
-        # TODO create a valid recipe entry which will likely look like this:
         if not sp_database.Recipes.get(uid=user.id, name=recipe_name):
             recipe = sp_database.Recipes(
                         uid            = user.id,
@@ -655,41 +680,48 @@ def recipes():
                         instructions   = '\n'.join(instructions))
         else:
             return jsonify({"Conflict: Duplicate recipe Name": 409}), 409
-        # TODO  Link all ingredients required to this recipe.
-        for item in verified_items:
-            if item is None:
-                return jsonify({"Missing attribute ingredient during linking": 404}), 404
-            if recipe is None:
-                return jsonify({"Missing attribute recipe during linking": 404}), 404
-            if not sp_database.Requirements.get(uid = user.id,
-                                                recipe = recipe,
-                                                ingredient = item):
-                ing = sp_database.Requirements(uid = user.id,
-                                               recipe = recipe,
-                                               ingredient = item,
-                                               amount = item.amount)
-            else:
-                return jsonify({"Conflict: Duplicate requirement": 409}), 409
+        # TODO start transaction ?
+        # TODO validate/create individual ingredients for this logged in session.
+        #        if not request.json:
+        apply_ingredients(user, recipe, ingredients)
         return jsonify({ "created": 201 }), 201
     if request.method == 'PUT':
         if not request.json:
             return jsonify({"Must set json or json header": 400}), 400
-        name = request.json.get('name')
-        if name is None:
-            return jsonify({"Missing attribute name": 400}), 400
+        if recipeName is None:
+            return jsonify({"Missing attribute name on url": 400}), 400
+        new_name = request.json.get('new_name')
+        if new_name is None:
+            return jsonify({"Missing attribute new_name (in json)": 400}), 400
         instructions = request.json.get('instructions')
         if instructions is None:
             return jsonify({"Missing attribute instructions": 400}), 400
-        item = sp_database.Recipes.get(uid=user.id, name=name)
-        if item is not None:
-            item.instructions = str(instructions)
-            return jsonify({ "OK": 200 }), 200
-        return jsonify({ "not found": 404 }), 404
+        ingredients = request.json.get('ingredients')
+        if ingredients is None:
+            return jsonify({"Missing attribute ingredients": 400}), 400
+        recipe = sp_database.Recipes.get(uid=user.id, name=new_name)
+        if recipe is None:
+            recipe = sp_database.Recipes(
+                        uid            = user.id,
+                        name           = new_name,
+                        instructions   = '\n'.join(instructions))
+            apply_ingredients(user, recipe, ingredients)
+            old_recipe = sp_database.Recipes.get(uid=user.id, name=recipeName)
+            if old_recipe:
+                old_recipe.delete()
+            return jsonify({ "created": 201 }), 201
+        if recipe.name == recipeName:
+            recipe.requirements.clear()
+            flush()
+            apply_ingredients(user, recipe, ingredients)
+            recipe.instructions = '\n'.join(instructions)
+            return jsonify({ "Modified": 200 }), 200
+        else:
+            return jsonify({ "not found": 404 }), 404
     if request.method == 'DELETE':
-        name = request.json.get('name')
-        if name is None:
+        if recipeName is None:
             return jsonify({"Missing attribute name": 400}), 400
-        item = sp_database.Recipes.get(uid=user.id, name=name)
+        item = sp_database.Recipes.get(uid=user.id, name=recipeName)
         if item:
             item.delete()
             return jsonify({ "DELETED": 200 }), 200
@@ -735,6 +767,22 @@ def requirements_search():
     else:
         return jsonify({"not found": 404}), 404
 
+@bp.route('/v1/requirements/<recipeName>', methods=['PUT'])
+@jwt_required
+@db_session
+def toggleKeepStocked(recipeName=None):
+    print("hello")
+    username = get_jwt_identity()
+    user = identify(username)
+    print(recipeName)
+    getMyRecipe = lambda x: x.uid == user and x.name == recipeName
+    recipe = sp_database.Recipes.get(getMyRecipe)
+    print(recipe)
+    if recipe is None:
+        return jsonify({"not found": 404}), 404
+    else:
+        recipe.keepStocked = not recipe.keepStocked
+        return jsonify({"Ok": 200}), 200
 
 @bp.route('/v1/requirements', methods=['GET','POST','PUT','DELETE'])
 @jwt_required
@@ -853,6 +901,8 @@ def requirements():
             return jsonify({ "Not Found": 404 }), 404
 ####
 
+
+
 ### The old website stuff and grody api ###
 @bp.route('/', defaults={'path': ''})
 @bp.route('/<path:path>')
@@ -869,14 +919,21 @@ def catagoriesView():
     if request.method == 'GET':
         recipes = sp_database.Recipes.select(lambda r: r.uid == user).count()
         ingredients = sp_database.Ingredients.select(lambda r: r.uid == user).count()
+        shopping = []
         keepStocked = lambda i: (i.uid == user and
-                                 i.keep_stocked and
-                                 (float(i.amount) / i.amount_pkg) >= 0.1)
-        shopping = sp_database.Ingredients.select(keepStocked).count()
-        #Other
+                                i.keepStocked)
+        recipesStocking = sp_database.Recipes.select(keepStocked)
+        for recipe in recipesStocking:
+            recipe.requirements.load()
+            for r in recipe.requirements:
+                shopping.append(r.ingredient.name)
+        ingredientsStocked = sp_database.Ingredients.select(keepStocked)
+        for i in ingredientsStocked:
+            shopping.append(i.name)
+        response = len(tuple(shopping))
         return jsonify({ "recipes": recipes,
                          "ingredients": ingredients,
-                         "shopping": shopping}), 200
+                         "shopping": response}), 200
 
 @bp.route('/v1/views/pantry', methods=['GET'])
 @jwt_required
@@ -887,9 +944,12 @@ def pantryView():
     user = identify(username)
     if request.method == 'GET':
         allUserItems = lambda i: (i.uid == user)
-        shopping = sp_database.Ingredients.select(allUserItems)[:]
+        allItems = sp_database.Ingredients.select(allUserItems)
+        pantry = [ i.to_dict() for i in allItems ]
+        for i in pantry:
+            i['viewAmount'] = to_display(i['amount'] / i['amount_pkg'])
         #Other
-        return jsonify({ "list": [ i.to_dict() for i in shopping ] }), 200
+        return jsonify({ "list": pantry }), 200
 
 @bp.route('/v1/views/shopping', methods=['GET'])
 @jwt_required
@@ -899,25 +959,60 @@ def shoppingView():
     username = get_jwt_identity()
     user = identify(username)
     if request.method == 'GET':
+        shopping = []
         keepStocked = lambda i: (i.uid == user and
-                                i.keep_stocked and
-                                ((float(i.amount) / i.amount_pkg) >= 0.1))
-        shopping = sp_database.Ingredients.select(keepStocked)[:]
-        #Other
-        return jsonify({ "list": [ i.to_dict() for i in shopping ] }), 200
+                                i.keepStocked)
+        recipes = sp_database.Recipes.select(keepStocked)
+        for recipe in recipes:
+            recipe.requirements.load()
+            for r in recipe.requirements:
+                shopping.append(r.ingredient.name)
+        ingredients = sp_database.Ingredients.select(keepStocked)
+        for i in ingredients:
+            shopping.append(i.name)
+        response = tuple(shopping)
+        return jsonify({ "list": response }), 200
+
+def oz2meteric(oz, meteric):
+    if convert.get(meteric) is None:
+        conversion = oz / 1
+    else:
+        conversion = oz / convert[meteric]
+    return conversion
+
+def meteric2oz(numb, meteric):
+    if convert.get(meteric) is None:
+        oz = numb / 1
+    else:
+        oz = numb * convert[meteric]
+    return oz
+
 
 @bp.route('/v1/views/recipes', methods=['GET'])
 @jwt_required
 @db_session
 def recipesView():
-    data = {}
     username = get_jwt_identity()
     user = identify(username)
     if request.method == 'GET':
         allUserItems = lambda i: (i.uid == user)
-        shopping = sp_database.Recipes.select(allUserItems)[:]
-        #Other
-        return jsonify({ "list": [ i.to_dict() for i in shopping ] }), 200
+        Recipes = sp_database.Recipes.select(allUserItems)
+        data = []
+        for recipe in Recipes:
+            # go to each requirement and find out how many of this recipe i can make.
+            last_value = None
+            for req in recipe.requirements:
+                amount_on_hand = oz2meteric(req.ingredient.amount,
+                                            req.amount_measure)
+                this_value = amount_on_hand / req.amount
+                if last_value is None:
+                    last_value = this_value
+                if this_value < last_value:
+                    last_value = this_value
+            r = recipe.to_dict()
+            r["value"] = last_value
+            data.append(r)
+        return jsonify({ "list": data }), 200
 
 
     # data = {}

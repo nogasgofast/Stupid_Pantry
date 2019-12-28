@@ -4,21 +4,19 @@ import { BrowserRouter, Route, Redirect, Switch, Link, withRouter } from "react-
 import { LoginForm } from './login.js' ;
 import { LogoutForm } from './logout.js' ;
 import { RegisterForm } from './register.js' ;
-import { CatagoryView } from './catagoryView.js';
-import { ShoppingView } from './shoppingView.js';
-import { PantryView } from './pantryView.js';
-import { RecipesView } from './recipesView.js';
-import { RecipesEdit } from './recipesEdit.js';
-import { RecipesAdd } from './recipesAdd.js';
+import { CatagoryList } from './catagoryList.js';
+import { ShoppingList } from './shoppingList.js';
+import { PantryList } from './pantryList.js';
+import { RecipesList } from './recipesList.js';
 import { RecipesHelp } from './recipesHelp.js';
+import { RecipeForm } from './recipeForm.js';
+import { RecipeDisplay } from './recipeDisplay.js';
 
 const ProtectedRoute = ({component: Component, isLoggedIn, ...rest}) => (
   <Route render={(props) => (
-        isLoggedIn ? (
-        <Component {...props} {...rest} isLoggedIn={isLoggedIn} />
-        ) : (
-        <Redirect to={{pathname:'/login', state: {from: props.location}}} />
-        )
+        isLoggedIn ?
+        (<Component {...props} {...rest} isLoggedIn={isLoggedIn} />) :
+        (<Redirect to={{pathname:'/login', state: {from: props.location}}} />)
       ) //end Lambda
     } //end render
   />
@@ -80,22 +78,26 @@ class App extends React.Component {
                         to="/nav"
                         component={ Redirect } />
         <ProtectedRoute path="/pantry" {...preProps}
-                        component={ PantryView } />
-        <ProtectedRoute path="/shopping" {...preProps}
-                        component={ ShoppingView } />
+                        component={ PantryList } />
+        <ProtectedRoute path="/shopping list" {...preProps}
+                        component={ ShoppingList } />
         <ProtectedRoute exact
                         path="/recipes" {...preProps}
-                        component={ RecipesView } />
+                        component={ RecipesList } />
         <ProtectedRoute exact
                         path="/recipes/add" {...preProps}
-                        component={ RecipesAdd } />
+                        is_edit={ false }
+                        component={ RecipeForm } />
         <ProtectedRoute exact
                         path="/recipes/help" {...preProps}
                         component={ RecipesHelp } />
+        <ProtectedRoute path="/recipes/view" {...preProps}
+                        component={ RecipeDisplay } />
         <ProtectedRoute path="/recipes/" {...preProps}
-                        component={ RecipesEdit } />
+                        is_edit={ true }
+                        component={ RecipeForm } />
         <ProtectedRoute path="/nav" {...preProps}
-                        component={ CatagoryView } />
+                        component={ CatagoryList } />
       </Switch>
     )
   }

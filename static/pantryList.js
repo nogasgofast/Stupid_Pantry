@@ -1,47 +1,32 @@
 import React from 'react';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Header } from './header.js';
 import { Request, GroupActionList } from './utils.js';
 
 
-class RecipesList extends GroupActionList {
+class Pantry extends GroupActionList {
   constructor(props) {
     super(props);
     this.state = {
       buttons: new Set(),
-      selectedItems: new Set(),
-      redirect: false };
+      selectedItems: new Set() };
     }
 
     render_item(item){
-      return <li className={"w3-card w3-left-align " +
+      return <Link key={ item.name } to={'/recipes/' + item.name } >
+               <li className={"w3-card w3-left-align " +
                  (this.state.selectedItems.has(item.name) ?
                  "w3-border-yellow w3-rightbar" :
-                 "")}
-                 key={ item.name }
-                 onClick={() => this.handleSelect(item.name)}>
-                    { item.name }
-                    { this.state.redirect ?
-                        (<Redirect to={'/recipes/' + this.state.redirect } />) :
-                        '' }
+                 "")}>
+                  { item.name+" "+
+                    item.viewAmount+" "+
+                    (item.amount_measure ? item.amount_measure : '') }
               </li>
+            </Link>
     }
-
-    renderList(){
-      let list = [];
-      for (const item of this.props.items) {
-        list.push(this.render_item(item));
-      }
-      return list;
-    }
-
-    handleSelect(item){
-      this.setState({redirect: item});
-    }
-
 }
 
-export class RecipesView extends React.Component {
+export class PantryList extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -78,14 +63,11 @@ export class RecipesView extends React.Component {
     };
 
     const settings = {
-      url: '/v1/views/recipes',
+      url: '/v1/views/pantry',
       data: '{}',
       method: 'GET',
       callBack: callBack,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken,
+      ...this.props
     };
     this.setState({is_loading: true});
     let req = new Request(settings);
@@ -95,15 +77,13 @@ export class RecipesView extends React.Component {
   render() {
     return(
       <>
-        <Header inner="Recipes" isLoggedIn={this.props.isLoggedIn} />
-        <div className="w3-container">
-          <div className="w3-display-middle w3-twothird w3-container">
-            <Link to="/recipes/add">
-              <button className="w3-orange w3-hover-yellow w3-btn w3-block w3-card" >New Recipe</button>
+        <Header inner="Pantry" isLoggedIn={this.props.isLoggedIn} />
+          <div className="w3-container w3-padding">
+            <Link to="/pantry/add">
+              <button className="w3-orange w3-hover-yellow w3-btn w3-block w3-card" >New Ingredient</button>
             </Link>
-            <RecipesList  items={ this.state.recipes } />
+            <Pantry  items={ this.state.recipes } />
           </div>
-        </div>
       </>
     )
   }

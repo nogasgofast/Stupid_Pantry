@@ -7,16 +7,16 @@ class Ingredients(spantry.Entity):
     uid = Required('Users')
     name = Required(str)
     amount = Required(int, default=0)
-    amount_pkg = Required(int, default=0)
-    amount_measure = Required(str)
-    keep_stocked = Required(bool, default=False)
-    required_by = Optional('Requirements')
+    amount_pkg = Required(int, default=1)
+    keepStocked = Required(bool, default=False)
+    required_by = Set('Requirements')
     PrimaryKey(uid, name)
 
 class Requirements(spantry.Entity):
     uid = Required('Users')
     ingredient = Required('Ingredients')
     amount = Required(float)
+    amount_measure = Optional(str)
     recipe = Required('Recipes')
     PrimaryKey(uid, recipe, ingredient)
 
@@ -26,6 +26,7 @@ class Recipes(spantry.Entity):
     instructions = Required(str)
     requirements = Set('Requirements')
     public = Optional(bool, default=False)
+    keepStocked = Required(bool, default=False)
     PrimaryKey(uid, name)
 
 class Users(spantry.Entity):

@@ -1,47 +1,30 @@
 import React from 'react';
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Header } from './header.js';
 import { Request, GroupActionList } from './utils.js';
 
 
-class ShoppingList extends GroupActionList {
+class ShoppingApp extends GroupActionList {
   constructor(props) {
     super(props);
     this.state = {
       buttons: new Set(),
-      selectedItems: new Set(),
-      redirect: false };
+      selectedItems: new Set() };
     }
 
     render_item(item){
-      return <li className={"w3-card w3-left-align " +
-                 (this.state.selectedItems.has(item.name) ?
+      return <Link key={ item } to={'/recipes/' + item } >
+               <li className={"w3-card w3-left-align " +
+                 (this.state.selectedItems.has(item) ?
                  "w3-border-yellow w3-rightbar" :
-                 "")}
-                 key={ item.name }
-                 onClick={() => this.handleSelect(item.name)}>
-                    { item.name }
-                    { this.state.redirect ?
-                        (<Redirect to={'/recipes/' + this.state.redirect } />) :
-                        '' }
+                 "")}>
+                  { item }
               </li>
+            </Link>
     }
-
-    renderList(){
-      let list = [];
-      for (const item of this.props.items) {
-        list.push(this.render_item(item));
-      }
-      return list;
-    }
-
-    handleSelect(item){
-      this.setState({redirect: item});
-    }
-
 }
 
-export class PantryView extends React.Component {
+export class ShoppingList extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -78,14 +61,11 @@ export class PantryView extends React.Component {
     };
 
     const settings = {
-      url: '/v1/views/pantry',
+      url: '/v1/views/shopping',
       data: '{}',
       method: 'GET',
       callBack: callBack,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken,
+      ...this.props
     };
     this.setState({is_loading: true});
     let req = new Request(settings);
@@ -95,12 +75,12 @@ export class PantryView extends React.Component {
   render() {
     return(
       <>
-        <Header inner="Pantry" isLoggedIn={this.props.isLoggedIn} />
+        <Header inner="Shopping list" isLoggedIn={this.props.isLoggedIn} />
           <div className="w3-container w3-padding">
             <Link to="/pantry/add">
               <button className="w3-orange w3-hover-yellow w3-btn w3-block w3-card" >New Ingredient</button>
             </Link>
-            <ShoppingList  items={ this.state.recipes } />
+            <ShoppingApp  items={ this.state.recipes } />
           </div>
       </>
     )

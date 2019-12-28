@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { Header } from './header.js';
 import { GroupActionList, GroupActionItem, Request } from './utils.js';
 
-class Add_Recipe extends React.Component {
+export class Action_Recipe extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -22,12 +22,20 @@ class Add_Recipe extends React.Component {
   }
 
   handleSubmit(){
+    let method = this.props.is_edit ? 'PUT' : 'POST' ;
+    let data = this.props.is_edit ? JSON.stringify({new_name: this.props.new_name,
+                               ingredients: this.props.ingredients,
+                               instructions: this.props.instructions}) :
+                               JSON.stringify({recipe_name: this.props.new_name,
+                               ingredients: this.props.ingredients,
+                               instructions: this.props.instructions}) ;
+
     let callBack = (xhr) => {
       //console.log(xhr.responseText);
       let state = xhr.readyState;
       let status = xhr.status;
       let cat = Math.floor(status/100);
-      if ((state == 4) && status == 201) {
+      if ((state == 4) && (status == 201 || status == 200)) {
         if (this.myIsMounted) {
           this.setState({ isLoading: false,
                           redirect: true });
@@ -37,17 +45,16 @@ class Add_Recipe extends React.Component {
         console.log( xhr.responseText );
       }};
     const settings = {
-      url: '/v1/recipes',
-      data: JSON.stringify({recipe_name: this.props.name,
-                            ingredients: this.props.ingredients,
-                            instructions: this.props.instructions}),
-      method: 'POST',
+      url: '/v1/recipes' + (this.props.is_edit ? '/'+this.props.name : '') ,
+      data: data,
+      method: method,
       callBack: callBack,
       headers: {"content-type": "application/json"},
       accessToken: this.props.accessToken,
       refreshToken: this.props.refreshToken,
       isNotLoggedIn: this.props.isNotLoggedIn,
       updateAccessToken: this.props.updateAccessToken};
+    console.log(settings);
     let req = new Request();
     req.props = settings;
     req.withAuth();
@@ -79,14 +86,14 @@ class Add_Recipe extends React.Component {
                                   'w3-yellow ' ) +
                                 "w3-btn"}
                     onClick={ ()=>this.handleSubmit() } >
-               Add Recipe
+              { this.props.is_edit ? 'Edit': 'Add' } Recipe
              </button>
              { this.state.redirect ? (<Redirect to='/recipes' />) : ''}
            </div>
   }
 }
 
-class Instructions_List extends GroupActionList {
+export class Instructions_List extends GroupActionList {
   constructor(props){
     super(props);
     this.state = {
@@ -128,7 +135,7 @@ class Instructions_List extends GroupActionList {
   }
 }
 
-class Ingredient_List extends GroupActionList {
+export class Ingredient_List extends GroupActionList {
   constructor(props){
     super(props);
     this.state ={
@@ -256,7 +263,9 @@ class Ingredient_List extends GroupActionList {
   }
 }
 
-export class RecipesAdd extends React.Component {
+// TODO: https://www.npmjs.com/package/react-avatar-editor
+
+export class RecipeForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -269,8 +278,11 @@ export class RecipesAdd extends React.Component {
       viewHelp: true,
       ocrisLoading: false,
       ValidateIsLoading: false,
+      DeleteIsLoading: false,
+      isDeleted: false,
       is_duplicate: false,
       recipe_name: '',
+      new_recipe_name: '',
       ingredient_list: [],
       instructions: []
     };
@@ -295,6 +307,9 @@ export class RecipesAdd extends React.Component {
       // Good to go!
     } else {
       console.log('This browser only supports uploading pre-saved images.');
+    }
+    if (this.props.is_edit) {
+      this.renderThisRecipe();
     }
   }
 
@@ -399,7 +414,7 @@ export class RecipesAdd extends React.Component {
         const recipe = JSON.parse(xhr.responseText)['recipe'];
         if (this.myIsMounted) {
           this.setState({ ocrisLoading: false,
-                          recipe_name: recipe['name'],
+                          new_recipe_name: recipe['name'],
                           is_duplicate: recipe['is_duplicate'],
                           ingredient_list: recipe['ingredients'],
                           instructions: recipe['instructions'] });
@@ -424,22 +439,116 @@ export class RecipesAdd extends React.Component {
     if (this.myIsMounted) {
       this.setState({ValidateIsLoading: true});
     };
-    //const list = this.state.ingredient_list ;
-    // 'unknown', 'match', 'suggest'
-    //list.push( new GroupActionItem("hello A really really really", 'unknown'));
-    //list.push( new GroupActionItem("my super duper long", 'match'));
-    //list.push( new GroupActionItem("pretty amazing and extravigent...", 'suggest'));
-    //this.setState({ ingredient_list: list })
+  }
+
+  handleDelete(event){
+    event.preventDefault();
+    let callBack = (xhr) => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status/100);
+      if ((state == 4) && status == 200) {
+        const recipe = JSON.parse(xhr.responseText)['recipe'];
+        if (this.myIsMounted) {
+          this.setState({ DeleteIsLoading: false,
+                          isDeleted: true });
+
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({ DeleteIsLoading: false});
+        console.log( xhr.responseText );
+      }};
+    const settings = {
+      url: '/v1/recipes/' + this.state.recipe_name,
+      data: JSON.stringify({"recipe": this.state.recipeField }),
+      method: 'DELETE',
+      callBack: callBack,
+      headers: {"content-type": "application/json"},
+      accessToken: this.props.accessToken,
+      refreshToken: this.props.refreshToken,
+      isNotLoggedIn: this.props.isNotLoggedIn,
+      updateAccessToken: this.props.updateAccessToken};
+    let req = new Request();
+    req.props = settings;
+    req.withAuth();
+    if (this.myIsMounted) {
+      this.setState({DeleteIsLoading: true});
+    };
+  }
+
+  renderThisRecipe(){
+    //console.log(this.props.location);
+    const {pathname} = this.props.location;
+    //console.log(pathname);
+    const recipeName = pathname.replace('/recipes/', '')
+    //console.log(recipeName);
+    let callBack = (xhr) => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status/100);
+      if ((state == 4) && status == 200) {
+        //console.log(JSON.parse(xhr.responseText))
+        const recipe = JSON.parse(xhr.responseText)['name'];
+        let ingredients = JSON.parse(xhr.responseText)['ingredients'];
+        let dedupDisplay = (x) => {
+          if (x[1] == x[2]){
+            return  x[0] +' '+ x[1]}
+          else{
+            return x[0] +' '+ x[1] +' '+ x[2]
+          }
+        }
+        let ingredients_display = ingredients.map( x => dedupDisplay(x) );
+        let instructions = JSON.parse(xhr.responseText)['instructions'];
+        let recipeText = recipe.concat('\n',
+                                       '\n',
+                                      'Ingredients',
+                                      '\n',
+                                      ingredients_display.join('\n'),
+                                      '\n',
+                                      '\n',
+                                      'Directions',
+                                      '\n',
+                                      instructions);
+        instructions = instructions.split('\n');
+        if (this.myIsMounted) {
+
+          this.setState({ ValidateIsLoading: false,
+                          recipe_name: recipe,
+                          recipeField: recipeText});
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({ ValidateIsLoading: false});
+        console.log( xhr.responseText );
+      }};
+    const settings = {
+      url: '/v1/recipes/'+ recipeName,
+      method: 'GET',
+      callBack: callBack,
+      accessToken: this.props.accessToken,
+      refreshToken: this.props.refreshToken,
+      isNotLoggedIn: this.props.isNotLoggedIn,
+      updateAccessToken: this.props.updateAccessToken,
+    };
+    let req = new Request();
+    req.props = settings;
+    req.withAuth();
+    if (this.myIsMounted) {
+      this.setState({ValidateIsLoading: true});
+    };
   }
 
   render() {
     return(
       <>
-        <Header inner="Add Recipe" isLoggedIn={this.props.isLoggedIn} />
+        <Header inner={ (this.props.is_edit ? 'Edit': 'Add')+" Recipe" }
+                isLoggedIn={this.props.isLoggedIn} />
         <div className="w3-margin w3-row-padding">
           <div className={"w3-center " +
                           "w3-content " +
                           "w3-mobile "} >
+            { this.state.recipe_name ? (<p><b>{ this.state.recipe_name }</b></p>): '' }
             <form method="POST"
                   className={"w3-card " +
                              "w3-form "}
@@ -448,7 +557,7 @@ export class RecipesAdd extends React.Component {
                 { this.state.ocrisLoading &&
                   <>
                     <label htmlFor="OCR" aria-label="use picture">
-                      <i className="w3-btn w3-hover-yellow fa fas fa-camera fa-spin" aria-hidden="true"></i>
+                      <i className="w3-btn w3-hover-yellow fa fas fa-print fa-spin" aria-hidden="true"></i>
                     </label>
                     <input type="file"
                            id="OCR"
@@ -462,7 +571,7 @@ export class RecipesAdd extends React.Component {
                 { !this.state.ocrisLoading &&
                   <>
                     <label htmlFor="OCR" aria-label="use picture">
-                      <i className="w3-btn w3-hover-yellow fas fa-camera" aria-hidden="true"></i>
+                      <i className="w3-btn w3-hover-yellow fas fa-print" aria-hidden="true"></i>
                     </label>
                     <input type="file"
                            id="OCR"
@@ -497,6 +606,18 @@ export class RecipesAdd extends React.Component {
                       onClick={ () => this.toggleHelp() } >
                   <i className="far fa-question-circle"></i>
                 </Link>
+                {this.props.is_edit ?
+                    (<>
+                      <label htmlFor="delete" aria-label="delete this recipe">
+                        <i className="w3-btn w3-hover-yellow fas fa-trash-alt" aria-hidden="true"></i>
+                      </label>
+                      <button style={{display: "none"}}
+                           id="delete"
+                           onClick={ (event) => this.handleDelete(event)}
+                           />
+                      </>
+                    ) : '' }
+                { this.state.isDeleted && <Redirect to='/recipes' / > }
               </div>
               <div hidden={ this.state.addLink } >
                 <input id="addLink"
@@ -548,25 +669,24 @@ export class RecipesAdd extends React.Component {
                given options.
                <Link to="help">Click here for the specifics</Link>
             </div>
-            { this.state.recipe_name ? (<p><b>{ this.state.recipe_name }</b></p>): '' }
-            { this.state.is_duplicate ?
-              (<Link to={'recipes/'+this.state.recipe_name}>
-                 <button className={"w3-btn w3-orange"}>Duplicate</button></Link>) :
-              (<>
-                <Ingredient_List items={ this.state.ingredient_list }
-                              ingredient_update={(list)=>this.ingredient_update(list)}/>
-                <div className={"w3-padding"}></div>
-                <Instructions_List items={ this.state.instructions }
-                              instructions_update={(list)=>this.instructions_update(list)}/>
-                <div className={"w3-padding"}></div>
-                <Add_Recipe name={ this.state.recipe_name }
-                            ingredients={ this.state.ingredient_list }
-                            instructions={ this.state.instructions }
-                            accessToken={ this.props.accessToken }
-                            refreshToken={ this.props.refreshToken }
-                            isNotLoggedIn={ this.props.isNotLoggedIn }
-                            updateAccessToken={ this.props.updateAccessToken} />
-              </>)}
+            { this.state.new_recipe_name ? (<p><b>{ this.state.new_recipe_name }</b></p>): '' }
+
+            <Ingredient_List items={ this.state.ingredient_list }
+                          ingredient_update={(list)=>this.ingredient_update(list)}/>
+            <div className={"w3-padding"}></div>
+            <Instructions_List items={ this.state.instructions }
+                          instructions_update={(list)=>this.instructions_update(list)}/>
+            <div className={"w3-padding"}></div>
+            <Action_Recipe
+                        is_edit={ this.props.is_edit }
+                        name={ this.state.recipe_name }
+                        new_name={ this.state.new_recipe_name }
+                        ingredients={ this.state.ingredient_list }
+                        instructions={ this.state.instructions }
+                        accessToken={ this.props.accessToken }
+                        refreshToken={ this.props.refreshToken }
+                        isNotLoggedIn={ this.props.isNotLoggedIn }
+                        updateAccessToken={ this.props.updateAccessToken} />
           </div>
         </div>
       </>
