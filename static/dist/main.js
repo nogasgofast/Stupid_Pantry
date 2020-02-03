@@ -28771,14 +28771,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./login.js */ "./static/login.js");
 /* harmony import */ var _logout_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./logout.js */ "./static/logout.js");
 /* harmony import */ var _register_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./register.js */ "./static/register.js");
-/* harmony import */ var _catagoryView_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./catagoryView.js */ "./static/catagoryView.js");
-/* harmony import */ var _shoppingView_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shoppingView.js */ "./static/shoppingView.js");
-/* harmony import */ var _pantryView_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pantryView.js */ "./static/pantryView.js");
-/* harmony import */ var _recipesView_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./recipesView.js */ "./static/recipesView.js");
-/* harmony import */ var _recipesEdit_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./recipesEdit.js */ "./static/recipesEdit.js");
-/* harmony import */ var _recipesAdd_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./recipesAdd.js */ "./static/recipesAdd.js");
-/* harmony import */ var _recipesHelp_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./recipesHelp.js */ "./static/recipesHelp.js");
+/* harmony import */ var _catagoryList_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./catagoryList.js */ "./static/catagoryList.js");
+/* harmony import */ var _shoppingList_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shoppingList.js */ "./static/shoppingList.js");
+/* harmony import */ var _pantryList_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pantryList.js */ "./static/pantryList.js");
+/* harmony import */ var _recipesList_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./recipesList.js */ "./static/recipesList.js");
+/* harmony import */ var _mealPlanList_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./mealPlanList.js */ "./static/mealPlanList.js");
+/* harmony import */ var _recipesHelp_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./recipesHelp.js */ "./static/recipesHelp.js");
+/* harmony import */ var _recipeForm_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./recipeForm.js */ "./static/recipeForm.js");
+/* harmony import */ var _ingredientForm_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ingredientForm.js */ "./static/ingredientForm.js");
+/* harmony import */ var _mealPlanForm_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./mealPlanForm.js */ "./static/mealPlanForm.js");
+/* harmony import */ var _recipeDisplay_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./recipeDisplay.js */ "./static/recipeDisplay.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
 
 
 
@@ -28877,36 +28883,58 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       to: "/nav",
       component: react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"]
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
+      exact: true,
       path: "/pantry"
     }, preProps, {
-      component: _pantryView_js__WEBPACK_IMPORTED_MODULE_8__["PantryView"]
+      component: _pantryList_js__WEBPACK_IMPORTED_MODULE_8__["PantryList"]
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
+      path: "/pantry/"
+    }, preProps, {
+      is_edit: true,
+      component: _ingredientForm_js__WEBPACK_IMPORTED_MODULE_13__["IngredientForm"]
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
       path: "/shopping"
     }, preProps, {
-      component: _shoppingView_js__WEBPACK_IMPORTED_MODULE_7__["ShoppingView"]
+      component: _shoppingList_js__WEBPACK_IMPORTED_MODULE_7__["ShoppingList"]
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
       exact: true,
       path: "/recipes"
     }, preProps, {
-      component: _recipesView_js__WEBPACK_IMPORTED_MODULE_9__["RecipesView"]
+      component: _recipesList_js__WEBPACK_IMPORTED_MODULE_9__["RecipesList"]
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
+      exact: true,
+      path: "/mealplans"
+    }, preProps, {
+      component: _mealPlanList_js__WEBPACK_IMPORTED_MODULE_10__["MealPlanList"]
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
+      path: "/mealplans/edit"
+    }, preProps, {
+      is_edit: true,
+      component: _mealPlanForm_js__WEBPACK_IMPORTED_MODULE_14__["MealPlanForm"]
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
       exact: true,
       path: "/recipes/add"
     }, preProps, {
-      component: _recipesAdd_js__WEBPACK_IMPORTED_MODULE_11__["RecipesAdd"]
+      is_edit: false,
+      component: _recipeForm_js__WEBPACK_IMPORTED_MODULE_12__["RecipeForm"]
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
       exact: true,
       path: "/recipes/help"
     }, preProps, {
-      component: _recipesHelp_js__WEBPACK_IMPORTED_MODULE_12__["RecipesHelp"]
+      component: _recipesHelp_js__WEBPACK_IMPORTED_MODULE_11__["RecipesHelp"]
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
+      path: "/recipes/view"
+    }, preProps, {
+      component: _recipeDisplay_js__WEBPACK_IMPORTED_MODULE_15__["RecipeDisplay"]
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
       path: "/recipes/"
     }, preProps, {
-      component: _recipesEdit_js__WEBPACK_IMPORTED_MODULE_10__["RecipesEdit"]
+      is_edit: true,
+      component: _recipeForm_js__WEBPACK_IMPORTED_MODULE_12__["RecipeForm"]
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ProtectedRoute, _extends({
       path: "/nav"
     }, preProps, {
-      component: _catagoryView_js__WEBPACK_IMPORTED_MODULE_6__["CatagoryView"]
+      component: _catagoryList_js__WEBPACK_IMPORTED_MODULE_6__["CatagoryList"]
     })));
   }
 
@@ -28918,66 +28946,81 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 
 /***/ }),
 
-/***/ "./static/catagoryView.js":
+/***/ "./static/catagoryList.js":
 /*!********************************!*\
-  !*** ./static/catagoryView.js ***!
+  !*** ./static/catagoryList.js ***!
   \********************************/
-/*! exports provided: CatagoryView */
+/*! exports provided: CatagoryList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CatagoryView", function() { return CatagoryView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CatagoryList", function() { return CatagoryList; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
 
 const color = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
 
-class Catagories extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-      className: "w3-ul"
+class Catagories extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttons: new Set(),
+      selectedItems: new Set()
+    };
+  }
+
+  render_item(item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      key: item.name,
+      to: '/' + item.name
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-list-item"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "/recipes"
+      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item.name) ? "w3-border-yellow w3-rightbar" : "")
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "w3-btn w3-hover-yellow"
-    }, "Recipes")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, item.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "w3-right w3-badge " + color.random()
-    }, this.props.recipes)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-list-item"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "/shopping"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-btn w3-hover-yellow"
-    }, "Shopping")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-      className: "w3-right w3-badge " + color.random()
-    }, this.props.shopping)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-list-item"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "/pantry"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-btn w3-hover-yellow"
-    }, "Pantry (all items)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-      className: "w3-right w3-badge " + color.random()
-    }, this.props.ingredients)));
+    }, item.value)));
+  }
+
+  renderList() {
+    let list = [];
+    list.push(this.render_item({
+      name: 'recipes',
+      value: this.props.recipes
+    }));
+    list.push(this.render_item({
+      name: 'mealplans',
+      value: this.props.mealplan
+    }));
+    list.push(this.render_item({
+      name: 'shopping',
+      value: this.props.shopping
+    }));
+    list.push(this.render_item({
+      name: 'pantry',
+      value: this.props.pantry
+    }));
+    return list;
   }
 
 }
 
-class CatagoryView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class CatagoryList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredients: 0,
+      pantry: 0,
       recipes: 0,
+      mealplan: 0,
       shopping: 0,
       done: false
     };
@@ -28995,8 +29038,9 @@ class CatagoryView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 
   updateLists(json) {
     this.setState({
-      ingredients: json.ingredients,
       recipes: json.recipes,
+      meaplan: json.mealplan,
+      pantry: json.ingredients,
       shopping: json.shopping,
       done: true
     });
@@ -29032,21 +29076,19 @@ class CatagoryView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
-      inner: "Your Lists",
+      history: this.props.history,
+      inner: "Catagories",
       isLoggedIn: this.props.isLoggedIn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-padding w3-row w3-container w3-center"
+      className: "w3-margin w3-row-padding"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-center w3-twothird w3-card w3-container"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Catagories, {
+      className: "w3-content "
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Catagories, _extends({
       recipes: this.state.recipes,
+      mealplan: this.state.mealplan,
       shopping: this.state.shopping,
-      ingredients: this.state.ingredients,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      updateAccessToken: this.props.updateAccessToken,
-      isNotLoggedIn: this.props.isNotLoggedIn
-    }))));
+      pantry: this.state.pantry
+    }, this.props)))));
   }
 
 }
@@ -29068,19 +29110,676 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 
 
-const Header = props => {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "w3-bar w3-padding w3-container w3-center w3-orange"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/nav",
-    className: "w3-container w3-btn w3-bar-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, props.inner)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: props.isLoggedIn ? "/logout" : "/login",
-    className: "w3-container w3-padding-16 w3-btn w3-xxxlarge w3-right w3-bar-item"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fas " + (props.isLoggedIn ? "fa-lock" : "fa-lock-open")
-  })));
-};
+class Header extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor(props) {
+    super(props); //this.history = [];
+
+    this.state = {
+      show: false
+    };
+    this.toggleShow = this.toggleShow.bind(this);
+    this.goback = this.goback.bind(this);
+  }
+
+  toggleShow() {
+    this.setState({
+      show: !this.state.show
+    });
+  }
+
+  goback() {
+    this.props.history.goBack();
+  }
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-container w3-padding w3-orange"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/nav"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Smart Pantry")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: this.goback,
+      className: "w3-btn"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "w3-large"
+    }, this.props.inner == "Login" ? this.props.inner : "< " + this.props.inner)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-dropdown-click w3-right"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "w3-btn w3-hover-yellow w3-xxlarge",
+      onClick: this.toggleShow
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas fa-hamburger"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-dropdown-content w3-orange w3-bar-block w3-border " + (this.state.show ? "w3-show" : ""),
+      style: {
+        'position': 'absolute',
+        'left': '-82px'
+      }
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/logout",
+      className: "w3-bar-item w3-hover-yellow w3-button"
+    }, "Logout"))));
+  }
+
+}
+
+/***/ }),
+
+/***/ "./static/ingredientForm.js":
+/*!**********************************!*\
+  !*** ./static/ingredientForm.js ***!
+  \**********************************/
+/*! exports provided: IngredientForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IngredientForm", function() { return IngredientForm; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+
+
+
+
+class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      barcodeIsLoading: false,
+      ValidateIsLoading: false,
+      pictureIsLoading: false,
+      DeleteIsLoading: false,
+      isLoading: false,
+      previous_name: '',
+      name: '',
+      amount: 0,
+      amount_pkg: 1,
+      is_measured: false,
+      barcode: '',
+      keepStocked: false,
+      required_by: [],
+      imagePath: ''
+    };
+    this.myIsMounted = false; // These are just handlers being registered with the running process.
+
+    this.gotIt = this.gotIt.bind(this);
+    this.toggleKeepStocked = this.toggleKeepStocked.bind(this);
+    this.deletePicture = this.deletePicture.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleAmountChange = this.handleAmountChange.bind(this);
+    this.handleAmount_pkgChange = this.handleAmount_pkgChange.bind(this);
+  }
+
+  handleNameChange(event) {
+    this.setState({
+      name: event.target.value
+    });
+  }
+
+  handleAmountChange(event) {
+    this.setState({
+      amount: event.target.value
+    });
+  }
+
+  handleAmount_pkgChange(event) {
+    this.setState({
+      amount_pkg: event.target.value
+    });
+  }
+
+  toggleKeepStocked(e) {
+    e.preventDefault();
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        if (this.myIsMounted) {
+          this.setState({
+            keepStocked: !this.state.keepStocked
+          });
+        }
+      } else if (state == 4 && cat != '2' && cat != '3') {
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/inventory/' + this.state.name,
+      data: JSON.stringify({
+        keepStocked: !this.state.keepStocked
+      }),
+      method: 'PUT',
+      callBack: callBack,
+      headers: {
+        "content-type": "application/json"
+      },
+      ...this.props
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+  }
+
+  componentDidMount() {
+    this.myIsMounted = true;
+
+    if (this.check_compat_video()) {// Good to go!
+    } else {
+      console.log('This browser only supports uploading pre-saved images.');
+    }
+
+    if (this.props.is_edit) {
+      this.renderThisRecipe();
+    }
+  }
+
+  componentWillUnmount() {
+    this.myIsMounted = false;
+  }
+
+  deletePicture(event) {
+    event.preventDefault();
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        const recipeText = JSON.parse(xhr.responseText)['text'];
+
+        if (this.myIsMounted) {
+          this.setState({
+            pictureIsLoading: false,
+            imagePath: ''
+          });
+        }
+      } else if (state == 4 && cat != '2' && cat != '3') {
+        this.setState({
+          pictureIsLoading: false
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/inventory/image/' + this.state.name,
+      data: '{}',
+      is_file_upload: true,
+      method: 'DELETE',
+      callBack: callBack,
+      ...this.props
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
+        pictureIsLoading: true
+      });
+    }
+  }
+
+  handleBarcodeUpload(files) {
+    for (let i = 0, f; f = files[i]; i++) {
+      if (!f.type.match('image/.*')) {
+        alert("Must be a image file");
+      } else {
+        let callBack = xhr => {
+          //console.log(xhr.responseText);
+          let state = xhr.readyState;
+          let status = xhr.status;
+          let cat = Math.floor(status / 100);
+
+          if (state == 4 && status == 200) {
+            const text = JSON.parse(xhr.responseText)['text'];
+
+            if (this.myIsMounted) {
+              this.setState({
+                barcodeIsLoading: false,
+                barcode: text
+              });
+            }
+          } else if (state == 4 && cat != '2' && cat != '3') {
+            console.log(xhr.responseText);
+            this.setState({
+              barcodeIsLoading: false
+            });
+          }
+        };
+
+        let formData = new FormData(); //console.log(f);
+
+        formData.append('file', f, f.name); //console.log(formData.has('file'))
+
+        const settings = {
+          url: '/v1/inventory/barcode/' + this.state.name,
+          data: formData,
+          is_file_upload: true,
+          method: 'POST',
+          callBack: callBack,
+          ...this.props
+        };
+        let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+        req.props = settings;
+        req.withAuth();
+
+        if (this.myIsMounted) {
+          this.setState({
+            barcodeIsLoading: true
+          });
+        }
+      }
+    }
+  }
+
+  handlePictureUpload(files) {
+    for (let i = 0, f; f = files[i]; i++) {
+      if (!f.type.match('image/.*')) {
+        alert("Must be a image file");
+      } else {
+        let callBack = xhr => {
+          //console.log(xhr.responseText);
+          let state = xhr.readyState;
+          let status = xhr.status;
+          let cat = Math.floor(status / 100);
+
+          if (state == 4 && status == 200) {
+            const recipeText = JSON.parse(xhr.responseText)['text'];
+
+            if (this.myIsMounted) {
+              this.setState({
+                pictureIsLoading: false
+              });
+              this.renderThisRecipe();
+            }
+          } else if (state == 4 && cat != '2' && cat != '3') {
+            this.setState({
+              pictureIsLoading: false,
+              recipeField: xhr.responseText
+            });
+          }
+        }; // from an input element
+
+
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext("2d");
+        var reader = new FileReader();
+
+        reader.onload = e => {
+          let img = new Image();
+          img.src = e.target.result;
+
+          img.onload = () => {
+            // console.log(e.target.result);
+            // console.log(img);
+            let MAX_WIDTH = 1200;
+            let MAX_HEIGHT = 1600;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            } // console.log(width);
+            // console.log(height);
+
+
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(img, 0, 0, width, height);
+            canvas.toBlob(blob => {
+              let formData = new FormData();
+              console.log(blob.size);
+              formData.append('file', blob, f.name); //console.log(formData.has('file'))
+
+              const settings = {
+                url: '/v1/inventory/image/' + this.state.name,
+                data: formData,
+                is_file_upload: true,
+                method: 'POST',
+                callBack: callBack,
+                ...this.props
+              };
+              let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+              req.props = settings;
+              req.withAuth();
+
+              if (this.myIsMounted) {
+                this.setState({
+                  pictureIsLoading: true
+                });
+              }
+            }, "image/jpeg");
+          };
+        };
+
+        reader.readAsDataURL(f);
+      }
+    }
+  }
+
+  check_compat_video() {
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        const recipe = JSON.parse(xhr.responseText)['recipe'];
+
+        if (this.myIsMounted) {
+          this.setState({
+            isLoading: false
+          });
+          this.props.history.goBack();
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({
+          IsLoading: false
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/inventory/' + this.state.previous_name,
+      data: JSON.stringify({
+        "name": this.state.name,
+        "amount": this.state.amount,
+        "amount_pkg": this.state.amount_pkg,
+        "keepStocked": this.state.keepStocked,
+        "barcode": this.state.barcode
+      }),
+      method: 'PUT',
+      callBack: callBack,
+      headers: {
+        "content-type": "application/json"
+      },
+      ...this.props
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
+        IsLoading: true
+      });
+    }
+
+    ;
+  }
+
+  handleDelete(event) {
+    event.preventDefault();
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        const recipe = JSON.parse(xhr.responseText)['recipe'];
+
+        if (this.myIsMounted) {
+          this.setState({
+            DeleteIsLoading: false
+          });
+          this.props.history.goBack();
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({
+          DeleteIsLoading: false
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/inventory/' + this.state.name,
+      data: '{}',
+      method: 'DELETE',
+      callBack: callBack,
+      headers: {
+        "content-type": "application/json"
+      },
+      ...this.props
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
+        DeleteIsLoading: true
+      });
+    }
+
+    ;
+  }
+
+  renderThisRecipe() {
+    //console.log(this.props.location);
+    const {
+      pathname
+    } = this.props.location; //console.log(pathname);
+
+    const name = pathname.replace('/pantry/', ''); //console.log(recipeName);
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        //console.log(JSON.parse(xhr.responseText))
+        const json = JSON.parse(xhr.responseText);
+
+        if (this.myIsMounted) {
+          this.setState({
+            ValidateIsLoading: false,
+            imagePath: json['imagePath'],
+            name: json['name'],
+            previous_name: json['name'],
+            amount: json['amount'],
+            amount_pkg: json['amount_pkg'],
+            barcode: json['barcode'],
+            is_measured: json['is_measured'],
+            required_by: json['required_by'],
+            keepStocked: json['keepStocked']
+          });
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({
+          ValidateIsLoading: false
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/inventory/' + name,
+      method: 'GET',
+      callBack: callBack,
+      ...this.props
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
+        ValidateIsLoading: true
+      });
+    }
+
+    ;
+  }
+
+  gotIt(e) {
+    e.preventDefault(); //this is a bitwise integer conversion techniqe
+
+    const new_amount = ~~this.state.amount + ~~this.state.amount_pkg;
+    this.setState({
+      amount: new_amount
+    });
+  }
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+      history: this.props.history,
+      inner: (this.props.is_edit ? 'Edit' : 'Add') + " pantry",
+      isLoggedIn: this.props.isLoggedIn
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-margin w3-row-padding"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-content "
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      method: "POST",
+      className: "w3-card",
+      onSubmit: event => this.handleSubmit(event)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-bar w3-center w3-padding w3-xlarge"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      className: "w3-btn w3-hover-yellow",
+      htmlFor: "picture",
+      "aria-label": "take a picture"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas fa-camera " + (this.state.pictureIsLoading ? "fa-spin" : ""),
+      "aria-hidden": "true"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "file",
+      id: "picture",
+      style: {
+        display: "none"
+      },
+      name: "uploadPicture",
+      accept: "image/*",
+      capture: true,
+      onChange: this.state.pictureIsLoading ? undefined : event => this.handlePictureUpload(event.target.files)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      htmlFor: "barcode",
+      "aria-label": "scan in barcode id"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "w3-btn w3-hover-yellow fas fa-barcode" + (this.state.barcodeIsLoading ? "fa-spin" : ""),
+      "aria-hidden": "true"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "file",
+      id: "barcode",
+      style: {
+        display: "none"
+      },
+      name: "uploadBarcode",
+      accept: "image/*",
+      capture: true,
+      onChange: this.state.barcodeIsLoading ? undefined : event => this.handleBarcodeUpload(event.target.files)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      htmlFor: "stock",
+      "aria-label": "keep stocked"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "w3-btn w3-hover-yellow fas fa-cart-arrow-down " + (this.state.keepStocked ? "w3-yellow" : ""),
+      "aria-hidden": "true"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      style: {
+        display: "none"
+      },
+      id: "stock",
+      onClick: e => this.toggleKeepStocked(e)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "w3-btn w3-hover-yellow w3-xlarge",
+      onClick: e => this.gotIt(e),
+      "aria-label": "Got it!"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas fa-plus",
+      "aria-hidden": "true"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      htmlFor: "delete",
+      "aria-label": "delete this recipe"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "w3-btn w3-hover-yellow fas fa-trash-alt",
+      "aria-hidden": "true"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      style: {
+        display: "none"
+      },
+      id: "delete",
+      onClick: event => this.handleDelete(event)
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-display-container"
+    }, Object(_utils_js__WEBPACK_IMPORTED_MODULE_3__["thumbnail"])(this.state), this.state.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "fas fa-trash-alt w3-xlarge " + "w3-display-bottomright w3-margin " + "w3-btn w3-opacity w3-orange",
+      onClick: event => this.deletePicture(event)
+    }) : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-container"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      className: "w3-left"
+    }, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "w3-input w3-center",
+      type: "text",
+      placeholder: "Name",
+      onChange: this.handleNameChange,
+      value: this.state.name
+    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      className: "w3-left"
+    }, "Amount ", this.state.is_measured ? "(oz)" : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "w3-center w3-input",
+      type: "number",
+      step: "any",
+      onChange: this.handleAmountChange,
+      value: this.state.amount
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      className: "w3-left"
+    }, "Package total ", this.state.is_measured ? "(oz)" : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "w3-input w3-center",
+      type: "number",
+      onChange: this.handleAmount_pkgChange,
+      value: this.state.amount_pkg
+    }))), this.state.barcode ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "w3-input w3-center",
+      type: "button",
+      value: "Check against saved barcode"
+    }))) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "w3-input",
+      type: "submit",
+      value: !this.props.isLoading ? "Save" : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-cog fa-spin fa-fw fa-3x"
+      }),
+      className: "w3-btn w3-block w3-hover-yellow"
+    }))), this.state.required_by.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Required by") : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"], {
+      path: '/recipes/view',
+      items: this.state.required_by
+    }))));
+  }
+
+}
 
 /***/ }),
 
@@ -29135,7 +29834,7 @@ class LoginForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     this.state = {
       username: '',
       password: '',
-      isFailed: false,
+      color: '',
       isLoading: false
     };
     this.myIsMounted = false;
@@ -29223,25 +29922,31 @@ class LoginForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
         this.props.history.push("/");
       }
     } else if (xhr.status == 401) {
+      const acolor = color.random();
       this.myIsMounted && this.setState({
-        isFailed: true,
+        color: acolor,
         isLoading: false
       });
     }
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, this.props.isLoggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+      to: "/nav"
+    }) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+      history: this.props.history,
       inner: "Login",
       isLoggedIn: this.props.isLoggedIn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-display"
+      className: "w3-margin w3-row-padding" + this.state.color
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-content"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
       method: "POST",
-      className: "w3-display-middle " + "w3-card " + "w3-round " + "w3-form ",
+      className: "w3-card w3-container w3-padding-32" + "w3-form ",
       onSubmit: event => this.handleSubmit(event)
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-container w3-margin-top " + (this.state.isFailed ? color.random() : "")
+      className: "w3-container w3-margin-top"
     }, this.state.isFailed ? "Invalid user or password!" : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       htmlFor: "username",
       hidden: true
@@ -29249,7 +29954,7 @@ class LoginForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       htmlFor: "password",
       hidden: true
     }, "password:"), this.renderPassword(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-container w3-center w3-padding-16"
+      className: "w3-bar w3-padding-16"
     }, this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       htmlFor: "login_btn"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -29267,9 +29972,9 @@ class LoginForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       value: "Log in",
       className: "w3-btn w3-hover-yellow"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      className: "w3-btn w3-hover-yellow",
+      className: "w3-btn w3-right w3-hover-yellow",
       to: "/register"
-    }, "Sign up here!"))))));
+    }, "Sign up here!")))))));
   }
 
 }
@@ -29315,37 +30020,447 @@ class LogoutForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_3__["Header"], {
+      history: this.props.history,
       inner: "Logout",
       isLoggedIn: this.props.isLoggedIn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-display"
+      className: "w3-margin w3-row-padding"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-card w3-container w3-xxlarge w3-display-middle"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-bar w3-container w3-center w3-padding-32"
+      className: "w3-card w3-content"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: this.handleAffirmative,
-      className: "w3-btn w3-padding w3-hover-yellow w3-margin-bottom"
-    }, "Sure!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "w3-btn w3-block w3-bar-item w3-hover-yellow"
+    }, "Logout"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: this.handleDenied,
-      className: "w3-btn w3-hover-yellow"
-    }, "Nah!")))));
+      className: "w3-btn w3-block w3-bar-item w3-hover-yellow"
+    }, "Return"))));
   }
 
 }
 
 /***/ }),
 
-/***/ "./static/pantryView.js":
-/*!******************************!*\
-  !*** ./static/pantryView.js ***!
-  \******************************/
-/*! exports provided: PantryView */
+/***/ "./static/mealPlanForm.js":
+/*!********************************!*\
+  !*** ./static/mealPlanForm.js ***!
+  \********************************/
+/*! exports provided: MealPlanForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PantryView", function() { return PantryView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MealPlanForm", function() { return MealPlanForm; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+
+
+
+class RecipeList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttons: new Set(),
+      selectedItems: new Set(),
+      scroll: 50,
+      ticking: false,
+      path: this.props.path
+    };
+  }
+
+  renderDays(item) {
+    let ret = [];
+    let days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    for (let day = 0; day <= 6; day++) {
+      let today_is_the_day = false;
+
+      if (day == item.step && item.step_type == 'dow') {
+        today_is_the_day = true;
+      }
+
+      ret.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        key: day,
+        className: "w3-bar-item w3-button w3-hover-yellow " + (today_is_the_day ? 'w3-yellow' : ''),
+        onClick: () => this.props.updateRepeat(item, day, 'dow')
+      }, days[day])); //console.log(ret);
+    } //console.log(ret);
+
+
+    return ret;
+  }
+
+  render_item(item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: item.id,
+      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item.id) ? "w3-border-yellow w3-rightbar" : "")
+    }, item.recipe, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "w3-right w3-btn fas fa-trash",
+      onClick: () => this.props.removeChoice(item.id)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Repeat on:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-bar"
+    }, this.renderDays(item)));
+  }
+
+}
+
+class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: '',
+      isDeleting: '',
+      date: '',
+      optionList: [],
+      choiceList: [],
+      search: '',
+      recipe: false
+    };
+    this.myIsMounted = false; // These are just handlers being registered with the running process.
+
+    this.removeChoice = this.removeChoice.bind(this);
+    this.addChoice = this.addChoice.bind(this);
+    this.filter = this.filter.bind(this);
+  }
+
+  componentDidMount() {
+    this.myIsMounted = true;
+    this.renderForm();
+  }
+
+  componentWillUnmount() {
+    this.myIsMounted = false;
+  }
+
+  renderForm() {
+    let callBack1 = xhr => {
+      //console.log(xhr.responseText);
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        const {
+          pathname
+        } = this.props.location;
+        const date = pathname.replace('/mealplans/edit/', '');
+        const mealplans = JSON.parse(xhr.responseText)['mealplans'];
+        let choices = [];
+
+        for (let plan of mealplans) {
+          if (plan['date'] == date) {
+            choices.push(plan);
+          }
+        }
+
+        if (this.myIsMounted) {
+          this.setState({
+            date: date,
+            choiceList: choices
+          });
+        }
+      } else if (xhr.readyState == 4) {
+        console.log("Short Status " + xhr.status);
+      }
+    };
+
+    let callBack2 = xhr => {
+      //console.log(xhr.responseText);
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        const list = JSON.parse(xhr.responseText)['list'];
+
+        if (this.myIsMounted) {
+          this.setState({
+            optionList: list
+          });
+        }
+      } else if (xhr.readyState == 4) {
+        console.log("Short Status " + xhr.status);
+      }
+    };
+
+    const settings1 = {
+      url: '/v1/views/mealplans',
+      data: '{}',
+      method: 'GET',
+      callBack: callBack1,
+      ...this.props
+    };
+    const settings2 = {
+      url: '/v1/views/recipes',
+      data: '{}',
+      method: 'GET',
+      callBack: callBack2,
+      ...this.props
+    };
+    this.setState({
+      is_loading: true
+    });
+    let req1 = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings1);
+    req1.withAuth();
+    let req2 = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings2);
+    req2.withAuth();
+  }
+
+  removeChoice(id) {
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        let newList = [];
+
+        for (let plan of this.state.choiceList) {
+          if (plan.id != id) {
+            newList.push(plan);
+          }
+        }
+
+        if (this.myIsMounted) {
+          this.setState({
+            choiceList: newList,
+            isDeleting: ''
+          });
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({
+          isDeleting: ''
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/mealplans/' + id,
+      data: '{}',
+      method: 'DELETE',
+      callBack: callBack,
+      headers: {
+        "content-type": "application/json"
+      },
+      ...this.props
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
+        isDeleting: id
+      });
+    }
+
+    ;
+  }
+
+  renderChoices() {
+    let options = []; //console.log(this.state.choiceList);
+
+    for (let plan of this.state.choiceList) {
+      options.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        key: plan.id,
+        value: plan.recipe,
+        onClick: () => this.props.removeChoice(plan.id)
+      }, plan.recipe, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "w3-right fas fa-minus"
+      })));
+    }
+
+    return options;
+  }
+
+  addChoice(recipe) {
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 201) {
+        if (this.myIsMounted) {
+          let plan = {
+            id: JSON.parse(xhr.responseText)['id'],
+            recipe: recipe.name,
+            date: this.state.date,
+            step: 0
+          };
+          const newList = this.state.choiceList;
+          newList.push(plan);
+          this.setState({
+            choiceList: newList,
+            IsLoading: false
+          });
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({
+          IsLoading: ''
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/mealplans',
+      data: JSON.stringify({
+        "recipe": recipe.name,
+        "date": this.state.date,
+        "step": 0
+      }),
+      method: 'POST',
+      callBack: callBack,
+      headers: {
+        "content-type": "application/json"
+      },
+      ...this.props
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
+        IsLoading: recipe
+      });
+    }
+
+    ;
+  }
+
+  renderOptions() {
+    let options = [];
+
+    for (let recipe of this.state.optionList) {
+      let searchlc = this.state.search.toLowerCase();
+      let recipe_name = recipe.name.toLowerCase();
+
+      if (recipe_name.includes(searchlc) || this.state.search == '') {
+        options.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: recipe.name,
+          value: recipe.name,
+          onClick: () => this.addChoice(recipe)
+        }, recipe.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "w3-right fas fa-plus"
+        })));
+      }
+    }
+
+    return options;
+  }
+
+  updateRepeat(item, step, step_type) {
+    //feature toggle Repeat off on duplicate entry
+    if (item.step == step && item.step_type == step_type) {
+      step = 0;
+      step_type = '';
+    }
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        if (this.myIsMounted) {
+          const newList = this.state.choiceList;
+          newList.map(it => {
+            if (it.id == item.id) {
+              it.step = step, it.step_type = step_type;
+            }
+
+            ;
+          });
+          console.log(newList);
+          this.setState({
+            choiceList: newList
+          });
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/mealplans/' + item.id,
+      data: JSON.stringify({
+        "step_type": step_type,
+        "step": step
+      }),
+      method: 'PUT',
+      callBack: callBack,
+      headers: {
+        "content-type": "application/json"
+      },
+      ...this.props
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+  }
+
+  filter(event) {
+    this.setState({
+      search: event.target.value
+    });
+  } //{ this.renderChoices() }
+
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+      history: this.props.history,
+      inner: "edit mealplan",
+      isLoggedIn: this.props.isLoggedIn
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-margin w3-row-padding"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-content"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-card w3-form w3-container"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+      className: "w3-left"
+    }, this.state.date)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-margin-top"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-ul"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RecipeList, _extends({}, this.props, {
+      items: this.state.choiceList,
+      removeChoice: id => this.removeChoice(id),
+      updateRepeat: (item, step, step_type) => this.updateRepeat(item, step, step_type)
+    })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-card w3-margin-top w3-form w3-container"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-bar"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "w3-input w3-bar-item w3-round",
+      type: "search",
+      value: this.state.search,
+      placeholder: "Filter",
+      onChange: event => this.filter(event)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "w3-bar-item w3-right fas fa-search"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-ul"
+    }, this.renderOptions())))));
+  }
+
+}
+
+/***/ }),
+
+/***/ "./static/mealPlanList.js":
+/*!********************************!*\
+  !*** ./static/mealPlanList.js ***!
+  \********************************/
+/*! exports provided: MealPlanList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MealPlanList", function() { return MealPlanList; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
@@ -29355,25 +30470,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const color = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
 
-class ShoppingList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttons: new Set(),
-      selectedItems: new Set(),
-      redirect: false
-    };
-  }
-
+class Plan extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
   render_item(item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item.name) ? "w3-border-yellow w3-rightbar" : ""),
-      key: item.name,
-      onClick: () => this.handleSelect(item.name)
-    }, item.name, this.state.redirect ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-      to: '/recipes/' + this.state.redirect
-    }) : '');
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      key: item,
+      to: this.state.path + '/' + item
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      className: "w3-list-item w3-left-align",
+      style: {
+        height: "6em"
+      }
+    }, item, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-gray",
+      style: {
+        height: "4px",
+        width: "100%"
+      }
+    })));
   }
 
   renderList() {
@@ -29386,15 +30501,140 @@ class ShoppingList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionLi
     return list;
   }
 
-  handleSelect(item) {
-    this.setState({
-      redirect: item
-    });
-  }
-
 }
 
-class PantryView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class MealPlanList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dates: [],
+      mealplans: [],
+      is_loading: false
+    };
+    this.myIsMounted = false;
+  }
+
+  componentDidMount() {
+    this.myIsMounted = true;
+    this.renderRecipes();
+  }
+
+  componentWillUnmount() {
+    this.myIsMounted = false;
+  }
+
+  renderRecipes() {
+    let callBack = xhr => {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        const json = JSON.parse(xhr.responseText); //console.log(json)
+
+        if (this.myIsMounted) {
+          this.setState({
+            dates: json.dates,
+            mealplans: json.mealplans,
+            is_loading: false
+          });
+        }
+      } else if (xhr.readyState == 4) {
+        this.setState({
+          is_loading: false
+        });
+        console.log("Short Status " + xhr.status);
+      }
+    };
+
+    const settings = {
+      url: '/v1/views/mealplans',
+      data: '{}',
+      method: 'GET',
+      callBack: callBack,
+      ...this.props
+    };
+    this.setState({
+      is_loading: true
+    });
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    req.withAuth();
+  }
+
+  renderPlan(date) {
+    //console.log(this.state.mealplans);
+    let list = [];
+
+    for (let plan of this.state.mealplans) {
+      //console.log(plan.id);
+      if (date == plan.date) {
+        list.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: plan.id,
+          className: ""
+        }, plan.recipe));
+      }
+    }
+
+    if (list.length > 0) {
+      return list;
+    } else {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          height: "5em"
+        }
+      });
+    }
+  }
+
+  renderPlans() {
+    let plans = [];
+
+    for (const p of this.state.dates) {
+      plans.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        key: p,
+        to: "/mealplans/edit/" + p
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "w3-card w3-border-bottom w3-border-yellow w3-container"
+      }, p, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "w3-ul"
+      }, this.renderPlan(p)))));
+    }
+
+    return plans;
+  }
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+      history: this.props.history,
+      inner: "Mealplans",
+      isLoggedIn: this.props.isLoggedIn
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-margin w3-row-padding"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-content"
+    }, this.renderPlans())));
+  }
+
+} //<Plan path="/mealplans" items={ this.state.dates } plans={ this.state.mealplans } />
+
+/***/ }),
+
+/***/ "./static/pantryList.js":
+/*!******************************!*\
+  !*** ./static/pantryList.js ***!
+  \******************************/
+/*! exports provided: PantryList */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PantryList", function() { return PantryList; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+
+
+
+
+class PantryList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29438,10 +30678,7 @@ class PantryView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
       data: '{}',
       method: 'GET',
       callBack: callBack,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken
+      ...this.props
     };
     this.setState({
       is_loading: true
@@ -29452,49 +30689,513 @@ class PantryView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+      history: this.props.history,
       inner: "Pantry",
       isLoggedIn: this.props.isLoggedIn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-container w3-padding"
+      className: "w3-margin w3-row-padding"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-content"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "/pantry/add"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "w3-orange w3-hover-yellow w3-btn w3-block w3-card"
-    }, "New Ingredient")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ShoppingList, {
+    }, "New Ingredient")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"], {
+      path: '/pantry',
       items: this.state.recipes
+    }))));
+  }
+
+}
+
+/***/ }),
+
+/***/ "./static/recipeDisplay.js":
+/*!*********************************!*\
+  !*** ./static/recipeDisplay.js ***!
+  \*********************************/
+/*! exports provided: Instructions_List_disp, Ingredient_List_disp, RecipeDisplay */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Instructions_List_disp", function() { return Instructions_List_disp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Ingredient_List_disp", function() { return Ingredient_List_disp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeDisplay", function() { return RecipeDisplay; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+
+
+
+
+const color = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
+class Instructions_List_disp extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttons: new Set([]),
+      selectedItems: new Set()
+    };
+  }
+
+  render_item(item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      className: "w3-card w3-left-align ",
+      key: item
+    }, item);
+  }
+
+}
+class Ingredient_List_disp extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttons: new Set([]),
+      selectedItems: new Set()
+    };
+  }
+
+  render_item(item) {
+    //console.log(item)
+    let viewAmount = 0;
+    let color = 'w3-green';
+    item.viewAmount > 1 ? viewAmount = 1 : viewAmount = item.viewAmount;
+
+    if (viewAmount <= 0.5) {
+      color = 'w3-yellow';
+    }
+
+    if (viewAmount <= 0.25) {
+      color = 'w3-red';
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      key: item.name,
+      to: '/pantry/' + item.name
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      className: "w3-card w3-border-yellow"
+    }, item.amount + " " + item.amount_measure + " " + item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: color,
+      style: {
+        height: "4px",
+        width: 100 * viewAmount + "%"
+      }
     })));
   }
 
+} // TODO: https://www.npmjs.com/package/react-avatar-editor
+
+class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      is_stocking: false,
+      keepStocked: false,
+      is_subtracting: false,
+      subtracted: false,
+      pictureIsLoading: false,
+      recipe_name: '',
+      imagePath: '',
+      ingredient_list: [],
+      instructions: []
+    };
+    this.myIsMounted = false;
+  }
+
+  componentDidMount() {
+    this.myIsMounted = true;
+    this.renderThisRecipe();
+  }
+
+  componentWillUnmount() {
+    this.myIsMounted = false;
+  }
+
+  deletePicture(event) {
+    event.preventDefault();
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        const recipeText = JSON.parse(xhr.responseText)['text'];
+
+        if (this.myIsMounted) {
+          this.setState({
+            pictureIsLoading: false,
+            imagePath: ''
+          });
+        }
+      } else if (state == 4 && cat != '2' && cat != '3') {
+        this.setState({
+          pictureIsLoading: false
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/recipe/image/' + this.state.recipe_name,
+      data: '{}',
+      is_file_upload: true,
+      method: 'DELETE',
+      callBack: callBack,
+      accessToken: this.props.accessToken,
+      refreshToken: this.props.refreshToken,
+      isNotLoggedIn: this.props.isNotLoggedIn,
+      updateAccessToken: this.props.updateAccessToken
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
+        pictureIsLoading: true
+      });
+    }
+  }
+
+  handlePictureUpload(files) {
+    for (let i = 0, f; f = files[i]; i++) {
+      if (!f.type.match('image/.*')) {
+        alert("Must be a image file");
+      } else {
+        let callBack = xhr => {
+          //console.log(xhr.responseText);
+          let state = xhr.readyState;
+          let status = xhr.status;
+          let cat = Math.floor(status / 100);
+
+          if (state == 4 && status == 200) {
+            const recipeText = JSON.parse(xhr.responseText)['text'];
+
+            if (this.myIsMounted) {
+              this.setState({
+                pictureIsLoading: false
+              });
+              this.renderThisRecipe();
+            }
+          } else if (state == 4 && cat != '2' && cat != '3') {
+            this.setState({
+              pictureIsLoading: false,
+              recipeField: xhr.responseText
+            });
+          }
+        }; // from an input element
+
+
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext("2d");
+        var reader = new FileReader();
+
+        reader.onload = e => {
+          let img = new Image();
+          img.src = e.target.result;
+
+          img.onload = () => {
+            // console.log(e.target.result);
+            // console.log(img);
+            let MAX_WIDTH = 1200;
+            let MAX_HEIGHT = 1600;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            } // console.log(width);
+            // console.log(height);
+
+
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(img, 0, 0, width, height);
+            canvas.toBlob(blob => {
+              let formData = new FormData();
+              console.log(blob.size);
+              formData.append('file', blob, f.name); //console.log(formData.has('file'))
+
+              const settings = {
+                url: '/v1/recipe/image/' + this.state.recipe_name,
+                data: formData,
+                is_file_upload: true,
+                method: 'POST',
+                callBack: callBack,
+                ...this.props
+              };
+              let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+              req.props = settings;
+              req.withAuth();
+
+              if (this.myIsMounted) {
+                this.setState({
+                  pictureIsLoading: true
+                });
+              }
+            }, "image/jpeg");
+          };
+        };
+
+        reader.readAsDataURL(f);
+      }
+    }
+  }
+
+  subtract_ingredients() {
+    let name = this.state.recipe_name;
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        const json = JSON.parse(xhr.responseText);
+
+        if (this.myIsMounted) {
+          this.setState({
+            is_subtracting: false,
+            subtracted: true
+          });
+          this.renderThisRecipe();
+        }
+      } else if (xhr.readyState == 4) {
+        this.setState({
+          is_subtracting: false
+        });
+        console.log("Short Status " + xhr.status);
+      }
+    };
+
+    const settings = {
+      url: '/v1/inventory/use/' + this.state.recipe_name,
+      data: '{}',
+      method: 'PUT',
+      callBack: callBack,
+      ...this.props
+    };
+    this.setState({
+      is_subtracting: true
+    });
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    req.withAuth();
+  }
+
+  stock_recipe() {
+    let name = this.state.recipe_name;
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        const json = JSON.parse(xhr.responseText);
+
+        if (this.myIsMounted) {
+          const keepStocked = !this.state.keepStocked;
+          this.setState({
+            is_stocking: false,
+            keepStocked: keepStocked
+          });
+        }
+      } else if (xhr.readyState == 4) {
+        this.setState({
+          is_stocking: false
+        });
+        console.log("Short Status " + xhr.status);
+      }
+    };
+
+    const settings = {
+      url: '/v1/requirements/' + this.state.recipe_name,
+      data: '{}',
+      method: 'PUT',
+      callBack: callBack,
+      ...this.props
+    };
+    this.setState({
+      is_stocking: true
+    });
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    req.withAuth();
+  }
+
+  renderThisRecipe() {
+    //console.log(this.props.location);
+    const {
+      pathname
+    } = this.props.location; //console.log(pathname);
+
+    const recipeName = pathname.replace('/recipes/view/', ''); //console.log(recipeName);
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        //console.log(JSON.parse(xhr.responseText))
+        const recipe = JSON.parse(xhr.responseText)['name'];
+        const recipe_count = JSON.parse(xhr.responseText)['value'];
+        const keepStocked = JSON.parse(xhr.responseText)['keepStocked'];
+        let ingredients = JSON.parse(xhr.responseText)['ingredients'];
+        let instructions = JSON.parse(xhr.responseText)['instructions'];
+        const imagePath = JSON.parse(xhr.responseText)['imagePath'];
+        instructions = instructions.split('\n');
+
+        if (this.myIsMounted) {
+          this.setState({
+            recipe_name: recipe,
+            count: recipe_count,
+            keepStocked: keepStocked,
+            imagePath: imagePath,
+            ingredient_list: ingredients,
+            instructions: instructions
+          });
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({
+          ValidateIsLoading: false
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/recipes/' + recipeName,
+      method: 'GET',
+      callBack: callBack,
+      accessToken: this.props.accessToken,
+      refreshToken: this.props.refreshToken,
+      isNotLoggedIn: this.props.isNotLoggedIn,
+      updateAccessToken: this.props.updateAccessToken
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
+        ValidateIsLoading: true
+      });
+    }
+
+    ;
+  }
+
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+      history: this.props.history,
+      inner: "Recipe",
+      isLoggedIn: this.props.isLoggedIn
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-margin w3-row-padding"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-content "
+    }, this.state.recipe_name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      className: "w3-card"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, this.state.recipe_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "w3-right w3-badge " + color.random()
+    }, this.state.count)) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-card w3-bar w3-margin-bottom  w3-xlarge"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      htmlFor: "picture",
+      "aria-label": "take a picture"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "w3-btn w3-hover-yellow fas fa-camera" + (this.state.pictureIsLoading ? "fa-spin" : ""),
+      "aria-hidden": "true"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "file",
+      id: "picture",
+      style: {
+        display: "none"
+      },
+      name: "uploadPicture",
+      accept: "image/*",
+      capture: true,
+      onChange: this.state.pictureIsLoading ? undefined : event => this.handlePictureUpload(event.target.files)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: '/recipes/' + this.state.recipe_name
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "w3-btn w3-hover-yellow fas fa-edit",
+      "aria-hidden": "true"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      "aria-label": "keep this recipe stocked",
+      "aria-hidden": "true"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "w3-btn w3-hover-yellow " + (this.state.keepStocked ? "w3-yellow" : ""),
+      onClick: () => this.stock_recipe()
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas fa-cart-arrow-down"
+    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      "aria-label": "use these ingredients",
+      "aria-hidden": "true"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "w3-bar-item w3-btn w3-hover-yellow " + (this.state.subtracted ? "w3-yellow" : ""),
+      onClick: () => this.subtract_ingredients()
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas fa-utensils"
+    })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-display-container"
+    }, Object(_utils_js__WEBPACK_IMPORTED_MODULE_3__["thumbnail"])(this.state), this.state.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "fas fa-trash-alt w3-xlarge " + "w3-display-bottomright w3-margin " + "w3-btn w3-opacity w3-orange",
+      onClick: event => this.deletePicture(event)
+    }) : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Ingredient_List_disp, {
+      items: this.state.ingredient_list,
+      ingredient_update: list => this.ingredient_update(list)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-padding"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Instructions_List_disp, {
+      items: this.state.instructions,
+      instructions_update: list => this.instructions_update(list)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-padding"
+    }))));
+  }
+
 }
 
 /***/ }),
 
-/***/ "./static/recipesAdd.js":
+/***/ "./static/recipeForm.js":
 /*!******************************!*\
-  !*** ./static/recipesAdd.js ***!
+  !*** ./static/recipeForm.js ***!
   \******************************/
-/*! exports provided: RecipesAdd */
+/*! exports provided: Action_Recipe, Instructions_List, Ingredient_List, RecipeForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipesAdd", function() { return RecipesAdd; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Action_Recipe", function() { return Action_Recipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Instructions_List", function() { return Instructions_List; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Ingredient_List", function() { return Ingredient_List; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeForm", function() { return RecipeForm; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 
 
 
-class Add_Recipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class Action_Recipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
-      redirect: false
+      isLoading: false
     };
     this.myIsMounted = false;
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29509,20 +31210,35 @@ class Add_Recipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
   }
 
   handleSubmit() {
+    let method = this.props.is_edit ? 'PUT' : 'POST';
+    let data = this.props.is_edit ? JSON.stringify({
+      new_name: this.props.new_name,
+      ingredients: this.props.ingredients,
+      instructions: this.props.instructions
+    }) : JSON.stringify({
+      recipe_name: this.props.new_name,
+      ingredients: this.props.ingredients,
+      instructions: this.props.instructions
+    });
+
     let callBack = xhr => {
       //console.log(xhr.responseText);
       let state = xhr.readyState;
       let status = xhr.status;
       let cat = Math.floor(status / 100);
 
-      if (state == 4 && status == 201) {
+      if (state == 4 && (status == 201 || status == 200)) {
         if (this.myIsMounted) {
           this.setState({
-            isLoading: false,
-            redirect: true
+            isLoading: false
           });
+          this.props.history.goBack();
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
+        if (status == 409) {
+          alert("duplicate entry");
+        }
+
         this.setState({
           IsLoading: false
         });
@@ -29531,13 +31247,9 @@ class Add_Recipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
     };
 
     const settings = {
-      url: '/v1/recipes',
-      data: JSON.stringify({
-        recipe_name: this.props.name,
-        ingredients: this.props.ingredients,
-        instructions: this.props.instructions
-      }),
-      method: 'POST',
+      url: '/v1/recipes' + (this.props.is_edit ? '/' + this.props.name : ''),
+      data: data,
+      method: method,
       callBack: callBack,
       headers: {
         "content-type": "application/json"
@@ -29547,6 +31259,7 @@ class Add_Recipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
       isNotLoggedIn: this.props.isNotLoggedIn,
       updateAccessToken: this.props.updateAccessToken
     };
+    console.log(settings);
     let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
     req.props = settings;
     req.withAuth();
@@ -29577,21 +31290,16 @@ class Add_Recipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-container w3-card",
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: (!this.is_done() ? 'w3-disabled w3-red ' : 'w3-yellow ') + "w3-btn w3-card w3-bar w3-hover-yellow",
       style: this.props.ingredients.length == 0 ? {
         display: 'none'
-      } : {}
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: (!this.is_done() ? 'w3-dissabled w3-red ' : 'w3-yellow ') + "w3-btn",
+      } : {},
       onClick: () => this.handleSubmit()
-    }, "Add Recipe"), this.state.redirect ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-      to: "/recipes"
-    }) : '');
+    }, this.props.is_edit ? 'Edit' : 'Add', " Recipe"));
   }
 
 }
-
 class Instructions_List extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
   constructor(props) {
     super(props);
@@ -29618,6 +31326,12 @@ class Instructions_List extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupAct
   renderList() {
     let list = [];
 
+    if (this.props.items.length == 0) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "w3-yellow"
+      }, "Oops, put 'directions' above your list of directions. This is required");
+    }
+
     for (const item of this.props.items) {
       list.push(this.render_item(item));
     }
@@ -29642,7 +31356,6 @@ class Instructions_List extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupAct
   }
 
 }
-
 class Ingredient_List extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
   constructor(props) {
     super(props);
@@ -29681,6 +31394,12 @@ class Ingredient_List extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActio
 
   renderList() {
     let list = [];
+
+    if (this.props.items.length == 0) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "w3-yellow"
+      }, "Oops, put 'ingredients' above your list of ingredients. This is required");
+    }
 
     for (const item of this.props.items) {
       list.push(this.renderItem(item));
@@ -29789,9 +31508,9 @@ class Ingredient_List extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActio
     });
   }
 
-}
+} // TODO: https://www.npmjs.com/package/react-avatar-editor
 
-class RecipesAdd extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29804,8 +31523,11 @@ class RecipesAdd extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
       viewHelp: true,
       ocrisLoading: false,
       ValidateIsLoading: false,
+      DeleteIsLoading: false,
+      isDeleted: false,
       is_duplicate: false,
       recipe_name: '',
+      new_recipe_name: '',
       ingredient_list: [],
       instructions: []
     };
@@ -29835,6 +31557,10 @@ class RecipesAdd extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
     if (this.check_compat_video()) {// Good to go!
     } else {
       console.log('This browser only supports uploading pre-saved images.');
+    }
+
+    if (this.props.is_edit) {
+      this.renderThisRecipe();
     }
   }
 
@@ -29961,17 +31687,25 @@ class RecipesAdd extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
         if (this.myIsMounted) {
           this.setState({
             ocrisLoading: false,
-            recipe_name: recipe['name'],
+            new_recipe_name: recipe['name'],
             is_duplicate: recipe['is_duplicate'],
             ingredient_list: recipe['ingredients'],
             instructions: recipe['instructions']
           });
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
-        this.setState({
-          ValidateIsLoading: false
-        });
-        console.log(xhr.responseText);
+        if (cat == 4) {
+          this.setState({
+            new_recipe_name: "Error:",
+            ValidateIsLoading: false
+          });
+          console.log(xhr.responseText);
+        } else {
+          this.setState({
+            ValidateIsLoading: false
+          });
+          console.log(xhr.responseText);
+        }
       }
     };
 
@@ -29979,244 +31713,6 @@ class RecipesAdd extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
       url: '/v1/recipes/parse',
       data: JSON.stringify({
         "recipe": this.state.recipeField
-      }),
-      method: 'POST',
-      callBack: callBack,
-      headers: {
-        "content-type": "application/json"
-      },
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken
-    };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
-    req.props = settings;
-    req.withAuth();
-
-    if (this.myIsMounted) {
-      this.setState({
-        ValidateIsLoading: true
-      });
-    }
-
-    ; //const list = this.state.ingredient_list ;
-    // 'unknown', 'match', 'suggest'
-    //list.push( new GroupActionItem("hello A really really really", 'unknown'));
-    //list.push( new GroupActionItem("my super duper long", 'match'));
-    //list.push( new GroupActionItem("pretty amazing and extravigent...", 'suggest'));
-    //this.setState({ ingredient_list: list })
-  }
-
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
-      inner: "Add Recipe",
-      isLoggedIn: this.props.isLoggedIn
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-center " + "w3-content " + "w3-mobile "
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-      method: "POST",
-      className: "w3-card " + "w3-form ",
-      onSubmit: event => this.handleSubmit(event)
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-bar w3-center w3-padding w3-xlarge"
-    }, this.state.ocrisLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      htmlFor: "OCR",
-      "aria-label": "use picture"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-btn w3-hover-yellow fa fas fa-camera fa-spin",
-      "aria-hidden": "true"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      type: "file",
-      id: "OCR",
-      style: {
-        display: "none"
-      },
-      name: "uploadedfile",
-      accept: "image/*",
-      capture: true
-    })), !this.state.ocrisLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      htmlFor: "OCR",
-      "aria-label": "use picture"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-btn w3-hover-yellow fas fa-camera",
-      "aria-hidden": "true"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      type: "file",
-      id: "OCR",
-      style: {
-        display: "none"
-      },
-      name: "uploadedfile",
-      accept: "image/*",
-      capture: true,
-      onChange: event => this.handleImageUpload(event.target.files)
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      htmlFor: "addLink",
-      "aria-label": "use link"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      id: "addLink",
-      className: "w3-btn w3-hover-yellow fas fa-link",
-      onClick: () => this.toggleLink()
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      htmlFor: "upload",
-      "aria-label": "file upload"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-btn w3-hover-yellow fas fa-file-word",
-      "aria-hidden": "true"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      type: "file",
-      style: {
-        display: "none"
-      },
-      id: "upload",
-      onChange: event => this.handleFileUpload(event)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      htmlFor: "help",
-      hidden: true
-    }, "help"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      name: "help",
-      className: "w3-bar-item w3-right w3-btn w3-hover-yellow",
-      to: "#",
-      onClick: () => this.toggleHelp()
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "far fa-question-circle"
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      hidden: this.state.addLink
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      id: "addLink",
-      type: "text",
-      placeholder: "https://",
-      className: "w3-input",
-      onChange: event => this.handleLinkChange(event)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      htmlFor: "readlink",
-      "aria-label": "copy the recipie from this link"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-input w3-btn  w3-margin-bottom w3-hover-yellow",
-      onClick: () => this.readlink()
-    }, "Read Link")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-left-align",
-      hidden: this.state.viewHelp
-    }, "Having problems?", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Make sure you follow this template as closely as possibe.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "help"
-    }, "Or click here for the specifics"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-light-gray"
-    }, "Bacon and Egg tacos", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ingredients", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 pinch salt", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 pinch pepper", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 slice bacon", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "2 eggs", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 tortilla", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "directions", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Cook the bacon in a pan.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Drain grease leaving some in the pan.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Scramble 2 eggs put aside keep warm if possible.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Toast tortilla in pan, some bubbles may form before done toasting.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Plate by putting down toasted tortilla, eggs on top, then bacon. salt and pepper as desired.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-      rows: "15",
-      className: "w3-input w3-margin-16",
-      onChange: e => this.handleRecipeChange(e),
-      placeholder: "Paste Recipe here. You can also use the buttons above to import from a picture,web link, or plain text file.",
-      value: this.state.recipeField
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      type: "submit",
-      value: !this.props.isLoading ? "Review Recipe" : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fa fa-cog fa-spin fa-fw fa-3x"
-      }),
-      className: "w3-btn w3-block w3-hover-yellow"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-left-align",
-      hidden: this.state.viewHelp
-    }, "Once you click \"Review Recipe\" you will see a form below. You can click on the items and delete them before Adding the recipe. If you see '?' on ingredients this means you need to choose one of the given options.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "help"
-    }, "Click here for the specifics")), this.state.recipe_name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, this.state.recipe_name)) : '', this.state.is_duplicate ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: 'recipes/' + this.state.recipe_name
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-btn w3-orange"
-    }, "Duplicate")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Ingredient_List, {
-      items: this.state.ingredient_list,
-      ingredient_update: list => this.ingredient_update(list)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-padding"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Instructions_List, {
-      items: this.state.instructions,
-      instructions_update: list => this.instructions_update(list)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-padding"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Add_Recipe, {
-      name: this.state.recipe_name,
-      ingredients: this.state.ingredient_list,
-      instructions: this.state.instructions,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken
-    })))));
-  }
-
-}
-
-/***/ }),
-
-/***/ "./static/recipesEdit.js":
-/*!*******************************!*\
-  !*** ./static/recipesEdit.js ***!
-  \*******************************/
-/*! exports provided: RecipesEdit */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipesEdit", function() { return RecipesEdit; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
-
-
-
-
-
-class Add_Recipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      redirect: false
-    };
-    this.myIsMounted = false;
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.myIsMounted = true;
-  }
-
-  componentWillUnmount() {
-    this.myIsMounted = false;
-  }
-
-  handleSubmit() {
-    let callBack = xhr => {
-      //console.log(xhr.responseText);
-      let state = xhr.readyState;
-      let status = xhr.status;
-      let cat = Math.floor(status / 100);
-
-      if (state == 4 && status == 201) {
-        if (this.myIsMounted) {
-          this.setState({
-            isLoading: false,
-            redirect: true
-          });
-        }
-      } else if (state == 4 && cat != 2 && cat != 3) {
-        this.setState({
-          IsLoading: false
-        });
-        console.log(xhr.responseText);
-      }
-    };
-
-    const settings = {
-      url: '/v1/recipes',
-      data: JSON.stringify({
-        recipe_name: this.props.name,
-        ingredients: this.props.ingredients,
-        instructions: this.props.instructions
       }),
       method: 'POST',
       callBack: callBack,
@@ -30241,393 +31737,7 @@ class Add_Recipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
     ;
   }
 
-  is_done() {
-    let flag = true;
-
-    if (this.props.ingredients.length == 0) {
-      return false;
-    }
-
-    for (const item of this.props.ingredients) {
-      if (item.is_matching == 'some') {
-        flag = false;
-      }
-    }
-
-    return flag;
-  }
-
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-container w3-card",
-      style: this.props.ingredients.length == 0 ? {
-        display: 'none'
-      } : {}
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: (!this.is_done() ? 'w3-dissabled w3-red ' : 'w3-yellow ') + "w3-btn",
-      onClick: () => this.handleSubmit()
-    }, "Add Recipe"), this.state.redirect ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-      to: "/recipes"
-    }) : '');
-  }
-
-}
-
-class Instructions_List extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttons: new Set([{
-        action: "delete",
-        image: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-times"
-        }),
-        do: () => this.delete_items()
-      }]),
-      selectedItems: new Set()
-    };
-  }
-
-  render_item(item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item) ? "w3-border-yellow w3-rightbar" : ""),
-      key: item,
-      onClick: () => this.handleSelect(item)
-    }, item);
-  }
-
-  renderList() {
-    let list = [];
-
-    for (const item of this.props.items) {
-      list.push(this.render_item(item));
-    }
-
-    return list;
-  }
-
-  delete_items() {
-    const list = []; //rebuild list without selected items.
-
-    for (const item of this.props.items) {
-      if (!this.state.selectedItems.has(item)) {
-        list.push(item);
-      }
-    }
-
-    this.props.instructions_update(list);
-    const slist = new Set();
-    this.setState({
-      selectedItems: slist
-    });
-  }
-
-}
-
-class Ingredient_List extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttons: new Set([{
-        action: "delete",
-        image: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-times"
-        }),
-        do: () => this.delete_items()
-      }, {
-        action: "edit",
-        image: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "fas fa-check"
-        }),
-        do: () => this.check_items()
-      }]),
-      selectedItems: new Set()
-    };
-  }
-
-  renderItem(item) {
-    const type = {
-      no: 'fa fa-plus',
-      perfect: 'fas fa-link',
-      some: 'fas fa-question'
-    };
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-border-yellow " + (this.state.selectedItems.has(item.name) ? "w3-rightbar" : ""),
-      onClick: () => this.handleSelect(item.name),
-      key: item.name
-    }, item.name, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: (item.is_matching ? type[item.is_matching] : type['some']) + " w3-right " + " w3-large"
-    }));
-  }
-
-  renderList() {
-    let list = [];
-
-    for (const item of this.props.items) {
-      list.push(this.renderItem(item));
-
-      if (item["is_matching"] == 'some') {
-        for (const suggest of item['pantry']) {
-          //console.log(suggest);
-          list.push(this.renderItem(suggest));
-        }
-      }
-    }
-
-    return list;
-  }
-
-  check_items() {
-    const list = [];
-
-    for (let item of this.props.items) {
-      if (item.is_matching == 'some') {
-        const tempPantry = [];
-
-        for (const subItem of item.pantry) {
-          if (this.state.selectedItems.has(subItem.name)) {
-            tempPantry.push(subItem);
-          }
-        }
-
-        if (tempPantry.length == 1) {
-          //one sub item selected from list.
-          //use that and set is_matching on it.
-          //Unless there is a conflicting selection with the parent:
-          if (!this.state.selectedItems.has(item.name)) {
-            item = tempPantry[0];
-            item.is_matching = 'perfect';
-            item.pantry = tempPantry.splice();
-          } //if there is a conflicting match do nothing!
-
-        } else if (tempPantry.length == 0) {
-          // this is the case where the parent was selected
-          // but non of the childern were.
-          if (this.state.selectedItems.has(item.name)) {
-            item.pantry = [];
-            item.is_matching = 'no';
-          }
-        } else {
-          //if there is abiguity in the selection just keep what's selected.
-          item.pantry = tempPantry;
-        }
-      }
-
-      list.push(item);
-    }
-
-    this.props.ingredient_update(list);
-    const slist = new Set();
-    this.setState({
-      selectedItems: slist
-    });
-  }
-
-  delete_items() {
-    const list = []; //rebuild list without selected items.
-
-    for (const item of this.props.items) {
-      if (item.is_matching == 'some') {
-        const tempPantry = [];
-
-        for (const subItem of item.pantry) {
-          if (!this.state.selectedItems.has(subItem.name)) {
-            tempPantry.push(subItem);
-          }
-        }
-
-        if (tempPantry.length == 0) {
-          item.is_matching = 'no';
-        } else {
-          // there are options still available.
-          if (this.state.selectedItems.has(item.name)) {
-            // but those options had their parent deleted and they are orphans now.
-            if (tempPantry.length == 1) {
-              // but it was only one so that one became the only available match
-              const subItem = tempPantry[0];
-              subItem.is_matching = 'perfect';
-              list.push(subItem);
-            } else {
-              // but there were many options and it's ambigious so keep everything.
-              item.pantry = tempPantry;
-              list.push(item);
-            }
-          }
-
-          item.pantry = tempPantry;
-        }
-      }
-
-      if (!this.state.selectedItems.has(item.name)) {
-        list.push(item);
-      }
-    }
-
-    this.props.ingredient_update(list);
-    const slist = new Set();
-    this.setState({
-      selectedItems: slist
-    });
-  }
-
-}
-
-class RecipesEdit extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isFalied: false,
-      isPaste: false,
-      isUpload: false,
-      isCopy: false,
-      recipeField: '',
-      addLink: true,
-      viewHelp: true,
-      ocrisLoading: false,
-      ValidateIsLoading: false,
-      is_duplicate: false,
-      recipe_name: '',
-      ingredient_list: [],
-      instructions: []
-    };
-    this.myIsMounted = false; // These are just handlers being registered with the running process.
-
-    this.handleFileUpload = this.handleFileUpload.bind(this);
-    this.handleImageUpload = this.handleImageUpload.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleLink = this.toggleLink.bind(this);
-  }
-
-  ingredient_update(list) {
-    this.setState({
-      ingredient_list: list
-    });
-  }
-
-  instructions_update(list) {
-    this.setState({
-      instructions: list
-    });
-  }
-
-  componentDidMount() {
-    this.myIsMounted = true;
-
-    if (this.check_compat_video()) {// Good to go!
-    } else {
-      console.log('This browser only supports uploading pre-saved images.');
-    }
-  }
-
-  componentWillUnmount() {
-    this.myIsMounted = false;
-  }
-
-  handleFileUpload(event) {
-    let files = event.target.files;
-
-    for (let i = 0, f; f = files[i]; i++) {
-      if (!f.type.match('text/.*')) {
-        alert("Must be a text only file");
-        continue;
-      }
-
-      let reader = new FileReader(); // Closure to capture the file information.
-
-      reader.onload = e => {
-        if (this.myIsMounted) {
-          this.setState({
-            recipeField: e.target.result
-          });
-        }
-      }; // Read in the image file as a data URL.
-
-
-      reader.readAsText(f);
-    }
-  }
-
-  handleImageUpload(files) {
-    for (let i = 0, f; f = files[i]; i++) {
-      if (!f.type.match('image/.*')) {
-        alert("Must be a image file");
-      } else {
-        let callBack = xhr => {
-          //console.log(xhr.responseText);
-          let state = xhr.readyState;
-          let status = xhr.status;
-          let cat = Math.floor(status / 100);
-
-          if (state == 4 && status == 200) {
-            const recipeText = JSON.parse(xhr.responseText)['text'];
-
-            if (this.myIsMounted) {
-              this.setState({
-                ocrisLoading: false,
-                recipeField: recipeText
-              });
-            }
-          } else if (state == 4 && cat != '2' && cat != '3') {
-            this.setState({
-              ocrisLoading: false,
-              recipeField: xhr.responseText
-            });
-          }
-        };
-
-        let formData = new FormData(); //console.log(f);
-
-        formData.append('file', f, f.name); //console.log(formData.has('file'))
-
-        const settings = {
-          url: '/v1/recipes/ocr',
-          data: formData,
-          is_file_upload: true,
-          method: 'POST',
-          callBack: callBack,
-          accessToken: this.props.accessToken,
-          refreshToken: this.props.refreshToken,
-          isNotLoggedIn: this.props.isNotLoggedIn,
-          updateAccessToken: this.props.updateAccessToken
-        };
-        let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
-        req.props = settings;
-        req.withAuth();
-
-        if (this.myIsMounted) {
-          this.setState({
-            ocrisLoading: true
-          });
-        }
-      }
-    }
-  }
-
-  handleRecipeChange(event) {
-    if (this.myIsMounted) {
-      this.setState({
-        recipeField: event.target.value
-      });
-    }
-  }
-
-  toggleLink() {
-    this.setState({
-      addLink: !this.state.addLink
-    });
-  }
-
-  toggleHelp() {
-    this.setState({
-      viewHelp: !this.state.viewHelp
-    });
-  }
-
-  check_compat_video() {
-    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-  }
-
-  handleSubmit(event) {
+  handleDelete(event) {
     event.preventDefault();
 
     let callBack = xhr => {
@@ -30641,27 +31751,24 @@ class RecipesEdit extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
 
         if (this.myIsMounted) {
           this.setState({
-            ocrisLoading: false,
-            recipe_name: recipe['name'],
-            is_duplicate: recipe['is_duplicate'],
-            ingredient_list: recipe['ingredients'],
-            instructions: recipe['instructions']
+            DeleteIsLoading: false,
+            isDeleted: true
           });
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
         this.setState({
-          ValidateIsLoading: false
+          DeleteIsLoading: false
         });
         console.log(xhr.responseText);
       }
     };
 
     const settings = {
-      url: '/v1/recipes/parse',
+      url: '/v1/recipes/' + this.state.recipe_name,
       data: JSON.stringify({
         "recipe": this.state.recipeField
       }),
-      method: 'POST',
+      method: 'DELETE',
       callBack: callBack,
       headers: {
         "content-type": "application/json"
@@ -30677,37 +31784,104 @@ class RecipesEdit extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
 
     if (this.myIsMounted) {
       this.setState({
+        DeleteIsLoading: true
+      });
+    }
+
+    ;
+  }
+
+  renderThisRecipe() {
+    //console.log(this.props.location);
+    const {
+      pathname
+    } = this.props.location; //console.log(pathname);
+
+    const recipeName = pathname.replace('/recipes/', ''); //console.log(recipeName);
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        //console.log(JSON.parse(xhr.responseText))
+        const recipe = JSON.parse(xhr.responseText)['name'];
+        let ingredients = JSON.parse(xhr.responseText)['ingredients'];
+
+        let dedupDisplay = x => {
+          if (x['amount_measure'] == x['name']) {
+            return x['amount'] + ' ' + x['amount_measure'];
+          } else {
+            return x['amount'] + ' ' + x['amount_measure'] + ' ' + x['name'];
+          }
+        };
+
+        let ingredients_display = ingredients.map(x => dedupDisplay(x));
+        let instructions = JSON.parse(xhr.responseText)['instructions'];
+        let recipeText = recipe.concat('\n', '\n', 'Ingredients', '\n', ingredients_display.join('\n'), '\n', '\n', 'Directions', '\n', instructions);
+        instructions = instructions.split('\n');
+
+        if (this.myIsMounted) {
+          this.setState({
+            ValidateIsLoading: false,
+            recipe_name: recipe,
+            recipeField: recipeText
+          });
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({
+          ValidateIsLoading: false
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/recipes/' + recipeName,
+      method: 'GET',
+      callBack: callBack,
+      accessToken: this.props.accessToken,
+      refreshToken: this.props.refreshToken,
+      isNotLoggedIn: this.props.isNotLoggedIn,
+      updateAccessToken: this.props.updateAccessToken
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
         ValidateIsLoading: true
       });
     }
 
-    ; //const list = this.state.ingredient_list ;
-    // 'unknown', 'match', 'suggest'
-    //list.push( new GroupActionItem("hello A really really really", 'unknown'));
-    //list.push( new GroupActionItem("my super duper long", 'match'));
-    //list.push( new GroupActionItem("pretty amazing and extravigent...", 'suggest'));
-    //this.setState({ ingredient_list: list })
+    ;
   }
 
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
-      inner: "Edit Recipe",
+      history: this.props.history,
+      inner: (this.props.is_edit ? 'Edit' : 'Add') + " Recipe",
       isLoggedIn: this.props.isLoggedIn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-margin w3-row-padding"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-center " + "w3-content " + "w3-mobile "
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      className: "w3-content "
+    }, this.state.recipe_name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      className: "w3-card"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, this.state.recipe_name)) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
       method: "POST",
-      className: "w3-card " + "w3-form ",
+      className: "w3-card " + "w3-round-large" + "w3-form ",
       onSubmit: event => this.handleSubmit(event)
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-bar w3-center w3-padding w3-xlarge"
+      className: "w3-bar w3-padding w3-xlarge"
     }, this.state.ocrisLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
       htmlFor: "OCR",
       "aria-label": "use picture"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-btn w3-hover-yellow fa fas fa-camera fa-spin",
+      className: "w3-btn w3-hover-yellow fa fas fa-print fa-spin",
       "aria-hidden": "true"
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "file",
@@ -30722,7 +31896,7 @@ class RecipesEdit extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
       htmlFor: "OCR",
       "aria-label": "use picture"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-btn w3-hover-yellow fas fa-camera",
+      className: "w3-btn w3-hover-yellow fas fa-print",
       "aria-hidden": "true"
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "file",
@@ -30764,7 +31938,21 @@ class RecipesEdit extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
       onClick: () => this.toggleHelp()
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
       className: "far fa-question-circle"
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })), this.props.is_edit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      htmlFor: "delete",
+      "aria-label": "delete this recipe"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "w3-btn w3-hover-yellow fas fa-trash-alt",
+      "aria-hidden": "true"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      style: {
+        display: "none"
+      },
+      id: "delete",
+      onClick: event => this.handleDelete(event)
+    })) : '', this.state.isDeleted && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+      to: "/recipes"
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       hidden: this.state.addLink
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       id: "addLink",
@@ -30781,49 +31969,42 @@ class RecipesEdit extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
     }, "Read Link")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-left-align",
       hidden: this.state.viewHelp
-    }, "Having problems?", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Make sure you follow this template as closely as possibe.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }, "Having problems?", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Make sure you follow this template as closely as possible.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "help"
     }, "Or click here for the specifics"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-light-gray"
-    }, "Bacon and Egg tacos", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ingredients", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 pinch salt", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 pinch pepper", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 slice bacon", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "2 eggs", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 tortilla", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "directions", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Cook the bacon in a pan.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Drain grease leaving some in the pan.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Scramble 2 eggs put aside keep warm if possible.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Toast tortilla in pan, some bubbles may form before done toasting.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Plate by putting down toasted tortilla, eggs on top, then bacon. salt and pepper as desired.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+    }, "Bacon and Egg tacos", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ingredients", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 pinch salt", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 pinch pepper", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 slice bacon", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "2 eggs", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1 tortilla", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "directions", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Cook the bacon in a pan.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Drain grease leaving some in the pan.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Scramble 2 eggs put aside keep warm if possible.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Toast tortilla in pan, some bubbles may form before done toasting.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Plate by putting down toasted tortilla, eggs on top, then bacon. salt and pepper as desired.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
       rows: "15",
       className: "w3-input w3-margin-16",
       onChange: e => this.handleRecipeChange(e),
-      placeholder: "Paste Recipe here. You can also use the buttons above to import from a picture,web link, or plain text file.",
+      placeholder: "Type or Paste here.",
       value: this.state.recipeField
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       type: "submit",
       value: !this.props.isLoading ? "Review Recipe" : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-cog fa-spin fa-fw fa-3x"
       }),
-      className: "w3-btn w3-block w3-hover-yellow"
+      className: "w3-btn w3-input w3-block w3-hover-yellow"
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-left-align",
       hidden: this.state.viewHelp
     }, "Once you click \"Review Recipe\" you will see a form below. You can click on the items and delete them before Adding the recipe. If you see '?' on ingredients this means you need to choose one of the given options.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "help"
-    }, "Click here for the specifics")), this.state.recipe_name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, this.state.recipe_name)) : '', this.state.is_duplicate ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: 'recipes/' + this.state.recipe_name
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-btn w3-orange"
-    }, "Duplicate")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Ingredient_List, {
+    }, "Click here for the specifics")), this.state.new_recipe_name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, this.state.new_recipe_name)) : '', this.state.new_recipe_name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Ingredient_List, {
       items: this.state.ingredient_list,
       ingredient_update: list => this.ingredient_update(list)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-padding"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Instructions_List, {
+    }), this.state.new_recipe_name ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Instructions_List, {
       items: this.state.instructions,
       instructions_update: list => this.instructions_update(list)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-padding"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Add_Recipe, {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Action_Recipe, _extends({}, this.props, {
       name: this.state.recipe_name,
+      new_name: this.state.new_recipe_name,
       ingredients: this.state.ingredient_list,
-      instructions: this.state.instructions,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken
+      instructions: this.state.instructions
     })))));
   }
 
@@ -30855,12 +32036,13 @@ class RecipesHelp extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
 
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+      history: this.props.history,
       inner: "Add Recipe",
       isLoggedIn: this.props.isLoggedIn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-margin w3-row-padding"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-center " + "w3-content " + "w3-mobile "
+      className: "w3-content "
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-white w3-left-align w3-card"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Recipe Definition"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "title"), "Any text can be here, it's ignored", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Any text can be here, it's ignored", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Any text can be here, it's ignored", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "ingredients"), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "directions"), "step 1", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "step 2", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "step 3", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Explination"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1. The top most line is always the title of the recipe.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "2. The next section starts with the word \"ingredients\"", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "3. This section has one ingredient per line. 4. The next section starts with one of \"make it\" or \"instructions\" or \"directions\" on it.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "5. This section can have any plain text in it, it's broken up per line"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, " Numbers "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " Numbers must be of the following forms to be recognized"), "1 2/3", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1/2", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1.2", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " Lastly when parentheses are seen something special happens "), "Tomato Juice 1 cup (2 cans)", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " The part with the parentheses is stripped out. One day I may start using this information. But as of right now it's ignored. so the following is invalid: "), "Tomato Juice (2 cans)", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)))));
@@ -30870,65 +32052,60 @@ class RecipesHelp extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
 
 /***/ }),
 
-/***/ "./static/recipesView.js":
+/***/ "./static/recipesList.js":
 /*!*******************************!*\
-  !*** ./static/recipesView.js ***!
+  !*** ./static/recipesList.js ***!
   \*******************************/
-/*! exports provided: RecipesView */
+/*! exports provided: RecipesList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipesView", function() { return RecipesView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipesList", function() { return RecipesList; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
 /* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 
 
 
-class RecipesList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
+const color = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
+
+class Recipes extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"] {
   constructor(props) {
     super(props);
     this.state = {
-      buttons: new Set(),
-      selectedItems: new Set(),
-      redirect: false
+      buttons: new Set([]),
+      selectedItems: new Set()
     };
   }
 
   render_item(item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item.name) ? "w3-border-yellow w3-rightbar" : ""),
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       key: item.name,
-      onClick: () => this.handleSelect(item.name)
-    }, item.name, this.state.redirect ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-      to: '/recipes/' + this.state.redirect
-    }) : '');
-  }
-
-  renderList() {
-    let list = [];
-
-    for (const item of this.props.items) {
-      list.push(this.render_item(item));
-    }
-
-    return list;
-  }
-
-  handleSelect(item) {
-    this.setState({
-      redirect: item
-    });
+      to: '/recipes/view/' + item.name
+    }, item.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      className: "cover",
+      src: item.imagePath,
+      width: "100%"
+    }) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item.name) ? "w3-border-yellow w3-rightbar" : "")
+    }, item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-right w3-badge " + color.random()
+    }, item.value), item.keepStocked ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      "aria-label": "use picture"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "w3-right w3-margin-right w3-large fas fa-cart-arrow-down"
+    })) : ''));
   }
 
 }
 
-class RecipesView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class RecipesList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30972,10 +32149,7 @@ class RecipesView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
       data: '{}',
       method: 'GET',
       callBack: callBack,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken
+      ...this.props
     };
     this.setState({
       is_loading: true
@@ -30986,19 +32160,20 @@ class RecipesView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
 
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+      history: this.props.history,
       inner: "Recipes",
       isLoggedIn: this.props.isLoggedIn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-container"
+      className: "w3-margin w3-row-padding"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-display-middle w3-twothird w3-container"
+      className: "w3-content"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "/recipes/add"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       className: "w3-orange w3-hover-yellow w3-btn w3-block w3-card"
-    }, "New Recipe")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RecipesList, {
+    }, "New Recipe")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Recipes, _extends({
       items: this.state.recipes
-    }))));
+    }, this.props)))));
   }
 
 }
@@ -31086,13 +32261,16 @@ class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+      history: this.props.history,
       inner: "Sign up",
       isLoggedIn: this.props.isLoggedIn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-display"
+      className: "w3-margin w3-row-padding"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "w3-content"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
       method: "POST",
-      className: "w3-display-middle " + "w3-card " + "w3-round " + "w3-form " + (this.state.isFailed ? color.random() : ""),
+      className: "w3-card " + "w3-round " + "w3-form " + (this.state.isFailed ? color.random() : ""),
       onSubmit: event => this.handleSubmit(event)
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-container w3-margin-top"
@@ -31124,23 +32302,23 @@ class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
         className: "fa fa-cog fa-spin fa-fw fa-3x"
       }),
       className: "w3-btn w3-hover-yellow"
-    }))))));
+    })))))));
   }
 
 }
 
 /***/ }),
 
-/***/ "./static/shoppingView.js":
+/***/ "./static/shoppingList.js":
 /*!********************************!*\
-  !*** ./static/shoppingView.js ***!
+  !*** ./static/shoppingList.js ***!
   \********************************/
-/*! exports provided: ShoppingView */
+/*! exports provided: ShoppingList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShoppingView", function() { return ShoppingView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShoppingList", function() { return ShoppingList; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
@@ -31150,64 +32328,41 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-class ShoppingItem extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      key: this.props.name,
-      className: "w3-list-item"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-bar w3-left"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: '/inventory/' + this.props.name
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-bar-item w3-button w3-hover-yellow"
-    }, this.props.name + ", " + this.props.amount_pkg + " " + this.props.amount_measure)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-right"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      "aria-label": "re-add this package",
-      className: "w3-bar-item w3-large w3-hover-yellow w3-button"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fas fa-check"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      "aria-label": "add a different amount",
-      className: "w3-bar-item w3-large w3-hover-yellow w3-button"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "fas fa-edit"
-    })))));
-  }
-
-}
-
 class ShoppingList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: []
+      recipes: [],
+      is_loading: false
     };
+    this.myIsMounted = false;
   }
 
   componentDidMount() {
     this.myIsMounted = true;
-    this.renderData();
+    this.renderRecipes();
   }
 
   componentWillUnmount() {
     this.myIsMounted = false;
   }
 
-  renderData() {
+  renderRecipes() {
     let callBack = xhr => {
       //console.log(xhr.responseText);
       if (xhr.readyState == 4 && xhr.status == 200) {
-        const json = JSON.parse(xhr.responseText);
+        const json = JSON.parse(xhr.responseText); //console.log(json)
 
         if (this.myIsMounted) {
           this.setState({
-            list: json.list
+            recipes: json.list,
+            is_loading: false
           });
         }
       } else if (xhr.readyState == 4) {
+        this.setState({
+          is_loading: false
+        });
         console.log("Short Status " + xhr.status);
       }
     };
@@ -31217,53 +32372,31 @@ class ShoppingList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       data: '{}',
       method: 'GET',
       callBack: callBack,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken
+      ...this.props
     };
+    this.setState({
+      is_loading: true
+    });
     let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
     req.withAuth();
   }
 
-  renderList() {
-    const items = [];
-
-    const build = i => {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ShoppingItem, {
-        key: i.name,
-        name: i.name,
-        amount_pkg: i.amount_pkg,
-        amount_measure: i.amount_measure,
-        update: () => this.renderData()
-      });
-    };
-
-    return this.state.list.map(build);
-  }
-
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-      className: "w3-ul"
-    }, this.renderList());
-  }
-
-}
-
-class ShoppingView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   render() {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
-      inner: "Shopping list",
+      history: this.props.history,
+      inner: "Shopping",
       isLoggedIn: this.props.isLoggedIn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-display"
+      className: "w3-margin w3-row-padding"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-display-middle w3-twothird w3-card w3-container"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ShoppingList, {
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      updateAccessToken: this.props.updateAccessToken,
-      isNotLoggedIn: this.props.isNotLoggedIn
+      className: "w3-content"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/pantry/add"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "w3-orange w3-hover-yellow w3-btn w3-block w3-card"
+    }, "New Ingredient")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_js__WEBPACK_IMPORTED_MODULE_3__["GroupActionList"], {
+      path: "/pantry",
+      items: this.state.recipes
     }))));
   }
 
@@ -31275,13 +32408,14 @@ class ShoppingView extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 /*!*************************!*\
   !*** ./static/utils.js ***!
   \*************************/
-/*! exports provided: Request, W3Color, GroupActionItem, GroupActionList */
+/*! exports provided: Request, W3Color, thumbnail, GroupActionItem, GroupActionList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Request", function() { return Request; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "W3Color", function() { return W3Color; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "thumbnail", function() { return thumbnail; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupActionItem", function() { return GroupActionItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupActionList", function() { return GroupActionList; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -31377,6 +32511,14 @@ class W3Color {
   }
 
 }
+function thumbnail(item) {
+  return item.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "cover",
+    src: item.imagePath,
+    height: "300px",
+    width: "100%"
+  }) : "";
+}
 class GroupActionItem {
   constructor(name, is_matching) {
     //for now all this does is prototype this item. Making
@@ -31393,16 +32535,36 @@ class GroupActionList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compo
       buttons: new Set(),
       selectedItems: new Set(),
       scroll: 50,
-      ticking: false
+      ticking: false,
+      path: this.props.path
     };
   }
 
   render_item(item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item) ? "w3-border-yellow w3-rightbar" : ""),
-      key: item,
-      onClick: () => this.handleSelect(item)
-    }, item);
+    let viewAmount = 0;
+    let color = 'w3-green';
+    item.viewAmount > 1 ? viewAmount = 1 : viewAmount = item.viewAmount;
+
+    if (viewAmount <= 0.5) {
+      color = 'w3-yellow';
+    }
+
+    if (viewAmount <= 0.25) {
+      color = 'w3-red';
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      key: item.name,
+      to: this.state.path + '/' + item.name
+    }, thumbnail(item), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item.name) ? "w3-border-yellow w3-rightbar" : "")
+    }, item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: color,
+      style: {
+        height: "4px",
+        width: 100 * item.viewAmount + "%"
+      }
+    })));
   }
 
   renderList() {
@@ -31478,7 +32640,7 @@ class GroupActionList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compo
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "w3-cell-row"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-      className: "w3-cell w3-ul w3-border-yellow w3-round" + (this.state.selectedItems.size > 0 ? "s9 m9 l11 w3-rightbar" : "") //   ( this.state.selectedItems.size > 0 ? "w3-rightbar": "" )
+      className: "w3-cell w3-ul w3-border-yellow w3-round-xlarge" + (this.state.selectedItems.size > 0 ? "s9 m9 l11 w3-rightbar" : "") //   ( this.state.selectedItems.size > 0 ? "w3-rightbar": "" )
 
     }, this.renderList()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: (this.state.selectedItems.size > 0 ? "w3-cell w3-cell-top s3 m3 l1 " : "") + " " + "w3-bar-block w3-orange w3-round",

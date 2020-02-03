@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Header } from './header.js';
 import { W3Color, Request, GroupActionList } from './utils.js';
 
@@ -34,7 +34,8 @@ class Catagories extends GroupActionList {
   renderList(){
     let list = [];
     list.push(this.render_item( { name: 'recipes', value: this.props.recipes } ));
-    list.push(this.render_item( { name: 'shopping list', value: this.props.shopping } ));
+    list.push(this.render_item( { name: 'mealplans', value: this.props.mealplan } ));
+    list.push(this.render_item( { name: 'shopping', value: this.props.shopping } ));
     list.push(this.render_item( { name: 'pantry', value: this.props.pantry } ));
     return list;
   }
@@ -46,6 +47,7 @@ export class CatagoryList extends React.Component {
     this.state = {
       pantry: 0,
       recipes: 0,
+      mealplan: 0,
       shopping: 0,
       done: false
     };
@@ -63,8 +65,9 @@ export class CatagoryList extends React.Component {
 
   updateLists(json) {
     this.setState({
-      pantry: json.ingredients,
       recipes: json.recipes,
+      meaplan: json.mealplan,
+      pantry: json.ingredients,
       shopping: json.shopping,
       done: true
     });
@@ -99,12 +102,11 @@ export class CatagoryList extends React.Component {
   render() {
     return(
       <>
-        <Header inner="Catagories" isLoggedIn={ this.props.isLoggedIn } />
+        <Header history={ this.props.history } inner="Catagories" isLoggedIn={ this.props.isLoggedIn } />
         <div className="w3-margin w3-row-padding">
-          <div className={"w3-center " +
-                          "w3-content " +
-                          "w3-mobile "} >
+          <div className={"w3-content "} >
             <Catagories recipes={ this.state.recipes }
+                        mealplan={ this.state.mealplan }
                         shopping={this.state.shopping }
                         pantry={this.state.pantry }
                         { ...this.props }

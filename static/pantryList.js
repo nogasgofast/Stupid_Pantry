@@ -4,28 +4,6 @@ import { Header } from './header.js';
 import { Request, GroupActionList } from './utils.js';
 
 
-class Pantry extends GroupActionList {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttons: new Set(),
-      selectedItems: new Set() };
-    }
-
-    render_item(item){
-      return <Link key={ item.name } to={'/recipes/' + item.name } >
-               <li className={"w3-card w3-left-align " +
-                 (this.state.selectedItems.has(item.name) ?
-                 "w3-border-yellow w3-rightbar" :
-                 "")}>
-                  { item.name+" "+
-                    item.viewAmount+" "+
-                    (item.amount_measure ? item.amount_measure : '') }
-              </li>
-            </Link>
-    }
-}
-
 export class PantryList extends React.Component {
   constructor(props){
     super(props);
@@ -77,12 +55,14 @@ export class PantryList extends React.Component {
   render() {
     return(
       <>
-        <Header inner="Pantry" isLoggedIn={this.props.isLoggedIn} />
-          <div className="w3-container w3-padding">
-            <Link to="/pantry/add">
-              <button className="w3-orange w3-hover-yellow w3-btn w3-block w3-card" >New Ingredient</button>
-            </Link>
-            <Pantry  items={ this.state.recipes } />
+        <Header history={ this.props.history } inner="Pantry" isLoggedIn={this.props.isLoggedIn} />
+          <div className="w3-margin w3-row-padding">
+            <div className="w3-content">
+              <Link to="/pantry/add">
+                <button className="w3-orange w3-hover-yellow w3-btn w3-block w3-card" >New Ingredient</button>
+              </Link>
+              <GroupActionList path={ '/pantry' } items={ this.state.recipes } />
+            </div>
           </div>
       </>
     )

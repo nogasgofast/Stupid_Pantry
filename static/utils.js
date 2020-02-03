@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 export class Request extends React.Component {
   withAuth() {
@@ -85,6 +85,14 @@ export class W3Color{
   }
 }
 
+export function thumbnail(item) {
+  return  (item.imagePath ? (
+            <img className="cover"
+              src={ item.imagePath }
+              height="300px"
+              width="100%"  />) :
+            "" )
+}
 
 export class GroupActionItem {
   constructor(name, is_matching) {
@@ -102,17 +110,33 @@ export class GroupActionList extends React.Component {
       buttons: new Set(),
       selectedItems: new Set(),
       scroll: 50,
-      ticking: false
+      ticking: false,
+      path: this.props.path
     };
   }
 
   render_item(item){
-    return <li className={"w3-card w3-left-align " +
-               (this.state.selectedItems.has(item) ?
-               "w3-border-yellow w3-rightbar" :
-               "")}
-               key={ item }
-               onClick={() => this.handleSelect(item)}>{ item }</li>
+    let viewAmount = 0
+    let color = 'w3-green'
+    item.viewAmount > 1 ? viewAmount = 1 : viewAmount = item.viewAmount
+    if ( viewAmount <= 0.5 ){
+      color = 'w3-yellow'
+    }
+    if ( viewAmount <= 0.25){
+      color = 'w3-red'
+    }
+    return <Link key={ item.name } to={ this.state.path + '/' + item.name } >
+              { thumbnail(item) }
+              <li className={"w3-card w3-left-align " +
+                 (this.state.selectedItems.has(item.name) ?
+                 "w3-border-yellow w3-rightbar" :
+                 "")}>
+                  { item.name }
+                  <div className={ color }
+                       style={{height:"4px",
+                               width: 100 * item.viewAmount + "%" }}></div>
+              </li>
+          </Link>
   }
 
   renderList(){
@@ -173,7 +197,7 @@ export class GroupActionList extends React.Component {
   render() {
     return (
       <div className="w3-cell-row">
-        <ul className={"w3-cell w3-ul w3-border-yellow w3-round" +
+        <ul className={"w3-cell w3-ul w3-border-yellow w3-round-xlarge" +
                        ( this.state.selectedItems.size > 0 ? "s9 m9 l11 w3-rightbar": "" )
                     //   ( this.state.selectedItems.size > 0 ? "w3-rightbar": "" )
                      }  >

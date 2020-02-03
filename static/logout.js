@@ -23,17 +23,16 @@ export class LogoutForm extends React.Component {
   render() {
     return (
       <>
-        <Header inner="Logout" isLoggedIn={this.props.isLoggedIn} />
-        <div className="w3-display">
-          <div className="w3-card w3-container w3-xxlarge w3-display-middle">
-            <div className="w3-bar w3-container w3-center w3-padding-32">
-              <button onClick={this.handleAffirmative} className="w3-btn w3-padding w3-hover-yellow w3-margin-bottom">
-                Sure!
-              </button>
-              <button onClick={this.handleDenied} className="w3-btn w3-hover-yellow">
-                Nah!
-              </button>
-            </div>
+        <Header history={ this.props.history } inner="Logout"
+                isLoggedIn={this.props.isLoggedIn} />
+        <div className="w3-margin w3-row-padding" >
+          <div className="w3-card w3-content">
+          <button onClick={this.handleAffirmative} className="w3-btn w3-block w3-bar-item w3-hover-yellow">
+            Logout
+          </button>
+          <button onClick={this.handleDenied} className="w3-btn w3-block w3-bar-item w3-hover-yellow">
+            Return
+          </button>
           </div>
         </div>
       </>

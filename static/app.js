@@ -1,15 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Redirect, Switch, Link, withRouter } from "react-router-dom";
-import { LoginForm } from './login.js' ;
-import { LogoutForm } from './logout.js' ;
-import { RegisterForm } from './register.js' ;
+import { LoginForm } from './login.js';
+import { LogoutForm } from './logout.js';
+import { RegisterForm } from './register.js';
 import { CatagoryList } from './catagoryList.js';
 import { ShoppingList } from './shoppingList.js';
 import { PantryList } from './pantryList.js';
 import { RecipesList } from './recipesList.js';
+import { MealPlanList } from './mealPlanList.js';
 import { RecipesHelp } from './recipesHelp.js';
 import { RecipeForm } from './recipeForm.js';
+import { IngredientForm } from './ingredientForm.js';
+import { MealPlanForm } from './mealPlanForm.js';
 import { RecipeDisplay } from './recipeDisplay.js';
 
 const ProtectedRoute = ({component: Component, isLoggedIn, ...rest}) => (
@@ -55,15 +58,15 @@ class App extends React.Component {
   //<Redirect to={this.props.location.prev} />
   render() {
     const preProps = {
-                    isLoggedIn: this.state.isLoggedIn,
-                    accessToken: this.state.accessToken,
-                    refreshToken: this.state.refreshToken,
-                    setLoggedIn: () => this.setLoggedIn(),
-                    setNotLoggedIn: () => this.setNotLoggedIn(),
-                    // I may want to combine these into a more useable single function
-                    // since they alsmot do the same thing.
-                    updateAccessToken: (access) => this.updateAccessToken(access),
-                    updateAllTokens: (access,refresh) => this.updateAllTokens(access,refresh)};
+      isLoggedIn: this.state.isLoggedIn,
+      accessToken: this.state.accessToken,
+      refreshToken: this.state.refreshToken,
+      setLoggedIn: () => this.setLoggedIn(),
+      setNotLoggedIn: () => this.setNotLoggedIn(),
+      // I may want to combine these into a more useable single function
+      // since they alsmot do the same thing.
+      updateAccessToken: (access) => this.updateAccessToken(access),
+      updateAllTokens: (access,refresh) => this.updateAllTokens(access,refresh)};
     return (
       <Switch>
         <Route path="/register"
@@ -77,13 +80,23 @@ class App extends React.Component {
                         path="/" {...preProps}
                         to="/nav"
                         component={ Redirect } />
-        <ProtectedRoute path="/pantry" {...preProps}
+        <ProtectedRoute exact
+                        path="/pantry" {...preProps}
                         component={ PantryList } />
-        <ProtectedRoute path="/shopping list" {...preProps}
+        <ProtectedRoute path="/pantry/" {...preProps}
+                        is_edit={ true }
+                        component={ IngredientForm } />
+        <ProtectedRoute path="/shopping" {...preProps}
                         component={ ShoppingList } />
         <ProtectedRoute exact
                         path="/recipes" {...preProps}
                         component={ RecipesList } />
+        <ProtectedRoute exact
+                        path="/mealplans" {...preProps}
+                        component={ MealPlanList } />
+        <ProtectedRoute path="/mealplans/edit" {...preProps}
+                        is_edit={ true }
+                        component={ MealPlanForm } />
         <ProtectedRoute exact
                         path="/recipes/add" {...preProps}
                         is_edit={ false }

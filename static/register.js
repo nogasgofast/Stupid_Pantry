@@ -52,42 +52,44 @@ export class RegisterForm extends React.Component {
   render () {
     return  (
       <>
-        <Header inner="Sign up" isLoggedIn={this.props.isLoggedIn} />
-        <div className="w3-display">
-          <form method="POST"
-                className={"w3-display-middle " +
-                        "w3-card " +
-                        "w3-round " +
-                        "w3-form " +
-                        (this.state.isFailed ? color.random() : "")}
-                onSubmit={(event) => this.handleSubmit(event)} >
-            <div className={"w3-container w3-margin-top" }>
-              { this.message }
-              <label htmlFor="username" hidden={true}>
-                username:
-              </label>
-              <input  type="text"
-                      className="w3-input w3-round w3-padding-16"
-                      value={ this.state.username }
-                      placeholder="username"
-                      name="username"
-                      onChange={(event) => this.handleChangeUser(event)} />
-              <label htmlFor="password" hidden={true}>
-                password:
-              </label>
-              <input  type="password"
-                      className="w3-input w3-round w3-padding-16"
-                      value={ this.state.password }
-                      placeholder="password"
-                      name="password"
-                      onChange={(event) => this.handleChangePass(event)} />
-              <div className="w3-container w3-center w3-padding-16">
-                <input  type="submit"
-                        value={ !this.props.isLoading ? "Sign Up!" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) }
-                        className="w3-btn w3-hover-yellow" />
-              </div>
-            </div>
-          </form>
+        <Header history={ this.props.history }
+                inner="Sign up" isLoggedIn={this.props.isLoggedIn} />
+          <div className="w3-margin w3-row-padding">
+            <div className="w3-content">
+              <form method="POST"
+                    className={ "w3-card " +
+                                "w3-round " +
+                                "w3-form " +
+                                (this.state.isFailed ? color.random() : "")}
+                    onSubmit={(event) => this.handleSubmit(event)} >
+                <div className={"w3-container w3-margin-top" }>
+                  { this.message }
+                  <label htmlFor="username" hidden={true}>
+                    username:
+                  </label>
+                  <input  type="text"
+                          className="w3-input w3-round w3-padding-16"
+                          value={ this.state.username }
+                          placeholder="username"
+                          name="username"
+                          onChange={(event) => this.handleChangeUser(event)} />
+                  <label htmlFor="password" hidden={true}>
+                    password:
+                  </label>
+                  <input  type="password"
+                          className="w3-input w3-round w3-padding-16"
+                          value={ this.state.password }
+                          placeholder="password"
+                          name="password"
+                          onChange={(event) => this.handleChangePass(event)} />
+                  <div className="w3-container w3-center w3-padding-16">
+                    <input  type="submit"
+                            value={ !this.props.isLoading ? "Sign Up!" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) }
+                            className="w3-btn w3-hover-yellow" />
+                  </div>
+                </div>
+              </form>
+          </div>
         </div>
       </>
     )

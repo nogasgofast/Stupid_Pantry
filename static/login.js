@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { Header } from './header.js';
 import { W3Color } from './utils.js';
 
@@ -28,7 +28,7 @@ export class LoginForm extends React.Component {
     super(props);
     this.state = { username: '',
                    password: '',
-                   isFailed: false,
+                   color: '',
                    isLoading: false};
     this.myIsMounted = false;
     this.handleChangeUser = this.handleChangeUser.bind(this);
@@ -96,35 +96,34 @@ export class LoginForm extends React.Component {
         this.props.history.push("/");
       }
     }else if (xhr.status == 401){
-      this.myIsMounted && this.setState({isFailed: true,
-                                        isLoading: false});
+      const acolor = color.random()
+      this.myIsMounted && this.setState({color: acolor,
+                                         isLoading: false});
     }
   }
 
   render () {
     return  (
       <>
-        <Header inner="Login" isLoggedIn={this.props.isLoggedIn} />
-        <div className="w3-display">
+        { this.props.isLoggedIn ? (<Redirect to='/nav' />) : '' }
+        <Header history={ this.props.history } inner="Login" isLoggedIn={this.props.isLoggedIn} />
+        <div className={"w3-margin w3-row-padding" + this.state.color }>
+          <div className="w3-content" >
           <form method="POST"
-                className={"w3-display-middle " +
-                        "w3-card " +
-                        "w3-round " +
-                        "w3-form "}
+                className={"w3-card w3-container w3-padding-32" +
+                           "w3-form "}
                 onSubmit={(event) => this.handleSubmit(event)} >
-            <div className={"w3-container w3-margin-top " +
-                            (this.state.isFailed ? color.random() : "")
-                           }>
+            <div className= "w3-container w3-margin-top" >
               { this.state.isFailed ? ("Invalid user or password!") : ("")}
               <label htmlFor="username" hidden={true}>
                 username:
               </label>
-              {this.renderUsername()}
+              { this.renderUsername() }
               <label htmlFor="password" hidden={true}>
                 password:
               </label>
               { this.renderPassword() }
-              <div className="w3-container w3-center w3-padding-16">
+              <div className="w3-bar w3-padding-16">
                 { this.state.isLoading && <>
                   <label htmlFor="login_btn">
                     <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>
@@ -140,12 +139,13 @@ export class LoginForm extends React.Component {
                           value="Log in"
                           className="w3-btn w3-hover-yellow"/>
                 }
-                <Link className="w3-btn w3-hover-yellow" to='/register' >
+                <Link className="w3-btn w3-right w3-hover-yellow" to='/register' >
                   Sign up here!
                 </Link>
               </div>
             </div>
           </form>
+          </div>
         </div>
       </>
     )

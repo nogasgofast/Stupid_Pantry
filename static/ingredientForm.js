@@ -1,0 +1,484 @@
+import React from 'react';
+import { Link, withRouter } from "react-router-dom";
+import { Header } from './header.js';
+import { Request, GroupActionList, thumbnail } from './utils.js';
+
+
+export class IngredientForm extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      barcodeIsLoading: false,
+      ValidateIsLoading: false,
+      pictureIsLoading: false,
+      DeleteIsLoading: false,
+      isLoading: false,
+      previous_name: '',
+      name: '',
+      amount: 0,
+      amount_pkg: 1,
+      is_measured: false,
+      barcode: '',
+      keepStocked: false,
+      required_by: [],
+      imagePath: ''
+    };
+    this.myIsMounted= false;
+    // These are just handlers being registered with the running process.
+    this.gotIt = this.gotIt.bind(this);
+    this.toggleKeepStocked = this.toggleKeepStocked.bind(this);
+    this.deletePicture = this.deletePicture.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleAmountChange = this.handleAmountChange.bind(this);
+    this.handleAmount_pkgChange = this.handleAmount_pkgChange.bind(this);
+  }
+
+  handleNameChange(event){
+    this.setState({ name: event.target.value });
+  }
+
+  handleAmountChange(event){
+      this.setState({ amount: event.target.value });
+  }
+
+  handleAmount_pkgChange(event){
+      this.setState({ amount_pkg: event.target.value });
+  }
+
+  toggleKeepStocked(e){
+    e.preventDefault();
+    let callBack = (xhr) => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status/100);
+      if ((state == 4) && status == 200) {
+        if (this.myIsMounted) {
+          this.setState({ keepStocked: !this.state.keepStocked });
+        }
+      } else if (state == 4 && cat != '2' && cat != '3') {
+        console.log(xhr.responseText);
+      }
+    };
+    const settings = {
+      url: '/v1/inventory/' + this.state.name,
+      data: JSON.stringify({ keepStocked: !this.state.keepStocked }),
+      method: 'PUT',
+      callBack: callBack,
+      headers: {"content-type": "application/json"},
+      ...this.props
+    };
+    let req = new Request();
+    req.props = settings;
+    req.withAuth();
+  }
+
+  componentDidMount() {
+    this.myIsMounted = true;
+    if (this.check_compat_video()) {
+      // Good to go!
+    } else {
+      console.log('This browser only supports uploading pre-saved images.');
+    }
+    if (this.props.is_edit) {
+      this.renderThisRecipe();
+    }
+  }
+
+  componentWillUnmount() {
+    this.myIsMounted = false;
+  }
+
+  deletePicture(event){
+    event.preventDefault();
+    let callBack = (xhr) => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status/100);
+      if ((state == 4) && status == 200) {
+        const recipeText = JSON.parse(xhr.responseText)['text'];
+
+        if (this.myIsMounted) {
+          this.setState({ pictureIsLoading: false,
+                          imagePath: '' });
+        }
+      } else if (state == 4 && cat != '2' && cat != '3') {
+        this.setState({ pictureIsLoading: false });
+        console.log(xhr.responseText);
+      }
+    };
+    const settings = {
+      url: '/v1/inventory/image/' + this.state.name,
+      data: '{}',
+      is_file_upload: true,
+      method: 'DELETE',
+      callBack: callBack,
+      ...this.props
+    };
+    let req = new Request();
+    req.props = settings;
+    req.withAuth();
+    if (this.myIsMounted) {
+      this.setState({pictureIsLoading: true});
+    }
+  }
+
+
+  handleBarcodeUpload(files){
+    for (let i = 0, f; f = files[i]; i++) {
+      if (!f.type.match('image/.*')) {
+        alert("Must be a image file");
+      }else{
+        let callBack = (xhr) => {
+          //console.log(xhr.responseText);
+          let state = xhr.readyState;
+          let status = xhr.status;
+          let cat = Math.floor(status/100);
+          if ((state == 4) && status == 200) {
+            const text = JSON.parse(xhr.responseText)['text'];
+
+            if (this.myIsMounted) {
+              this.setState({ barcodeIsLoading: false,
+                              barcode: text });
+            }
+          } else if (state == 4 && cat != '2' && cat != '3') {
+            console.log(xhr.responseText)
+            this.setState({ barcodeIsLoading: false });
+          }
+        };
+
+        let formData = new FormData();
+        //console.log(f);
+        formData.append('file', f , f.name );
+        //console.log(formData.has('file'))
+        const settings = {
+          url: '/v1/inventory/barcode/' + this.state.name,
+          data: formData,
+          is_file_upload: true,
+          method: 'POST',
+          callBack: callBack,
+          ...this.props
+        };
+        let req = new Request();
+        req.props = settings;
+        req.withAuth();
+        if (this.myIsMounted) {
+          this.setState({barcodeIsLoading: true});
+        }
+      }
+    }
+  }
+
+  handlePictureUpload(files){
+    for (let i = 0, f; f = files[i]; i++) {
+      if (!f.type.match('image/.*')) {
+        alert("Must be a image file");
+      }else{
+        let callBack = (xhr) => {
+          //console.log(xhr.responseText);
+          let state = xhr.readyState;
+          let status = xhr.status;
+          let cat = Math.floor(status/100);
+          if ((state == 4) && status == 200) {
+            const recipeText = JSON.parse(xhr.responseText)['text'];
+
+            if (this.myIsMounted) {
+              this.setState({ pictureIsLoading: false });
+              this.renderThisRecipe();
+            }
+          } else if (state == 4 && cat != '2' && cat != '3') {
+            this.setState({ pictureIsLoading: false,
+                            recipeField: xhr.responseText });
+          }
+        };
+        // from an input element
+        var canvas  = document.createElement('canvas');
+        var ctx = canvas.getContext("2d");
+        var reader = new FileReader();
+        reader.onload = (e)=>{
+          let img = new Image();
+          img.src = e.target.result;
+          img.onload = ()=>{
+            // console.log(e.target.result);
+            // console.log(img);
+            let MAX_WIDTH = 1200;
+            let MAX_HEIGHT = 1600;
+            let width = img.width;
+            let height = img.height;
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+            // console.log(width);
+            // console.log(height);
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(img, 0, 0, width, height);
+            canvas.toBlob((blob)=>{
+              let formData = new FormData();
+              console.log(blob.size);
+              formData.append('file', blob, f.name );
+              //console.log(formData.has('file'))
+              const settings = {
+                url: '/v1/inventory/image/' + this.state.name,
+                data: formData,
+                is_file_upload: true,
+                method: 'POST',
+                callBack: callBack,
+                ...this.props
+              };
+              let req = new Request();
+              req.props = settings;
+              req.withAuth();
+              if (this.myIsMounted) {
+                this.setState({pictureIsLoading: true});
+              }
+            }, "image/jpeg");
+          }
+        }
+        reader.readAsDataURL(f);
+      }
+    }
+  }
+
+
+  check_compat_video(){
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  }
+
+  handleSubmit(event){
+    event.preventDefault();
+    let callBack = (xhr) => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status/100);
+      if ((state == 4) && status == 200) {
+        const recipe = JSON.parse(xhr.responseText)['recipe'];
+        if (this.myIsMounted) {
+          this.setState({ isLoading: false });
+          this.props.history.goBack();
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({ IsLoading: false});
+        console.log( xhr.responseText );
+      }};
+    const settings = {
+      url: '/v1/inventory/' + this.state.previous_name,
+      data: JSON.stringify({"name": this.state.name,
+                            "amount": this.state.amount,
+                            "amount_pkg": this.state.amount_pkg,
+                            "keepStocked": this.state.keepStocked,
+                            "barcode": this.state.barcode }),
+      method: 'PUT',
+      callBack: callBack,
+      headers: {"content-type": "application/json"},
+      ...this.props};
+    let req = new Request();
+    req.props = settings;
+    req.withAuth();
+    if (this.myIsMounted) {
+      this.setState({ IsLoading: true});
+    };
+  }
+
+  handleDelete(event){
+    event.preventDefault();
+    let callBack = (xhr) => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status/100);
+      if ((state == 4) && status == 200) {
+        const recipe = JSON.parse(xhr.responseText)['recipe'];
+        if (this.myIsMounted) {
+          this.setState({ DeleteIsLoading: false });
+          this.props.history.goBack();
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({ DeleteIsLoading: false});
+        console.log( xhr.responseText );
+      }};
+    const settings = {
+      url: '/v1/inventory/' + this.state.name,
+      data: '{}',
+      method: 'DELETE',
+      callBack: callBack,
+      headers: {"content-type": "application/json"},
+      ...this.props};
+    let req = new Request();
+    req.props = settings;
+    req.withAuth();
+    if (this.myIsMounted) {
+      this.setState({DeleteIsLoading: true});
+    };
+  }
+
+  renderThisRecipe(){
+    //console.log(this.props.location);
+    const {pathname} = this.props.location;
+    //console.log(pathname);
+    const name = pathname.replace('/pantry/', '')
+    //console.log(recipeName);
+    let callBack = (xhr) => {
+      //console.log(xhr.responseText);
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status/100);
+      if ((state == 4) && status == 200) {
+        //console.log(JSON.parse(xhr.responseText))
+        const json = JSON.parse(xhr.responseText)
+        if (this.myIsMounted) {
+          this.setState({ ValidateIsLoading: false,
+                          imagePath: json['imagePath'],
+                          name: json['name'],
+                          previous_name: json['name'],
+                          amount: json['amount'],
+                          amount_pkg: json['amount_pkg'],
+                          barcode: json['barcode'],
+                          is_measured: json['is_measured'],
+                          required_by: json['required_by'],
+                          keepStocked: json['keepStocked']});
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({ ValidateIsLoading: false});
+        console.log( xhr.responseText );
+      }};
+    const settings = {
+      url: '/v1/inventory/' + name,
+      method: 'GET',
+      callBack: callBack,
+      ...this.props
+    };
+    let req = new Request();
+    req.props = settings;
+    req.withAuth();
+    if (this.myIsMounted) {
+      this.setState({ValidateIsLoading: true});
+    };
+  }
+
+  gotIt(e) {
+    e.preventDefault();
+    //this is a bitwise integer conversion techniqe
+    const new_amount = (~~this.state.amount) + (~~this.state.amount_pkg);
+    this.setState({ amount: new_amount });
+  }
+
+  render() {
+    return(
+      <>
+        <Header history={ this.props.history } inner={ (this.props.is_edit ? 'Edit': 'Add')+" pantry" }
+                isLoggedIn={this.props.isLoggedIn} />
+        <div className="w3-margin w3-row-padding">
+          <div className={"w3-content "} >
+            <form method="POST"
+                  className="w3-card"
+                  onSubmit={ (event) => this.handleSubmit(event) } >
+              <div className="w3-bar w3-center w3-padding w3-xlarge">
+                <label className="w3-btn w3-hover-yellow" htmlFor="picture" aria-label="take a picture">
+                  <i className={"fas fa-camera " +
+                                  (this.state.pictureIsLoading ? "fa-spin" : "") }
+                                  aria-hidden="true" >
+                  </i>
+                </label>
+                <input type="file"
+                       id="picture"
+                       style={{display: "none"}}
+                       name="uploadPicture"
+                       accept="image/*"
+                       capture
+                       onChange={ this.state.pictureIsLoading ? undefined :
+                                  (event) => this.handlePictureUpload(event.target.files) } />
+                <label htmlFor="barcode" aria-label="scan in barcode id">
+                  <i className={"w3-btn w3-hover-yellow fas fa-barcode" +
+                                (this.state.barcodeIsLoading ? "fa-spin" : "") }
+                                aria-hidden="true"></i>
+                </label>
+                <input type="file"
+                       id="barcode"
+                       style={{display: "none"}}
+                       name="uploadBarcode"
+                       accept="image/*"
+                       capture
+                       onChange={ this.state.barcodeIsLoading ? undefined :
+                                (event) => this.handleBarcodeUpload(event.target.files) } />
+                <label htmlFor="stock" aria-label="keep stocked">
+                  <i className={"w3-btn w3-hover-yellow fas fa-cart-arrow-down " +
+                                (this.state.keepStocked ? "w3-yellow" : "") }
+                     aria-hidden="true"></i>
+                </label>
+                <button style={{display: "none"}}
+                     id="stock"
+                     onClick={ e => this.toggleKeepStocked(e) }
+                     />
+               <button className="w3-btn w3-hover-yellow w3-xlarge"
+                       onClick={ e => this.gotIt(e) }
+                       aria-label="Got it!">
+                 <i className="fas fa-plus" aria-hidden="true" ></i>
+               </button>
+                <label htmlFor="delete" aria-label="delete this recipe">
+                  <i className="w3-btn w3-hover-yellow fas fa-trash-alt" aria-hidden="true"></i>
+                </label>
+                <button style={{display: "none"}}
+                     id="delete"
+                     onClick={ (event) => this.handleDelete(event) } />
+              </div>
+              <div className="w3-display-container" >
+              { thumbnail(this.state) }
+              { this.state.imagePath ? (
+                    <button className={"fas fa-trash-alt w3-xlarge " +
+                                       "w3-display-bottomright w3-margin " +
+                                       "w3-btn w3-opacity w3-orange"}
+                            onClick={ (event) => this.deletePicture(event) }/>) : ""}
+
+              </div>
+              <div className="w3-container">
+              <p>
+              <label className="w3-left" >Name</label><b>
+              <input className="w3-input w3-center"
+                     type="text"
+                     placeholder="Name"
+                     onChange={ this.handleNameChange }
+                     value={this.state.name} /></b></p>
+              <label className="w3-left" >Amount { this.state.is_measured ? "(oz)" : "" }</label>
+              <b>
+              <input className="w3-center w3-input"
+                     type="number"
+                     step='any'
+                     onChange={ this.handleAmountChange }
+                     value={ this.state.amount } />
+              </b>
+              <p>
+              <label className="w3-left" >Package total { this.state.is_measured ? "(oz)" : "" }</label><b>
+              <input className="w3-input w3-center"
+                     type="number"
+                     onChange={ this.handleAmount_pkgChange }
+                     value={ this.state.amount_pkg } /></b></p>
+              { this.state.barcode ? (<p><b><input className="w3-input w3-center"
+                                      type="button"
+                                      value="Check against saved barcode" /></b></p>) : "" }
+              <input className="w3-input"
+                     type="submit"
+                     value={ !this.props.isLoading ? "Save" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) }
+                     className="w3-btn w3-block w3-hover-yellow" />
+              </div>
+            </form>
+            { this.state.required_by.length ? (<h2>Required by</h2>) : "" }
+            <GroupActionList path={ '/recipes/view' } items={ this.state.required_by } / >
+          </div>
+        </div>
+      </>
+    )
+  }
+}
