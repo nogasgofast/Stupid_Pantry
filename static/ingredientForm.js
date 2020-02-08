@@ -33,6 +33,8 @@ export class IngredientForm extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleAmount_pkgChange = this.handleAmount_pkgChange.bind(this);
+    this.handleBarcodeRemove = this.handleBarcodeRemove.bind(this);
+    this.handleBarcodeUpload = this.handleBarcodeUpload.bind(this);
   }
 
   handleNameChange(event){
@@ -126,6 +128,40 @@ export class IngredientForm extends React.Component {
     }
   }
 
+ handleBarcodeRemove(){
+   console.log("activated")
+   let callBack = (xhr) => {
+     //console.log(xhr.responseText);
+     let state = xhr.readyState;
+     let status = xhr.status;
+     let cat = Math.floor(status/100);
+     if ((state == 4) && status == 200) {
+       console.log("finished OKAY")
+       const text = JSON.parse(xhr.responseText)['text'];
+
+       if (this.myIsMounted) {
+         this.setState({ barcodeIsLoading: false,
+                         barcode: false });
+       }
+     } else if (state == 4 && cat != '2' && cat != '3') {
+       console.log(xhr.responseText)
+       this.setState({ barcodeIsLoading: false });
+     }
+   };
+   const settings = {
+     url: '/v1/inventory/barcode/' + this.state.name,
+     data: '{}',
+     method: 'DELETE',
+     callBack: callBack,
+     ...this.props
+   };
+   let req = new Request();
+   req.props = settings;
+   req.withAuth();
+   if (this.myIsMounted) {
+     this.setState({barcodeIsLoading: true});
+   }
+ }
 
   handleBarcodeUpload(files){
     for (let i = 0, f; f = files[i]; i++) {
@@ -382,63 +418,89 @@ export class IngredientForm extends React.Component {
                 isLoggedIn={this.props.isLoggedIn} />
         <div className="w3-margin w3-row-padding">
           <div className={"w3-content "} >
-            <form method="POST"
-                  className="w3-card"
-                  onSubmit={ (event) => this.handleSubmit(event) } >
-              <div className="w3-bar w3-center w3-padding w3-xlarge">
-                <label className="w3-btn w3-hover-yellow" htmlFor="picture" aria-label="take a picture">
-                  <i className={"fas fa-camera " +
-                                  (this.state.pictureIsLoading ? "fa-spin" : "") }
-                                  aria-hidden="true" >
-                  </i>
-                </label>
-                <input type="file"
-                       id="picture"
-                       style={{display: "none"}}
-                       name="uploadPicture"
-                       accept="image/*"
-                       capture
-                       onChange={ this.state.pictureIsLoading ? undefined :
-                                  (event) => this.handlePictureUpload(event.target.files) } />
-                <label htmlFor="barcode" aria-label="scan in barcode id">
-                  <i className={"w3-btn w3-hover-yellow fas fa-barcode" +
-                                (this.state.barcodeIsLoading ? "fa-spin" : "") }
-                                aria-hidden="true"></i>
-                </label>
-                <input type="file"
+            <div className="w3-bar w3-card w3-xlarge w3-margin-bottom">
+              <label className="w3-tooltip" htmlFor="picture" aria-label="take a picture">
+                <i className={"fas fa-camera  w3-btn w3-hover-yellow " +
+                                (this.state.pictureIsLoading ? "fa-spin" : "") }
+                                aria-hidden="true" >
+                </i>
+                <span className="w3-text">Upload Picture</span>
+              </label>
+              <input type="file"
+                     id="picture"
+                     style={{display: "none"}}
+                     name="uploadPicture"
+                     accept="image/*"
+                     capture
+                     onChange={ this.state.pictureIsLoading ? undefined :
+                                (event) => this.handlePictureUpload(event.target.files) } />
+              { !this.state.barcode ?
+                (<>
+                  <label className="w3-tooltip" htmlFor="barcode" aria-label="scan in barcode id">
+                    <i className={"w3-btn w3-hover-yellow fas fa-barcode " +
+                                  (this.state.barcodeIsLoading ? "fa-spin" : "") }
+                                  aria-hidden="true"></i>
+                    <span className="w3-text">Add Barcode</span>
+                  </label>
+                  <input type="file"
                        id="barcode"
                        style={{display: "none"}}
                        name="uploadBarcode"
                        accept="image/*"
                        capture
-                       onChange={ this.state.barcodeIsLoading ? undefined :
-                                (event) => this.handleBarcodeUpload(event.target.files) } />
-                <label htmlFor="stock" aria-label="keep stocked">
-                  <i className={"w3-btn w3-hover-yellow fas fa-cart-arrow-down " +
-                                (this.state.keepStocked ? "w3-yellow" : "") }
-                     aria-hidden="true"></i>
-                </label>
+                       onChange={ (event) => this.handleBarcodeUpload(event.target.files) } />
+                  </>):
+                (<label className="w3-tooltip"
+                         aria-label="scan in barcode id">
+                  <button className="w3-btn w3-hover-yellow w3-display-container"
+                          onClick={() => this.handleBarcodeRemove() }>
+                      <i className={"fas fa-barcode " +
+                                  (this.state.barcodeIsLoading ? "fa-spin" : "") }
+                         aria-hidden="true"></i>
+                      <i className={"w3-display-middle fas fa-slash " +
+                                  (this.state.barcodeIsLoading ? "fa-spin" : "") }
+                         aria-hidden="true"></i>
+                  </button>
+                  <span className="w3-text">Remove Barcode</span>
+                </label>) }
+              <label className="w3-tooltip" htmlFor="stock" aria-label="keep stocked">
+                <i className={"w3-btn w3-hover-yellow fas fa-cart-arrow-down " +
+                              (this.state.keepStocked ? "w3-yellow" : "") }
+                   aria-hidden="true"></i>
+                <span className="w3-text">Keep Stocked</span>
+              </label>
+              <button style={{display: "none"}}
+                   id="stock"
+                   onClick={ e => this.toggleKeepStocked(e) }
+                   />
+              <label className="w3-tooltip"
+                     htmlFor="gotIt"
+                     aria-label="Add package to pantry">
+                <i className="w3-btn w3-hover-yellow w3-xlarge fas fa-plus"
+                   aria-hidden="true" ></i>
+                <span className="w3-text">Add package to pantry</span>
+              </label>
                 <button style={{display: "none"}}
-                     id="stock"
-                     onClick={ e => this.toggleKeepStocked(e) }
-                     />
-               <button className="w3-btn w3-hover-yellow w3-xlarge"
-                       onClick={ e => this.gotIt(e) }
-                       aria-label="Got it!">
-                 <i className="fas fa-plus" aria-hidden="true" ></i>
-               </button>
-                <label htmlFor="delete" aria-label="delete this recipe">
-                  <i className="w3-btn w3-hover-yellow fas fa-trash-alt" aria-hidden="true"></i>
-                </label>
-                <button style={{display: "none"}}
-                     id="delete"
-                     onClick={ (event) => this.handleDelete(event) } />
-              </div>
+                        id="gotIt"
+                        onClick={ e => this.gotIt(e) }>
+                </button>
+              <label className="w3-tooltip" htmlFor="delete" aria-label="delete this recipe">
+                <i className="w3-btn w3-hover-yellow fas fa-trash-alt" aria-hidden="true"></i>
+                <span className="w3-text">Delete if not Required by a Recipe</span>
+              </label>
+              <button style={{display: "none"}}
+                   id="delete"
+                   onClick={ (event) => this.handleDelete(event) } />
+            </div>
+            <form method="POST"
+                  className="w3-card"
+                  onSubmit={ (event) => this.handleSubmit(event) } >
+
               <div className="w3-display-container" >
               { thumbnail(this.state) }
               { this.state.imagePath ? (
                     <button className={"fas fa-trash-alt w3-xlarge " +
-                                       "w3-display-bottomright w3-margin " +
+                                       "w3-display-bottomright w3-display-hover w3-margin " +
                                        "w3-btn w3-opacity w3-orange"}
                             onClick={ (event) => this.deletePicture(event) }/>) : ""}
 
@@ -460,18 +522,21 @@ export class IngredientForm extends React.Component {
                      value={ this.state.amount } />
               </b>
               <p>
-              <label className="w3-left" >Package total { this.state.is_measured ? "(oz)" : "" }</label><b>
+              <label className="w3-left" >Amount in Package { this.state.is_measured ? "(oz)" : "" }</label><b>
               <input className="w3-input w3-center"
                      type="number"
                      onChange={ this.handleAmount_pkgChange }
                      value={ this.state.amount_pkg } /></b></p>
-              { this.state.barcode ? (<p><b><input className="w3-input w3-center"
-                                      type="button"
-                                      value="Check against saved barcode" /></b></p>) : "" }
-              <input className="w3-input"
+              { this.state.barcode ? (<p><label className="w3-left">Barcode</label>
+                                        <b>
+                                         <input className="w3-input w3-center"
+                                                type="text"
+                                                readOnly
+                                                value={ this.state.barcode } />
+                                        </b></p>) : "" }
+              <input className="w3-input w3-orange w3-btn w3-block w3-hover-yellow"
                      type="submit"
-                     value={ !this.props.isLoading ? "Save" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) }
-                     className="w3-btn w3-block w3-hover-yellow" />
+                     value={ !this.props.isLoading ? "Save" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) } />
               </div>
             </form>
             { this.state.required_by.length ? (<h2>Required by</h2>) : "" }

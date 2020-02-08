@@ -325,10 +325,11 @@ export class RecipeDisplay extends React.Component {
                                           </span>
                                         </p>): '' }
             <div className="w3-card w3-bar w3-margin-bottom  w3-xlarge">
-              <label htmlFor="picture" aria-label="take a picture">
+              <label className="w3-tooltip" htmlFor="picture" aria-label="take a picture">
                 <i className={"w3-btn w3-hover-yellow fas fa-camera" +
                               (this.state.pictureIsLoading ? "fa-spin" : "") }
                               aria-hidden="true"></i>
+                <span className="w3-text">Change/Add a picture</span>
               </label>
               <input type="file"
                      id="picture"
@@ -338,29 +339,34 @@ export class RecipeDisplay extends React.Component {
                      capture
                      onChange={ this.state.pictureIsLoading ? undefined :
                                 (event) => this.handlePictureUpload(event.target.files) } />
-              <Link to={ '/recipes/' + this.state.recipe_name } >
-                  <i className="w3-btn w3-hover-yellow fas fa-edit" aria-hidden="true"></i>
-              </Link>
-              <label aria-label="keep this recipe stocked" aria-hidden="true">
+              <label className="w3-tooltip">
+                <Link to={ '/recipes/' + this.state.recipe_name } >
+                    <i className="w3-btn w3-hover-yellow fas fa-edit" aria-hidden="true"></i>
+                </Link>
+                <span className="w3-text">Edit/Delete Recipe</span>
+              </label>
+              <label className="w3-tooltip" aria-label="keep this recipe stocked" aria-hidden="true">
                 <button className={"w3-btn w3-hover-yellow " +
                         (this.state.keepStocked ? "w3-yellow" : "") }
                         onClick={ () => this.stock_recipe() }>
                   <i className="fas fa-cart-arrow-down"></i>
                 </button>
+                <span className="w3-text">Keep this on my shopping list.</span>
               </label>
-              <label aria-label="use these ingredients" aria-hidden="true">
-                <button className={"w3-bar-item w3-btn w3-hover-yellow " +
+              <label className="w3-tooltip" aria-label="shopping list" aria-hidden="true">
+                <button className={"w3-btn w3-hover-yellow " +
                                    (this.state.subtracted ? "w3-yellow" : "") }
                         onClick={ () => this.subtract_ingredients() } >
                   <i className="fas fa-utensils"></i>
                 </button>
+                <span className="w3-text">I ate this food!</span>
               </label>
             </div>
             <div className="w3-display-container" >
               { thumbnail(this.state) }
               { this.state.imagePath ? (
                     <button className={"fas fa-trash-alt w3-xlarge " +
-                                       "w3-display-bottomright w3-margin " +
+                                       "w3-display-bottomright w3-display-hover w3-margin " +
                                        "w3-btn w3-opacity w3-orange"}
                             onClick={ (event) => this.deletePicture(event) }/>) : ""}
 

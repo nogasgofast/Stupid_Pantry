@@ -137,9 +137,9 @@ export class LoginForm extends React.Component {
                 { !this.state.isLoading &&
                   <input  type="submit"
                           value="Log in"
-                          className="w3-btn w3-hover-yellow"/>
+                          className="w3-orange w3-btn w3-hover-yellow"/>
                 }
-                <Link className="w3-btn w3-right w3-hover-yellow" to='/register' >
+                <Link className="w3-orange w3-btn w3-right w3-hover-yellow" to='/register' >
                   Sign up here!
                 </Link>
               </div>

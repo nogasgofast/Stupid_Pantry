@@ -677,7 +677,7 @@ def ocr_request():
             return jsonify({ "Error": response.status_code,
                              "response": "response.content" }), 502
 
-@bp.route('/v1/inventory/barcode/<ingName>', methods=['GET','POST'])
+@bp.route('/v1/inventory/barcode/<ingName>', methods=['POST','DELETE'])
 @jwt_required
 @db_session
 def barcode(ingName=None):
@@ -686,22 +686,26 @@ def barcode(ingName=None):
     ing = sp_database.Ingredients.get(name=ingName, uid=user.id)
     if not ing:
         return jsonify({ "not found": 404 }), 404
-    if 'file' not in request.files:
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return jsonify({ "Error": 400,
+                             "response": 'No file part' }), 400
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({ "Error": 400,
+                             "response": 'No selected file' }), 400
+        if file and allowed_file(file.filename):
+            data = ''
+            bcObjects = pyzbar.decode(Image.open(file))
+            for code in bcObjects:
+                data = code.data.decode('utf-8')
+            ing.barcode = data
+            return jsonify({ "text": data }), 200
         return jsonify({ "Error": 400,
-                         "response": 'No file part' }), 400
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({ "Error": 400,
-                         "response": 'No selected file' }), 400
-    if file and allowed_file(file.filename):
-        data = ''
-        bcObjects = pyzbar.decode(Image.open(file))
-        for code in bcObjects:
-            data = code.data.decode('utf-8')
-        ing.barcode = data
-        return jsonify({ "text": data }), 200
-    return jsonify({ "Error": 400,
-                     "response": 'File Type not allowed' }), 400
+                         "response": 'File Type not allowed' }), 400
+    if request.method == 'DELETE':
+        ing.barcode = ''
+        return jsonify({ "DELETED": 200 }), 200
 
 @bp.route('/v1/test', methods=['GET','PUT','POST','DELETE'])
 def testing():
@@ -843,6 +847,8 @@ def recipes(recipeName=None):
                         name           = new_name,
                         instructions   = '\n'.join(instructions))
             apply_ingredients(user, recipe, ingredients)
+            # When creating an item with a new name it gets all new record
+            # make sure to delete the old record.
             old_recipe = sp_database.Recipes.get(uid=user.id, name=recipeName)
             if old_recipe:
                 old_recipe.delete()

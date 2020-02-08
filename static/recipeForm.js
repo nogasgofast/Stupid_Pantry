@@ -83,7 +83,7 @@ export class Action_Recipe extends React.Component {
               <button className={ ( !this.is_done() ?
                                   'w3-disabled w3-red ' :
                                   'w3-yellow ' ) +
-                                "w3-btn w3-card w3-bar w3-hover-yellow"}
+                                "w3-btn w3-card w3-bar"}
                     style={ this.props.ingredients.length == 0 ?
                             {display: 'none'} :
                             {} }
@@ -561,128 +561,104 @@ export class RecipeForm extends React.Component {
         <div className="w3-margin w3-row-padding">
           <div className={"w3-content " } >
             { this.state.recipe_name ? (<p className="w3-card"><b>{ this.state.recipe_name }</b></p>): '' }
+            <div className="w3-bar w3-card w3-margin-bottom w3-xlarge">
+              { this.state.ocrisLoading &&
+                <>
+                  <label htmlFor="OCR" aria-label="use picture">
+                    <i className="w3-btn w3-hover-yellow fa fas fa-print fa-spin" aria-hidden="true"></i>
+                  </label>
+                  <input type="file"
+                         id="OCR"
+                         style={{display: "none"}}
+                         name="uploadedfile"
+                         accept="image/*"
+                         capture
+                         />
+                </>
+              }
+              { !this.state.ocrisLoading &&
+                <>
+                  <label className="w3-tooltip" htmlFor="OCR" aria-label="use picture">
+                    <i className="w3-btn w3-hover-yellow fas fa-print" aria-hidden="true"></i>
+                    <span className="w3-text">Use Camera or Picture</span>
+                  </label>
+                  <input type="file"
+                         id="OCR"
+                         style={{display: "none"}}
+                         name="uploadedfile"
+                         accept="image/*"
+                         capture
+                         onChange={ (event) => this.handleImageUpload(event.target.files)}
+                         />
+                </>
+              }
+              <label className="w3-tooltip" htmlFor="addLink" aria-label="use link">
+                <button id="addLink" className="w3-btn w3-hover-yellow fas fa-link"
+                      onClick={() => this.toggleLink() } >
+                </button>
+                <span className="w3-text">Link to a Recipe</span>
+              </label>
+              <label className="w3-tooltip" htmlFor="upload" aria-label="file upload">
+                <i className="w3-btn w3-hover-yellow fas fa-file-word" aria-hidden="true"></i>
+                <span className="w3-text">Upload a File</span>
+              </label>
+              <input type="file"
+                     style={{display: "none"}}
+                     id="upload"
+                     onChange={ (event) => this.handleFileUpload(event)}
+                     />
+              {this.props.is_edit ?
+                  (<>
+                    <label className="w3-tooltip" htmlFor="delete" aria-label="delete this recipe">
+                      <i className="w3-btn w3-hover-yellow fas fa-trash-alt" aria-hidden="true"></i>
+                      <span className="w3-text">Delete Recipe</span>
+                    </label>
+                    <button style={{display: "none"}}
+                         id="delete"
+                         onClick={ (event) => this.handleDelete(event)}
+                         />
+                    </>
+                  ) : '' }
+              { this.state.isDeleted && <Redirect to='/recipes' / > }
+            </div>
+            <div hidden={ this.state.addLink } >
+              <input id="addLink"
+                     type="text"
+                     placeholder="https://"
+                     className="w3-input"
+                      onChange={ (event)=> this.handleLinkChange(event) }/>
+              <label htmlFor="readlink" aria-label="copy the recipie from this link">
+              </label>
+              <button className="w3-input w3-btn w3-orange w3-margin-bottom w3-hover-yellow"
+                      onClick={()=>this.readlink()}>
+                Read Link
+              </button>
+            </div>
             <form method="POST"
                   className={"w3-card " +
                              "w3-round-large" +
                              "w3-form "}
                   onSubmit={(event) => this.handleSubmit(event)} >
-              <div className="w3-bar w3-padding w3-xlarge">
-                { this.state.ocrisLoading &&
-                  <>
-                    <label htmlFor="OCR" aria-label="use picture">
-                      <i className="w3-btn w3-hover-yellow fa fas fa-print fa-spin" aria-hidden="true"></i>
-                    </label>
-                    <input type="file"
-                           id="OCR"
-                           style={{display: "none"}}
-                           name="uploadedfile"
-                           accept="image/*"
-                           capture
-                           />
-                  </>
-                }
-                { !this.state.ocrisLoading &&
-                  <>
-                    <label htmlFor="OCR" aria-label="use picture">
-                      <i className="w3-btn w3-hover-yellow fas fa-print" aria-hidden="true"></i>
-                    </label>
-                    <input type="file"
-                           id="OCR"
-                           style={{display: "none"}}
-                           name="uploadedfile"
-                           accept="image/*"
-                           capture
-                           onChange={ (event) => this.handleImageUpload(event.target.files)}
-                           />
-                  </>
-                }
-                <label htmlFor="addLink" aria-label="use link">
-                  <button id="addLink" className="w3-btn w3-hover-yellow fas fa-link"
-                        onClick={() => this.toggleLink() } >
-                  </button>
-                </label>
-
-                <label htmlFor="upload" aria-label="file upload">
-                  <i className="w3-btn w3-hover-yellow fas fa-file-word" aria-hidden="true"></i>
-                </label>
-                <input type="file"
-                       style={{display: "none"}}
-                       id="upload"
-                       onChange={ (event) => this.handleFileUpload(event)}
-                       />
-                <label htmlFor="help" hidden={true}>
-                  help
-                </label>
-                <Link name="help"
-                      className="w3-bar-item w3-right w3-btn w3-hover-yellow"
-                      to='#'
-                      onClick={ () => this.toggleHelp() } >
-                  <i className="far fa-question-circle"></i>
-                </Link>
-                {this.props.is_edit ?
-                    (<>
-                      <label htmlFor="delete" aria-label="delete this recipe">
-                        <i className="w3-btn w3-hover-yellow fas fa-trash-alt" aria-hidden="true"></i>
-                      </label>
-                      <button style={{display: "none"}}
-                           id="delete"
-                           onClick={ (event) => this.handleDelete(event)}
-                           />
-                      </>
-                    ) : '' }
-                { this.state.isDeleted && <Redirect to='/recipes' / > }
-              </div>
-              <div hidden={ this.state.addLink } >
-                <input id="addLink"
-                       type="text"
-                       placeholder="https://"
-                       className="w3-input"
-                        onChange={ (event)=> this.handleLinkChange(event) }/>
-                <label htmlFor="readlink" aria-label="copy the recipie from this link">
-                </label>
-                <button className="w3-input w3-btn  w3-margin-bottom w3-hover-yellow"
-                        onClick={()=>this.readlink()}>
-                  Read Link
-                </button>
-              </div>
-              <div className="w3-left-align" hidden={ this.state.viewHelp } >
-                Having problems?<br />Make sure you follow this template as closely as possible.<br />
-                <Link to="help">Or click here for the specifics</Link>
-                <div className="w3-light-gray">
-                  Bacon and Egg tacos<br />
-                  <br />
-                  ingredients<br />
-                  1 pinch salt<br />
-                  1 pinch pepper<br />
-                  1 slice bacon<br />
-                  2 eggs<br />
-                  1 tortilla<br />
-                  <br />
-                  directions<br />
-                  Cook the bacon in a pan.<br />
-                  Drain grease leaving some in the pan.<br />
-                  Scramble 2 eggs put aside keep warm if possible.<br />
-                  Toast tortilla in pan, some bubbles may form before done toasting.<br />
-                  Plate by putting down toasted tortilla, eggs on top, then bacon. salt and pepper as desired.
-                </div>
-              </div>
               <b>
               <textarea rows="15"
                         className="w3-input w3-margin-16"
                         onChange={(e) => this.handleRecipeChange(e) }
-                        placeholder="Type or Paste here."
+                        placeholder={"Bacon and egg tacos\n" +
+                                     "\n" +
+                                     "ingredients\n" +
+                                     "1 slice bacon\n" +
+                                     "3 eggs\n" +
+                                     "2 tortillas\n"+
+                                     "\n" +
+                                     "directions\n"+
+                                     "First scrabble the eggs, cook and season\n"+
+                                     "second warm up the tortillas on a pan\n"+
+                                     "third plate tortillas fill with 1 bacon slice and half the egg\n"}
                         value={ this.state.recipeField } ></textarea></b>
               <input  type="submit"
                       value={ !this.props.isLoading ? "Review Recipe" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) }
-                      className="w3-btn w3-input w3-block w3-hover-yellow" />
+                      className="w3-btn w3-orange w3-input w3-block w3-hover-yellow" />
             </form>
-            <div className="w3-left-align" hidden={ this.state.viewHelp } >
-               Once you click "Review Recipe" you will see a form below.
-               You can click on the items and delete them before Adding the recipe.
-               If you see '?' on ingredients this means you need to choose one of the
-               given options.
-               <Link to="help">Click here for the specifics</Link>
-            </div>
             { this.state.new_recipe_name ? (<p><b>{ this.state.new_recipe_name }</b></p>): '' }
             { this.state.new_recipe_name ? (
                 <Ingredient_List items={ this.state.ingredient_list }
