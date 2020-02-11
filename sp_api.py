@@ -19,7 +19,7 @@ from flask import ( Flask,
 from flask_limiter import Limiter
 from fractions import Fraction
 import pyzbar.pyzbar as pyzbar
-from flask_images import *
+from flask_images import Images
 from pony.orm import *
 from PIL import Image
 import configparser
@@ -1476,8 +1476,8 @@ if __name__ == "__main__":
     db_setup(config)
     host, port = get_socket(config)
     app = app_factory()
-    app.debug = True
-    app.config['ASSETS_DEBUG'] = True
+    app.debug = False
+    app.config['ASSETS_DEBUG'] = False
     app.config['UPLOAD_FOLDER'] = r'static/images'
     app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
     jwt = JWTManager(app)
