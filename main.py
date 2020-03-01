@@ -14,6 +14,9 @@ limiter = Limiter(app,
                   key_func=get_remote_address,
                   default_limits=[])#"200 per day",
                                   #"50 per hour"])
+<<<<<<< Updated upstream
 
 if __name__ == "__main__":
     app.run()
+=======
+>>>>>>> Stashed changes

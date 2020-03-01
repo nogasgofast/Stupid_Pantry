@@ -378,7 +378,7 @@ def get_socket(config=False):
 
 def db_setup(config=False):
     try:
-        sect = config['control']
+        sect = config['database']
     except:
         sect = False
     if sect:
@@ -386,6 +386,7 @@ def db_setup(config=False):
         if dbtype:
             dbconfig = [
                 sect.get('dbhost'),
+                sect.get('dbport'),
                 sect.get('dbuser'),
                 sect.get('dbpasswd'),
                 sect.get('dbname')
