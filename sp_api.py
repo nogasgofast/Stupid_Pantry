@@ -382,14 +382,14 @@ def db_setup(config=False):
     except:
         sect = False
     if sect:
-        dbtype = sect.get('dbtype')
+        dbtype = sect.get('dbtype', os.getenv('DB_TYPE'))
         if dbtype:
             dbconfig = [
-                sect.get('dbhost'),
-                sect.get('dbport'),
-                sect.get('dbuser'),
-                sect.get('dbpasswd'),
-                sect.get('dbname')
+                sect.get('dbhost', os.getenv('DB_HOST')),
+                sect.get('dbport', os.getenv('DB_PORT')),
+                sect.get('dbuser', os.getenv('DB_USER')),
+                sect.get('dbpasswd', os.getenv('DB_PASSWD')),
+                sect.get('dbname', os.getenv('DB_NAME'))
             ]
             sp_database.spantry.bind('mysql', *dbconfig)
         else:
