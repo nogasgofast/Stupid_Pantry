@@ -1,8 +1,9 @@
-__*
-.env
-.git
-docs
-example_recipes
+static/images/*
+static/fontawesome-free-5.12.0-web/*
 node_modules
-tests
-.gitignore
+node_modules/*
+__pycache__/*
+*.pyc
+sp.sqlite
+.env/*
+.env

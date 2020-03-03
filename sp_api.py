@@ -16,6 +16,7 @@ from flask import ( Flask,
                     jsonify,
                     Blueprint,
                     render_template)
+from flask import current_app as app
 from flask_limiter import Limiter
 from fractions import Fraction
 import pyzbar.pyzbar as pyzbar
@@ -384,13 +385,13 @@ def db_setup(config=False):
     if sect:
         dbtype = sect.get('dbtype', os.getenv('DB_TYPE'))
         if dbtype:
-            dbconfig = [
+            dbconfig = (
                 sect.get('dbhost', os.getenv('DB_HOST')),
-                sect.get('dbport', os.getenv('DB_PORT')),
                 sect.get('dbuser', os.getenv('DB_USER')),
                 sect.get('dbpasswd', os.getenv('DB_PASSWD')),
-                sect.get('dbname', os.getenv('DB_NAME'))
-            ]
+                sect.get('dbname', os.getenv('DB_NAME')),
+                sect.get('dbport', os.getenv('DB_PORT'))
+            )
             sp_database.spantry.bind('mysql', *dbconfig)
         else:
             sp_database.spantry.bind('sqlite',filename='sp.sqlite', create_db=True)
