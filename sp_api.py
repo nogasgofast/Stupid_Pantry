@@ -6,6 +6,7 @@ from flask_jwt_extended import ( JWTManager,
                                  create_refresh_token,
                                  jwt_refresh_token_required)
 from flask_limiter.util import get_remote_address
+from flask.ext.images import resized_img_src
 from werkzeug.utils import secure_filename
 from passlib.context import CryptContext
 from flask import ( Flask,
