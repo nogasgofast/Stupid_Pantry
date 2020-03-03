@@ -1,0 +1,8 @@
+__*
+.env
+.git
+docs
+example_recipes
+node_modules
+tests
+.gitignore
