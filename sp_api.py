@@ -381,20 +381,17 @@ def db_setup(config=False):
     try:
         sect = config['database']
     except:
-        sect = False
-    if sect:
-        dbtype = sect.get('dbtype', os.getenv('DB_TYPE'))
-        if dbtype:
-            dbconfig = {
-                'host': sect.get('dbhost', os.getenv('DB_HOST')),
-                'user': sect.get('dbuser', os.getenv('DB_USER')),
-                'passwd': sect.get('dbpasswd', os.getenv('DB_PASSWD')),
-                'db': sect.get('dbname', os.getenv('DB_NAME')),
-                'port': sect.get('dbport', os.getenv('DB_PORT'))
-            }
-            sp_database.spantry.bind(provider='mysql', **dbconfig)
-        else:
-            sp_database.spantry.bind('sqlite',filename='sp.sqlite', create_db=True)
+        sect = {}
+    dbtype = sect.get('dbtype', os.getenv('DB_TYPE'))
+    if dbtype:
+        dbconfig = {
+            'host': sect.get('dbhost', os.getenv('DB_HOST')),
+            'user': sect.get('dbuser', os.getenv('DB_USER')),
+            'passwd': sect.get('dbpasswd', os.getenv('DB_PASSWD')),
+            'db': sect.get('dbname', os.getenv('DB_NAME')),
+            'port': int(sect.get('dbport', os.getenv('DB_PORT')))
+        }
+        sp_database.spantry.bind(provider='mysql', **dbconfig)
     else:
         sp_database.spantry.bind('sqlite',filename='sp.sqlite', create_db=True)
     sp_database.spantry.generate_mapping(create_tables=True)
