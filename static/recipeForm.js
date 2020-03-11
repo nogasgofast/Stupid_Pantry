@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { Header } from './header.js';
-import { GroupActionList, GroupActionItem, Request } from './utils.js';
+import { GroupActionList, GroupActionItem, Request, W3Color } from './utils.js';
 
-export class Action_Recipe extends React.Component {
+export class ActionRecipe extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -21,11 +21,11 @@ export class Action_Recipe extends React.Component {
   }
 
   handleSubmit(){
-    let method = this.props.is_edit ? 'PUT' : 'POST' ;
-    let data = this.props.is_edit ? JSON.stringify({new_name: this.props.new_name,
+    let method = this.props.isEdit ? 'PUT' : 'POST' ;
+    let data = this.props.isEdit ? JSON.stringify({newName: this.props.newName,
                                ingredients: this.props.ingredients,
                                instructions: this.props.instructions}) :
-                               JSON.stringify({recipe_name: this.props.new_name,
+                               JSON.stringify({recipeName: this.props.newName,
                                ingredients: this.props.ingredients,
                                instructions: this.props.instructions}) ;
 
@@ -47,7 +47,7 @@ export class Action_Recipe extends React.Component {
         console.log( xhr.responseText );
       }};
     const settings = {
-      url: '/v1/recipes' + (this.props.is_edit ? '/'+this.props.name : '') ,
+      url: '/v1/recipes' + (this.props.isEdit ? '/'+this.props.name : '') ,
       data: data,
       method: method,
       callBack: callBack,
@@ -65,13 +65,13 @@ export class Action_Recipe extends React.Component {
     };
   }
 
-  is_done(){
+  isDone(){
     let flag = true;
     if ( this.props.ingredients.length == 0){
       return false
     }
     for (const item of this.props.ingredients){
-      if (item.is_matching == 'some'){
+      if (item.isMatching == 'some'){
         flag = false;
       }
     }
@@ -80,7 +80,7 @@ export class Action_Recipe extends React.Component {
 
   render() {
     return <>
-              <button className={ ( !this.is_done() ?
+              <button className={ ( !this.isDone() ?
                                   'w3-disabled w3-red ' :
                                   'w3-yellow ' ) +
                                 "w3-btn w3-card w3-bar"}
@@ -88,24 +88,24 @@ export class Action_Recipe extends React.Component {
                             {display: 'none'} :
                             {} }
                     onClick={ ()=>this.handleSubmit() } >
-              { this.props.is_edit ? 'Edit': 'Add' } Recipe
+              { this.props.isEdit ? 'Edit': 'Add' } Recipe
               </button>
            </>
   }
 }
 
-export class Instructions_List extends GroupActionList {
+export class InstructionsList extends GroupActionList {
   constructor(props){
     super(props);
     this.state = {
       buttons: new Set([{action: "delete" ,
                          image: <i className="fas fa-times"></i>,
-                         do: () => this.delete_items() }]),
+                         do: () => this.deleteItems() }]),
       selectedItems: new Set()
     }
   }
 
-  render_item(item){
+  renderItem(item){
     return <li className={"w3-card w3-left-align " +
                (this.state.selectedItems.has(item) ?
                "w3-border-yellow w3-rightbar" :
@@ -120,12 +120,12 @@ export class Instructions_List extends GroupActionList {
       return <div className="w3-yellow">Oops, put 'directions' above your list of directions. This is required</div>;
     }
     for (const item of this.props.items) {
-      list.push(this.render_item(item));
+      list.push(this.renderItem(item));
     }
     return list;
   }
 
-  delete_items(){
+  deleteItems(){
     const list = [];
     //rebuild list without selected items.
     for (const item of this.props.items ){
@@ -133,39 +133,42 @@ export class Instructions_List extends GroupActionList {
         list.push(item);
       }
     }
-    this.props.instructions_update(list);
+    this.props.instructionsUpdate(list);
     const slist = new Set();
     this.setState({selectedItems: slist});
   }
 }
 
-export class Ingredient_List extends GroupActionList {
+export class IngredientList extends GroupActionList {
   constructor(props){
     super(props);
     this.state ={
-      buttons: new Set(
-        [{action: "delete" ,
-         image: <i className="fas fa-times"></i>,
-         do: () => this.delete_items() },
-        {action: "edit" ,
-         image: <i className="fas fa-check"></i>,
-         do: () => this.check_items() }]),
+      buttons: new Set([]),
       selectedItems: new Set() };
   }
 
-  renderItem(item) {
+  renderItem(item, newColor) {
     const type = { no:'fa fa-plus',
-                   perfect:'fas fa-link',
+                   perfect:'',
                    some:'fas fa-question'}
-    return <li className={ "w3-card w3-border-yellow " +
-                  (this.state.selectedItems.has(item.name)? "w3-rightbar":"")}
+    const label = { no: ' new item!',
+                    perfect: '',
+                    some: ' choose one'}
+    return <li className={ "w3-card " +
+                           "w3-border-" +
+                           (newColor ? newColor : 'yellow') +
+                           (newColor ? ' w3-leftbar': "") +
+                           " w3-row " +
+                           (this.state.selectedItems.has(item.name) ? " w3-rightbar":"")}
                   onClick={ () => this.handleSelect(item.name) }
                   key={ item.name } >
-                { item.name } <i className={ (item.is_matching ?
-                                              type[item.is_matching] :
+                <div className="w3-column">{ item.name }</div>
+                 <div className="w3-column w3-right-align">
+                                <i className={ (item.isMatching ?
+                                              type[item.isMatching] :
                                               type['some']) +
-                " w3-right " +
-                " w3-large"}></i>
+                                              " w3-large " }></i>
+                {item.isMatching ? label[item.isMatching]: label['some']}</div>
           </li>
   }
 
@@ -175,21 +178,26 @@ export class Ingredient_List extends GroupActionList {
       return <div className="w3-yellow">Oops, put 'ingredients' above your list of ingredients. This is required</div>;
     }
     for (const item of this.props.items) {
-      list.push(this.renderItem(item));
-      if (item["is_matching"] == 'some') {
+      if (item["isMatching"] == 'some') {
+        let color = new W3Color;
+        const newColor = color.random();
+        console.log(newColor)
+        list.push(this.renderItem(item, newColor));
         for (const suggest of item['pantry']){
           //console.log(suggest);
-          list.push(this.renderItem(suggest));
+          list.push(this.renderItem(suggest, newColor));
         }
+      }else{
+        list.push(this.renderItem(item, false));
       }
     }
     return list;
   }
 
-  check_items(){
+  checkItems(){
     const list = [];
     for (let item of this.props.items ){
-      if (item.is_matching == 'some'){
+      if (item.isMatching == 'some'){
         const tempPantry = [];
         for (const subItem of item.pantry) {
           if (this.state.selectedItems.has(subItem.name)){
@@ -198,11 +206,11 @@ export class Ingredient_List extends GroupActionList {
         }
         if (tempPantry.length == 1){
           //one sub item selected from list.
-          //use that and set is_matching on it.
+          //use that and set isMatching on it.
           //Unless there is a conflicting selection with the parent:
           if (!this.state.selectedItems.has(item.name)){
             item = tempPantry[0];
-            item.is_matching = 'perfect';
+            item.isMatching = 'perfect';
             item.pantry = tempPantry.splice();
           }
           //if there is a conflicting match do nothing!
@@ -212,7 +220,7 @@ export class Ingredient_List extends GroupActionList {
           // but non of the childern were.
           if (this.state.selectedItems.has(item.name)){
             item.pantry = [];
-            item.is_matching = 'no';
+            item.isMatching = 'no';
           }
         }
         else {
@@ -222,16 +230,16 @@ export class Ingredient_List extends GroupActionList {
       }
       list.push(item);
     }
-    this.props.ingredient_update(list);
+    this.props.ingredientUpdate(list);
     const slist = new Set();
     this.setState({selectedItems: slist});
   }
 
-  delete_items(){
+  deleteItems(){
     const list = [];
     //rebuild list without selected items.
     for (const item of this.props.items ){
-      if (item.is_matching == 'some'){
+      if (item.isMatching == 'some'){
         const tempPantry = [];
         for (const subItem of item.pantry) {
           if (!this.state.selectedItems.has(subItem.name)){
@@ -239,7 +247,7 @@ export class Ingredient_List extends GroupActionList {
           }
         }
         if (tempPantry.length == 0){
-          item.is_matching = 'no'
+          item.isMatching = 'no'
         }
         else {
           // there are options still available.
@@ -248,7 +256,7 @@ export class Ingredient_List extends GroupActionList {
             if (tempPantry.length == 1){
               // but it was only one so that one became the only available match
               const subItem = tempPantry[0];
-              subItem.is_matching = 'perfect';
+              subItem.isMatching = 'perfect';
               list.push(subItem);
             }
             else{
@@ -264,7 +272,7 @@ export class Ingredient_List extends GroupActionList {
         list.push(item);
       }
     }
-    this.props.ingredient_update(list);
+    this.props.ingredientUpdate(list);
     const slist = new Set();
     this.setState({selectedItems: slist});
   }
@@ -287,10 +295,10 @@ export class RecipeForm extends React.Component {
       ValidateIsLoading: false,
       DeleteIsLoading: false,
       isDeleted: false,
-      is_duplicate: false,
-      recipe_name: '',
-      new_recipe_name: '',
-      ingredient_list: [],
+      isDuplicate: false,
+      recipeName: '',
+      newRecipeName: '',
+      IngredientList: [],
       instructions: []
     };
     this.myIsMounted= false;
@@ -301,21 +309,21 @@ export class RecipeForm extends React.Component {
     this.toggleLink = this.toggleLink.bind(this);
   }
 
-  ingredient_update(list){
-    this.setState({ingredient_list: list});
+  ingredientUpdate(list){
+    this.setState({IngredientList: list});
   }
-  instructions_update(list){
+  instructionsUpdate(list){
     this.setState({instructions: list});
   }
 
   componentDidMount() {
     this.myIsMounted = true;
-    if (this.check_compat_video()) {
+    if (this.checkCompatVideo()) {
       // Good to go!
     } else {
       console.log('This browser only supports uploading pre-saved images.');
     }
-    if (this.props.is_edit) {
+    if (this.props.isEdit) {
       this.renderThisRecipe();
     }
   }
@@ -373,7 +381,7 @@ export class RecipeForm extends React.Component {
         const settings = {
           url: '/v1/recipes/ocr',
           data: formData,
-          is_file_upload: true,
+          isFileUpload: true,
           method: 'POST',
           callBack: callBack,
           accessToken: this.props.accessToken,
@@ -406,7 +414,7 @@ export class RecipeForm extends React.Component {
   }
 
 
-  check_compat_video(){
+  checkCompatVideo(){
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   }
 
@@ -421,14 +429,14 @@ export class RecipeForm extends React.Component {
         const recipe = JSON.parse(xhr.responseText)['recipe'];
         if (this.myIsMounted) {
           this.setState({ ocrisLoading: false,
-                          new_recipe_name: recipe['name'],
-                          is_duplicate: recipe['is_duplicate'],
-                          ingredient_list: recipe['ingredients'],
+                          newRecipeName: recipe['name'],
+                          isDuplicate: recipe['isDuplicate'],
+                          IngredientList: recipe['ingredients'],
                           instructions: recipe['instructions'] });
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
         if (cat == 4){
-          this.setState({ new_recipe_name: "Error:",
+          this.setState({ newRecipeName: "Error:",
                           ValidateIsLoading: false});
           console.log( xhr.responseText );
         }else {
@@ -446,6 +454,7 @@ export class RecipeForm extends React.Component {
       refreshToken: this.props.refreshToken,
       isNotLoggedIn: this.props.isNotLoggedIn,
       updateAccessToken: this.props.updateAccessToken};
+    //console.log(settings)
     let req = new Request();
     req.props = settings;
     req.withAuth();
@@ -473,7 +482,7 @@ export class RecipeForm extends React.Component {
         console.log( xhr.responseText );
       }};
     const settings = {
-      url: '/v1/recipes/' + this.state.recipe_name,
+      url: '/v1/recipes/' + this.state.recipeName,
       data: JSON.stringify({"recipe": this.state.recipeField }),
       method: 'DELETE',
       callBack: callBack,
@@ -506,19 +515,19 @@ export class RecipeForm extends React.Component {
         const recipe = JSON.parse(xhr.responseText)['name'];
         let ingredients = JSON.parse(xhr.responseText)['ingredients'];
         let dedupDisplay = (x) => {
-          if (x['amount_measure'] == x['name']){
-            return  x['amount'] +' '+ x['amount_measure']}
+          if (x['amountMeasure'] == x['name']){
+            return  x['amount'] +' '+ x['amountMeasure']}
           else{
-            return x['amount'] +' '+ x['amount_measure'] +' '+ x['name']
+            return x['amount'] +' '+ x['amountMeasure'] +' '+ x['name']
           }
         }
-        let ingredients_display = ingredients.map( x => dedupDisplay(x) );
+        let ingredientsDisplay = ingredients.map( x => dedupDisplay(x) );
         let instructions = JSON.parse(xhr.responseText)['instructions'];
         let recipeText = recipe.concat('\n',
                                        '\n',
                                       'Ingredients',
                                       '\n',
-                                      ingredients_display.join('\n'),
+                                      ingredientsDisplay.join('\n'),
                                       '\n',
                                       '\n',
                                       'Directions',
@@ -528,7 +537,7 @@ export class RecipeForm extends React.Component {
         if (this.myIsMounted) {
 
           this.setState({ ValidateIsLoading: false,
-                          recipe_name: recipe,
+                          recipeName: recipe,
                           recipeField: recipeText});
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
@@ -556,11 +565,11 @@ export class RecipeForm extends React.Component {
     return(
       <>
         <Header history={ this.props.history }
-                inner={ (this.props.is_edit ? 'Edit': 'Add')+" Recipe" }
+                inner={ (this.props.isEdit ? 'Edit': 'Add')+" Recipe" }
                 isLoggedIn={this.props.isLoggedIn} />
         <div className="w3-margin w3-row-padding">
           <div className={"w3-content " } >
-            { this.state.recipe_name ? (<p className="w3-card"><b>{ this.state.recipe_name }</b></p>): '' }
+            { this.state.recipeName ? (<p className="w3-card"><b>{ this.state.recipeName }</b></p>): '' }
             <div className="w3-bar w3-card w3-margin-bottom w3-xlarge">
               { this.state.ocrisLoading &&
                 <>
@@ -607,7 +616,7 @@ export class RecipeForm extends React.Component {
                      id="upload"
                      onChange={ (event) => this.handleFileUpload(event)}
                      />
-              {this.props.is_edit ?
+              {this.props.isEdit ?
                   (<>
                     <label className="w3-tooltip" htmlFor="delete" aria-label="delete this recipe">
                       <i className="w3-btn w3-hover-yellow fas fa-trash-alt" aria-hidden="true"></i>
@@ -659,21 +668,23 @@ export class RecipeForm extends React.Component {
                       value={ !this.props.isLoading ? "Review Recipe" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) }
                       className="w3-btn w3-orange w3-input w3-block w3-hover-yellow" />
             </form>
-            { this.state.new_recipe_name ? (<p><b>{ this.state.new_recipe_name }</b></p>): '' }
-            { this.state.new_recipe_name ? (
-                <Ingredient_List items={ this.state.ingredient_list }
-                                 ingredient_update={(list)=>this.ingredient_update(list)}
+            { this.state.newRecipeName ? (<p><b>Name:{ this.state.newRecipeName }</b></p>): '' }
+            { this.state.newRecipeName ? (<p>Looking for matching ingredients...</p>): '' }
+            { this.state.newRecipeName ? (
+                <IngredientList items={ this.state.IngredientList }
+                                 ingredientUpdate={(list)=>this.ingredientUpdate(list)}
                                  />):"" }
             <div className={"w3-padding"}></div>
-            { this.state.new_recipe_name ? (
-                <Instructions_List items={ this.state.instructions }
-                                   instructions_update={(list)=>this.instructions_update(list)}/>):"" }
+            { this.state.newRecipeName ? <p><b>Directions</b></p> : "" }
+            { this.state.newRecipeName ? (
+                <InstructionsList items={ this.state.instructions }
+                                   instructionsUpdate={(list)=>this.instructionsUpdate(list)}/>):"" }
             <div className={"w3-padding"}></div>
-            <Action_Recipe
+            <ActionRecipe
                         {...this.props}
-                        name={ this.state.recipe_name }
-                        new_name={ this.state.new_recipe_name }
-                        ingredients={ this.state.ingredient_list }
+                        name={ this.state.recipeName }
+                        newName={ this.state.newRecipeName }
+                        ingredients={ this.state.IngredientList }
                         instructions={ this.state.instructions }/>
           </div>
         </div>

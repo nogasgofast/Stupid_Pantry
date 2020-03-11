@@ -68,50 +68,52 @@ class App extends React.Component {
       updateAccessToken: (access) => this.updateAccessToken(access),
       updateAllTokens: (access,refresh) => this.updateAllTokens(access,refresh)};
     return (
-      <Switch>
-        <Route path="/register"
-               render={(props)=><RegisterForm {...props} {...preProps} />} />
-        <Route path="/login"
-               render={(props)=><LoginForm {...props} {...preProps} />} />
-        <Route path="/logout"
-               render={(props)=><LogoutForm {...props} {...preProps} />} />
-        { /* beyond this point login required */ }
-        <ProtectedRoute exact
-                        path="/" {...preProps}
-                        to="/nav"
-                        component={ Redirect } />
-        <ProtectedRoute exact
-                        path="/pantry" {...preProps}
-                        component={ PantryList } />
-        <ProtectedRoute path="/pantry/" {...preProps}
-                        is_edit={ true }
-                        component={ IngredientForm } />
-        <ProtectedRoute path="/shopping" {...preProps}
-                        component={ ShoppingList } />
-        <ProtectedRoute exact
-                        path="/recipes" {...preProps}
-                        component={ RecipesList } />
-        <ProtectedRoute exact
-                        path="/mealplans" {...preProps}
-                        component={ MealPlanList } />
-        <ProtectedRoute path="/mealplans/edit" {...preProps}
-                        is_edit={ true }
-                        component={ MealPlanForm } />
-        <ProtectedRoute exact
-                        path="/recipes/add" {...preProps}
-                        is_edit={ false }
-                        component={ RecipeForm } />
-        <ProtectedRoute exact
-                        path="/recipes/help" {...preProps}
-                        component={ RecipesHelp } />
-        <ProtectedRoute path="/recipes/view" {...preProps}
-                        component={ RecipeDisplay } />
-        <ProtectedRoute path="/recipes/" {...preProps}
-                        is_edit={ true }
-                        component={ RecipeForm } />
-        <ProtectedRoute path="/nav" {...preProps}
-                        component={ CatagoryList } />
-      </Switch>
+      <div className="">
+        <Switch>
+          <Route path="/register"
+                 render={(props)=><RegisterForm {...props} {...preProps} />} />
+          <Route path="/login"
+                 render={(props)=><LoginForm {...props} {...preProps} />} />
+          <Route path="/logout"
+                 render={(props)=><LogoutForm {...props} {...preProps} />} />
+          { /* beyond this point login required */ }
+          <ProtectedRoute exact
+                          path="/" {...preProps}
+                          to="/nav"
+                          component={ Redirect } />
+          <ProtectedRoute exact
+                          path="/pantry" {...preProps}
+                          component={ PantryList } />
+          <ProtectedRoute path="/pantry/" {...preProps}
+                          isEdit={ true }
+                          component={ IngredientForm } />
+          <ProtectedRoute path="/shopping" {...preProps}
+                          component={ ShoppingList } />
+          <ProtectedRoute exact
+                          path="/recipes" {...preProps}
+                          component={ RecipesList } />
+          <ProtectedRoute exact
+                          path="/mealplans" {...preProps}
+                          component={ MealPlanList } />
+          <ProtectedRoute path="/mealplans/edit" {...preProps}
+                          isEdit={ true }
+                          component={ MealPlanForm } />
+          <ProtectedRoute exact
+                          path="/recipes/add" {...preProps}
+                          isEdit={ false }
+                          component={ RecipeForm } />
+          <ProtectedRoute exact
+                          path="/recipes/help" {...preProps}
+                          component={ RecipesHelp } />
+          <ProtectedRoute path="/recipes/view" {...preProps}
+                          component={ RecipeDisplay } />
+          <ProtectedRoute path="/recipes/" {...preProps}
+                          isEdit={ true }
+                          component={ RecipeForm } />
+          <ProtectedRoute path="/nav" {...preProps}
+                          component={ CatagoryList } />
+        </Switch>
+      </div>
     )
   }
 }

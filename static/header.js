@@ -22,15 +22,13 @@ export class Header extends React.Component {
 
   render () {
     return (
-      <div className="w3-container w3-padding w3-orange">
+      <div className="w3-container w3-card w3-padding">
         <Link to="/nav">
           <h2>Smart Pantry</h2>
         </Link>
-        <button onClick={ this.goback } className="w3-btn">
-          <span className="w3-large">
-             { this.props.inner == "Login"? this.props.inner : "< " + this.props.inner }
-          </span>
-        </button>
+        <span className="w3-large">
+           { this.props.inner }
+        </span>
         <div className="w3-dropdown-click w3-right">
           <button className="w3-btn w3-hover-yellow w3-xxlarge" onClick={ this.toggleShow }>
             <i className="fas fa-hamburger"></i>

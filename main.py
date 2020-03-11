@@ -1,9 +1,10 @@
-from sp_api import *
+from spAPI import *
 
-config = get_config()
-db_setup(config)
-app = app_factory()
+config = getConfig()
+dbSetup(config)
+app = appFactory()
 app.debug = True
+app.config['OCR_SERVICE'] = 'http://ocr:5000/uploader'
 app.config['ASSETS_DEBUG'] = True
 app.config['UPLOAD_FOLDER'] = r'static/images'
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024

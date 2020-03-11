@@ -53,7 +53,7 @@ export class Request extends React.Component {
       //YeY! requth worked,
       //refresh
       const json = JSON.parse(xhr.responseText);
-      this.props.updateAccessToken(json.access_token);
+      this.props.updateAccessToken(json.accessToken);
       //resend
       let r3 = new XMLHttpRequest();
       r3.open(this.props.method, this.props.url, true);
@@ -63,7 +63,7 @@ export class Request extends React.Component {
         }
       }
       r3.setRequestHeader("Accept", "application/json");
-      r3.setRequestHeader("Authorization", "Bearer " + json.access_token);
+      r3.setRequestHeader("Authorization", "Bearer " + json.accessToken);
       r3.onreadystatechange = () => this.props.callBack(r3);
       r3.send(this.props.data);
     }else if (xhr.readyState == 4 && xhr.status == 401){
@@ -95,11 +95,11 @@ export function thumbnail(item) {
 }
 
 export class GroupActionItem {
-  constructor(name, is_matching) {
+  constructor(name, isMatching) {
     //for now all this does is prototype this item. Making
     //sure the programer set all the correct attributes.
     this.name = name;
-    this.is_matching = is_matching;
+    this.isMatching = isMatching;
   }
 }
 
@@ -115,7 +115,7 @@ export class GroupActionList extends React.Component {
     };
   }
 
-  render_item(item){
+  renderItem(item){
     let viewAmount = 0
     let color = 'w3-green'
     item.viewAmount > 1 ? viewAmount = 1 : viewAmount = item.viewAmount
@@ -142,7 +142,7 @@ export class GroupActionList extends React.Component {
   renderList(){
     let list = [];
     for (const item of this.props.items) {
-      list.push(this.render_item(item));
+      list.push(this.renderItem(item));
     }
     return list;
   }
@@ -176,11 +176,11 @@ export class GroupActionList extends React.Component {
     const newSelectedItems = new Set(this.state.selectedItems);
     if (newSelectedItems.has(item)){
       newSelectedItems.delete(item);
-      //item.is_selected=false;
+      //item.isSelected=false;
       this.setState({ selectedItems: newSelectedItems });
     } else {
       newSelectedItems.add(item);
-      //item.is_selected=true;
+      //item.isSelected=true;
       this.setState({ selectedItems: newSelectedItems });
     }
   }

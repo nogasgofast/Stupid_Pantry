@@ -4,39 +4,39 @@ import json
 import unittest
 from pony.orm import *
 from flask_jwt_extended import JWTManager, create_access_token
-import sp_api
-import sp_database
+import spAPI
+import spDatabase
 #test data
 
 class Recipes_route(unittest.TestCase):
     try:
-        sp_database.spantry.bind('sqlite', ':memory:', create_db=True)
-        sp_database.spantry.generate_mapping(create_tables=True)
+        SPDB.spantry.bind('sqlite', ':memory:', create_db=True)
+        SPDB.spantry.generate_mapping(create_tables=True)
     except pony.orm.core.BindingError:
         print("\n[INFO]: control_service_test says database already bound \n")
 
     def setUp(self):
-        sp_database.spantry.create_tables()
+        SPDB.spantry.create_tables()
         with db_session:
-            sp_database.spantry.Users(username="test",
+            SPDB.spantry.Users(username="test",
                                         pwHash="test",
-                                        is_authenticated=False,
-                                        is_active=False,
-                                        is_anonymous=False)
+                                        isAuthenticated=False,
+                                        isActive=False,
+                                        isAnonymous=False)
         sp_api.testing = True
-        self.app = sp_api.app_factory()
+        self.app = spAPI.app_factory()
         self.app.debug = True
         self.JWT = JWTManager(self.app)
         with self.app.app_context():
             self.access_token = create_access_token(identity='test')
-        sp_database.spantry.create_tables()
+        SPDB.spantry.create_tables()
         self.client = self.app.test_client()
         self.rH = {'Content-Type': 'application/json',
                    'Authorization': 'Bearer {}'.format(self.access_token)}
         self.route = '/v1/recipes'
 
     def tearDown(self):
-        sp_database.spantry.drop_all_tables(with_all_data=True)
+        SPDB.spantry.drop_all_tables(with_all_data=True)
 
     def test_get_empty_request_responds_when_empty(self):
         rv = self.client.get(self.route, data='{}', headers=self.rH)
@@ -46,7 +46,7 @@ class Recipes_route(unittest.TestCase):
     @db_session
     def test_get_empty_request_one_item(self):
         user = sp_api.identify('test')
-        item = sp_database.spantry.Recipes(uid=user,
+        item = SPDB.spantry.Recipes(uid=user,
                                              name="hot dogs",
                                              instructions="put it togeather",
                                              )
@@ -58,7 +58,7 @@ class Recipes_route(unittest.TestCase):
     @db_session
     def test_get_request_for_item_by_name(self):
         user = sp_api.identify('test')
-        sp_database.spantry.Recipes(uid=user,
+        SPDB.spantry.Recipes(uid=user,
                                      name="hot dogs",
                                      instructions="put it togeather")
         commit()
@@ -71,10 +71,10 @@ class Recipes_route(unittest.TestCase):
     @db_session
     def test_get_empty_request_responds_two_items(self):
         user = sp_api.identify('test')
-        sp_database.spantry.Recipes(uid=user,
+        SPDB.spantry.Recipes(uid=user,
                                          name="hot dogs",
                                          instructions="put it togeather")
-        sp_database.spantry.Recipes(uid=user,
+        SPDB.spantry.Recipes(uid=user,
                                          name="boiled eggs",
                                          instructions="take it apart")
         commit()
@@ -135,14 +135,14 @@ class Recipes_route(unittest.TestCase):
     @db_session
     def test_put_all_fileds_can_modify_attributes(self):
         user = sp_api.identify('test')
-        sp_database.spantry.Recipes(uid=user,
+        SPDB.spantry.Recipes(uid=user,
                                         name="boiled eggs",
                                         instructions="put it togeather")
         commit()
         data = json.dumps(dict(name="boiled eggs",
                                instructions="take it apart"))
         rv = self.client.put(self.route, data=data, headers=self.rH)
-        item = sp_database.spantry.Recipes.get(name="boiled eggs")
+        item = SPDB.spantry.Recipes.get(name="boiled eggs")
         self.assertTrue(rv.status_code is 200)
         self.assertEqual("take it apart", item.instructions)
 
@@ -161,12 +161,12 @@ class Recipes_route(unittest.TestCase):
     @db_session
     def test_delete_actually_removes_things(self):
         user = sp_api.identify('test')
-        sp_database.spantry.Recipes(uid=user,
+        SPDB.spantry.Recipes(uid=user,
                                         name="boiled eggs",
                                         instructions="put it togeather")
         commit()
         data = json.dumps(dict(name="boiled eggs"))
         rv = self.client.delete(self.route, data=data, headers=self.rH)
         self.assertTrue(rv.status_code is 200)
-        item = sp_database.spantry.Recipes.get(name="boiled eggs")
+        item = SPDB.spantry.Recipes.get(name="boiled eggs")
         self.assertTrue( item is None )

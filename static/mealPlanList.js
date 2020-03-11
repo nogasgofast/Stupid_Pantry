@@ -7,7 +7,7 @@ const color = new W3Color;
 
 class Plan extends GroupActionList {
 
-  render_item(item){
+  renderItem(item){
     return <Link key={ item } to={ this.state.path + '/' + item } >
               <li className={"w3-list-item w3-left-align"}
                   style={{height: "6em"}} >
@@ -22,7 +22,7 @@ class Plan extends GroupActionList {
   renderList(){
     let list = [];
     for (const item of this.props.items) {
-      list.push(this.render_item(item));
+      list.push(this.renderItem(item));
     }
     return list;
   }
@@ -34,7 +34,7 @@ export class MealPlanList extends React.Component {
     this.state = {
       dates: [],
       mealplans: [],
-      is_loading: false
+      isLoading: false
     }
     this.myIsMounted = false;
   }
@@ -57,11 +57,11 @@ export class MealPlanList extends React.Component {
           this.setState({
             dates: json.dates,
             mealplans: json.mealplans,
-            is_loading: false
+            isLoading: false
           });
         }
       } else if (xhr.readyState == 4){
-        this.setState({ is_loading: false })
+        this.setState({ isLoading: false })
         console.log( "Short Status " + xhr.status);
       }
     };
@@ -73,7 +73,7 @@ export class MealPlanList extends React.Component {
       callBack: callBack,
       ...this.props
     };
-    this.setState({is_loading: true});
+    this.setState({isLoading: true});
     let req = new Request(settings);
     req.withAuth();
   }

@@ -6,7 +6,7 @@ import { GroupActionList, GroupActionItem,
 
 const color = new W3Color;
 
-export class Instructions_List_disp extends GroupActionList {
+export class InstructionsListDisp extends GroupActionList {
   constructor(props){
     super(props);
     this.state = {
@@ -15,13 +15,13 @@ export class Instructions_List_disp extends GroupActionList {
     }
   }
 
-  render_item(item){
+  renderItem(item){
     return <li className={ "w3-card w3-left-align " }
                key={ item }>{ item }</li>
   }
 }
 
-export class Ingredient_List_disp extends GroupActionList {
+export class IngredientListDisp extends GroupActionList {
   constructor(props){
     super(props);
     this.state ={
@@ -29,7 +29,7 @@ export class Ingredient_List_disp extends GroupActionList {
       selectedItems: new Set() };
   }
 
-  render_item(item) {
+  renderItem(item) {
     //console.log(item)
     let viewAmount = 0
     let color = 'w3-green'
@@ -44,7 +44,7 @@ export class Ingredient_List_disp extends GroupActionList {
                 <li className={ "w3-card w3-border-yellow" }>
                   { item.amount+
                     " "+
-                    item.amount_measure+
+                    item.amountMeasure+
                     " "+
                     item.name }
                   <div className={ color }
@@ -61,14 +61,14 @@ export class RecipeDisplay extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      is_stocking: false,
+      isStocking: false,
       keepStocked: false,
-      is_subtracting: false,
+      isSubtracting: false,
       subtracted: false,
       pictureIsLoading: false,
-      recipe_name: '',
+      recipeName: '',
       imagePath: '',
-      ingredient_list: [],
+      ingredientList: [],
       instructions: []
     };
     this.myIsMounted= false;
@@ -103,9 +103,9 @@ export class RecipeDisplay extends React.Component {
       }
     };
     const settings = {
-      url: '/v1/recipe/image/' + this.state.recipe_name,
+      url: '/v1/recipe/image/' + this.state.recipeName,
       data: '{}',
-      is_file_upload: true,
+      isFileUpload: true,
       method: 'DELETE',
       callBack: callBack,
       accessToken: this.props.accessToken,
@@ -153,19 +153,19 @@ export class RecipeDisplay extends React.Component {
           img.onload = ()=>{
             // console.log(e.target.result);
             // console.log(img);
-            let MAX_WIDTH = 1200;
-            let MAX_HEIGHT = 1600;
+            let maxWidth = 1200;
+            let maxHeight = 1600;
             let width = img.width;
             let height = img.height;
             if (width > height) {
-              if (width > MAX_WIDTH) {
-                height *= MAX_WIDTH / width;
-                width = MAX_WIDTH;
+              if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
               }
             } else {
-              if (height > MAX_HEIGHT) {
-                width *= MAX_HEIGHT / height;
-                height = MAX_HEIGHT;
+              if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
               }
             }
             // console.log(width);
@@ -179,9 +179,9 @@ export class RecipeDisplay extends React.Component {
               formData.append('file', blob, f.name );
               //console.log(formData.has('file'))
               const settings = {
-                url: '/v1/recipe/image/' + this.state.recipe_name,
+                url: '/v1/recipe/image/' + this.state.recipeName,
                 data: formData,
-                is_file_upload: true,
+                isFileUpload: true,
                 method: 'POST',
                 callBack: callBack,
                 ...this.props
@@ -200,39 +200,39 @@ export class RecipeDisplay extends React.Component {
     }
   }
 
-  subtract_ingredients() {
-    let name = this.state.recipe_name;
+  subtractIngredients() {
+    let name = this.state.recipeName;
     let callBack = (xhr) => {
         //console.log(xhr.responseText);
         if ((xhr.readyState == 4) && xhr.status == 200) {
         const json = JSON.parse(xhr.responseText);
         if(this.myIsMounted) {
           this.setState({
-            is_subtracting: false,
+            isSubtracting: false,
             subtracted:  true
           });
           this.renderThisRecipe();
         }
       } else if (xhr.readyState == 4){
-        this.setState({ is_subtracting: false })
+        this.setState({ isSubtracting: false })
         console.log( "Short Status " + xhr.status);
       }
     };
 
     const settings = {
-      url: '/v1/inventory/use/' + this.state.recipe_name,
+      url: '/v1/inventory/use/' + this.state.recipeName,
       data: '{}',
       method: 'PUT',
       callBack: callBack,
       ...this.props
     };
-    this.setState({is_subtracting: true});
+    this.setState({isSubtracting: true});
     let req = new Request(settings);
     req.withAuth();
   }
 
-  stock_recipe() {
-    let name = this.state.recipe_name;
+  stockRecipe() {
+    let name = this.state.recipeName;
     let callBack = (xhr) => {
         //console.log(xhr.responseText);
         if ((xhr.readyState == 4) && xhr.status == 200) {
@@ -240,24 +240,24 @@ export class RecipeDisplay extends React.Component {
         if(this.myIsMounted) {
           const keepStocked = !this.state.keepStocked;
           this.setState({
-            is_stocking: false,
+            isStocking: false,
             keepStocked:  keepStocked
           });
         }
       } else if (xhr.readyState == 4){
-        this.setState({ is_stocking: false })
+        this.setState({ isStocking: false })
         console.log( "Short Status " + xhr.status);
       }
     };
 
     const settings = {
-      url: '/v1/requirements/' + this.state.recipe_name,
+      url: '/v1/requirements/' + this.state.recipeName,
       data: '{}',
       method: 'PUT',
       callBack: callBack,
       ...this.props
     };
-    this.setState({is_stocking: true});
+    this.setState({isStocking: true});
     let req = new Request(settings);
     req.withAuth();
   }
@@ -276,18 +276,18 @@ export class RecipeDisplay extends React.Component {
       if ((state == 4) && status == 200) {
         //console.log(JSON.parse(xhr.responseText))
         const recipe = JSON.parse(xhr.responseText)['name'];
-        const recipe_count = JSON.parse(xhr.responseText)['value'];
+        const recipeCount = JSON.parse(xhr.responseText)['value'];
         const keepStocked = JSON.parse(xhr.responseText)['keepStocked'];
         let ingredients = JSON.parse(xhr.responseText)['ingredients'];
         let instructions = JSON.parse(xhr.responseText)['instructions'];
         const imagePath = JSON.parse(xhr.responseText)['imagePath'];
         instructions = instructions.split('\n');
         if (this.myIsMounted) {
-          this.setState({ recipe_name: recipe,
-                          count: recipe_count,
+          this.setState({ recipeName: recipe,
+                          count: recipeCount,
                           keepStocked: keepStocked,
                           imagePath: imagePath,
-                          ingredient_list: ingredients,
+                          ingredientList: ingredients,
                           instructions: instructions });
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
@@ -319,7 +319,7 @@ export class RecipeDisplay extends React.Component {
                 isLoggedIn={this.props.isLoggedIn} />
         <div className="w3-margin w3-row-padding">
           <div className="w3-content ">
-            { this.state.recipe_name ? (<p className="w3-card"><b>{ this.state.recipe_name }</b>
+            { this.state.recipeName ? (<p className="w3-card"><b>{ this.state.recipeName }</b>
                                           <span className={"w3-right w3-badge "+color.random()}>
                                             { this.state.count }
                                           </span>
@@ -340,7 +340,7 @@ export class RecipeDisplay extends React.Component {
                      onChange={ this.state.pictureIsLoading ? undefined :
                                 (event) => this.handlePictureUpload(event.target.files) } />
               <label className="w3-tooltip">
-                <Link to={ '/recipes/' + this.state.recipe_name } >
+                <Link to={ '/recipes/' + this.state.recipeName } >
                     <i className="w3-btn w3-hover-yellow fas fa-edit" aria-hidden="true"></i>
                 </Link>
                 <span className="w3-text">Edit/Delete Recipe</span>
@@ -348,7 +348,7 @@ export class RecipeDisplay extends React.Component {
               <label className="w3-tooltip" aria-label="keep this recipe stocked" aria-hidden="true">
                 <button className={"w3-btn w3-hover-yellow " +
                         (this.state.keepStocked ? "w3-yellow" : "") }
-                        onClick={ () => this.stock_recipe() }>
+                        onClick={ () => this.stockRecipe() }>
                   <i className="fas fa-cart-arrow-down"></i>
                 </button>
                 <span className="w3-text">Keep this on my shopping list.</span>
@@ -356,7 +356,7 @@ export class RecipeDisplay extends React.Component {
               <label className="w3-tooltip" aria-label="shopping list" aria-hidden="true">
                 <button className={"w3-btn w3-hover-yellow " +
                                    (this.state.subtracted ? "w3-yellow" : "") }
-                        onClick={ () => this.subtract_ingredients() } >
+                        onClick={ () => this.subtractIngredients() } >
                   <i className="fas fa-utensils"></i>
                 </button>
                 <span className="w3-text">I ate this food!</span>
@@ -371,11 +371,11 @@ export class RecipeDisplay extends React.Component {
                             onClick={ (event) => this.deletePicture(event) }/>) : ""}
 
             </div>
-            <Ingredient_List_disp items={ this.state.ingredient_list }
-                          ingredient_update={(list)=>this.ingredient_update(list)}/>
+            <IngredientListDisp items={ this.state.ingredientList }
+                          ingredientUpdate={(list)=>this.ingredientUpdate(list)}/>
             <div className={"w3-padding"}></div>
-            <Instructions_List_disp items={ this.state.instructions }
-                          instructions_update={(list)=>this.instructions_update(list)}/>
+            <InstructionsListDisp items={ this.state.instructions }
+                          instructionsUpdate={(list)=>this.instructionsUpdate(list)}/>
             <div className={"w3-padding"}></div>
           </div>
         </div>

@@ -9,7 +9,7 @@ export class PantryList extends React.Component {
     super(props);
     this.state = {
       recipes: [],
-      is_loading: false
+      isLoading: false
     }
     this.myIsMounted = false;
   }
@@ -31,11 +31,11 @@ export class PantryList extends React.Component {
         if(this.myIsMounted) {
           this.setState({
             recipes: json.list,
-            is_loading: false
+            isLoading: false
           });
         }
       } else if (xhr.readyState == 4){
-        this.setState({ is_loading: false })
+        this.setState({ isLoading: false })
         console.log( "Short Status " + xhr.status);
       }
     };
@@ -47,7 +47,7 @@ export class PantryList extends React.Component {
       callBack: callBack,
       ...this.props
     };
-    this.setState({is_loading: true});
+    this.setState({isLoading: true});
     let req = new Request(settings);
     req.withAuth();
   }

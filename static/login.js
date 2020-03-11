@@ -80,7 +80,7 @@ export class LoginForm extends React.Component {
   setAuthTokens(xhr) {
     if (xhr.readyState == 4 && xhr.status == 200) {
       const json = JSON.parse(xhr.responseText);
-      this.props.updateAllTokens(json.access_token, json.refresh_token);
+      this.props.updateAllTokens(json.accessToken, json.refreshToken);
       this.props.setLoggedIn();
       //go ahead and clear the username and password from memory
       //we don't want to hold on to that for very long.
@@ -125,21 +125,21 @@ export class LoginForm extends React.Component {
               { this.renderPassword() }
               <div className="w3-bar w3-padding-16">
                 { this.state.isLoading && <>
-                  <label htmlFor="login_btn">
+                  <label htmlFor="loginBtn">
                     <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>
                   </label>
                   <input  type="submit"
                                 style={{display: "none"}}
-                                id="login_btn"
+                                id="loginBtn"
                                 value="Log in"
                                 className="w3-btn w3-hover-yellow" /></>
                 }
                 { !this.state.isLoading &&
                   <input  type="submit"
                           value="Log in"
-                          className="w3-orange w3-btn w3-hover-yellow"/>
+                          className="w3-btn w3-hover-yellow"/>
                 }
-                <Link className="w3-orange w3-btn w3-right w3-hover-yellow" to='/register' >
+                <Link className="w3-btn w3-right w3-hover-yellow" to='/register' >
                   Sign up here!
                 </Link>
               </div>

@@ -15,7 +15,7 @@ class Catagories extends GroupActionList {
     }
 
 
-  render_item(item) {
+  renderItem(item) {
     return(
         <Link key={ item.name } to={ '/' + item.name }>
          <li className={"w3-card w3-left-align " +
@@ -33,10 +33,10 @@ class Catagories extends GroupActionList {
 
   renderList(){
     let list = [];
-    list.push(this.render_item( { name: 'recipes', value: this.props.recipes } ));
-    list.push(this.render_item( { name: 'mealplans', value: this.props.mealplan } ));
-    list.push(this.render_item( { name: 'shopping', value: this.props.shopping } ));
-    list.push(this.render_item( { name: 'pantry', value: this.props.pantry } ));
+    list.push(this.renderItem( { name: 'recipes', value: this.props.recipes } ));
+    list.push(this.renderItem( { name: 'mealplans', value: this.props.mealplan } ));
+    list.push(this.renderItem( { name: 'shopping', value: this.props.shopping } ));
+    list.push(this.renderItem( { name: 'pantry', value: this.props.pantry } ));
     return list;
   }
 }

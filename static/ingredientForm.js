@@ -13,14 +13,14 @@ export class IngredientForm extends React.Component {
       pictureIsLoading: false,
       DeleteIsLoading: false,
       isLoading: false,
-      previous_name: '',
+      previousName: '',
       name: '',
       amount: 0,
-      amount_pkg: 1,
-      is_measured: false,
+      amountPkg: 1,
+      isMeasured: false,
       barcode: '',
       keepStocked: false,
-      required_by: [],
+      requiredBy: [],
       imagePath: ''
     };
     this.myIsMounted= false;
@@ -32,7 +32,7 @@ export class IngredientForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleAmountChange = this.handleAmountChange.bind(this);
-    this.handleAmount_pkgChange = this.handleAmount_pkgChange.bind(this);
+    this.handleamountPkgChange = this.handleamountPkgChange.bind(this);
     this.handleBarcodeRemove = this.handleBarcodeRemove.bind(this);
     this.handleBarcodeUpload = this.handleBarcodeUpload.bind(this);
   }
@@ -45,8 +45,8 @@ export class IngredientForm extends React.Component {
       this.setState({ amount: event.target.value });
   }
 
-  handleAmount_pkgChange(event){
-      this.setState({ amount_pkg: event.target.value });
+  handleamountPkgChange(event){
+      this.setState({ amountPkg: event.target.value });
   }
 
   toggleKeepStocked(e){
@@ -79,12 +79,12 @@ export class IngredientForm extends React.Component {
 
   componentDidMount() {
     this.myIsMounted = true;
-    if (this.check_compat_video()) {
+    if (this.checkCompatVideo()) {
       // Good to go!
     } else {
       console.log('This browser only supports uploading pre-saved images.');
     }
-    if (this.props.is_edit) {
+    if (this.props.isEdit) {
       this.renderThisRecipe();
     }
   }
@@ -115,7 +115,7 @@ export class IngredientForm extends React.Component {
     const settings = {
       url: '/v1/inventory/image/' + this.state.name,
       data: '{}',
-      is_file_upload: true,
+      isFileUpload: true,
       method: 'DELETE',
       callBack: callBack,
       ...this.props
@@ -193,7 +193,7 @@ export class IngredientForm extends React.Component {
         const settings = {
           url: '/v1/inventory/barcode/' + this.state.name,
           data: formData,
-          is_file_upload: true,
+          isFileUpload: true,
           method: 'POST',
           callBack: callBack,
           ...this.props
@@ -240,19 +240,19 @@ export class IngredientForm extends React.Component {
           img.onload = ()=>{
             // console.log(e.target.result);
             // console.log(img);
-            let MAX_WIDTH = 1200;
-            let MAX_HEIGHT = 1600;
+            let maxWidth = 1200;
+            let maxHeight = 1600;
             let width = img.width;
             let height = img.height;
             if (width > height) {
-              if (width > MAX_WIDTH) {
-                height *= MAX_WIDTH / width;
-                width = MAX_WIDTH;
+              if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
               }
             } else {
-              if (height > MAX_HEIGHT) {
-                width *= MAX_HEIGHT / height;
-                height = MAX_HEIGHT;
+              if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
               }
             }
             // console.log(width);
@@ -268,7 +268,7 @@ export class IngredientForm extends React.Component {
               const settings = {
                 url: '/v1/inventory/image/' + this.state.name,
                 data: formData,
-                is_file_upload: true,
+                isFileUpload: true,
                 method: 'POST',
                 callBack: callBack,
                 ...this.props
@@ -288,7 +288,7 @@ export class IngredientForm extends React.Component {
   }
 
 
-  check_compat_video(){
+  checkCompatVideo(){
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   }
 
@@ -310,10 +310,10 @@ export class IngredientForm extends React.Component {
         console.log( xhr.responseText );
       }};
     const settings = {
-      url: '/v1/inventory/' + this.state.previous_name,
+      url: '/v1/inventory/' + this.state.previousName,
       data: JSON.stringify({"name": this.state.name,
                             "amount": this.state.amount,
-                            "amount_pkg": this.state.amount_pkg,
+                            "amountPkg": this.state.amountPkg,
                             "keepStocked": this.state.keepStocked,
                             "barcode": this.state.barcode }),
       method: 'PUT',
@@ -378,12 +378,12 @@ export class IngredientForm extends React.Component {
           this.setState({ ValidateIsLoading: false,
                           imagePath: json['imagePath'],
                           name: json['name'],
-                          previous_name: json['name'],
+                          previousName: json['name'],
                           amount: json['amount'],
-                          amount_pkg: json['amount_pkg'],
+                          amountPkg: json['amountPkg'],
                           barcode: json['barcode'],
-                          is_measured: json['is_measured'],
-                          required_by: json['required_by'],
+                          isMeasured: json['isMeasured'],
+                          requiredBy: json['requiredBy'],
                           keepStocked: json['keepStocked']});
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
@@ -407,14 +407,14 @@ export class IngredientForm extends React.Component {
   gotIt(e) {
     e.preventDefault();
     //this is a bitwise integer conversion techniqe
-    const new_amount = (~~this.state.amount) + (~~this.state.amount_pkg);
-    this.setState({ amount: new_amount });
+    const newAmount = (~~this.state.amount) + (~~this.state.amountPkg);
+    this.setState({ amount: newAmount });
   }
 
   render() {
     return(
       <>
-        <Header history={ this.props.history } inner={ (this.props.is_edit ? 'Edit': 'Add')+" pantry" }
+        <Header history={ this.props.history } inner={ (this.props.isEdit ? 'Edit': 'Add')+" pantry" }
                 isLoggedIn={this.props.isLoggedIn} />
         <div className="w3-margin w3-row-padding">
           <div className={"w3-content "} >
@@ -513,7 +513,7 @@ export class IngredientForm extends React.Component {
                      placeholder="Name"
                      onChange={ this.handleNameChange }
                      value={this.state.name} /></b></p>
-              <label className="w3-left" >Amount { this.state.is_measured ? "(oz)" : "" }</label>
+              <label className="w3-left" >Amount { this.state.isMeasured ? "(oz)" : "" }</label>
               <b>
               <input className="w3-center w3-input"
                      type="number"
@@ -522,11 +522,11 @@ export class IngredientForm extends React.Component {
                      value={ this.state.amount } />
               </b>
               <p>
-              <label className="w3-left" >Amount in Package { this.state.is_measured ? "(oz)" : "" }</label><b>
+              <label className="w3-left" >Amount in Package { this.state.isMeasured ? "(oz)" : "" }</label><b>
               <input className="w3-input w3-center"
                      type="number"
-                     onChange={ this.handleAmount_pkgChange }
-                     value={ this.state.amount_pkg } /></b></p>
+                     onChange={ this.handleamountPkgChange }
+                     value={ this.state.amountPkg } /></b></p>
               { this.state.barcode ? (<p><label className="w3-left">Barcode</label>
                                         <b>
                                          <input className="w3-input w3-center"
@@ -539,8 +539,8 @@ export class IngredientForm extends React.Component {
                      value={ !this.props.isLoading ? "Save" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) } />
               </div>
             </form>
-            { this.state.required_by.length ? (<h2>Required by</h2>) : "" }
-            <GroupActionList path={ '/recipes/view' } items={ this.state.required_by } / >
+            { this.state.requiredBy.length ? (<h2>Required by</h2>) : "" }
+            <GroupActionList path={ '/recipes/view' } items={ this.state.requiredBy } / >
           </div>
         </div>
       </>

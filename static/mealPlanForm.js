@@ -20,12 +20,12 @@ class RecipeList extends GroupActionList {
     let ret = []
     let days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
     for (let day=0; day <= 6; day ++) {
-      let today_is_the_day = false;
-      if ( day == item.step && item.step_type == 'dow'){
-        today_is_the_day = true;
+      let todayIsTheDay = false;
+      if ( day == item.step && item.stepType == 'dow'){
+        todayIsTheDay = true;
       }
       ret.push(<span key={ day } className={"w3-bar-item w3-button w3-hover-yellow " +
-                                (today_is_the_day ? 'w3-yellow' : '')}
+                                (todayIsTheDay ? 'w3-yellow' : '')}
                      onClick={() => this.props.updateRepeat(item, day , 'dow') }>
                { days[day] }</span>);
       //console.log(ret);
@@ -34,7 +34,7 @@ class RecipeList extends GroupActionList {
     return ret;
   }
 
-  render_item(item){
+  renderItem(item){
     return  <li key={item.id} className={"w3-card w3-left-align " +
                 (this.state.selectedItems.has(item.id) ?
                 "w3-border-yellow w3-rightbar" :
@@ -128,7 +128,7 @@ export class MealPlanForm extends React.Component {
       callBack: callBack2,
       ...this.props
     };
-    this.setState({is_loading: true});
+    this.setState({isLoading: true});
     let req1 = new Request(settings1);
     req1.withAuth();
     let req2 = new Request(settings2);
@@ -226,8 +226,8 @@ export class MealPlanForm extends React.Component {
     let options = [];
     for (let recipe of this.state.optionList){
       let searchlc = this.state.search.toLowerCase();
-      let recipe_name = recipe.name.toLowerCase();
-      if (recipe_name.includes(searchlc) || this.state.search == ''){
+      let recipeName = recipe.name.toLowerCase();
+      if (recipeName.includes(searchlc) || this.state.search == ''){
         options.push(<li key={ recipe.name }
                          value={ recipe.name }
                          onClick={ () => this.addChoice(recipe) }>
@@ -238,11 +238,11 @@ export class MealPlanForm extends React.Component {
     return options;
   }
 
-  updateRepeat(item, step, step_type){
+  updateRepeat(item, step, stepType){
     //feature toggle Repeat off on duplicate entry
-    if (item.step == step && item.step_type == step_type){
+    if (item.step == step && item.stepType == stepType){
       step = 0;
-      step_type = '';
+      stepType = '';
     }
     let callBack = (xhr) => {
       //console.log(xhr.responseText);
@@ -255,7 +255,7 @@ export class MealPlanForm extends React.Component {
           newList.map((it)=>{
             if (it.id == item.id) {
               it.step = step,
-              it.step_type = step_type
+              it.stepType = stepType
             };
           });
           console.log(newList);
@@ -266,7 +266,7 @@ export class MealPlanForm extends React.Component {
       }};
     const settings = {
       url: '/v1/mealplans/' + item.id,
-      data: JSON.stringify({ "step_type": step_type,
+      data: JSON.stringify({ "stepType": stepType,
                              "step": step}),
       method: 'PUT',
       callBack: callBack,
@@ -298,8 +298,8 @@ export class MealPlanForm extends React.Component {
                     items={ this.state.choiceList }
                     removeChoice={(id) => this.removeChoice(id)}
                     updateRepeat={(item,step,
-                                   step_type) => this.updateRepeat(item,step,
-                                                                   step_type)}/>
+                                   stepType) => this.updateRepeat(item,step,
+                                                                   stepType)}/>
             </div>
           </div>
           <div className={"w3-card w3-margin-top w3-form w3-container"} >

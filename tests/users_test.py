@@ -4,37 +4,37 @@ import json
 import unittest
 from pony.orm import *
 from flask_jwt_extended import JWTManager, create_access_token
-import sp_api
-import sp_database
+import spAPI
+import spDatabase
 #test data
 
 class User_route(unittest.TestCase):
     try:
-        sp_database.spantry.bind('sqlite', ':memory:', create_db=True)
-        sp_database.spantry.generate_mapping(create_tables=True)
+        SPDB.spantry.bind('sqlite', ':memory:', create_db=True)
+        SPDB.spantry.generate_mapping(create_tables=True)
     except pony.orm.core.BindingError:
         print("\n[INFO]: control_service_test says database already bound \n")
     def setUp(self):
-        sp_database.spantry.create_tables()
+        SPDB.spantry.create_tables()
         with db_session:
-            sp_database.spantry.Users(username="test",
+            SPDB.spantry.Users(username="test",
                                     pwHash="test",
-                                    is_authenticated=False,
-                                    is_active=False,
-                                    is_anonymous=False)
+                                    isAuthenticated=False,
+                                    isActive=False,
+                                    isAnonymous=False)
         sp_api.testing = True
-        self.app = sp_api.app_factory()
+        self.app = spAPI.appFactory()
         self.app.debug = True
         self.JWT = JWTManager(self.app)
         with self.app.app_context():
             self.access_token = create_access_token(identity='test')
-        sp_database.spantry.create_tables()
+        SPDB.spantry.create_tables()
         self.client = self.app.test_client()
         self.rH = {'Content-Type': 'application/json',
                    'Authorization': 'Bearer {}'.format(self.access_token)}
 
     def tearDown(self):
-        sp_database.spantry.drop_all_tables(with_all_data=True)
+        SPDB.spantry.drop_all_tables(with_all_data=True)
 
     def test_post_empty_or_missing_field_returns_error(self):
         data = json.dumps(dict())
@@ -77,16 +77,16 @@ class User_route(unittest.TestCase):
 
     @db_session
     def test_delete_responds_404(self):
-        sp_database.Users(username = "honey",
+        SPDB.Users(username = "honey",
                             pwHash = "cats",
-                            is_authenticated = False,
-                            is_active = False,
-                            is_anonymous = False)
+                            isAuthenticated = False,
+                            isActive = False,
+                            isAnonymous = False)
         # This is a bit strange but I want to do the test on the recently
         # created user for this test and not the setUp fixture.
         # That requires I get an access token for this user and use it.
         with self.app.app_context():
-            self.access_token = create_access_token(identity='honey')
+            self.accessToken = create_access_token(identity='honey')
         self.rH = {'Content-Type': 'application/json',
                    'Authorization': 'Bearer {}'.format(self.access_token)}
         # strangeness over
@@ -97,21 +97,21 @@ class User_route(unittest.TestCase):
 
     @db_session
     def test_delete_actually_removes_things(self):
-        sp_database.Users(username = "honey",
+        SPDB.Users(username = "honey",
                             pwHash = "cats",
-                            is_authenticated = False,
-                            is_active = False,
-                            is_anonymous = False)
+                            isAuthenticated = False,
+                            isActive = False,
+                            isAnonymous = False)
         # This is a bit strange but I want to do the test on the recently
         # created user for this test and not the setUp fixture.
         # That requires I get an access token for this user and use it.
         with self.app.app_context():
-            self.access_token = create_access_token(identity='honey')
+            self.accessToken = create_access_token(identity='honey')
         self.rH = {'Content-Type': 'application/json',
                    'Authorization': 'Bearer {}'.format(self.access_token)}
         # strangeness over
         data = json.dumps(dict(username="honey"))
         rv = self.client.delete('/v1/users', data=data, headers=self.rH)
         self.assertTrue(rv.status_code is 200)
-        item = sp_database.spantry.Users.get(username="honey")
+        item = SPDB.spantry.Users.get(username="honey")
         self.assertTrue( item is None )

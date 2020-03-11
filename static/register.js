@@ -10,10 +10,12 @@ export class RegisterForm extends React.Component {
     super(props);
     this.state = { username: '',
                    password: '',
+                   email: '',
                    isFailed: false,
                    message: ''};
     this.handleChangeUser = this.handleChangeUser.bind(this);
     this.handleChangePass = this.handleChangePass.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -23,11 +25,16 @@ export class RegisterForm extends React.Component {
   handleChangePass(event) {
     this.setState({ password: event.target.value});
   }
+  handleChangeEmail(event) {
+    this.setState({ email: event.target.value});
+  }
 
   handleSubmit(event) {
       event.preventDefault();
       const username = this.state.username;
       const password = this.state.password;
+      const eMail = this.state.email;
+
       this.setState({ isLoading: true });
       let xhr = new XMLHttpRequest();
       const url = '/v1/users';
@@ -35,7 +42,8 @@ export class RegisterForm extends React.Component {
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.onreadystatechange = (event) => this.setAuthTokens(xhr);
       const datas = JSON.stringify({username: username,
-                                    password: password});
+                                    password: password,
+                                    email: eMail});
       xhr.send(datas);
   }
 
@@ -82,6 +90,15 @@ export class RegisterForm extends React.Component {
                           placeholder="password"
                           name="password"
                           onChange={(event) => this.handleChangePass(event)} />
+                  <label htmlFor="password" hidden={true}>
+                    email:
+                  </label>
+                  <input  type="email"
+                          className="w3-input w3-round w3-padding-16"
+                          value={ this.state.email }
+                          placeholder="email"
+                          name="email"
+                          onChange={(event) => this.handleChangeEmail(event)} />
                   <div className="w3-container w3-center w3-padding-16">
                     <input  type="submit"
                             value={ !this.props.isLoading ? "Sign Up!" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) }
