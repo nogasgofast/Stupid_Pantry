@@ -1,17 +1,12 @@
 import React from 'react';
 import { Link, Redirect } from "react-router-dom";
 import { Header } from './header.js';
-import { W3Color, Request, GroupActionList } from './utils.js';
+import { W3Color, Request, LinkDispList } from './utils.js';
 
 const color = new W3Color;
 
-class Recipes extends GroupActionList {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttons: new Set([]),
-      selectedItems: new Set()};
-    }
+class Recipes extends LinkDispList {
+
 
     renderItem(item){
       return  <Link key={ item.name } to={'/recipes/view/' + item.name } >
@@ -23,13 +18,13 @@ class Recipes extends GroupActionList {
                    "w3-border-yellow w3-rightbar" :
                    "")}>
                         { item.name }
-                      <div className={"w3-right w3-badge "+color.random()}>
+                      <span className={"w3-right w3-badge "+color.random()}>
                         { item.value }
-                      </div>
+                      </span>
                       { item.keepStocked ? (
-                        <label aria-label="use picture">
-                            <i className={"w3-right w3-margin-right w3-large fas fa-cart-arrow-down"}></i>
-                        </label>): '' }
+                        <span aria-label="use picture">
+                            <i className={"w3-large w3-margin-left fas fa-cart-arrow-down"}></i>
+                        </span>): '' }
                 </li>
             </Link>
     }
@@ -76,7 +71,7 @@ export class RecipesList extends React.Component {
       data: '{}',
       method: 'GET',
       callBack: callBack,
-      ...this.props
+      history: this.props.history
     };
     this.setState({isLoading: true});
     let req = new Request(settings);
@@ -86,14 +81,14 @@ export class RecipesList extends React.Component {
   render() {
     return(
       <>
-        <Header history={ this.props.history }
-                inner="Recipes" isLoggedIn={this.props.isLoggedIn} />
+        <Header history={ this.props.history } inner="Recipes" />
         <div className="w3-margin w3-row-padding">
           <div className="w3-content">
             <Link to="/recipes/add">
-              <button className="w3-orange w3-hover-yellow w3-btn w3-block w3-card" >New Recipe</button>
+              <button className="w3-indigo w3-hover-yellow w3-btn w3-block w3-card" >Add Recipe</button>
             </Link>
-            <Recipes  items={ this.state.recipes } {...this.props } />
+            <br />
+            <Recipes items={ this.state.recipes } />
           </div>
         </div>
       </>

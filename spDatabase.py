@@ -10,9 +10,14 @@ class Ingredients(SPDB.Entity):
     name = Required(str)
     amount = Required(float, default = 0)
     amountPkg = Required(int, default = 1)
+    byWeight = Optional(bool, default = True) # measured by weight or count
     barcode = Optional(str)
+    lastBuyDate = Optional(datetime)
+    freshFor = Optional(int, default = 0) # number of weeks the items stays fresh
     keepStocked = Required(bool, default = False)
     imagePath = Optional(str)
+    used = Required(int, default = 0)
+    lastUsed = Required(datetime, default = datetime.now())
     requiredBy = Set('Requirements', cascade_delete = False)
 
 class Requirements(SPDB.Entity):
@@ -40,12 +45,15 @@ class Recipes(SPDB.Entity):
     requirements = Set('Requirements')
     mealplans = Set('MealPlans')
     public = Optional(bool, default = False)
+    copied = Optional(int, default = 0)
     imagePath = Optional(str)
     keepStocked = Required(bool, default = False)
+    used = Required(int, default = 0)
+    lastUsed = Required(datetime, default = datetime.now())
 
 class Users(SPDB.Entity):
     username = Required(str)
-    email = Optional(str)
+    email = Required(str)
     team = Required('Teams')
     role = Required('Roles')
     pwHash = Required(str)

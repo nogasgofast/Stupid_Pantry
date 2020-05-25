@@ -3,6 +3,8 @@ static/webfonts/*
 static/fontawesome-free-5.12.0-web/*
 static/dist/main.js
 static/dist/main.js.map
+example recipes
+example recipes/*
 node_modules
 node_modules/*
 __pycache__/*

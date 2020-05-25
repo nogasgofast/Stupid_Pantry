@@ -1,37 +1,22 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { Header } from './header.js';
-import { GroupActionList, GroupActionItem,
-         Request, W3Color, thumbnail } from './utils.js';
+import { LinkDispList, Request, W3Color, thumbnail } from './utils.js';
 
 const color = new W3Color;
 
-export class InstructionsListDisp extends GroupActionList {
-  constructor(props){
-    super(props);
-    this.state = {
-      buttons: new Set([]),
-      selectedItems: new Set()
-    }
-  }
-
+export class InstructionsListDisp extends LinkDispList {
   renderItem(item){
     return <li className={ "w3-card w3-left-align " }
                key={ item }>{ item }</li>
   }
 }
 
-export class IngredientListDisp extends GroupActionList {
-  constructor(props){
-    super(props);
-    this.state ={
-      buttons: new Set([]),
-      selectedItems: new Set() };
-  }
-
+export class IngredientListDisp extends LinkDispList {
   renderItem(item) {
     //console.log(item)
     let viewAmount = 0
+    let dispName = ''
     let color = 'w3-green'
     item.viewAmount > 1 ? viewAmount = 1 : viewAmount = item.viewAmount
     if ( viewAmount <= 0.5 ){
@@ -40,13 +25,18 @@ export class IngredientListDisp extends GroupActionList {
     if ( viewAmount <= 0.25){
       color = 'w3-red'
     }
+    //this just checks for duplicates like "lemon lemons and prevents them from displaying."
+    //console.log(item.name + " " + item.amountMeasure)
+    if ( item.name == item.amountMeasure.slice(0, -1) ||
+         item.name == item.amountMeasure){
+      dispName = item.amountMeasure
+    }else{
+      dispName = item.amountMeasure + " " + item.name
+    }
+
     return  <Link key={ item.name } to={'/pantry/' + item.name } >
                 <li className={ "w3-card w3-border-yellow" }>
-                  { item.amount+
-                    " "+
-                    item.amountMeasure+
-                    " "+
-                    item.name }
+                  { item.amount + " " + dispName }
                   <div className={ color }
                        style={{height:"4px",
                                width: 100 * viewAmount + "%" }}></div>
@@ -65,6 +55,8 @@ export class RecipeDisplay extends React.Component {
       keepStocked: false,
       isSubtracting: false,
       subtracted: false,
+      isPublic: false,
+      isPublicLoading: false,
       pictureIsLoading: false,
       recipeName: '',
       imagePath: '',
@@ -83,6 +75,40 @@ export class RecipeDisplay extends React.Component {
     this.myIsMounted = false;
   }
 
+    togglePublic() {
+        event.preventDefault();
+        let callBack = (xhr) => {
+          //console.log(xhr.responseText);
+          let state = xhr.readyState;
+          let status = xhr.status;
+          let cat = Math.floor(status/100);
+          if ((state == 4) && status == 200) {
+            const isPublic = JSON.parse(xhr.responseText)['public']
+            if (this.myIsMounted) {
+              this.setState({ isPublicLoading: false,
+                              isPublic: isPublic,
+                              imagePath: '' });
+            }
+          } else if (state == 4 && cat != '2' && cat != '3') {
+            this.setState({ isPublicLoading: false });
+            console.log(xhr.responseText);
+          }
+        };
+        const settings = {
+          url: '/v1/recipes/togglePublic/' + this.state.recipeName,
+          data: '{}',
+          method: 'POST',
+          callBack: callBack,
+          history: this.props.history
+        };
+        let req = new Request();
+        req.props = settings;
+        req.withAuth();
+        if (this.myIsMounted) {
+          this.setState({isPublicLoading: true});
+        }
+    }
+
   deletePicture(event){
     event.preventDefault();
     let callBack = (xhr) => {
@@ -91,8 +117,6 @@ export class RecipeDisplay extends React.Component {
       let status = xhr.status;
       let cat = Math.floor(status/100);
       if ((state == 4) && status == 200) {
-        const recipeText = JSON.parse(xhr.responseText)['text'];
-
         if (this.myIsMounted) {
           this.setState({ pictureIsLoading: false,
                           imagePath: '' });
@@ -105,13 +129,9 @@ export class RecipeDisplay extends React.Component {
     const settings = {
       url: '/v1/recipe/image/' + this.state.recipeName,
       data: '{}',
-      isFileUpload: true,
       method: 'DELETE',
       callBack: callBack,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken,
+      history: this.props.history
     };
     let req = new Request();
     req.props = settings;
@@ -184,7 +204,7 @@ export class RecipeDisplay extends React.Component {
                 isFileUpload: true,
                 method: 'POST',
                 callBack: callBack,
-                ...this.props
+                history: this.props.history
               };
               let req = new Request();
               req.props = settings;
@@ -224,7 +244,7 @@ export class RecipeDisplay extends React.Component {
       data: '{}',
       method: 'PUT',
       callBack: callBack,
-      ...this.props
+      history: this.props.history
     };
     this.setState({isSubtracting: true});
     let req = new Request(settings);
@@ -255,7 +275,7 @@ export class RecipeDisplay extends React.Component {
       data: '{}',
       method: 'PUT',
       callBack: callBack,
-      ...this.props
+      history: this.props.history
     };
     this.setState({isStocking: true});
     let req = new Request(settings);
@@ -278,6 +298,7 @@ export class RecipeDisplay extends React.Component {
         const recipe = JSON.parse(xhr.responseText)['name'];
         const recipeCount = JSON.parse(xhr.responseText)['value'];
         const keepStocked = JSON.parse(xhr.responseText)['keepStocked'];
+        const isPublic = JSON.parse(xhr.responseText)['public']
         let ingredients = JSON.parse(xhr.responseText)['ingredients'];
         let instructions = JSON.parse(xhr.responseText)['instructions'];
         const imagePath = JSON.parse(xhr.responseText)['imagePath'];
@@ -286,6 +307,7 @@ export class RecipeDisplay extends React.Component {
           this.setState({ recipeName: recipe,
                           count: recipeCount,
                           keepStocked: keepStocked,
+                          isPublic: isPublic,
                           imagePath: imagePath,
                           ingredientList: ingredients,
                           instructions: instructions });
@@ -298,10 +320,7 @@ export class RecipeDisplay extends React.Component {
       url: '/v1/recipes/' + recipeName,
       method: 'GET',
       callBack: callBack,
-      accessToken: this.props.accessToken,
-      refreshToken: this.props.refreshToken,
-      isNotLoggedIn: this.props.isNotLoggedIn,
-      updateAccessToken: this.props.updateAccessToken,
+      history: this.props.history
     };
     let req = new Request();
     req.props = settings;
@@ -311,75 +330,61 @@ export class RecipeDisplay extends React.Component {
     };
   }
 
-  render() {
-    return(
-      <>
-        <Header history={ this.props.history }
-                inner={ "Recipe" }
-                isLoggedIn={this.props.isLoggedIn} />
+    render() {return(<>
+        <Header history={ this.props.history } inner={ "Recipe" } />
         <div className="w3-margin w3-row-padding">
-          <div className="w3-content ">
-            { this.state.recipeName ? (<p className="w3-card"><b>{ this.state.recipeName }</b>
-                                          <span className={"w3-right w3-badge "+color.random()}>
-                                            { this.state.count }
-                                          </span>
-                                        </p>): '' }
-            <div className="w3-card w3-bar w3-margin-bottom  w3-xlarge">
-              <label className="w3-tooltip" htmlFor="picture" aria-label="take a picture">
-                <i className={"w3-btn w3-hover-yellow fas fa-camera" +
-                              (this.state.pictureIsLoading ? "fa-spin" : "") }
-                              aria-hidden="true"></i>
-                <span className="w3-text">Change/Add a picture</span>
-              </label>
-              <input type="file"
-                     id="picture"
-                     style={{display: "none"}}
-                     name="uploadPicture"
-                     accept="image/*"
-                     capture
-                     onChange={ this.state.pictureIsLoading ? undefined :
-                                (event) => this.handlePictureUpload(event.target.files) } />
-              <label className="w3-tooltip">
-                <Link to={ '/recipes/' + this.state.recipeName } >
-                    <i className="w3-btn w3-hover-yellow fas fa-edit" aria-hidden="true"></i>
-                </Link>
-                <span className="w3-text">Edit/Delete Recipe</span>
-              </label>
-              <label className="w3-tooltip" aria-label="keep this recipe stocked" aria-hidden="true">
-                <button className={"w3-btn w3-hover-yellow " +
-                        (this.state.keepStocked ? "w3-yellow" : "") }
-                        onClick={ () => this.stockRecipe() }>
-                  <i className="fas fa-cart-arrow-down"></i>
-                </button>
-                <span className="w3-text">Keep this on my shopping list.</span>
-              </label>
-              <label className="w3-tooltip" aria-label="shopping list" aria-hidden="true">
-                <button className={"w3-btn w3-hover-yellow " +
-                                   (this.state.subtracted ? "w3-yellow" : "") }
-                        onClick={ () => this.subtractIngredients() } >
-                  <i className="fas fa-utensils"></i>
-                </button>
-                <span className="w3-text">I ate this food!</span>
-              </label>
-            </div>
-            <div className="w3-display-container" >
-              { thumbnail(this.state) }
-              { this.state.imagePath ? (
-                    <button className={"fas fa-trash-alt w3-xlarge " +
-                                       "w3-display-bottomright w3-display-hover w3-margin " +
-                                       "w3-btn w3-opacity w3-orange"}
-                            onClick={ (event) => this.deletePicture(event) }/>) : ""}
-
-            </div>
-            <IngredientListDisp items={ this.state.ingredientList }
-                          ingredientUpdate={(list)=>this.ingredientUpdate(list)}/>
-            <div className={"w3-padding"}></div>
-            <InstructionsListDisp items={ this.state.instructions }
-                          instructionsUpdate={(list)=>this.instructionsUpdate(list)}/>
-            <div className={"w3-padding"}></div>
-          </div>
-        </div>
-      </>
-    )
-  }
-}
+            <div className="w3-content ">
+                {this.state.recipeName ? (<p className="w3-card"><b>{ this.state.recipeName }</b><br />
+                                            Meals available:
+                                            <span className={"w3-badge "+color.random()}>
+                                                { this.state.count }</span></p>)
+                : '' }
+                <div className="w3-row">
+                    <div className="w3-dropdown-hover w3-third w3-margin-bottom">
+                        <button className="w3-button w3-bar">
+                            <i className="w3-left w3-xlarge fas fa-carrot"> Options</i></button>
+                        <div className="w3-bar-block w3-dropdown-content">
+                            <div className="w3-bar" onClick={ () => this.togglePublic() }>
+                              <i className={(this.state.isPublic ? " w3-yellow" : "") +
+                                            (this.state.isPublicLoading ? " fa-spin" : "") +
+                                            " w3-left w3-bar-item w3-button w3-hover-yellow" +
+                                            " w3-xlarge" +
+                                            (this.state.isPublic ? " fas fa-eye": " fas fa-eye-slash")}
+                                > Make {this.state.isPublic ? "Private" : "Public"}</i></div>
+                            <label className="w3-bar" htmlFor="picture" aria-label="Add a picture">
+                                <i className={"w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-camera" +
+                                              (this.state.pictureIsLoading ? "fa-spin" : "") }
+                                              aria-hidden="true"> Add a picture</i></label>
+                                <input type="file"
+                                     id="picture"
+                                     style={{display: "none"}}
+                                     name="uploadPicture"
+                                     accept="image/*"
+                                     capture
+                                     onChange={ this.state.pictureIsLoading ? undefined :
+                                                (event) => this.handlePictureUpload(event.target.files) } />
+                                <Link className="w3-bar" to={ '/recipes/edit/' + this.state.recipeName } >
+                                    <i className={"w3-left w3-bar-item w3-button" +
+                                                " w3-xlarge w3-hover-yellow fas fa-edit"}
+                                       aria-hidden="true"> Edit Recipe</i></Link>
+                                <div className="w3-bar" onClick={ () => this.stockRecipe() }>
+                                    <i className={(this.state.keepStocked ? "w3-yellow " : "") +
+                                              " w3-left w3-bar-item w3-button w3-hover-yellow" +
+                                              " w3-xlarge fas fa-cart-arrow-down"}> Keep Stocked</i></div>
+                                <div className="w3-bar" onClick={ () => this.subtractIngredients() }>
+                                    <i className={(this.state.subtracted ? "w3-yellow" : "") +
+                                                  " w3-left w3-bar-item w3-button w3-hover-yellow " +
+                                                  " w3-xlarge fas fa-utensils"}> Use Ingredients</i></div></div></div></div>
+                <div className="w3-display-container" >
+                    { thumbnail(this.state) }
+                    { this.state.imagePath ? (
+                        <button className={"fas fa-trash-alt w3-xlarge " +
+                                           "w3-display-bottomright w3-display-hover w3-margin " +
+                                           "w3-btn w3-opacity w3-orange"}
+                                onClick={ (event) => this.deletePicture(event) }/>) : ""}</div>
+                <IngredientListDisp items={ this.state.ingredientList }
+                              ingredientUpdate={(list)=>this.ingredientUpdate(list)}/>
+                <div className={"w3-padding"}></div>
+                <InstructionsListDisp items={ this.state.instructions }
+                                      instructionsUpdate={(list)=>this.instructionsUpdate(list)}/>
+                <div className={"w3-padding"}></div></div></div></>)}}

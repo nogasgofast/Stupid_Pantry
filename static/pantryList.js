@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { Header } from './header.js';
-import { Request, GroupActionList } from './utils.js';
+import { Request, LinkDispList } from './utils.js';
 
 
 export class PantryList extends React.Component {
@@ -45,7 +45,7 @@ export class PantryList extends React.Component {
       data: '{}',
       method: 'GET',
       callBack: callBack,
-      ...this.props
+      history: this.props.history
     };
     this.setState({isLoading: true});
     let req = new Request(settings);
@@ -55,13 +55,13 @@ export class PantryList extends React.Component {
   render() {
     return(
       <>
-        <Header history={ this.props.history } inner="Pantry" isLoggedIn={this.props.isLoggedIn} />
+        <Header history={ this.props.history } inner="Pantry" />
           <div className="w3-margin w3-row-padding">
             <div className="w3-content">
               <Link to="/pantry/add">
                 <button className="w3-orange w3-hover-yellow w3-btn w3-block w3-card" >New Ingredient</button>
               </Link>
-              <GroupActionList path={ '/pantry' } items={ this.state.recipes } />
+              <LinkDispList path={ '/pantry' } items={ this.state.recipes } />
             </div>
           </div>
       </>

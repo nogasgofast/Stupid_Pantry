@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link, Redirect } from "react-router-dom";
 import { Header } from './header.js';
-import { W3Color, Request, GroupActionList } from './utils.js';
+import { W3Color, Request, LinkDispList } from './utils.js';
 
 const color = new W3Color;
 
-class Plan extends GroupActionList {
-
+class Plan extends LinkDispList {
   renderItem(item){
     return <Link key={ item } to={ this.state.path + '/' + item } >
               <li className={"w3-list-item w3-left-align"}
@@ -71,7 +70,7 @@ export class MealPlanList extends React.Component {
       data: '{}',
       method: 'GET',
       callBack: callBack,
-      ...this.props
+      history: this.props.history
     };
     this.setState({isLoading: true});
     let req = new Request(settings);
@@ -114,8 +113,7 @@ export class MealPlanList extends React.Component {
   render() {
     return(
       <>
-        <Header history={ this.props.history }
-                inner="Mealplans" isLoggedIn={this.props.isLoggedIn} />
+        <Header history={ this.props.history } />
         <div className="w3-margin w3-row-padding">
           <div className="w3-content">
             { this.renderPlans() }

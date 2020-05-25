@@ -11,8 +11,7 @@ export class RecipesHelp extends React.Component {
   render() {
     return(
       <>
-        <Header history={ this.props.history }
-                inner="Add Recipe" isLoggedIn={this.props.isLoggedIn} />
+        <Header history={ this.props.history } inner="Add Recipe" />
         <div className="w3-margin w3-row-padding">
           <div className={"w3-content "} >
             <div className="w3-white w3-left-align w3-card">

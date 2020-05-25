@@ -5,16 +5,16 @@ import { W3Color } from './utils.js';
 
 const c = new W3Color;
 
-export class LoginForm extends React.Component {
+export class RecoverForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { username: '',
-                   password: '',
+                   eMail: '',
                    authError: false,
                    isLoading: false};
     this.myIsMounted = false;
     this.handleChangeUser = this.handleChangeUser.bind(this);
-    this.handleChangePass = this.handleChangePass.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -29,8 +29,8 @@ export class LoginForm extends React.Component {
   handleChangeUser(event) {
     this.setState({ username: event.target.value});
   }
-  handleChangePass(event) {
-    this.setState({ password: event.target.value});
+  handleChangeEmail(event) {
+    this.setState({ eMail: event.target.value});
   }
 
   renderUsername() {
@@ -38,32 +38,38 @@ export class LoginForm extends React.Component {
                   className={"w3-input w3-round w3-padding-16 " +
                              (this.state.authError ? "w3-rightbar w3-border-red":"") }
                   value={this.state.username}
-                  placeholder="username"
                   name="username"
                   onChange={(event) => this.handleChangeUser(event)} />
   }
-  renderPassword() {
-    return <input type="password"
+  renderEmail() {
+    return <input type="email"
                   className={"w3-input w3-round w3-padding-16 " +
                              (this.state.authError ? "w3-rightbar w3-border-red":"") }
-                  value={this.state.password}
-                  placeholder="password"
-                  name="password"
-                  onChange={(event) => this.handleChangePass(event)}></input>
+                  value={this.state.eMail}
+                  name="email"
+                  onChange={(event) => this.handleChangeEmail(event)}></input>
   }
 
   handleSubmit(event) {
-      this.myIsMounted && this.setState({isLoading: true})
       event.preventDefault();
       const username = this.state.username;
-      const password = this.state.password;
+      if (!username) {
+        alert('User name must be entered')
+        return false
+      }
+      const email = this.state.eMail;
+      if (!email){
+        alert('User E-mail must be entered')
+        return false
+      }
+      this.myIsMounted && this.setState({isLoading: true})
       let xhr = new XMLHttpRequest();
-      const url = '/v1/auth';
+      const url = '/v1/users/recover';
       xhr.open("POST", url, true);
       xhr.setRequestHeader("Content-Type", "application/json");
       xhr.onreadystatechange = (event) => this.setAuthTokens(xhr);
       const datas = JSON.stringify({username: username,
-                                    password: password});
+                                    email: email});
       xhr.send(datas);
   }
 
@@ -73,17 +79,11 @@ export class LoginForm extends React.Component {
       //go ahead and clear the username and password from memory
       //we don't want to hold on to that for very long.
       this.myIsMounted && this.setState({username: '',
-                                        password: '',
-                                        isLoading: false});
-      const isPassing = this.props.location.state && this.props.location.state.from;
-      if(isPassing) {
-        //console.log("I was passed to login!");
-        this.props.history.push(this.props.location.state.from);
-      }else{
-        //console.log("Not Passed to login!");
-        this.props.history.push("/home");
-      }
-    }else if (xhr.status == 401){
+                                         eMail: '',
+                                         isLoading: false});
+      this.props.history.push("/pwreset");
+    }else if (xhr.readyState == 4 && xhr.status != 200){
+      alert(xhr.responseText)
       this.myIsMounted && this.setState({authError: true,
                                          isLoading: false});
     }
@@ -92,7 +92,7 @@ export class LoginForm extends React.Component {
   render () {
     return  (
       <>
-        <Header history={ this.props.history } inner="Login" />
+        <Header history={ this.props.history } inner="Recover Password" />
         <div className={"w3-margin w3-row-padding"}>
           <div className="w3-content" >
           <form method="POST"
@@ -108,10 +108,10 @@ export class LoginForm extends React.Component {
               </label>
               { this.renderUsername() }
               <p>
-              <label htmlFor="password" >
-                Password
+              <label htmlFor="email" >
+                E-Mail
               </label>
-              { this.renderPassword() }
+              { this.renderEmail() }
               </p>
               <div className="w3-bar w3-padding-16">
                 { this.state.isLoading && <>
@@ -126,14 +126,11 @@ export class LoginForm extends React.Component {
                 }
                 { !this.state.isLoading &&
                   <input  type="submit"
-                          value="Log in"
-                          className="w3-button w3-hover-yellow w3-indigo"/>
+                          value="Send Recovery E-mail"
+                          className="w3-button w3-hover-yellow w3-Indigo"/>
                 }
                 <Link className="w3-button w3-hover-yellow" to='/register' >
                   Sign up here!
-                </Link>
-                <Link className="w3-button w3-hover-yellow" to='/recover' >
-                  Forgot my Pssawrds!
                 </Link>
               </div>
             </div>

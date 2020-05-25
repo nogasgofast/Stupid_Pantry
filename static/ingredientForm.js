@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from "react-router-dom";
 import { Header } from './header.js';
-import { Request, GroupActionList, thumbnail } from './utils.js';
+import { Request, LinkDispList, thumbnail } from './utils.js';
 
 
 export class IngredientForm extends React.Component {
@@ -15,9 +15,11 @@ export class IngredientForm extends React.Component {
       isLoading: false,
       previousName: '',
       name: '',
+      lastBuyDate: '',
+      freshFor: 0,
       amount: 0,
       amountPkg: 1,
-      isMeasured: false,
+      byWeight: true,
       barcode: '',
       keepStocked: false,
       requiredBy: [],
@@ -26,6 +28,8 @@ export class IngredientForm extends React.Component {
     this.myIsMounted= false;
     // These are just handlers being registered with the running process.
     this.gotIt = this.gotIt.bind(this);
+    this.setDate = this.setDate.bind(this);
+    this.toggleByWeight = this.toggleByWeight.bind(this);
     this.toggleKeepStocked = this.toggleKeepStocked.bind(this);
     this.deletePicture = this.deletePicture.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -37,16 +41,33 @@ export class IngredientForm extends React.Component {
     this.handleBarcodeUpload = this.handleBarcodeUpload.bind(this);
   }
 
+  toggleByWeight(e){
+    e.preventDefault();
+
+    const newVal = !this.state.byWeight
+    this.setState({
+      byWeight: newVal
+    })
+  }
+
   handleNameChange(event){
     this.setState({ name: event.target.value });
   }
 
   handleAmountChange(event){
-      this.setState({ amount: event.target.value });
+    let value = event.target.value
+    if (value < 0){
+      value = value * -1
+    }
+    this.setState({ amount: value });
   }
 
   handleamountPkgChange(event){
-      this.setState({ amountPkg: event.target.value });
+    let value = event.target.value
+    if (value < 0){
+      value = value * -1
+    }
+    this.setState({ amountPkg: value });
   }
 
   toggleKeepStocked(e){
@@ -69,8 +90,8 @@ export class IngredientForm extends React.Component {
       data: JSON.stringify({ keepStocked: !this.state.keepStocked }),
       method: 'PUT',
       callBack: callBack,
-      headers: {"content-type": "application/json"},
-      ...this.props
+      history: this.props.history,
+      headers: {"content-type": "application/json"}
     };
     let req = new Request();
     req.props = settings;
@@ -79,14 +100,10 @@ export class IngredientForm extends React.Component {
 
   componentDidMount() {
     this.myIsMounted = true;
-    if (this.checkCompatVideo()) {
-      // Good to go!
-    } else {
+    if (!this.checkCompatVideo()) {
       console.log('This browser only supports uploading pre-saved images.');
     }
-    if (this.props.isEdit) {
-      this.renderThisRecipe();
-    }
+    this.renderThisRecipe();
   }
 
   componentWillUnmount() {
@@ -118,7 +135,7 @@ export class IngredientForm extends React.Component {
       isFileUpload: true,
       method: 'DELETE',
       callBack: callBack,
-      ...this.props
+      history: this.props.history
     };
     let req = new Request();
     req.props = settings;
@@ -129,14 +146,14 @@ export class IngredientForm extends React.Component {
   }
 
  handleBarcodeRemove(){
-   console.log("activated")
+   //console.log("activated")
    let callBack = (xhr) => {
      //console.log(xhr.responseText);
      let state = xhr.readyState;
      let status = xhr.status;
      let cat = Math.floor(status/100);
      if ((state == 4) && status == 200) {
-       console.log("finished OKAY")
+       //console.log("finished OKAY")
        const text = JSON.parse(xhr.responseText)['text'];
 
        if (this.myIsMounted) {
@@ -153,7 +170,7 @@ export class IngredientForm extends React.Component {
      data: '{}',
      method: 'DELETE',
      callBack: callBack,
-     ...this.props
+     history: this.props.history
    };
    let req = new Request();
    req.props = settings;
@@ -181,7 +198,7 @@ export class IngredientForm extends React.Component {
                               barcode: text });
             }
           } else if (state == 4 && cat != '2' && cat != '3') {
-            console.log(xhr.responseText)
+            alert(xhr.responseText)
             this.setState({ barcodeIsLoading: false });
           }
         };
@@ -196,7 +213,7 @@ export class IngredientForm extends React.Component {
           isFileUpload: true,
           method: 'POST',
           callBack: callBack,
-          ...this.props
+          history: this.props.history
         };
         let req = new Request();
         req.props = settings;
@@ -226,8 +243,8 @@ export class IngredientForm extends React.Component {
               this.renderThisRecipe();
             }
           } else if (state == 4 && cat != '2' && cat != '3') {
-            this.setState({ pictureIsLoading: false,
-                            recipeField: xhr.responseText });
+            alert(xhr.responseText)
+            this.setState({ pictureIsLoading: false });
           }
         };
         // from an input element
@@ -271,7 +288,7 @@ export class IngredientForm extends React.Component {
                 isFileUpload: true,
                 method: 'POST',
                 callBack: callBack,
-                ...this.props
+                history: this.props.history
               };
               let req = new Request();
               req.props = settings;
@@ -309,17 +326,26 @@ export class IngredientForm extends React.Component {
         this.setState({ IsLoading: false});
         console.log( xhr.responseText );
       }};
+    const userKeyRegExp = /^[a-zA-Z]{3}\ [0-9]{2}\ [0-9]{4}$/;
+    const valid = userKeyRegExp.test(this.state.lastBuyDate);
+    if (! valid && ! this.state.lastBuyDate == '') {
+      alert("Item bought must be formated like 'Mon Jan 01 2020'")
+      return
+    }
     const settings = {
       url: '/v1/inventory/' + this.state.previousName,
       data: JSON.stringify({"name": this.state.name,
                             "amount": this.state.amount,
                             "amountPkg": this.state.amountPkg,
                             "keepStocked": this.state.keepStocked,
+                            "lastBuyDate": this.state.lastBuyDate,
+                            "freshFor": this.state.freshFor,
                             "barcode": this.state.barcode }),
       method: 'PUT',
       callBack: callBack,
-      headers: {"content-type": "application/json"},
-      ...this.props};
+      history: this.props.history,
+      headers: {"content-type": "application/json"}
+    };
     let req = new Request();
     req.props = settings;
     req.withAuth();
@@ -343,15 +369,16 @@ export class IngredientForm extends React.Component {
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
         this.setState({ DeleteIsLoading: false});
-        console.log( xhr.responseText );
+        alert( xhr.responseText );
       }};
     const settings = {
       url: '/v1/inventory/' + this.state.name,
       data: '{}',
       method: 'DELETE',
       callBack: callBack,
-      headers: {"content-type": "application/json"},
-      ...this.props};
+      history: this.props.history,
+      headers: {"content-type": "application/json"}
+    };
     let req = new Request();
     req.props = settings;
     req.withAuth();
@@ -361,7 +388,7 @@ export class IngredientForm extends React.Component {
   }
 
   renderThisRecipe(){
-    //console.log(this.props.location);
+    console.log(this.props.location);
     const {pathname} = this.props.location;
     //console.log(pathname);
     const name = pathname.replace('/pantry/', '')
@@ -381,152 +408,164 @@ export class IngredientForm extends React.Component {
                           previousName: json['name'],
                           amount: json['amount'],
                           amountPkg: json['amountPkg'],
+                          lastBuyDate: json['lastBuyDate'] ? json['lastBuyDate'] : '',
+                          freshFor: json['freshFor'],
                           barcode: json['barcode'],
-                          isMeasured: json['isMeasured'],
+                          byWeight: json['byWeight'],
                           requiredBy: json['requiredBy'],
                           keepStocked: json['keepStocked']});
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
         this.setState({ ValidateIsLoading: false});
-        console.log( xhr.responseText );
+        //console.log( xhr.responseText );
       }};
     const settings = {
       url: '/v1/inventory/' + name,
       method: 'GET',
       callBack: callBack,
-      ...this.props
+      history: this.props.history
     };
     let req = new Request();
     req.props = settings;
+    console.log("making request")
     req.withAuth();
     if (this.myIsMounted) {
       this.setState({ValidateIsLoading: true});
     };
   }
 
+  setDate(e) {
+    e.preventDefault();
+    let date = new Date();
+    const ddate = date.toDateString().slice(4)
+    this.setState({ lastBuyDate: ddate })
+  }
+
+  handleLastBuyDate(e){
+    e.preventDefault();
+    const buyDate = e.target.value
+    this.setState({ lastBuyDate: buyDate })
+  }
+
   gotIt(e) {
     e.preventDefault();
     //this is a bitwise integer conversion techniqe
-    const newAmount = (~~this.state.amount) + (~~this.state.amountPkg);
-    this.setState({ amount: newAmount });
+    if (this.state.amountPkg != 0){
+      const newAmount = (~~this.state.amount) + (~~this.state.amountPkg);
+      this.setState({ amount: newAmount});
+    } else {
+      alert("Please set the amount in a package for this item in oz. or count.")
+    }
+  }
+
+  freshFor(num){
+    //this part ensures that clicking something already clicked
+    //causes that selection to be removed.
+    let num2 = 0;
+    if ( num != this.state.freshFor ){
+      num2 = num
+    }
+    const num3 = num2
+    this.setState({
+      freshFor: num2,
+    })
   }
 
   render() {
     return(
       <>
-        <Header history={ this.props.history } inner={ (this.props.isEdit ? 'Edit': 'Add')+" pantry" }
-                isLoggedIn={this.props.isLoggedIn} />
+        <Header history={ this.props.history } inner={ (this.props.isEdit ? 'Edit': 'Add')+" pantry" } />
         <div className="w3-margin w3-row-padding">
-          <div className={"w3-content "} >
-            <div className="w3-bar w3-card w3-xlarge w3-margin-bottom">
-              <label className="w3-tooltip" htmlFor="picture" aria-label="take a picture">
-                <i className={"fas fa-camera  w3-btn w3-hover-yellow " +
-                                (this.state.pictureIsLoading ? "fa-spin" : "") }
-                                aria-hidden="true" >
-                </i>
-                <span className="w3-text">Upload Picture</span>
-              </label>
-              <input type="file"
-                     id="picture"
-                     style={{display: "none"}}
-                     name="uploadPicture"
-                     accept="image/*"
-                     capture
-                     onChange={ this.state.pictureIsLoading ? undefined :
-                                (event) => this.handlePictureUpload(event.target.files) } />
-              { !this.state.barcode ?
-                (<>
-                  <label className="w3-tooltip" htmlFor="barcode" aria-label="scan in barcode id">
-                    <i className={"w3-btn w3-hover-yellow fas fa-barcode " +
-                                  (this.state.barcodeIsLoading ? "fa-spin" : "") }
-                                  aria-hidden="true"></i>
-                    <span className="w3-text">Add Barcode</span>
+          <div className={"w3-content"} >
+            <div className="w3-row">
+              <div className="w3-dropdown-hover w3-third w3-margin-bottom">
+                <button className="w3-button w3-bar">
+                  <i className="w3-left w3-xlarge fas fa-carrot"> Options</i>
+                </button>
+                <div className="w3-bar-block w3-dropdown-content">
+                  <label className="w3-bar" htmlFor="picture" aria-label="take a picture">
+                    <i className={"w3-left w3-bar-item w3-button w3-xlarge fas fa-camera w3-hover-yellow " +
+                                    (this.state.pictureIsLoading ? "fa-spin" : "") }
+                                    aria-hidden="true" > Upload Picture</i>
                   </label>
                   <input type="file"
-                       id="barcode"
-                       style={{display: "none"}}
-                       name="uploadBarcode"
-                       accept="image/*"
-                       capture
-                       onChange={ (event) => this.handleBarcodeUpload(event.target.files) } />
-                  </>):
-                (<label className="w3-tooltip"
-                         aria-label="scan in barcode id">
-                  <button className="w3-btn w3-hover-yellow w3-display-container"
-                          onClick={() => this.handleBarcodeRemove() }>
-                      <i className={"fas fa-barcode " +
+                         id="picture"
+                         style={{display: "none"}}
+                         name="uploadPicture"
+                         accept="image/*"
+                         capture
+                         onChange={ this.state.pictureIsLoading ? undefined :
+                                    (event) => this.handlePictureUpload(event.target.files) } />
+                  { !this.state.barcode ?
+                    (<>
+                      <label className="w3-bar" htmlFor="barcode" aria-label="scan in barcode id">
+                        <i className={"w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-barcode " +
+                                      (this.state.barcodeIsLoading ? "fa-spin" : "") }
+                                      aria-hidden="true"> Add Barcode</i>
+                      </label>
+                      <input type="file"
+                           id="barcode"
+                           style={{display: "none"}}
+                           name="uploadBarcode"
+                           accept="image/*"
+                           capture
+                           onChange={(event)=>this.handleBarcodeUpload(event.target.files)}/></>)
+                    :(<>
+                        <label className="w3-bar" htmlFor="delBarcode" aria-label="Remove barcode id">
+                            <i className={"w3-left w3-xlarge w3-hover-yellow w3-bar-item w3-button fas fa-barcode " +
                                   (this.state.barcodeIsLoading ? "fa-spin" : "") }
-                         aria-hidden="true"></i>
-                      <i className={"w3-display-middle fas fa-slash " +
-                                  (this.state.barcodeIsLoading ? "fa-spin" : "") }
-                         aria-hidden="true"></i>
-                  </button>
-                  <span className="w3-text">Remove Barcode</span>
-                </label>) }
-              <label className="w3-tooltip" htmlFor="stock" aria-label="keep stocked">
-                <i className={"w3-btn w3-hover-yellow fas fa-cart-arrow-down " +
-                              (this.state.keepStocked ? "w3-yellow" : "") }
-                   aria-hidden="true"></i>
-                <span className="w3-text">Keep Stocked</span>
-              </label>
-              <button style={{display: "none"}}
-                   id="stock"
-                   onClick={ e => this.toggleKeepStocked(e) }
-                   />
-              <label className="w3-tooltip"
-                     htmlFor="gotIt"
-                     aria-label="Add package to pantry">
-                <i className="w3-btn w3-hover-yellow w3-xlarge fas fa-plus"
-                   aria-hidden="true" ></i>
-                <span className="w3-text">Add package to pantry</span>
-              </label>
-                <button style={{display: "none"}}
-                        id="gotIt"
-                        onClick={ e => this.gotIt(e) }>
-                </button>
-              <label className="w3-tooltip" htmlFor="delete" aria-label="delete this recipe">
-                <i className="w3-btn w3-hover-yellow fas fa-trash-alt" aria-hidden="true"></i>
-                <span className="w3-text">Delete if not Required by a Recipe</span>
-              </label>
-              <button style={{display: "none"}}
-                   id="delete"
-                   onClick={ (event) => this.handleDelete(event) } />
+                                aria-hidden="true">
+                                { !this.state.barcodeIsLoading ?
+                                    " Remove Barcode" : "" }</i></label>
+                        <button id="delBarcode"
+                                style={{display: "none"}}
+                                onClick={() => this.handleBarcodeRemove() } /></>)}
+
+                  <label className="w3-bar" htmlFor="stock" aria-label="keep stocked">
+                    <i className={"w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-cart-arrow-down " +
+                                  (this.state.keepStocked ? "w3-yellow" : "") }
+                       aria-hidden="true"> Keep Stocked</i>
+                  </label>
+                  <button style={{display: "none"}}
+                       id="stock"
+                       onClick={ e => this.toggleKeepStocked(e) }
+                       />
+                  <label className="w3-bar" htmlFor="delete" aria-label="delete this recipe">
+                    <i className="w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-trash-alt" aria-hidden="true"> Delete</i>
+                  </label>
+                  <button style={{display: "none"}}
+                       id="delete"
+                       onClick={ (event) => this.handleDelete(event) } />
+                </div>
+              </div>
             </div>
             <form method="POST"
                   className="w3-card"
                   onSubmit={ (event) => this.handleSubmit(event) } >
 
               <div className="w3-display-container" >
-              { thumbnail(this.state) }
-              { this.state.imagePath ? (
-                    <button className={"fas fa-trash-alt w3-xlarge " +
-                                       "w3-display-bottomright w3-display-hover w3-margin " +
-                                       "w3-btn w3-opacity w3-orange"}
-                            onClick={ (event) => this.deletePicture(event) }/>) : ""}
+                { thumbnail(this.state) }
+                { this.state.imagePath ? (
+                      <button className={"fas fa-trash-alt w3-xlarge " +
+                                         "w3-display-bottomright w3-display-hover w3-margin " +
+                                         "w3-btn w3-opacity w3-orange"}
+                              onClick={ (event) => this.deletePicture(event) }/>) : ""}</div>
 
-              </div>
-              <div className="w3-container">
               <p>
-              <label className="w3-left" >Name</label><b>
-              <input className="w3-input w3-center"
-                     type="text"
-                     placeholder="Name"
-                     onChange={ this.handleNameChange }
-                     value={this.state.name} /></b></p>
-              <label className="w3-left" >Amount { this.state.isMeasured ? "(oz)" : "" }</label>
+                <label className="w3-left" >Name</label>
+                <b>
+                  <input className="w3-input w3-center"
+                         type="text"
+                         placeholder="Name"
+                         onChange={ this.handleNameChange }
+                         value={this.state.name} /></b></p>
+
+              <label className="w3-left" >Amount in Package { this.state.byWeight ? "(oz)" : "" }</label>
               <b>
-              <input className="w3-center w3-input"
-                     type="number"
-                     step='any'
-                     onChange={ this.handleAmountChange }
-                     value={ this.state.amount } />
-              </b>
-              <p>
-              <label className="w3-left" >Amount in Package { this.state.isMeasured ? "(oz)" : "" }</label><b>
-              <input className="w3-input w3-center"
-                     type="number"
-                     onChange={ this.handleamountPkgChange }
-                     value={ this.state.amountPkg } /></b></p>
+                <input className="w3-input w3-center"
+                       type="number"
+                       onChange={ this.handleamountPkgChange }
+                       value={ this.state.amountPkg } /></b>
               { this.state.barcode ? (<p><label className="w3-left">Barcode</label>
                                         <b>
                                          <input className="w3-input w3-center"
@@ -534,16 +573,85 @@ export class IngredientForm extends React.Component {
                                                 readOnly
                                                 value={ this.state.barcode } />
                                         </b></p>) : "" }
-              <input className="w3-input w3-orange w3-btn w3-block w3-hover-yellow"
-                     type="submit"
-                     value={ !this.props.isLoading ? "Save" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) } />
-              </div>
+              <p>
+                <label className="w3-bar"
+                       htmlFor="gotIt"
+                       aria-label="Add Package to Amount">
+                  <i className="w3-left w3-bar w3-button w3-hover-yellow"
+                     aria-hidden="true" > Add Package to Amount</i></label>
+                <button style={{display: "none"}}
+                        id="gotIt"
+                        onClick={ e => this.gotIt(e) }></button></p>
+              <label className="w3-left" >Amount { this.state.byWeight ? "(oz)" : "" }</label>
+              <b>
+                <input className="w3-center w3-input"
+                       type="number"
+                       step='any'
+                       onChange={ this.handleAmountChange }
+                       value={ this.state.amount } /></b>
+                <br />
+              <div className="w3-border-yellow w3-border w3-container">
+                <p>
+                  <label className="w3-bar"
+                         htmlFor="setDate"
+                         aria-label="Set today as buy date">
+                    <i className="w3-left w3-bar w3-button w3-hover-yellow"
+                       aria-hidden="true" > Set today as buy date</i></label>
+                  <button style={{display: "none"}}
+                          id="setDate"
+                          onClick={ e => this.setDate(e) }></button></p>
+                <p>
+                  <label className="w3-left" >Item bought</label>
+                  <b>
+                    <input className="w3-input w3-center"
+                           type="text"
+                           onChange={ e => this.handleLastBuyDate(e) }
+                           value={ this.state.lastBuyDate  } /></b></p>
+                <label className="w3-left" >Fresh for</label>
+                  <div className="w3-bar" >
+                    <span key="7" className={"w3-bar-item w3-button w3-hover-yellow " +
+                                              (this.state.freshFor == 7 ? 'w3-yellow' : '')}
+                                  onClick={() => this.freshFor(7) }>
+                                  1 wk.</span>
+                    <span key="14" className={"w3-bar-item w3-button w3-hover-yellow " +
+                                              (this.state.freshFor == 14 ? 'w3-yellow' : '')}
+                                  onClick={() => this.freshFor(14) }>
+                                  2 wk.</span>
+                    <span key="30" className={"w3-bar-item w3-button w3-hover-yellow " +
+                                              (this.state.freshFor == 30 ? 'w3-yellow' : '')}
+                                  onClick={() => this.freshFor(30) }>
+                                  1 mo.</span>
+                    <span key="90" className={"w3-bar-item w3-button w3-hover-yellow " +
+                                              (this.state.freshFor == 90 ? 'w3-yellow' : '')}
+                                  onClick={() => this.freshFor(90) }>
+                                  3 mo.</span>
+                    <span key="180" className={"w3-bar-item w3-button w3-hover-yellow " +
+                                              (this.state.freshFor == 180 ? 'w3-yellow' : '')}
+                                  onClick={() => this.freshFor(180) }>
+                                  6 mo.</span>
+                    <span key="354" className={"w3-bar-item w3-button w3-hover-yellow " +
+                                              (this.state.freshFor == 354 ? 'w3-yellow' : '')}
+                                  onClick={() => this.freshFor(354) }>
+                                  1 yr.</span></div></div>
+              <p>
+                <input className="w3-input w3-indigo w3-btn w3-block"
+                       type="submit"
+                       value={ !this.state.isLoading ? "Save" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) } /></p>
             </form>
             { this.state.requiredBy.length ? (<h2>Required by</h2>) : "" }
-            <GroupActionList path={ '/recipes/view' } items={ this.state.requiredBy } / >
+            <LinkDispList
+                path={ '/recipes/view' }
+                items={ this.state.requiredBy } / >
           </div>
         </div>
       </>
     )
   }
 }
+
+// removed as hints are now working and this may not be needed.
+// <p>
+//   <button className="w3-button w3-bar w3-hover-yellow"
+//           onClick={e => this.toggleByWeight(e) }>Measure by: {
+//             this.state.byWeight ? (<b>oz</b>) : "oz, " }{
+//             this.state.byWeight ? ", piece" : (<b>piece</b>)}</button></p>

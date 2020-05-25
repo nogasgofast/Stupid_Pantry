@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <title>Smart Pantry</title>
+      <meta name="description" content="manage kitchen pantries and fridges">
+      <meta name="author" content="Gene A. Guido III">
+      <meta name="viewport" content="width=device-width, initial-scale=1",
+            "user-scalable=no">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}"></link>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/w3.css') }}"></link>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"></link>
+    </head>
+    <body>
+      <p>Hello,</p>
+      <br />
+      <p>Below you will find the verification link for your account. If you did not request this link
+        please let us know and we will investigate further.</p>
+
+        <a class="w3-indigo w3-button" href="{{ link }}">Click here to Login</a>
+
+        <p>sincerly,<br />
+          Smart Pantry Team</p>
+    </body>
+</html>

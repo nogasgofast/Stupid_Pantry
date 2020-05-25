@@ -1,21 +1,10 @@
 import React from 'react';
 import { Link, withRouter } from "react-router-dom";
 import { Header } from './header.js';
-import { Request, GroupActionList } from './utils.js';
+import { Request, LinkDispList } from './utils.js';
 
 
-class RecipeList extends GroupActionList {
-  constructor(props){
-    super(props);
-    this.state = {
-      buttons: new Set(),
-      selectedItems: new Set(),
-      scroll: 50,
-      ticking: false,
-      path: this.props.path
-    };
-  }
-
+class RecipeList extends LinkDispList {
   renderDays(item){
     let ret = []
     let days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
@@ -46,9 +35,7 @@ class RecipeList extends GroupActionList {
                 <div className="w3-bar">
                   { this.renderDays(item) }
                 </div>
-            </li>
-
-  }
+            </li>}
 }
 
 export class MealPlanForm extends React.Component {
@@ -119,14 +106,14 @@ export class MealPlanForm extends React.Component {
       data: '{}',
       method: 'GET',
       callBack: callBack1,
-      ...this.props
+      history: this.props.history
     };
     const settings2 = {
       url: '/v1/views/recipes',
       data: '{}',
       method: 'GET',
       callBack: callBack2,
-      ...this.props
+      history: this.props.history
     };
     this.setState({isLoading: true});
     let req1 = new Request(settings1);
@@ -161,8 +148,9 @@ export class MealPlanForm extends React.Component {
       data: '{}',
       method: 'DELETE',
       callBack: callBack,
+      history: this.props.history,
       headers: {"content-type": "application/json"},
-      ...this.props};
+    };
     let req = new Request();
     req.props = settings;
     req.withAuth();
@@ -212,8 +200,9 @@ export class MealPlanForm extends React.Component {
                               "step": 0}),
       method: 'POST',
       callBack: callBack,
-      headers: {"content-type": "application/json"},
-      ...this.props};
+      history: this.props.history,
+      headers: {"content-type": "application/json"}
+    };
     let req = new Request();
     req.props = settings;
     req.withAuth();
@@ -258,7 +247,7 @@ export class MealPlanForm extends React.Component {
               it.stepType = stepType
             };
           });
-          console.log(newList);
+          //console.log(newList);
           this.setState({ choiceList: newList});
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
@@ -270,8 +259,9 @@ export class MealPlanForm extends React.Component {
                              "step": step}),
       method: 'PUT',
       callBack: callBack,
-      headers: {"content-type": "application/json"},
-      ...this.props};
+      history: this.props.history,
+      headers: {"content-type": "application/json"}
+    };
     let req = new Request();
     req.props = settings;
     req.withAuth();
@@ -282,11 +272,14 @@ export class MealPlanForm extends React.Component {
   }
 
   //{ this.renderChoices() }
+
+
+  //recipe list in here use to have this passed to it:
+  //{ ...this.props }
   render() {
     return(
       <>
-        <Header history={ this.props.history } inner="edit mealplan"
-                isLoggedIn={this.props.isLoggedIn} />
+        <Header history={ this.props.history } inner="edit mealplan" />
         <div className="w3-margin w3-row-padding">
           <div className="w3-content">
           <div className={"w3-card w3-form w3-container"} >
@@ -294,7 +287,7 @@ export class MealPlanForm extends React.Component {
           </div>
           <div className={"w3-margin-top"} >
             <div className="w3-ul">
-              <RecipeList {...this.props}
+              <RecipeList
                     items={ this.state.choiceList }
                     removeChoice={(id) => this.removeChoice(id)}
                     updateRepeat={(item,step,
@@ -304,12 +297,11 @@ export class MealPlanForm extends React.Component {
           </div>
           <div className={"w3-card w3-margin-top w3-form w3-container"} >
             <div className="w3-bar">
-              <input  className="w3-input w3-bar-item w3-round"
+              <label>Filter<i className="w3-bar-item w3-right fas fa-search" /></label>
+              <input  className="w3-input w3-border-bottom w3-bar-item w3-round"
                       type="search"
                       value={ this.state.search }
-                      placeholder="Filter"
                       onChange={ (event) => this.filter(event) } />
-              <i className="w3-bar-item w3-right fas fa-search"></i>
             </div>
             <div className="w3-ul" >
               { this.renderOptions() }

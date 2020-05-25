@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "react": "^16.8.6",
+    "react-async": "^10.0.0",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1"
@@ -27,7 +28,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-	  "build": "webpack --config webpack.config.js --watch"
+    "build": "webpack --config webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
