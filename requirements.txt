@@ -4,6 +4,7 @@ Flask==1.1.0
 Flask-JWT-Extended==3.20.0
 Flask-Limiter==1.0.1
 Flask-Images
+Flask-Mail
 filetype==1.0.5
 itsdangerous==1.1.0
 configparser==4.0.2

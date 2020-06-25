@@ -5,6 +5,7 @@ config = getConfig()
 dbSetup(config)
 app = appFactory()
 app = appSetup(app, config)
+mail.init_app(app)
 jwt = JWTManager(app)
 images = Images(app)
 limiter = Limiter(app,

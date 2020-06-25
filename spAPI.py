@@ -365,7 +365,7 @@ def toMath(aString):
 
 
 def getConfig():
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(interpolation = None)
     config.read('stupidPantry.conf')
     return config
 
@@ -381,16 +381,23 @@ def getSocket(config=False):
 
 
 def dbSetup(config=False):
-    dbtype = config.has_option('database',
-                               'DB_TYPE') or os.getenv('DB_TYPE',
-                                                       False)
-    if dbtype:
+    dbtype=None
+    if config.has_section('database'):
+        dbtype = config.get('database', 'DB_TYPE',
+                            fallback=os.getenv('DB_TYPE'))
+    if dbtype is None:
+        dbtype = os.getenv('DB_TYPE')
+    if dbtype in ['galera', 'mysql']:
         dbconfig = {
-            'host': sect.get('DB_HOST', os.getenv('DB_HOST')),
-            'user': sect.get('DB_USER', os.getenv('DB_USER')),
-            'passwd': sect.get('DB_PASSWD', os.getenv('DB_PASSWD')),
-            'db': sect.get('DB_NAME', os.getenv('DB_NAME')),
-            'port': int(sect.get('DB_PORT', os.getenv('DB_PORT')))}
+            'host': config.get('database', 'DB_HOST',
+                               fallback=os.getenv('DB_HOST')),
+            'user': config.get('database', 'DB_USER',
+                               fallback=os.getenv('DB_USER')),
+            'passwd': config.get('database', 'DB_PASSWD',
+                                 fallback=os.getenv('DB_PASSWD')),
+            'db': config.get('database', 'DB_NAME',
+                             fallback=os.getenv('DB_NAME')),
+            'port': int(3306)}
         SPDB.bind(provider='mysql', **dbconfig)
     else:
         SPDB.bind('sqlite', filename='sp.sqlite', create_db=True)
@@ -411,20 +418,59 @@ def appSetup(app, config=False):
     # used to build external urls to this website
     # debug setting for testing refresh token functions.
     # app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 10
-    secretKey = config.get('app', 'SECRET_KEY')
-    if secretKey is not None:
-        app.secret_key = secretKey
-        app.config['JWT_SECRET_KEY'] = secretKey
-        app.config['SECURITY_PASSWORD_SALT'] = 'two_donkey$andacarrot'
+    requiredArgsStr=[
+          'SERVER_NAME',
+          'SECRET_KEY',
+          'OCR_SERVICE',
+          'JWT_SECRET_KEY',
+          'JWT_COOKIE_SECURE',
+          'SECURITY_PASSWORD_SALT',
+          'MAIL_SERVER',
+          'MAIL_DEFAULT_SENDER',
+          'MAIL_USERNAME',
+          'MAIL_PASSWORD']
+    requiredArgsInt=[
+          'MAIL_PORT']
+    requiredArgsBool=[
+          'MAIL_USE_TLS',
+          'MAIL_USE_SSL']
+    results=dict()
+
+    if config.has_section('app'):
+        for arg in requiredArgsStr:
+            results[arg] = config.get('app', arg,
+                                      fallback=os.getenv(arg))
+        for arg in requiredArgsInt:
+            results[arg] = config.getint('app', arg,
+                                         fallback=os.getenv(arg))
+        for arg in requiredArgsBool:
+            results[arg] = config.getboolean('app', arg,
+                                             fallback=os.getenv(arg))
     else:
-        raise Exception('app section needs a secret_key value')
-    jwtCookieSecure = config.getboolean('app', 'JWT_COOKIE_SECURE')
-    if jwtCookieSecure is not None:
-        app.config['JWT_COOKIE_SECURE'] = jwtCookieSecure
-    # True or False
-    ocr_service = config.get('app', 'OCR_SERVICE')
-    if ocr_service is not None:
-        app.config['OCR_SERVICE'] = ocr_service
+        # just put them into results as string or None
+        for arg in requiredArgsStr:
+            results[arg] = os.getenv(arg)
+        for arg in requiredArgsInt:
+            results[arg] = os.getenv(arg)
+        for arg in requiredArgsBool:
+            results[arg] = os.getenv(arg)
+        # now make them the correct type if they exist
+        for key in results.keys():
+            if results[key] is not None:
+                for arg in requiredArgsInt:
+                    results[key] = os.getenv(arg)
+                for arg in requiredArgsBool:
+                    results[key] = os.getenv(arg)
+    if results.get('SECRET_KEY') is not None:
+        app.secret_key = results.pop('SECRET_KEY', None)
+    else:
+        raise Exception('config needs a SECRET_KEY value')
+
+    for key in results.keys():
+        if results.get(key) is not None:
+            app.config[key] = results[key]
+        else:
+            raise Exception('config needs a {} value'.format(key))
     return app
 
 
@@ -1960,13 +2006,6 @@ if __name__ == "__main__":
     host, port = getSocket(config)
     app = appFactory()
     app = appSetup(app, config)
-    app.config['MAIL_SERVER'] = "secure.emailsrvr.com"
-    app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USE_TLS'] = False
-    app.config['MAIL_USE_SSL'] = True
-    app.config['MAIL_DEFAULT_SENDER'] = "nogasgofast@nogasgofast.net"
-    app.config['MAIL_USERNAME'] = "nogasgofast@nogasgofast.net"
-    app.config['MAIL_PASSWORD'] = "^%dOmm43an2der1"
     mail.init_app(app)
     jwt = JWTManager(app)
     images = Images(app)
