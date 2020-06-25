@@ -437,17 +437,14 @@ def appSetup(app, config=False):
     results=dict()
 
     if config.has_section('app'):
-        print('get regular env')
         for arg in requiredArgsStr:
             results[arg] = config.get('app', arg,
                                       fallback=os.getenv(arg))
             print(arg, results[arg])
-        print('get int env')
         for arg in requiredArgsInt:
             results[arg] = config.getint('app', arg,
                                          fallback=os.getenv(arg))
             print(arg, results[arg])
-        print('get boolean env')
         for arg in requiredArgsBool:
             results[arg] = config.getboolean('app', arg,
                                              fallback=os.getenv(arg))
@@ -462,14 +459,11 @@ def appSetup(app, config=False):
             results[arg] = os.getenv(arg)
         # now make them the correct type if they exist
         for key in results.keys():
-            print('checking', key, results[key])
-            if results[key] is not None:
+            if results.get(key) is not None:
                 for arg in requiredArgsInt:
-                    results[key] = int(os.getenv(arg))
-                    print('required int', key, int(os.getenv(arg)))
+                    results[key] = int(results[key])
                 for arg in requiredArgsBool:
-                    results[key] = bool(os.getenv(arg))
-                    print('required bool', key, bool(os.getenv(arg)))
+                    results[key] = bool(results[key])
     if results.get('SECRET_KEY') is not None:
         app.secret_key = results.pop('SECRET_KEY', None)
     else:
