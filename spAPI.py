@@ -462,11 +462,14 @@ def appSetup(app, config=False):
             results[arg] = os.getenv(arg)
         # now make them the correct type if they exist
         for key in results.keys():
+            print('checking', key, results[key])
             if results[key] is not None:
                 for arg in requiredArgsInt:
-                    results[key] = os.getenv(arg)
+                    results[key] = int(os.getenv(arg))
+                    print('required int', key, int(os.getenv(arg)))
                 for arg in requiredArgsBool:
-                    results[key] = os.getenv(arg)
+                    results[key] = bool(os.getenv(arg))
+                    print('required bool', key, bool(os.getenv(arg)))
     if results.get('SECRET_KEY') is not None:
         app.secret_key = results.pop('SECRET_KEY', None)
     else:
