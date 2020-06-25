@@ -437,15 +437,21 @@ def appSetup(app, config=False):
     results=dict()
 
     if config.has_section('app'):
+        print('get regular env')
         for arg in requiredArgsStr:
             results[arg] = config.get('app', arg,
                                       fallback=os.getenv(arg))
+            print(arg, results[arg])
+        print('get int env')
         for arg in requiredArgsInt:
             results[arg] = config.getint('app', arg,
                                          fallback=os.getenv(arg))
+            print(arg, results[arg])
+        print('get boolean env')
         for arg in requiredArgsBool:
             results[arg] = config.getboolean('app', arg,
                                              fallback=os.getenv(arg))
+            print(arg, results[arg])
     else:
         # just put them into results as string or None
         for arg in requiredArgsStr:
