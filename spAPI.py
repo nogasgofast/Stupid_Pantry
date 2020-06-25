@@ -1609,6 +1609,8 @@ def todayMeals(user):
             p = plan.recipe.to_dict()
             p['path'] = '/recipes/view/'
             (p['viewAmount'], _) = viewAmountAndIngMissing(plan.recipe)
+            if p.get('imagePath'):
+                p['imagePath'] = getThubnail(p['imagePath'])
             todayMeals.append(p)
     return todayMeals
 
