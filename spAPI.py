@@ -450,20 +450,17 @@ def appSetup(app, config=False):
                                              fallback=os.getenv(arg))
             print(arg, results[arg])
     else:
-        # just put them into results as string or None
+        # they should all be string by default.
         for arg in requiredArgsStr:
-            results[arg] = os.getenv(arg)
-        for arg in requiredArgsInt:
-            results[arg] = os.getenv(arg)
-        for arg in requiredArgsBool:
-            results[arg] = os.getenv(arg)
-        # now make them the correct type if they exist
-        for key in results.keys():
-            if results.get(key) is not None:
-                for arg in requiredArgsInt:
-                    results[key] = int(results[key])
-                for arg in requiredArgsBool:
-                    results[key] = bool(results[key])
+            results[arg] = str(os.getenv(arg))
+            print('string', arg, results[arg])
+        for arg2 in requiredArgsInt:
+            results[arg2] = int(os.getenv(arg2))
+            print('int', arg2, results[arg2])
+        for arg3 in requiredArgsBool:
+            results[arg3] = bool(os.getenv(arg3))
+            print('bool', arg3, results[arg3])
+
     if results.get('SECRET_KEY') is not None:
         app.secret_key = results.pop('SECRET_KEY', None)
     else:
