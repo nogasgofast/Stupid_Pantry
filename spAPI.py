@@ -381,12 +381,8 @@ def getSocket(config=False):
 
 
 def dbSetup(config=False):
-    dbtype=None
-    if config.has_section('database'):
-        dbtype = config.get('database', 'DB_TYPE',
-                            fallback=os.getenv('DB_TYPE'))
-    if dbtype is None:
-        dbtype = os.getenv('DB_TYPE')
+    dbtype = config.get('database', 'DB_TYPE',
+                        fallback=os.getenv('DB_TYPE'))
     if dbtype in ['galera', 'mysql']:
         dbconfig = {
             'host': config.get('database', 'DB_HOST',
