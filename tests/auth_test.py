@@ -7,10 +7,11 @@ from flask_jwt_extended import (JWTManager,
                                 create_access_token,
                                 create_refresh_token )
 import spAPI
-import spDatabase
+import spDatabase as SPDB
 from passlib.context import CryptContext
 myctx = CryptContext(schemes="sha256_crypt",
                      sha256_crypt__min_rounds=131072)
+
 #test data
 
 class Auth_route(unittest.TestCase):

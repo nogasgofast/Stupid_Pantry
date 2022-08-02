@@ -86,7 +86,7 @@ export class EmailValidate extends React.Component {
                             <input  type="submit"
                                     id="cp_button"
                                     value="Finish and Login"
-                                    className="w3-action w3-button w3-hover-yellow w3-indigo" />
+                                    className="call-to-action w3-button w3-hover-yellow" />
                           ) : (
                             <label htmlFor="cp_button">
                               <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>

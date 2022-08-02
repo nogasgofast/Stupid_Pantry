@@ -41,11 +41,12 @@ export class LogoutForm extends React.Component {
       <>
         <Header history={ this.props.history } inner="Logout" />
         <div className="w3-margin w3-row-padding" >
-          <div className="w3-card w3-content">
-          <button onClick={this.handleAffirmative} className="w3-btn w3-block w3-bar-item w3-hover-yellow">
+          <div className="w3-content">
+          <button onClick={this.handleAffirmative} className="call-to-action w3-button w3-block w3-bar-item">
             Logout
           </button>
-          <button onClick={this.handleDenied} className="w3-btn w3-block w3-bar-item w3-hover-yellow">
+          <br />
+          <button onClick={this.handleDenied} className="w3-button w3-block w3-bar-item">
             Return
           </button>
           </div>

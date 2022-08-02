@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { Header } from './header.js';
-import { LinkDispList, Request, W3Color } from './utils.js';
+import { LinkDispList, Request, W3Color, CONVERT__ } from './utils.js';
 
 export class ActionRecipe extends React.Component {
     constructor(props){
@@ -41,7 +41,7 @@ export class ActionRecipe extends React.Component {
                     if(this.props.isEdit) {
                         this.props.history.goBack()}
                     else {
-                        this.props.history.push('/recipes/' + this.props.name)}}}
+                        this.props.history.push('/recipes/')}}}
             else if (state == 4 && cat != 2 && cat != 3) {
                 if (status == 409){
                     alert("duplicate entry")}
@@ -74,10 +74,10 @@ export class ActionRecipe extends React.Component {
 
       <button className={(
                             !this.isDone() ?
-                                'w3-disabled w3-red '
+                                'w3-disabled w3-red'
                             :
-                                'w3-yellow ' ) +
-                                'w3-btn w3-card w3-bar'}
+                                ' ' ) +
+                                'w3-button w3-card w3-bar call-to-action'}
               style={
                     this.props.ingredients.length == 0 ?
                         {display: 'none'}
@@ -91,7 +91,7 @@ export class InstructionsList extends LinkDispList {
   renderItem(item){
     return <li className={"w3-card w3-left-align " +
                (this.state.selectedItems.has(item) ?
-               "w3-border-yellow w3-rightbar" :
+               " w3-rightbar" :
                "")}
                key={ item }
                onClick={() => this.handleSelect(item)}>{ item }</li>
@@ -100,7 +100,7 @@ export class InstructionsList extends LinkDispList {
   renderList(){
     let list = [];
     if (this.props.items.length == 0){
-      return <div className="w3-yellow">Oops, put 'directions' above your list of directions. This is required</div>;
+      return <div className="w3-yellow">Oh No! Directions are missing!</div>;
     }
     for (const item of this.props.items) {
       list.push(this.renderItem(item));
@@ -124,46 +124,53 @@ export class InstructionsList extends LinkDispList {
 
 export class IngredientList extends LinkDispList {
     constructor(props){
-        super(props);
-        this.convert = {
-            "pinch": 0.03,
-            "pinche": 0.03,
-            "teaspoon": 0.25,
-            "tablespoon": 0.5,
-            "ounce": 1.0,
-            "cup": 8.0,
-            "pint": 16.0,
-            "pound": 16.0,
-            "quart": 128.0,
-            "liter": 256.0,
-            "gallon": 512.0}}
+        super(props);}
 
 
-    renderNameFormat(item) {
-        //console.log(item)
-        let amount = 0
-        let isMetered = this.convert[item.amountMeasure]
-        if (item.isMatching && item.isMatching == 'perfect') {
-            if (isMetered) {
-                amount = item.pantry[0].amount / isMetered
-                return <>{item.name}<br />{"In Panry: " + item.pantry[0].amount + " " +
-                       item.amountMeasure}</> }
-            else {
-                amount = item.pantry[0].amount
-                return <>{item.name}<br />{"In Panry: " + item.pantry[0].amount}</>}}
-        else if (item.isMatching && item.isMatching == 'some') {
-            return <>{item.name}<br />{"In Panry: " + "New"}</> }
-        else if (item.isMatching && item.isMatching == 'no') {
-            return <>{item.name}<br /> {"In Panry: " + "New"}</> }
-        else if (!item.isMatching) {
-            if (isMetered) {
-                amount = item.amount / isMetered
-                return <>{item.name}<br />{"In Panry: " + item.amount + " " +
-                       item.amountMeasure}</> }
-            else {
-                amount = item.amount
-                return <>{item.name}<br />{"In Panry: " + item.amount}</>}}}
+    renderAmountMeasure(item){
+      let amount = 0
+      let isMetered = CONVERT__[item.amountMeasure]
+      return isMetered ? item.amountMeasure : ''}
 
+    measureCorrectPlural(item){
+      if (item.pantry[0].amount > 1 && (item.amountMeasure != null)) {
+          return item.amountMeasure + "(s)"
+      }else{
+        return item.amountMeasure}
+    }
+
+    renderInPantry(item){
+      //console.log(item)
+      let amount = 0
+      let isMetered = CONVERT__[item.amountMeasure]
+      let text = ''
+      let measure = ''
+      if (item.isMatching && item.isMatching == 'perfect') {
+          if (isMetered) {
+              text = "In Panry: " + item.pantry[0].amount
+              measure = this.measureCorrectPlural(item)}
+          else {
+              text = "In Panry: " + item.pantry[0].amount}
+              measure = this.measureCorrectPlural(item)}
+      else if (item.isMatching && item.isMatching == 'some') {
+           text = "In Panry: " + "New"}
+      else if (item.isMatching && item.isMatching == 'no') {
+          text = "In Panry: " + "New" }
+      else if (!item.isMatching) {
+          if (isMetered) {
+              text = "In Panry: " + item.amount
+              measure = this.measureCorrectPlural(item)}
+          else {
+              text = "In Panry: " + item.amount
+              measure = this.measureCorrectPlural(item)}}
+      return <>{text}
+               <span className="w3-margin-left">
+               {measure}</span></>
+    }
+
+    renderUserInputWarning(item){
+      if (item.isMatching && item.isMatching == 'some'){
+        return <i className="w3-xxlarge w3-right fa-solid fa-triangle-exclamation" />}}
 
     renderItem(item) {
         const type = { no:'fa fa-plus',
@@ -172,38 +179,27 @@ export class IngredientList extends LinkDispList {
         const label = { no: ' new item!',
                         perfect: 'in pantry',
                         some: ' choose one'}
-        return <li className="w3-card w3-row"
-                   onClick={ () => this.checkItems(item.name) }
-                   key={ item.name } >
-                    <div className="w3-column">{this.renderNameFormat(item)}</div>
-                        <div className="w3-column w3-right-align">
-                            <i className={ (item.isMatching ?
-                                          type[item.isMatching] :
-                                          type['some']) +
-                                          " w3-large " }></i>
-                            {item.isMatching ?
-                                label[item.isMatching]
-                            :
-                                label['some']}</div></li>}
+        return <li className="w3-card w3-row w3-margin-bottom"
+                   key={ item.name }
+                   onClick={()=>this.props.optionCallback(item)} >
+                    <div className="w3-column w3-margin-bottom">
+                      {item.dispAmount} {this.renderAmountMeasure(item)} {item.name}
+                      {this.renderUserInputWarning(item)}
+                      <br />
+                      {this.renderInPantry(item)}
+                    </div>
+                </li>}
 
-
-  renderList(name){
+    renderList(name){
     let list = [];
     if (this.props.items.length == 0){
-      return <div className="w3-yellow">
-                Oops, put 'ingredients' above your list of ingredients.
-                This is required.</div>}
+      return <div className="w3-yellow">oh No! Ingredients missing?</div>}
     for (const item of this.props.items) {
-        if (item["isMatching"] == 'some') {
-            list.push(this.renderItem(item))
-            for (const suggest of item['pantry']){
-                list.push(this.renderItem(suggest))}}
-        else{
-            list.push(this.renderItem(item))}}
+        list.push(this.renderItem(item))}
     return list}
 
 
-  checkItems(name){
+    checkItems(name){
     //console.log("hi "+ name)
     const list = []
     for (let item of this.props.items ){
@@ -233,7 +229,7 @@ export class IngredientList extends LinkDispList {
         list.push(item)}
     this.props.ingredientUpdate(list)}
 
-  deleteItems(){
+    deleteItems(){
     const list = [];
     //rebuild list without selected items.
     for (const item of this.props.items ){
@@ -277,21 +273,39 @@ export class IngredientList extends LinkDispList {
 }
 
 // TODO: https://www.npmjs.com/package/react-avatar-editor
-
 export class RecipeForm extends React.Component {
     constructor(props){
         super(props)
         this.state = {
+            modalItem: false,
+            modalVisable: false,
+            modalChoice: false,
+            modalConversion: 1,
+            modalNameSelect: 'Choose One',
+            modalNameSelectBlank: false,
+            modalConvertionMeasure: 'whole item(s)',
             recipeField: '',
             ocrisLoading: false,
             isLoading: false,
             DeleteIsLoading: false,
             isDeleted: false,
             isDuplicate: false,
+            modalUndo: [],
             recipeName: '',
             newRecipeName: '',
             IngredientList: [],
-            instructions: []}
+            instructions: [],
+            example: "Bacon and egg tacos\n" +
+            "\n" +
+            "ingredients\n" +
+            "1 slice bacon\n" +
+            "3 eggs\n" +
+            "2 tortillas\n"+
+            "\n" +
+            "directions\n"+
+            "First scrabble the eggs, cook and season\n"+
+            "second warm up the tortillas on a pan\n"+
+            "third plate tortillas fill with 1 bacon slice and half the egg\n"}
         this.myIsMounted= false
         // These are just handlers being registered with the running process.
         this.handleFileUpload = this.handleFileUpload.bind(this)
@@ -310,6 +324,250 @@ export class RecipeForm extends React.Component {
     instructionsUpdate(list){
         this.setState({instructions: list})}
 
+    ingredientDeepCopy(ing){
+        let savePoint = Object()
+        savePoint.index = ing.index
+        savePoint.alias = ing.alias
+        savePoint.name = ing.name
+        savePoint.isMatching = ing.isMatching
+        savePoint.id = ing.id
+        savePoint.pantry = ing.pantry
+        return savePoint
+    }
+
+    handleModalClose(){
+        this.setState({modalVisable: false})
+    }
+
+    handleModalUndo(){
+        let item = this.state.modalItem
+        let newList = this.state.IngredientList
+        let newUndo = this.state.modalUndo
+        this.state.IngredientList.forEach((element, index)=> {
+            if (element.name == item.name){
+                this.state.modalUndo.forEach((savePoint, pos)=>{
+                    if (savePoint.index == index) {
+                        element = this.ingredientDeepCopy(savePoint)
+                        // the index is savePoint meta data
+                        // its really not a property of an ingredient
+                        delete element.index
+                        newUndo.splice(pos, 1)
+                    }})
+                console.log(element)
+                newList[index] = element}
+        })
+        this.setState({IngredientList: newList,
+                       modalUndo: newUndo,
+                       modalChoiceType: false,
+                       modalNameSelect: 'Choose One',
+                       modalVisable: false})
+    }
+
+    handleModalSave(){
+        let newList = this.state.IngredientList
+        let item = this.state.modalItem
+        let history = this.state.modalUndo
+        if (this.state.modalNameSelect != 'Choose One'){
+            newList.forEach((ingredient, index)=> {
+                if (ingredient.name == item.name) {
+                    let savePoint = this.ingredientDeepCopy(ingredient)
+                    savePoint.index = index
+                    history.push(savePoint)
+                    ingredient.alias = this.state.modalNameSelect
+                    ingredient.conversion = this.state.modalConversion
+                    ingredient.conversionMeasure = this.state.modalConvertionMeasure
+                    ingredient.isMatching = 'perfect'
+                    console.log('this is the saved item')
+                    console.log(ingredient)
+                    newList[index] = ingredient}
+            })
+            this.setState({modalNameSelectBlank: false,
+                           IngredientList: newList,
+                           modalVisable: false})
+        } else {
+            this.setState({modalNameSelectBlank: true})
+        }
+
+    }
+
+    handleModalNameSelect(e){
+        this.setState({modalNameSelect: e.target.value})
+    }
+
+    handleModalMeasureSelect(e){
+        this.setState({modalConvertionMeasure: e.target.value})
+    }
+
+    renderModalMeasures() {
+        let list = Object.keys(CONVERT__)
+        list.push('whole item(s)')
+        return <select value={this.state.modalConvertionMeasure}
+                       className="w3-input w3-white"
+                       onChange={(e)=>this.handleModalMeasureSelect(e)}>
+                 {list.map((x)=><option key={x}>{x}</option>)}
+               </select>
+    }
+
+    renderModalReplacements(){
+        const visable = { name: 'none',
+                           uses: 'none',
+                           0: 'block',
+                           false: 'block',
+                           add: 'block',
+                           replace: 'block'}
+        let item = this.state.modalItem
+        let list = []
+        for (const rep in item.pantry) {
+            // console.log(item.pantry[rep])
+            list.push(
+            <li key={ item.pantry[rep].name }
+                className={this.renderModalClasses(item.pantry[rep].name)}
+                onClick={()=>this.handleModalChoiceReplace(item.pantry[rep])}>
+                Replace it with "{ item.pantry[rep].name }" from my pantry
+            </li>)
+        }
+        return list
+    }
+
+    renderModalClasses(selectionKey){
+        return "w3-input w3-hover-gray " + (this.state.modalChoiceType == selectionKey ?
+                                  "w3-yellow":"")
+    }
+
+    handleModalChoiceReplace(replacement){
+        // This just sets the type of thing thats happening.
+        let history = this.state.modalUndo
+        let newList = this.state.IngredientList
+        newList.forEach((ingredient, index)=> {
+            if (ingredient.name == this.state.modalItem.name) {
+                let savePoint = this.ingredientDeepCopy(ingredient)
+                savePoint.index = index
+                history.push(savePoint)
+                ingredient.name = replacement.name
+                ingredient.id = replacement.id
+                ingredient.isMatching = 'perfect'
+                newList[index] = ingredient
+            }
+        })
+        this.setState({modalChoiceType : 'replace',
+                       IngredientList: newList,
+                       modalUndo: history,
+                       modalVisable: false,
+                       modalNameSelect: 'Choose One',
+                       modalConversion: 1,
+                       modalConvertionMeasure: 'whole item(s)',
+                       modalNameSelectBlank: false})
+    }
+
+    handleModalConversion(e){
+        this.setState({modalConversion: e.target.value})
+    }
+
+    handleModalChoiceAdd(){
+        // This just sets the type of thing thats happening.
+        let item = this.state.modalItem
+        let newList = this.state.IngredientList
+        let history = this.state.modalUndo
+        newList.forEach((ingredient, index)=> {
+            if (ingredient.name == item.name) {
+                let savePoint = this.ingredientDeepCopy(ingredient)
+                savePoint.index = index
+                history.push(savePoint)
+                ingredient.isMatching = 'no'
+                newList[index] = ingredient
+            }
+        })
+        this.setState({IngredientList: newList,
+                       modalVisable: false,
+                       modalUndo: history,
+                       modalNameSelect: 'Choose One',
+                       modalConversion: 1,
+                       modalConvertionMeasure: 'whole item(s)',
+                       modalNameSelectBlank: false})
+    }
+
+    handleModalChoiceUses(){
+        this.setState({modalChoiceType: 'uses',
+                       modalNameSelect: 'Choose One',
+                       modalConversion: 1,
+                       modalConvertionMeasure: 'whole item(s)',
+                       modalNameSelectBlank: false})
+    }
+
+    renderModalConversion(){
+        return <input type='number'
+                      size="3"
+                      value={ this.state.modalConversion }
+                      onChange={(e)=>this.handleModalConversion(e) } />
+    }
+
+    renderModalDropdown(item){
+        return <select className={'w3-input '  + (
+                            this.state.modalNameSelectBlank ? 'w3-border-red w3-bottombar '+
+                            'w3-topbar w3-rightbar w3-leftbar' : ''
+                        )}
+                       value={this.state.modalNameSelect}
+                       onChange={(e)=>this.handleModalNameSelect(e)}>
+                         <option key="Choose One">Choose One</option>
+                         {this.state.allIngs.map((option)=>
+                           <option key={option.name}>{option.name}</option>)}
+                </select>}
+
+    renderModalOptions() {
+        let item = this.state.modalItem
+        const visable = { name: true,
+                          uses: true}
+        if (item){
+        return <>
+        <h2 className="w3-margin w3-border-bottom w3-border-white">
+        For {item.name}...</h2>
+        <ul className="w3-ul">
+        <li className={this.renderModalClasses('add')}
+            key='add'
+            onClick={()=>this.handleModalChoiceAdd()}>
+        Add it to my pantry.
+        </li>
+        { this.renderModalReplacements(item) }
+        <li className={this.renderModalClasses('uses')}
+            key='uses'
+            onClick={ ()=>this.handleModalChoiceUses() }>
+        Use another item in my pantry
+        </li></ul>
+        <br />
+        <div className="w3-card w3-content "
+             style={ {display: visable[this.state.modalChoiceType] ? 'block': 'none' } }>
+             Which item in the pantry?
+             {this.renderModalDropdown()}
+        <div className="w3-border-left w3-content"
+             style={ {display: this.state.modalChoiceType == 'uses' ? 'block': 'none' } }>
+             Consume at this rate<br />
+             { this.renderModalConversion() }x <br />
+             in what measure?<br />
+             { this.renderModalMeasures() }
+             </div>
+        </div>
+        <br />
+        <div className="w3-button"
+             onClick={()=>this.handleModalSave()}>Save</div>
+        <div className="w3-button w3-margin-left"
+             onClick={()=>this.handleModalUndo()}>Undo</div>
+        </>}}
+
+    renderModalwindow(){
+        if (this.state.modalVisable) {
+        return <>
+        <div id="id01"
+             style={ this.state.modalVisable ? {display:'block'} : {display:'none'} }
+             className="w3-modal">
+            <div className="w3-modal-content w3-card w3-container">
+                    <span onClick={ ()=>this.handleModalClose() }
+                    className="w3-button w3-display-topright">&times;</span>
+                    { this.renderModalOptions() }
+            </div>
+        </div>
+        </>}
+    }
+
     componentDidMount(){
         this.myIsMounted = true;
         if (!this.checkCompatVideo()) {
@@ -317,6 +575,9 @@ export class RecipeForm extends React.Component {
 
     componentWillUnmount(){
         this.myIsMounted = false}
+
+    checkCompatVideo(){
+        return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)}
 
     handleFileUpload(event){
         let files = event.target.files
@@ -369,8 +630,9 @@ export class RecipeForm extends React.Component {
         if (this.myIsMounted){
             this.setState({recipeField: event.target.value})}}
 
-    checkCompatVideo(){
-        return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)}
+    handleListPress(item){
+        this.setState({modalItem: item,
+                       modalVisable: true})}
 
     handleSubmit(event){
         event.preventDefault()
@@ -387,11 +649,12 @@ export class RecipeForm extends React.Component {
                                     newRecipeName: recipe['name'],
                                     isDuplicate: recipe['isDuplicate'],
                                     IngredientList: recipe['ingredients'],
-                                    instructions: recipe['instructions'] })
+                                    instructions: recipe['instructions'],
+                                    allIngs: recipe['allIngs'] })
                     this.refs.name.scrollIntoView()}}
             else if (state == 4 && cat != 2 && cat != 3){
                 if (cat == 4){
-                    this.setState({ newRecipeName: "Error:",
+                    this.setState({ newRecipeName: xhr.responseText,
                                     isLoading: false})
                     console.log( xhr.responseText )}
                 else {
@@ -439,24 +702,93 @@ export class RecipeForm extends React.Component {
         if (this.myIsMounted) {
             this.setState({DeleteIsLoading: true})}}
 
-    renderThisRecipe(){
+    renderOcrButton(){ return (<>
+        {this.state.ocrisLoading && (<>
+            <label className="w3-bar" htmlFor="OCR" aria-label=" processing image upload">
+              <i className="w3-left w3-bar-item w3-button w3-xlarge fa fas fa-print fa-spin">
+                 <span className="font-override w3-large"> processing image</span>
+              </i></label>
+            <input type="file"
+                   id="OCR"
+                   style={{display: "none"}}
+                   name="uploadedfile"
+                   accept="image/*"
+                   capture /></>)}
+        {!this.state.ocrisLoading && (<>
+            <label className="w3-bar" htmlFor="OCR" aria-label=" use text recognition on a image">
+                <i className="w3-left w3-bar-item w3-button w3-xlarge fas fa-print">
+                   <span className="font-override w3-large"> read image</span></i></label>
+            <input type="file"
+                   id="OCR"
+                   style={{display: "none"}}
+                   name="uploadedfile"
+                   accept="image/*"
+                   capture
+                   onChange={ (event) => this.handleImageUpload(event.target.files)} /></>)}</>)}
+
+    renderFileUploadButton(){ return (<>
+        <label className="w3-bar" htmlFor="upload" aria-label="file upload">
+            <i className="w3-left w3-bar-item w3-button w3-xlarge fas fa-file-word">
+            <span className="font-override w3-large"> read text file</span></i></label>
+        <input type="file"
+               style={{display: "none"}}
+               id="upload"
+               onChange={ (event) => this.handleFileUpload(event)} /></>)}
+
+    renderDeleteButton(){ return (<>
+        {this.isAdd && <>
+            <div className="w3-bar"
+                 aria-label="delete this recipe"
+                 onClick={ (event) => this.handleDelete(event)} >
+                   <i className="w3-left w3-bar-item w3-button w3-xlarge fas fa-trash-alt">
+                      <span className="font-override w3-large"> Delete Recipe</span></i>
+            </div>
+            {this.state.isDeleted && <Redirect to='/recipes' / >}
+        </>}</>)}
+
+    renderFoodDotComUrl(){ return (<>
+        <div className="w3-bar"
+             aria-label="read url pasted in the textarea"
+             onClick={ () => this.renderThisRecipe(this.state.recipeField)}
+             alt=" Paste a url into the recipe field then hit this button." >
+               <i className="w3-left w3-bar-item w3-button w3-xlarge fa-solid fa-link">
+                  <span className="font-override w3-large"> food.com address</span></i>
+        </div></>)}
+
+    renderExampleButton(){ return (<>
+        <div
+          className="w3-bar"
+          aria-label="insert example recipe"
+          onClick={(event) => this.setState({ recipeField: this.state.example })}
+          alt="This button adds example to the Recipe field of the form." >
+          <label>
+               <i className="w3-left w3-bar-item w3-button w3-xlarge fa-solid fa-link">
+                   <span className="font-override w3-large"> Insert Example</span></i>
+          </label>
+        </div></>)}
+
+    renderThisRecipe(target_url=false){
         //console.log(this.props.location)
         const {pathname} = this.props.location
         //console.log(pathname)
         let recipeName = ''
         let id = '-1'
         let url = ''
+        let method = 'GET'
         //console.log(pathname)
         if (pathname.match(/^\/recipes\/edit\/.*/)){
             recipeName = pathname.replace('/recipes/edit/', '')
             url = '/v1/recipes/'+ recipeName }
-        if (pathname.match(/^\/public\/recipes\/.*/)){
+        else if (pathname.match(/^\/public\/recipes\/.*/)){
             recipeName = pathname.replace(/\/public\/recipes\//, '').replace(/\/.*$/, '')
-            console.log(recipeName)
+            // console.log(recipeName)
             id = pathname.replace(/\/public\/recipes\/.*\//, '')
-            console.log(id)
-            url = '/v1/public/recipes/' + recipeName + '/' + id
-            console.log(url)}
+            // console.log(id)
+            url = '/v1/public/recipes/' + recipeName + '/' + id}
+        else if (target_url){
+            url = '/v1/recipes/scrape'
+            method = 'POST'
+        }
 
         //console.log(recipeName)
         let callBack = (xhr) => {
@@ -469,12 +801,15 @@ export class RecipeForm extends React.Component {
                 const recipe = JSON.parse(xhr.responseText)['name']
                 let ingredients = JSON.parse(xhr.responseText)['ingredients']
                 let dedupDisplay = (x) => {
+                  // disable dedup for scraped data
+                  if (target_url) { return x } else {
+                    // dedup stuff
                     if (x['amountMeasure'] == x['name']){
                         return  x['amount'] +' '+ x['amountMeasure']}
                     else {
                         return x['amount'] + ' ' +
                                x['amountMeasure'] + ' ' +
-                               x['name']}}
+                               x['name']}}}
                 let ingredientsDisplay = ingredients.map( x => dedupDisplay(x) )
                 let instructions = JSON.parse(xhr.responseText)['instructions']
                 let recipeText = recipe.concat('\n','\n',
@@ -482,8 +817,7 @@ export class RecipeForm extends React.Component {
                                               ingredientsDisplay.join('\n'),
                                               '\n','\n',
                                               'Directions','\n',
-                                              instructions)
-                instructions = instructions.split('\n')
+                                              instructions.join('\n'))
                 if (this.myIsMounted){
                     this.setState({ isLoading: false,
                                     recipeName: recipe,
@@ -493,7 +827,9 @@ export class RecipeForm extends React.Component {
                 console.log( xhr.responseText )}}
         const settings = {
             url: url,
-            method: 'GET',
+            method: method,
+            headers: {"content-type": "application/json"},
+            data: JSON.stringify({"target_url": target_url}),
             callBack: callBack,
             history: this.props.history}
         let req = new Request()
@@ -501,51 +837,6 @@ export class RecipeForm extends React.Component {
         req.withAuth()
         if (this.myIsMounted) {
             this.setState({ isLoading: true})}}
-
-    renderOcrButton(){ return (<>
-        {this.state.ocrisLoading && (<>
-            <label className="w3-bar" htmlFor="OCR" aria-label="use picture">
-              <i className="w3-left w3-bar-item w3-button w3-hover-yellow w3-xlarge fa fas fa-print fa-spin"
-                 aria-hidden="true"></i></label>
-            <input type="file"
-                   id="OCR"
-                   style={{display: "none"}}
-                   name="uploadedfile"
-                   accept="image/*"
-                   capture /></>)}
-        {!this.state.ocrisLoading && (<>
-            <label className="w3-bar" htmlFor="OCR" aria-label="use picture">
-                <i className="w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-print"
-                   aria-hidden="true"> Optical Text Recognition</i></label>
-            <input type="file"
-                   id="OCR"
-                   style={{display: "none"}}
-                   name="uploadedfile"
-                   accept="image/*"
-                   capture
-                   onChange={ (event) => this.handleImageUpload(event.target.files)} /></>)}</>)}
-
-    renderFileUploadButton(){ return (
-        <>
-            <label className="w3-bar" htmlFor="upload" aria-label="file upload">
-                <i className="w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-file-word"
-                   aria-hidden="true"> Upload a File</i></label>
-            <input type="file"
-                   style={{display: "none"}}
-                   id="upload"
-                   onChange={ (event) => this.handleFileUpload(event)} /></>)}
-
-    renderDeleteButton(){ return (<>
-        {this.props.isEdit ? (
-            <>
-                <label className="w3-bar" htmlFor="delete" aria-label="delete this recipe">
-                    <i className="w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-trash-alt"
-                       aria-hidden="true"> Delete Recipe</i></label>
-                <button style={{display: "none"}}
-                        id="delete"
-                        onClick={ (event) => this.handleDelete(event)} />
-                {this.state.isDeleted && <Redirect to='/recipes' / >}</>)
-        : '' }</>)}
 
     render() {return( <>
         <Header history={this.props.history}
@@ -560,31 +851,23 @@ export class RecipeForm extends React.Component {
                     <div className="w3-dropdown-hover w3-third w3-margin-bottom">
                         <button className="w3-button w3-bar">
                             <i className="w3-left w3-rest w3-xlarge fas fa-carrot">
-                             Options</i></button>
+                             <span className="font-override"/> Options</i></button>
                         <div className="w3-bar-block w3-dropdown-content">
-                            {this.renderOcrButton()}
                             {this.renderFileUploadButton()}
-                            {this.renderDeleteButton()}</div></div></div>
+                            {this.renderOcrButton()}
+                            {this.renderDeleteButton()}
+                            {this.renderFoodDotComUrl()}
+                            {this.renderExampleButton()}</div></div></div>
                 <form method="POST"
                       className={"w3-card " +
                                  "w3-round-large" +
                                  "w3-form "}
                       onSubmit={(event) => this.handleSubmit(event)} ><b>
-                    <textarea rows="15"
+                    <label htmlFor="recipeField" className="w3-large">Recipe: </label>
+                    <textarea id="recipeField"
+                              rows="15"
                               className="w3-input w3-margin-16"
                               onChange={(e) => this.handleRecipeChange(e)}
-                              placeholder={
-                                "Bacon and egg tacos\n" +
-                                "\n" +
-                                "ingredients\n" +
-                                "1 slice bacon\n" +
-                                "3 eggs\n" +
-                                "2 tortillas\n"+
-                                "\n" +
-                                "directions\n"+
-                                "First scrabble the eggs, cook and season\n"+
-                                "second warm up the tortillas on a pan\n"+
-                                "third plate tortillas fill with 1 bacon slice and half the egg\n"}
                             value={this.state.recipeField} ></textarea></b>
                     { this.state.isLoading ? (
                     <label htmlFor="review">
@@ -592,19 +875,23 @@ export class RecipeForm extends React.Component {
                     : (<input type="submit"
                               id="review"
                               value="Review Recipe"
-                              className={"w3-btn w3-indigo w3-input " +
-                                         "w3-block w3-hover-yellow"} />)}</form>
+                              className={"call-to-action w3-button " +
+                                         "w3-block "} />)}</form>
                 {this.state.newRecipeName ? (
-                    <div ref="name">Scroll up to edit, down to Add<br />
+                    <div ref="name"><br />
                     <div className="w3-card w3-xlarge" >{this.state.newRecipeName}</div></div>)
                 : ''}
+                <br />
                 {this.state.newRecipeName ? (
-                    <h3>Matching Ingredients</h3>)
+                    <h3> Smart Ingredient Helper</h3>)
                 : ''}
                 {this.state.newRecipeName ? (
                     <IngredientList items={this.state.IngredientList}
-                                     ingredientUpdate={(list)=>this.ingredientUpdate(list)}
+                                    allIngs={this.state.allIngs}
+                                    optionCallback={(e)=>this.handleListPress(e)}
+                                    ingredientUpdate={(list)=>this.ingredientUpdate(list)}
                                      />):"" }
+                {this.renderModalwindow()}
                 <div className={"w3-padding"}></div>
                 {this.state.newRecipeName ? (
                     <h3>Directions</h3>)

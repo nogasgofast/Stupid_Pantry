@@ -47,7 +47,10 @@ class App extends React.Component {
                         path="/search"
                         render={(props)=><SearchList {...props} /> } />
                 <Route
-                        path="/pantry/"
+                        path="/pantry/add"
+                        render={(props)=><IngredientForm {...props} /> } />
+                <Route
+                        path="/pantry/edit/"
                         render={(props)=><IngredientForm isEdit {...props} /> } />
                 <Route
                         path="/public/recipes/"
@@ -81,7 +84,7 @@ class App extends React.Component {
                         render={(props)=><MealPlanForm isEdit {...props} />} />
                 <Route exact
                         path="/recipes/add"
-                        render={(props)=><RecipeForm {...props} /> } />
+                        render={(props)=><RecipeForm isAdd {...props} /> } />
                 <Route exact
                         path="/recipes/help"
                         render={(props)=><RecipesHelp {...props} /> } />

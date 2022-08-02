@@ -28,6 +28,7 @@ export class Home extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            recipes: [],
             todayMeals: [],
             readyMeals: [],
             thriftyMeals: [],
@@ -52,6 +53,7 @@ export class Home extends React.Component {
                 const json = JSON.parse(xhr.responseText);
                 if(this.myIsMounted) {
                     this.setState({
+                        recipes: json.recipes,
                         todayMeals: json.todayMeals,
                         readyMeals: json.readyMeals,
                         thriftyMeals: json.thriftyMeals,
@@ -79,77 +81,83 @@ export class Home extends React.Component {
                 <div className="w3-card w3-container">
                     { funcCall() }</div></div>)}
 
+    recipes(){
+        return(<>
+            <Link to="/recipes"
+                  className="w3-btn w3-margin-bottom">
+            <h2>Recipes</h2></Link>
+            <Feature isLoading={this.state.isLoading}
+                     isError={this.state.isError}
+                     items={this.state.recipes}/>
+            <br /></>)}
+
     todaysMeals(){
         return(<>
-            <h3>Todays Meals</h3>
+            <Link to="/mealplans"
+                  className="w3-btn w3-margin-bottom">
+            <h3>Todays Meals</h3></Link>
             <Feature isLoading={this.state.isLoading}
                      isError={this.state.isError}
                      items={this.state.todayMeals}/>
-            <br />
-            <Link to="/mealplans"
-                  className="w3-btn w3-orange w3-margin-bottom">
-                Meal Planner</Link></>)}
+            <br /></>)}
 
     readyMeals(){
         return(<>
-            <h3>Ready Meals</h3>
+            <Link to="/search/recipes/Ready"
+                  className="w3-btn w3-margin-bottom">
+            <h2>Ready Meals</h2></Link>
             <Feature isLoading={this.state.isLoading}
                      isError={this.state.isError}
                      items={this.state.readyMeals}/>
-            <br />
-            <Link to="/search/recipes/Ready"
-                  className="w3-btn w3-orange w3-margin-bottom">
-                View More...</Link></>)}
+            <br /></>)}
 
     stretchMeals(){
-        return(<>
-            <h3>Thrifty Recipes</h3>
+        return(<><Link to="/search/recipes/Ready"
+              className="w3-btn w3-margin-bottom">
+            <h2>Thrifty Recipes</h2></Link>
             <Feature isLoading={this.state.isLoading}
                      isError={this.state.isError}
                      items={this.state.thriftyMeals}/>
-            <br />
-            <Link to="/search/recipes/Ready"
-                  className="w3-btn w3-orange w3-margin-bottom">
-                View More...</Link></>)}
+            <br /></>)}
 
     somethingDifferent(){
         return(<>
-            <h3>Featured Recipes</h3>
+            <Link to="/search/recipes/Public"
+                  className="w3-btn w3-margin-bottom">
+            <h2>Featured Recipes</h2></Link>
             <Feature isLoading={this.state.isLoading}
                      isError={this.state.isError}
                      items={this.state.featuredMeals}/>
-            <br />
-            <Link to="/search/recipes/Public"
-                  className="w3-btn w3-orange w3-margin-bottom">
-                View More...</Link></>)}
+            <br /></>)}
 
-    recentChanges(){
+    expiring(){
         return(<>
-            <h3>Expiring Items</h3>
+            <Link to="/search/pantry/Check Soon"
+                  className="w3-btn w3-margin-bottom">
+            <h3>Expiring Items</h3></Link>
             <Feature isLoading={this.state.isLoading}
                      isError={this.state.isError}
                      items={this.state.ingToCheck}/>
-            <br />
-            <Link to="/search/pantry/Check Soon"
-                  className="w3-btn w3-orange w3-margin-bottom">
-                View More...</Link></>)}
+            <br /></>)}
 
     render() {return( <>
         <Header history={ this.props.history } inner="Home" />
         <div className="w3-container w3-margin-top">
             <div className="w3-content">
                 <Link to="/recipes/add">
-                  <button className="w3-indigo w3-hover-yellow w3-round w3-btn w3-block w3-card" >Add Recipe</button>
+                  <button className="call-to-action w3-round w3-button w3-block w3-card" >Add Recipe</button>
                 </Link>
             </div>
             <div className="w3-row-padding w3-margin-top">
-                {this.wrapper(() => this.todaysMeals())}
-                {this.wrapper(() => this.readyMeals())}
-            </div>
-            <div className="w3-row-padding">
+                {this.wrapper(() => this.recipes())}
                 {this.wrapper(() => this.stretchMeals())}
-                {this.wrapper(() => this.somethingDifferent())}
+
             </div>
             <div className="w3-row-padding">
-                {this.wrapper(() => this.recentChanges())}
+                {this.wrapper(() => this.readyMeals())}
+                {this.wrapper(() => this.expiring())}
+            </div>
+            <div className="w3-row-padding">
+                {this.wrapper(() => this.todaysMeals())}
+                {this.wrapper(() => this.somethingDifferent())}
             </div></div></>);}}

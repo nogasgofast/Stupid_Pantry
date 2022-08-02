@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 {% block body %}
 {% if session['loggedIn'] %}
   <a href='/'>You're logged in already!<br />Go to homepage.</a>
@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"></link>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="text/javascript"
-            src="{{ url_for('static', filename='dist/main.js') | safe }}"></script>
+      <div id="root"></div>
+      <script type="text/javascript"
+              src="{{ url_for('static', filename='dist/main.js') | safe }}"></script>
   </body>
 {% endif %}
 {% endblock %}

@@ -59,7 +59,7 @@ export class PantryList extends React.Component {
           <div className="w3-margin w3-row-padding">
             <div className="w3-content">
               <Link to="/pantry/add">
-                <button className="w3-orange w3-hover-yellow w3-btn w3-block w3-card" >New Ingredient</button>
+                <button className="call-to-action w3-button w3-block w3-card" >New Ingredient</button>
               </Link>
               <LinkDispList path={ '/pantry' } items={ this.state.recipes } />
             </div>

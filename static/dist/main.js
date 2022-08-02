@@ -1,101 +1,17 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./static/app.js");
-/******/ })
-/************************************************************************/
-/******/ ({
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./node_modules/@babel/runtime/helpers/esm/extends.js":
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/extends.js ***!
   \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _extends; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _extends)
+/* harmony export */ });
 function _extends() {
   _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -120,12 +36,13 @@ function _extends() {
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js ***!
   \******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _inheritsLoose; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _inheritsLoose)
+/* harmony export */ });
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
@@ -138,12 +55,13 @@ function _inheritsLoose(subClass, superClass) {
 /*!*********************************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js ***!
   \*********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _objectWithoutPropertiesLoose; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _objectWithoutPropertiesLoose)
+/* harmony export */ });
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -165,8 +83,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 /*!**************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/inheritsLoose.js ***!
   \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -182,19 +99,17 @@ module.exports = _inheritsLoose;
 /*!***********************************!*\
   !*** ./node_modules/gud/index.js ***!
   \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {// @flow
+// @flow
 
 
 var key = '__global_unique_id__';
 
 module.exports = function () {
-  return global[key] = (global[key] || 0) + 1;
+  return __webpack_require__.g[key] = (__webpack_require__.g[key] || 0) + 1;
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -202,18 +117,19 @@ module.exports = function () {
 /*!*********************************************!*\
   !*** ./node_modules/history/esm/history.js ***!
   \*********************************************/
-/*! exports provided: createBrowserHistory, createHashHistory, createMemoryHistory, createLocation, locationsAreEqual, parsePath, createPath */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createBrowserHistory", function() { return createBrowserHistory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createHashHistory", function() { return createHashHistory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createMemoryHistory", function() { return createMemoryHistory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLocation", function() { return createLocation; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "locationsAreEqual", function() { return locationsAreEqual; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parsePath", function() { return parsePath; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPath", function() { return createPath; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createBrowserHistory": () => (/* binding */ createBrowserHistory),
+/* harmony export */   "createHashHistory": () => (/* binding */ createHashHistory),
+/* harmony export */   "createLocation": () => (/* binding */ createLocation),
+/* harmony export */   "createMemoryHistory": () => (/* binding */ createMemoryHistory),
+/* harmony export */   "createPath": () => (/* binding */ createPath),
+/* harmony export */   "locationsAreEqual": () => (/* binding */ locationsAreEqual),
+/* harmony export */   "parsePath": () => (/* binding */ parsePath)
+/* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
 /* harmony import */ var resolve_pathname__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! resolve-pathname */ "./node_modules/resolve-pathname/index.js");
 /* harmony import */ var value_equal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! value-equal */ "./node_modules/value-equal/index.js");
@@ -289,7 +205,7 @@ function createLocation(path, state, key, currentLocation) {
     location.state = state;
   } else {
     // One-arg form: push(location)
-    location = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, path);
+    location = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, path);
     if (location.pathname === undefined) location.pathname = '';
 
     if (location.search) {
@@ -324,7 +240,7 @@ function createLocation(path, state, key, currentLocation) {
     if (!location.pathname) {
       location.pathname = currentLocation.pathname;
     } else if (location.pathname.charAt(0) !== '/') {
-      location.pathname = Object(resolve_pathname__WEBPACK_IMPORTED_MODULE_1__["default"])(location.pathname, currentLocation.pathname);
+      location.pathname = (0,resolve_pathname__WEBPACK_IMPORTED_MODULE_1__["default"])(location.pathname, currentLocation.pathname);
     }
   } else {
     // When there is no prior location and pathname is empty, set it to /
@@ -337,14 +253,14 @@ function createLocation(path, state, key, currentLocation) {
 }
 
 function locationsAreEqual(a, b) {
-  return a.pathname === b.pathname && a.search === b.search && a.hash === b.hash && a.key === b.key && Object(value_equal__WEBPACK_IMPORTED_MODULE_2__["default"])(a.state, b.state);
+  return a.pathname === b.pathname && a.search === b.search && a.hash === b.hash && a.key === b.key && (0,value_equal__WEBPACK_IMPORTED_MODULE_2__["default"])(a.state, b.state);
 }
 
 function createTransitionManager() {
   var prompt = null;
 
   function setPrompt(nextPrompt) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(prompt == null, 'A history supports only one prompt at a time') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(prompt == null, 'A history supports only one prompt at a time') : 0;
     prompt = nextPrompt;
     return function () {
       if (prompt === nextPrompt) prompt = null;
@@ -362,7 +278,7 @@ function createTransitionManager() {
         if (typeof getUserConfirmation === 'function') {
           getUserConfirmation(result, callback);
         } else {
-           true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(false, 'A history needs a getUserConfirmation function in order to use a prompt message') : undefined;
+           true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(false, 'A history needs a getUserConfirmation function in order to use a prompt message') : 0;
           callback(true);
         }
       } else {
@@ -480,7 +396,7 @@ function createBrowserHistory(props) {
     props = {};
   }
 
-  !canUseDOM ?  true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_4__["default"])(false, 'Browser history needs a DOM') : undefined : void 0;
+  !canUseDOM ?  true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_4__["default"])(false, 'Browser history needs a DOM') : 0 : void 0;
   var globalHistory = window.history;
   var canUseHistory = supportsHistory();
   var needsHashChangeListener = !supportsPopStateOnHashChange();
@@ -503,7 +419,7 @@ function createBrowserHistory(props) {
         search = _window$location.search,
         hash = _window$location.hash;
     var path = pathname + search + hash;
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!basename || hasBasename(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!basename || hasBasename(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".') : 0;
     if (basename) path = stripBasename(path, basename);
     return createLocation(path, state, key);
   }
@@ -515,7 +431,7 @@ function createBrowserHistory(props) {
   var transitionManager = createTransitionManager();
 
   function setState(nextState) {
-    Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(history, nextState);
+    (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(history, nextState);
 
     history.length = globalHistory.length;
     transitionManager.notifyListeners(history.location, history.action);
@@ -577,7 +493,7 @@ function createBrowserHistory(props) {
   }
 
   function push(path, state) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to push when the 1st ' + 'argument is a location-like object that already has state; it is ignored') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to push when the 1st ' + 'argument is a location-like object that already has state; it is ignored') : 0;
     var action = 'PUSH';
     var location = createLocation(path, state, createKey(), history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
@@ -605,14 +521,14 @@ function createBrowserHistory(props) {
           });
         }
       } else {
-         true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(state === undefined, 'Browser history cannot push state in browsers that do not support HTML5 history') : undefined;
+         true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(state === undefined, 'Browser history cannot push state in browsers that do not support HTML5 history') : 0;
         window.location.href = href;
       }
     });
   }
 
   function replace(path, state) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to replace when the 1st ' + 'argument is a location-like object that already has state; it is ignored') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to replace when the 1st ' + 'argument is a location-like object that already has state; it is ignored') : 0;
     var action = 'REPLACE';
     var location = createLocation(path, state, createKey(), history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
@@ -638,7 +554,7 @@ function createBrowserHistory(props) {
           });
         }
       } else {
-         true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(state === undefined, 'Browser history cannot replace state in browsers that do not support HTML5 history') : undefined;
+         true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(state === undefined, 'Browser history cannot replace state in browsers that do not support HTML5 history') : 0;
         window.location.replace(href);
       }
     });
@@ -761,7 +677,7 @@ function createHashHistory(props) {
     props = {};
   }
 
-  !canUseDOM ?  true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_4__["default"])(false, 'Hash history needs a DOM') : undefined : void 0;
+  !canUseDOM ?  true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_4__["default"])(false, 'Hash history needs a DOM') : 0 : void 0;
   var globalHistory = window.history;
   var canGoWithoutReload = supportsGoWithoutReloadUsingHash();
   var _props = props,
@@ -776,7 +692,7 @@ function createHashHistory(props) {
 
   function getDOMLocation() {
     var path = decodePath(getHashPath());
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!basename || hasBasename(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!basename || hasBasename(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".') : 0;
     if (basename) path = stripBasename(path, basename);
     return createLocation(path);
   }
@@ -784,7 +700,7 @@ function createHashHistory(props) {
   var transitionManager = createTransitionManager();
 
   function setState(nextState) {
-    Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(history, nextState);
+    (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(history, nextState);
 
     history.length = globalHistory.length;
     transitionManager.notifyListeners(history.location, history.action);
@@ -860,7 +776,7 @@ function createHashHistory(props) {
   }
 
   function push(path, state) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(state === undefined, 'Hash history cannot push state; it is ignored') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(state === undefined, 'Hash history cannot push state; it is ignored') : 0;
     var action = 'PUSH';
     var location = createLocation(path, undefined, undefined, history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
@@ -884,14 +800,14 @@ function createHashHistory(props) {
           location: location
         });
       } else {
-         true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(false, 'Hash history cannot PUSH the same path; a new entry will not be added to the history stack') : undefined;
+         true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(false, 'Hash history cannot PUSH the same path; a new entry will not be added to the history stack') : 0;
         setState();
       }
     });
   }
 
   function replace(path, state) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(state === undefined, 'Hash history cannot replace state; it is ignored') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(state === undefined, 'Hash history cannot replace state; it is ignored') : 0;
     var action = 'REPLACE';
     var location = createLocation(path, undefined, undefined, history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
@@ -918,7 +834,7 @@ function createHashHistory(props) {
   }
 
   function go(n) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(canGoWithoutReload, 'Hash history go(n) causes a full page reload in this browser') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(canGoWithoutReload, 'Hash history go(n) causes a full page reload in this browser') : 0;
     globalHistory.go(n);
   }
 
@@ -1015,7 +931,7 @@ function createMemoryHistory(props) {
   var transitionManager = createTransitionManager();
 
   function setState(nextState) {
-    Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(history, nextState);
+    (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(history, nextState);
 
     history.length = history.entries.length;
     transitionManager.notifyListeners(history.location, history.action);
@@ -1033,7 +949,7 @@ function createMemoryHistory(props) {
   var createHref = createPath;
 
   function push(path, state) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to push when the 1st ' + 'argument is a location-like object that already has state; it is ignored') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to push when the 1st ' + 'argument is a location-like object that already has state; it is ignored') : 0;
     var action = 'PUSH';
     var location = createLocation(path, state, createKey(), history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
@@ -1058,7 +974,7 @@ function createMemoryHistory(props) {
   }
 
   function replace(path, state) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to replace when the 1st ' + 'argument is a location-like object that already has state; it is ignored') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_3__["default"])(!(typeof path === 'object' && path.state !== undefined && state !== undefined), 'You should avoid providing a 2nd state argument to replace when the 1st ' + 'argument is a location-like object that already has state; it is ignored') : 0;
     var action = 'REPLACE';
     var location = createLocation(path, state, createKey(), history.location);
     transitionManager.confirmTransitionTo(location, action, getUserConfirmation, function (ok) {
@@ -1142,8 +1058,7 @@ function createMemoryHistory(props) {
 /*!**********************************************************************************!*\
   !*** ./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
   \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -1252,28 +1167,17 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
-/***/ "./node_modules/isarray/index.js":
-/*!***************************************!*\
-  !*** ./node_modules/isarray/index.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]';
-};
-
-/***/ }),
-
 /***/ "./node_modules/mini-create-react-context/dist/esm/index.js":
 /*!******************************************************************!*\
   !*** ./node_modules/mini-create-react-context/dist/esm/index.js ***!
   \******************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/inheritsLoose */ "./node_modules/@babel/runtime/helpers/inheritsLoose.js");
@@ -1363,7 +1267,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
           changedBits = typeof calculateChangedBits === 'function' ? calculateChangedBits(oldValue, newValue) : MAX_SIGNED_31_BIT_INT;
 
           if (true) {
-            Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])((changedBits & MAX_SIGNED_31_BIT_INT) === changedBits, 'calculateChangedBits: Expected the return value to be a ' + '31-bit integer. Instead received: ' + changedBits);
+            (0,tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])((changedBits & MAX_SIGNED_31_BIT_INT) === changedBits, 'calculateChangedBits: Expected the return value to be a ' + '31-bit integer. Instead received: ' + changedBits);
           }
 
           changedBits |= 0;
@@ -1380,9 +1284,9 @@ function createReactContext(defaultValue, calculateChangedBits) {
     };
 
     return Provider;
-  }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+  }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[contextProp] = prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object.isRequired, _Provider$childContex);
+  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[contextProp] = (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object.isRequired), _Provider$childContex);
 
   var Consumer =
   /*#__PURE__*/
@@ -1445,17 +1349,17 @@ function createReactContext(defaultValue, calculateChangedBits) {
     };
 
     return Consumer;
-  }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+  }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-  Consumer.contextTypes = (_Consumer$contextType = {}, _Consumer$contextType[contextProp] = prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object, _Consumer$contextType);
+  Consumer.contextTypes = (_Consumer$contextType = {}, _Consumer$contextType[contextProp] = (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object), _Consumer$contextType);
   return {
     Provider: Provider,
     Consumer: Consumer
   };
 }
 
-var index = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext || createReactContext;
-/* harmony default export */ __webpack_exports__["default"] = (index);
+var index = (react__WEBPACK_IMPORTED_MODULE_0___default().createContext) || createReactContext;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
 
 /***/ }),
 
@@ -1463,8 +1367,7 @@ var index = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext || create
 /*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 /*
@@ -1565,463 +1468,11 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 /***/ }),
 
-/***/ "./node_modules/path-to-regexp/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/path-to-regexp/index.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isarray = __webpack_require__(/*! isarray */ "./node_modules/isarray/index.js");
-/**
- * Expose `pathToRegexp`.
- */
-
-
-module.exports = pathToRegexp;
-module.exports.parse = parse;
-module.exports.compile = compile;
-module.exports.tokensToFunction = tokensToFunction;
-module.exports.tokensToRegExp = tokensToRegExp;
-/**
- * The main path matching regexp utility.
- *
- * @type {RegExp}
- */
-
-var PATH_REGEXP = new RegExp([// Match escaped characters that would otherwise appear in future matches.
-// This allows the user to escape special characters that won't transform.
-'(\\\\.)', // Match Express-style parameters and un-named parameters with a prefix
-// and optional suffixes. Matches appear as:
-//
-// "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]
-// "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
-// "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
-'([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?|(\\*))'].join('|'), 'g');
-/**
- * Parse a string for the raw tokens.
- *
- * @param  {string}  str
- * @param  {Object=} options
- * @return {!Array}
- */
-
-function parse(str, options) {
-  var tokens = [];
-  var key = 0;
-  var index = 0;
-  var path = '';
-  var defaultDelimiter = options && options.delimiter || '/';
-  var res;
-
-  while ((res = PATH_REGEXP.exec(str)) != null) {
-    var m = res[0];
-    var escaped = res[1];
-    var offset = res.index;
-    path += str.slice(index, offset);
-    index = offset + m.length; // Ignore already escaped sequences.
-
-    if (escaped) {
-      path += escaped[1];
-      continue;
-    }
-
-    var next = str[index];
-    var prefix = res[2];
-    var name = res[3];
-    var capture = res[4];
-    var group = res[5];
-    var modifier = res[6];
-    var asterisk = res[7]; // Push the current path onto the tokens.
-
-    if (path) {
-      tokens.push(path);
-      path = '';
-    }
-
-    var partial = prefix != null && next != null && next !== prefix;
-    var repeat = modifier === '+' || modifier === '*';
-    var optional = modifier === '?' || modifier === '*';
-    var delimiter = res[2] || defaultDelimiter;
-    var pattern = capture || group;
-    tokens.push({
-      name: name || key++,
-      prefix: prefix || '',
-      delimiter: delimiter,
-      optional: optional,
-      repeat: repeat,
-      partial: partial,
-      asterisk: !!asterisk,
-      pattern: pattern ? escapeGroup(pattern) : asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?'
-    });
-  } // Match any characters still remaining.
-
-
-  if (index < str.length) {
-    path += str.substr(index);
-  } // If the path exists, push it onto the end.
-
-
-  if (path) {
-    tokens.push(path);
-  }
-
-  return tokens;
-}
-/**
- * Compile a string to a template function for the path.
- *
- * @param  {string}             str
- * @param  {Object=}            options
- * @return {!function(Object=, Object=)}
- */
-
-
-function compile(str, options) {
-  return tokensToFunction(parse(str, options));
-}
-/**
- * Prettier encoding of URI path segments.
- *
- * @param  {string}
- * @return {string}
- */
-
-
-function encodeURIComponentPretty(str) {
-  return encodeURI(str).replace(/[\/?#]/g, function (c) {
-    return '%' + c.charCodeAt(0).toString(16).toUpperCase();
-  });
-}
-/**
- * Encode the asterisk parameter. Similar to `pretty`, but allows slashes.
- *
- * @param  {string}
- * @return {string}
- */
-
-
-function encodeAsterisk(str) {
-  return encodeURI(str).replace(/[?#]/g, function (c) {
-    return '%' + c.charCodeAt(0).toString(16).toUpperCase();
-  });
-}
-/**
- * Expose a method for transforming tokens into the path function.
- */
-
-
-function tokensToFunction(tokens) {
-  // Compile all the tokens into regexps.
-  var matches = new Array(tokens.length); // Compile all the patterns before compilation.
-
-  for (var i = 0; i < tokens.length; i++) {
-    if (typeof tokens[i] === 'object') {
-      matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$');
-    }
-  }
-
-  return function (obj, opts) {
-    var path = '';
-    var data = obj || {};
-    var options = opts || {};
-    var encode = options.pretty ? encodeURIComponentPretty : encodeURIComponent;
-
-    for (var i = 0; i < tokens.length; i++) {
-      var token = tokens[i];
-
-      if (typeof token === 'string') {
-        path += token;
-        continue;
-      }
-
-      var value = data[token.name];
-      var segment;
-
-      if (value == null) {
-        if (token.optional) {
-          // Prepend partial segment prefixes.
-          if (token.partial) {
-            path += token.prefix;
-          }
-
-          continue;
-        } else {
-          throw new TypeError('Expected "' + token.name + '" to be defined');
-        }
-      }
-
-      if (isarray(value)) {
-        if (!token.repeat) {
-          throw new TypeError('Expected "' + token.name + '" to not repeat, but received `' + JSON.stringify(value) + '`');
-        }
-
-        if (value.length === 0) {
-          if (token.optional) {
-            continue;
-          } else {
-            throw new TypeError('Expected "' + token.name + '" to not be empty');
-          }
-        }
-
-        for (var j = 0; j < value.length; j++) {
-          segment = encode(value[j]);
-
-          if (!matches[i].test(segment)) {
-            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received `' + JSON.stringify(segment) + '`');
-          }
-
-          path += (j === 0 ? token.prefix : token.delimiter) + segment;
-        }
-
-        continue;
-      }
-
-      segment = token.asterisk ? encodeAsterisk(value) : encode(value);
-
-      if (!matches[i].test(segment)) {
-        throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"');
-      }
-
-      path += token.prefix + segment;
-    }
-
-    return path;
-  };
-}
-/**
- * Escape a regular expression string.
- *
- * @param  {string} str
- * @return {string}
- */
-
-
-function escapeString(str) {
-  return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1');
-}
-/**
- * Escape the capturing group by escaping special characters and meaning.
- *
- * @param  {string} group
- * @return {string}
- */
-
-
-function escapeGroup(group) {
-  return group.replace(/([=!:$\/()])/g, '\\$1');
-}
-/**
- * Attach the keys as a property of the regexp.
- *
- * @param  {!RegExp} re
- * @param  {Array}   keys
- * @return {!RegExp}
- */
-
-
-function attachKeys(re, keys) {
-  re.keys = keys;
-  return re;
-}
-/**
- * Get the flags for a regexp from the options.
- *
- * @param  {Object} options
- * @return {string}
- */
-
-
-function flags(options) {
-  return options.sensitive ? '' : 'i';
-}
-/**
- * Pull out keys from a regexp.
- *
- * @param  {!RegExp} path
- * @param  {!Array}  keys
- * @return {!RegExp}
- */
-
-
-function regexpToRegexp(path, keys) {
-  // Use a negative lookahead to match only capturing groups.
-  var groups = path.source.match(/\((?!\?)/g);
-
-  if (groups) {
-    for (var i = 0; i < groups.length; i++) {
-      keys.push({
-        name: i,
-        prefix: null,
-        delimiter: null,
-        optional: false,
-        repeat: false,
-        partial: false,
-        asterisk: false,
-        pattern: null
-      });
-    }
-  }
-
-  return attachKeys(path, keys);
-}
-/**
- * Transform an array into a regexp.
- *
- * @param  {!Array}  path
- * @param  {Array}   keys
- * @param  {!Object} options
- * @return {!RegExp}
- */
-
-
-function arrayToRegexp(path, keys, options) {
-  var parts = [];
-
-  for (var i = 0; i < path.length; i++) {
-    parts.push(pathToRegexp(path[i], keys, options).source);
-  }
-
-  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
-  return attachKeys(regexp, keys);
-}
-/**
- * Create a path regexp from string input.
- *
- * @param  {string}  path
- * @param  {!Array}  keys
- * @param  {!Object} options
- * @return {!RegExp}
- */
-
-
-function stringToRegexp(path, keys, options) {
-  return tokensToRegExp(parse(path, options), keys, options);
-}
-/**
- * Expose a function for taking tokens and returning a RegExp.
- *
- * @param  {!Array}          tokens
- * @param  {(Array|Object)=} keys
- * @param  {Object=}         options
- * @return {!RegExp}
- */
-
-
-function tokensToRegExp(tokens, keys, options) {
-  if (!isarray(keys)) {
-    options =
-    /** @type {!Object} */
-    keys || options;
-    keys = [];
-  }
-
-  options = options || {};
-  var strict = options.strict;
-  var end = options.end !== false;
-  var route = ''; // Iterate over the tokens and create our regexp string.
-
-  for (var i = 0; i < tokens.length; i++) {
-    var token = tokens[i];
-
-    if (typeof token === 'string') {
-      route += escapeString(token);
-    } else {
-      var prefix = escapeString(token.prefix);
-      var capture = '(?:' + token.pattern + ')';
-      keys.push(token);
-
-      if (token.repeat) {
-        capture += '(?:' + prefix + capture + ')*';
-      }
-
-      if (token.optional) {
-        if (!token.partial) {
-          capture = '(?:' + prefix + '(' + capture + '))?';
-        } else {
-          capture = prefix + '(' + capture + ')?';
-        }
-      } else {
-        capture = prefix + '(' + capture + ')';
-      }
-
-      route += capture;
-    }
-  }
-
-  var delimiter = escapeString(options.delimiter || '/');
-  var endsWithDelimiter = route.slice(-delimiter.length) === delimiter; // In non-strict mode we allow a slash at the end of match. If the path to
-  // match already ends with a slash, we remove it for consistency. The slash
-  // is valid at the end of a path match, not in the middle. This is important
-  // in non-ending mode, where "/test/" shouldn't match "/test//route".
-
-  if (!strict) {
-    route = (endsWithDelimiter ? route.slice(0, -delimiter.length) : route) + '(?:' + delimiter + '(?=$))?';
-  }
-
-  if (end) {
-    route += '$';
-  } else {
-    // In non-ending mode, we need the capturing groups to match as much as
-    // possible by using a positive lookahead to the end or next path segment.
-    route += strict && endsWithDelimiter ? '' : '(?=' + delimiter + '|$)';
-  }
-
-  return attachKeys(new RegExp('^' + route, flags(options)), keys);
-}
-/**
- * Normalize the given path string, returning a regular expression.
- *
- * An empty array can be passed in for the keys, which will hold the
- * placeholder key descriptions. For example, using `/user/:id`, `keys` will
- * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
- *
- * @param  {(string|RegExp|Array)} path
- * @param  {(Array|Object)=}       keys
- * @param  {Object=}               options
- * @return {!RegExp}
- */
-
-
-function pathToRegexp(path, keys, options) {
-  if (!isarray(keys)) {
-    options =
-    /** @type {!Object} */
-    keys || options;
-    keys = [];
-  }
-
-  options = options || {};
-
-  if (path instanceof RegExp) {
-    return regexpToRegexp(path,
-    /** @type {!Array} */
-    keys);
-  }
-
-  if (isarray(path)) {
-    return arrayToRegexp(
-    /** @type {!Array} */
-    path,
-    /** @type {!Array} */
-    keys, options);
-  }
-
-  return stringToRegexp(
-  /** @type {string} */
-  path,
-  /** @type {!Array} */
-  keys, options);
-}
-
-/***/ }),
-
 /***/ "./node_modules/prop-types/checkPropTypes.js":
 /*!***************************************************!*\
   !*** ./node_modules/prop-types/checkPropTypes.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 /**
@@ -2126,8 +1577,7 @@ module.exports = checkPropTypes;
 /*!************************************************************!*\
   !*** ./node_modules/prop-types/factoryWithTypeCheckers.js ***!
   \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 /**
@@ -2517,7 +1967,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
 
   function createUnionTypeChecker(arrayOfTypeCheckers) {
     if (!Array.isArray(arrayOfTypeCheckers)) {
-       true ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : undefined;
+       true ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : 0;
       return emptyFunctionThatReturnsNull;
     }
 
@@ -2780,8 +2230,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
 /*!******************************************!*\
   !*** ./node_modules/prop-types/index.js ***!
   \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -2804,8 +2253,7 @@ if (true) {
 /*!*************************************************************!*\
   !*** ./node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
   \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 /**
@@ -2825,8 +2273,7 @@ module.exports = ReactPropTypesSecret;
 /*!*************************************************************!*\
   !*** ./node_modules/react-dom/cjs/react-dom.development.js ***!
   \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 /** @license React v16.8.6
@@ -6718,8 +6165,7 @@ var reactDom=ReactDOM$3.default||ReactDOM$3;module.exports=reactDom;})();}
 /*!*****************************************!*\
   !*** ./node_modules/react-dom/index.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -6761,8 +6207,7 @@ if (false) {} else {
 /*!***********************************************************!*\
   !*** ./node_modules/react-is/cjs/react-is.development.js ***!
   \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 /** @license React v16.8.6
@@ -6779,9 +6224,9 @@ if (true) {
   (function () {
     'use strict';
 
-    Object.defineProperty(exports, '__esModule', {
+    Object.defineProperty(exports, "__esModule", ({
       value: true
-    }); // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+    })); // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
     // nor polyfill, then a plain number is used for performance.
 
     var hasSymbol = typeof Symbol === 'function' && Symbol.for;
@@ -7012,8 +6457,7 @@ if (true) {
 /*!****************************************!*\
   !*** ./node_modules/react-is/index.js ***!
   \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -7028,47 +6472,37 @@ if (false) {} else {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserRouter", function() { return BrowserRouter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HashRouter", function() { return HashRouter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return Link; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavLink", function() { return NavLink; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BrowserRouter": () => (/* binding */ BrowserRouter),
+/* harmony export */   "HashRouter": () => (/* binding */ HashRouter),
+/* harmony export */   "Link": () => (/* binding */ Link),
+/* harmony export */   "MemoryRouter": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.MemoryRouter),
+/* harmony export */   "NavLink": () => (/* binding */ NavLink),
+/* harmony export */   "Prompt": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.Prompt),
+/* harmony export */   "Redirect": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.Redirect),
+/* harmony export */   "Route": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.Route),
+/* harmony export */   "Router": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.Router),
+/* harmony export */   "StaticRouter": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.StaticRouter),
+/* harmony export */   "Switch": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.Switch),
+/* harmony export */   "__RouterContext": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.__RouterContext),
+/* harmony export */   "generatePath": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.generatePath),
+/* harmony export */   "matchPath": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.matchPath),
+/* harmony export */   "withRouter": () => (/* reexport safe */ react_router__WEBPACK_IMPORTED_MODULE_2__.withRouter)
+/* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["MemoryRouter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["Prompt"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["Redirect"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["Route"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["Router"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["StaticRouter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["Switch"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "generatePath", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["generatePath"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["matchPath"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["withRouter"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "__RouterContext", function() { return react_router__WEBPACK_IMPORTED_MODULE_2__["__RouterContext"]; });
-
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var tiny_warning__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tiny-warning */ "./node_modules/tiny-warning/dist/tiny-warning.esm.js");
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var tiny_warning__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tiny-warning */ "./node_modules/tiny-warning/dist/tiny-warning.esm.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
 /* harmony import */ var tiny_invariant__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tiny-invariant */ "./node_modules/tiny-invariant/dist/tiny-invariant.esm.js");
 
 
@@ -7087,7 +6521,7 @@ __webpack_require__.r(__webpack_exports__);
 var BrowserRouter =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(BrowserRouter, _React$Component);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(BrowserRouter, _React$Component);
 
   function BrowserRouter() {
     var _this;
@@ -7097,33 +6531,33 @@ function (_React$Component) {
     }
 
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.history = Object(history__WEBPACK_IMPORTED_MODULE_3__["createBrowserHistory"])(_this.props);
+    _this.history = (0,history__WEBPACK_IMPORTED_MODULE_6__.createBrowserHistory)(_this.props);
     return _this;
   }
 
   var _proto = BrowserRouter.prototype;
 
   _proto.render = function render() {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Router"], {
+    return react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_router__WEBPACK_IMPORTED_MODULE_2__.Router, {
       history: this.history,
       children: this.props.children
     });
   };
 
   return BrowserRouter;
-}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_1___default().Component));
 
 if (true) {
   BrowserRouter.propTypes = {
-    basename: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
-    children: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.node,
-    forceRefresh: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
-    getUserConfirmation: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func,
-    keyLength: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.number
+    basename: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+    children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+    forceRefresh: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+    getUserConfirmation: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+    keyLength: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number)
   };
 
   BrowserRouter.prototype.componentDidMount = function () {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_5__["default"])(!this.props.history, "<BrowserRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { BrowserRouter as Router }`.") : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_7__["default"])(!this.props.history, "<BrowserRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { BrowserRouter as Router }`.") : 0;
   };
 }
 /**
@@ -7134,7 +6568,7 @@ if (true) {
 var HashRouter =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(HashRouter, _React$Component);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(HashRouter, _React$Component);
 
   function HashRouter() {
     var _this;
@@ -7144,32 +6578,32 @@ function (_React$Component) {
     }
 
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.history = Object(history__WEBPACK_IMPORTED_MODULE_3__["createHashHistory"])(_this.props);
+    _this.history = (0,history__WEBPACK_IMPORTED_MODULE_6__.createHashHistory)(_this.props);
     return _this;
   }
 
   var _proto = HashRouter.prototype;
 
   _proto.render = function render() {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["Router"], {
+    return react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_router__WEBPACK_IMPORTED_MODULE_2__.Router, {
       history: this.history,
       children: this.props.children
     });
   };
 
   return HashRouter;
-}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_1___default().Component));
 
 if (true) {
   HashRouter.propTypes = {
-    basename: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
-    children: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.node,
-    getUserConfirmation: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func,
-    hashType: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.oneOf(["hashbang", "noslash", "slash"])
+    basename: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+    children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+    getUserConfirmation: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+    hashType: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(["hashbang", "noslash", "slash"])
   };
 
   HashRouter.prototype.componentDidMount = function () {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_5__["default"])(!this.props.history, "<HashRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { HashRouter as Router }`.") : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_7__["default"])(!this.props.history, "<HashRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { HashRouter as Router }`.") : 0;
   };
 }
 
@@ -7184,7 +6618,7 @@ function isModifiedEvent(event) {
 var Link =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(Link, _React$Component);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(Link, _React$Component);
 
   function Link() {
     return _React$Component.apply(this, arguments) || this;
@@ -7218,14 +6652,14 @@ function (_React$Component) {
         innerRef = _this$props.innerRef,
         replace = _this$props.replace,
         to = _this$props.to,
-        rest = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_7__["default"])(_this$props, ["innerRef", "replace", "to"]); // eslint-disable-line no-unused-vars
+        rest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_5__["default"])(_this$props, ["innerRef", "replace", "to"]); // eslint-disable-line no-unused-vars
 
 
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["__RouterContext"].Consumer, null, function (context) {
-      !context ?  true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_8__["default"])(false, "You should not use <Link> outside a <Router>") : undefined : void 0;
-      var location = typeof to === "string" ? Object(history__WEBPACK_IMPORTED_MODULE_3__["createLocation"])(to, null, null, context.location) : to;
+    return react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_router__WEBPACK_IMPORTED_MODULE_2__.__RouterContext.Consumer, null, function (context) {
+      !context ?  true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_8__["default"])(false, "You should not use <Link> outside a <Router>") : 0 : void 0;
+      var location = typeof to === "string" ? (0,history__WEBPACK_IMPORTED_MODULE_6__.createLocation)(to, null, null, context.location) : to;
       var href = location ? context.history.createHref(location) : "";
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_6__["default"])({}, rest, {
+      return react__WEBPACK_IMPORTED_MODULE_1___default().createElement("a", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__["default"])({}, rest, {
         onClick: function onClick(event) {
           return _this.handleClick(event, context.history);
         },
@@ -7236,18 +6670,18 @@ function (_React$Component) {
   };
 
   return Link;
-}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_1___default().Component));
 
 if (true) {
-  var toType = prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object]);
-  var innerRefType = prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.shape({
-    current: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.any
+  var toType = prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]);
+  var innerRefType = prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), prop_types__WEBPACK_IMPORTED_MODULE_3___default().shape({
+    current: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().any)
   })]);
   Link.propTypes = {
     innerRef: innerRefType,
-    onClick: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func,
-    replace: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
-    target: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
+    onClick: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+    replace: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+    target: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
     to: toType.isRequired
   };
 }
@@ -7279,23 +6713,23 @@ function NavLink(_ref) {
       strict = _ref.strict,
       styleProp = _ref.style,
       to = _ref.to,
-      rest = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_7__["default"])(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "strict", "style", "to"]);
+      rest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_5__["default"])(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "strict", "style", "to"]);
 
   var path = typeof to === "object" ? to.pathname : to; // Regex taken from: https://github.com/pillarjs/path-to-regexp/blob/master/index.js#L202
 
   var escapedPath = path && path.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router__WEBPACK_IMPORTED_MODULE_2__["__RouterContext"].Consumer, null, function (context) {
-    !context ?  true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_8__["default"])(false, "You should not use <NavLink> outside a <Router>") : undefined : void 0;
+  return react__WEBPACK_IMPORTED_MODULE_1___default().createElement(react_router__WEBPACK_IMPORTED_MODULE_2__.__RouterContext.Consumer, null, function (context) {
+    !context ?  true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_8__["default"])(false, "You should not use <NavLink> outside a <Router>") : 0 : void 0;
     var pathToMatch = locationProp ? locationProp.pathname : context.location.pathname;
-    var match = escapedPath ? Object(react_router__WEBPACK_IMPORTED_MODULE_2__["matchPath"])(pathToMatch, {
+    var match = escapedPath ? (0,react_router__WEBPACK_IMPORTED_MODULE_2__.matchPath)(pathToMatch, {
       path: escapedPath,
       exact: exact,
       strict: strict
     }) : null;
     var isActive = !!(isActiveProp ? isActiveProp(match, context.location) : match);
     var className = isActive ? joinClassnames(classNameProp, activeClassName) : classNameProp;
-    var style = isActive ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_6__["default"])({}, styleProp, activeStyle) : styleProp;
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Link, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_6__["default"])({
+    var style = isActive ? (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__["default"])({}, styleProp, activeStyle) : styleProp;
+    return react__WEBPACK_IMPORTED_MODULE_1___default().createElement(Link, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__["default"])({
       "aria-current": isActive && ariaCurrent || null,
       className: className,
       style: style,
@@ -7305,17 +6739,17 @@ function NavLink(_ref) {
 }
 
 if (true) {
-  var ariaCurrentType = prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.oneOf(["page", "step", "location", "date", "time", "true"]);
-  NavLink.propTypes = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_6__["default"])({}, Link.propTypes, {
+  var ariaCurrentType = prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(["page", "step", "location", "date", "time", "true"]);
+  NavLink.propTypes = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__["default"])({}, Link.propTypes, {
     "aria-current": ariaCurrentType,
-    activeClassName: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
-    activeStyle: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object,
-    className: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
-    exact: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
-    isActive: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func,
-    location: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object,
-    strict: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
-    style: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object
+    activeClassName: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+    activeStyle: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+    className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+    exact: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+    isActive: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+    location: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+    strict: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+    style: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
   });
 }
 
@@ -7327,39 +6761,40 @@ if (true) {
 /*!*******************************************************!*\
   !*** ./node_modules/react-router/esm/react-router.js ***!
   \*******************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MemoryRouter", function() { return MemoryRouter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Prompt", function() { return Prompt; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Redirect", function() { return Redirect; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Route", function() { return Route; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Router", function() { return Router; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StaticRouter", function() { return StaticRouter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Switch", function() { return Switch; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "generatePath", function() { return generatePath; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "matchPath", function() { return matchPath; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withRouter", function() { return withRouter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__RouterContext", function() { return context; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MemoryRouter": () => (/* binding */ MemoryRouter),
+/* harmony export */   "Prompt": () => (/* binding */ Prompt),
+/* harmony export */   "Redirect": () => (/* binding */ Redirect),
+/* harmony export */   "Route": () => (/* binding */ Route),
+/* harmony export */   "Router": () => (/* binding */ Router),
+/* harmony export */   "StaticRouter": () => (/* binding */ StaticRouter),
+/* harmony export */   "Switch": () => (/* binding */ Switch),
+/* harmony export */   "__RouterContext": () => (/* binding */ context),
+/* harmony export */   "generatePath": () => (/* binding */ generatePath),
+/* harmony export */   "matchPath": () => (/* binding */ matchPath),
+/* harmony export */   "withRouter": () => (/* binding */ withRouter)
+/* harmony export */ });
 /* harmony import */ var mini_create_react_context__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mini-create-react-context */ "./node_modules/mini-create-react-context/dist/esm/index.js");
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var tiny_warning__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tiny-warning */ "./node_modules/tiny-warning/dist/tiny-warning.esm.js");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
-/* harmony import */ var tiny_invariant__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tiny-invariant */ "./node_modules/tiny-invariant/dist/tiny-invariant.esm.js");
-/* harmony import */ var path_to_regexp__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! path-to-regexp */ "./node_modules/path-to-regexp/index.js");
-/* harmony import */ var path_to_regexp__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(path_to_regexp__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_is__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var tiny_warning__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tiny-warning */ "./node_modules/tiny-warning/dist/tiny-warning.esm.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
+/* harmony import */ var tiny_invariant__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tiny-invariant */ "./node_modules/tiny-invariant/dist/tiny-invariant.esm.js");
+/* harmony import */ var path_to_regexp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! path-to-regexp */ "./node_modules/react-router/node_modules/path-to-regexp/index.js");
+/* harmony import */ var path_to_regexp__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(path_to_regexp__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
+/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_is__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_8__);
 
 
 
@@ -7374,7 +6809,7 @@ __webpack_require__.r(__webpack_exports__);
  // TODO: Replace with React.createContext once we can assume React 16+
 
 var createNamedContext = function createNamedContext(name) {
-  var context = Object(mini_create_react_context__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  var context = (0,mini_create_react_context__WEBPACK_IMPORTED_MODULE_0__["default"])();
   context.displayName = name;
   return context;
 };
@@ -7389,7 +6824,7 @@ createNamedContext("Router");
 var Router =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Router, _React$Component);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Router, _React$Component);
 
   Router.computeRootMatch = function computeRootMatch(pathname) {
     return {
@@ -7447,7 +6882,7 @@ function (_React$Component) {
   };
 
   _proto.render = function render() {
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(context.Provider, {
+    return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(context.Provider, {
       children: this.props.children || null,
       value: {
         history: this.props.history,
@@ -7459,17 +6894,17 @@ function (_React$Component) {
   };
 
   return Router;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_2___default().Component));
 
 if (true) {
   Router.propTypes = {
-    children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node,
-    history: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
-    staticContext: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
+    children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+    history: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object.isRequired),
+    staticContext: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
   };
 
   Router.prototype.componentDidUpdate = function (prevProps) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(prevProps.history === this.props.history, "You cannot change <Router history>") : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(prevProps.history === this.props.history, "You cannot change <Router history>") : 0;
   };
 }
 /**
@@ -7480,7 +6915,7 @@ if (true) {
 var MemoryRouter =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(MemoryRouter, _React$Component);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(MemoryRouter, _React$Component);
 
   function MemoryRouter() {
     var _this;
@@ -7490,40 +6925,40 @@ function (_React$Component) {
     }
 
     _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.history = Object(history__WEBPACK_IMPORTED_MODULE_5__["createMemoryHistory"])(_this.props);
+    _this.history = (0,history__WEBPACK_IMPORTED_MODULE_10__.createMemoryHistory)(_this.props);
     return _this;
   }
 
   var _proto = MemoryRouter.prototype;
 
   _proto.render = function render() {
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Router, {
+    return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Router, {
       history: this.history,
       children: this.props.children
     });
   };
 
   return MemoryRouter;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_2___default().Component));
 
 if (true) {
   MemoryRouter.propTypes = {
-    initialEntries: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.array,
-    initialIndex: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number,
-    getUserConfirmation: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
-    keyLength: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number,
-    children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node
+    initialEntries: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().array),
+    initialIndex: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+    getUserConfirmation: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+    keyLength: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+    children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node)
   };
 
   MemoryRouter.prototype.componentDidMount = function () {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(!this.props.history, "<MemoryRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { MemoryRouter as Router }`.") : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(!this.props.history, "<MemoryRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { MemoryRouter as Router }`.") : 0;
   };
 }
 
 var Lifecycle =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Lifecycle, _React$Component);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Lifecycle, _React$Component);
 
   function Lifecycle() {
     return _React$Component.apply(this, arguments) || this;
@@ -7548,7 +6983,7 @@ function (_React$Component) {
   };
 
   return Lifecycle;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_2___default().Component));
 /**
  * The public API for prompting the user before navigating away from a screen.
  */
@@ -7558,11 +6993,11 @@ function Prompt(_ref) {
   var message = _ref.message,
       _ref$when = _ref.when,
       when = _ref$when === void 0 ? true : _ref$when;
-  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(context.Consumer, null, function (context$$1) {
-    !context$$1 ?  true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_6__["default"])(false, "You should not use <Prompt> outside a <Router>") : undefined : void 0;
+  return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(context.Consumer, null, function (context$$1) {
+    !context$$1 ?  true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_11__["default"])(false, "You should not use <Prompt> outside a <Router>") : 0 : void 0;
     if (!when || context$$1.staticContext) return null;
     var method = context$$1.history.block;
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Lifecycle, {
+    return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Lifecycle, {
       onMount: function onMount(self) {
         self.release = method(message);
       },
@@ -7581,9 +7016,9 @@ function Prompt(_ref) {
 }
 
 if (true) {
-  var messageType = prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string]);
+  var messageType = prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]);
   Prompt.propTypes = {
-    when: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
+    when: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
     message: messageType.isRequired
   };
 }
@@ -7594,7 +7029,7 @@ var cacheCount = 0;
 
 function compilePath(path) {
   if (cache[path]) return cache[path];
-  var generator = path_to_regexp__WEBPACK_IMPORTED_MODULE_7___default.a.compile(path);
+  var generator = path_to_regexp__WEBPACK_IMPORTED_MODULE_4___default().compile(path);
 
   if (cacheCount < cacheLimit) {
     cache[path] = generator;
@@ -7631,12 +7066,12 @@ function Redirect(_ref) {
       to = _ref.to,
       _ref$push = _ref.push,
       push = _ref$push === void 0 ? false : _ref$push;
-  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(context.Consumer, null, function (context$$1) {
-    !context$$1 ?  true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_6__["default"])(false, "You should not use <Redirect> outside a <Router>") : undefined : void 0;
+  return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(context.Consumer, null, function (context$$1) {
+    !context$$1 ?  true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_11__["default"])(false, "You should not use <Redirect> outside a <Router>") : 0 : void 0;
     var history = context$$1.history,
         staticContext = context$$1.staticContext;
     var method = push ? history.push : history.replace;
-    var location = Object(history__WEBPACK_IMPORTED_MODULE_5__["createLocation"])(computedMatch ? typeof to === "string" ? generatePath(to, computedMatch.params) : Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, to, {
+    var location = (0,history__WEBPACK_IMPORTED_MODULE_10__.createLocation)(computedMatch ? typeof to === "string" ? generatePath(to, computedMatch.params) : (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__["default"])({}, to, {
       pathname: generatePath(to.pathname, computedMatch.params)
     }) : to); // When rendering in a static context,
     // set the new location immediately.
@@ -7646,14 +7081,14 @@ function Redirect(_ref) {
       return null;
     }
 
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Lifecycle, {
+    return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Lifecycle, {
       onMount: function onMount() {
         method(location);
       },
       onUpdate: function onUpdate(self, prevProps) {
-        var prevLocation = Object(history__WEBPACK_IMPORTED_MODULE_5__["createLocation"])(prevProps.to);
+        var prevLocation = (0,history__WEBPACK_IMPORTED_MODULE_10__.createLocation)(prevProps.to);
 
-        if (!Object(history__WEBPACK_IMPORTED_MODULE_5__["locationsAreEqual"])(prevLocation, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, location, {
+        if (!(0,history__WEBPACK_IMPORTED_MODULE_10__.locationsAreEqual)(prevLocation, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__["default"])({}, location, {
           key: prevLocation.key
         }))) {
           method(location);
@@ -7666,9 +7101,9 @@ function Redirect(_ref) {
 
 if (true) {
   Redirect.propTypes = {
-    push: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
-    from: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
-    to: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object]).isRequired
+    push: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+    from: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+    to: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)]).isRequired
   };
 }
 
@@ -7681,7 +7116,7 @@ function compilePath$1(path, options) {
   var pathCache = cache$1[cacheKey] || (cache$1[cacheKey] = {});
   if (pathCache[path]) return pathCache[path];
   var keys = [];
-  var regexp = path_to_regexp__WEBPACK_IMPORTED_MODULE_7___default()(path, keys, options);
+  var regexp = path_to_regexp__WEBPACK_IMPORTED_MODULE_4___default()(path, keys, options);
   var result = {
     regexp: regexp,
     keys: keys
@@ -7750,7 +7185,7 @@ function matchPath(pathname, options) {
 }
 
 function isEmptyChildren(children) {
-  return react__WEBPACK_IMPORTED_MODULE_2___default.a.Children.count(children) === 0;
+  return react__WEBPACK_IMPORTED_MODULE_2___default().Children.count(children) === 0;
 }
 /**
  * The public API for matching a single path and rendering.
@@ -7760,7 +7195,7 @@ function isEmptyChildren(children) {
 var Route =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Route, _React$Component);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Route, _React$Component);
 
   function Route() {
     return _React$Component.apply(this, arguments) || this;
@@ -7771,13 +7206,13 @@ function (_React$Component) {
   _proto.render = function render() {
     var _this = this;
 
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(context.Consumer, null, function (context$$1) {
-      !context$$1 ?  true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_6__["default"])(false, "You should not use <Route> outside a <Router>") : undefined : void 0;
+    return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(context.Consumer, null, function (context$$1) {
+      !context$$1 ?  true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_11__["default"])(false, "You should not use <Route> outside a <Router>") : 0 : void 0;
       var location = _this.props.location || context$$1.location;
       var match = _this.props.computedMatch ? _this.props.computedMatch // <Switch> already computed the match for us
       : _this.props.path ? matchPath(location.pathname, _this.props) : context$$1.match;
 
-      var props = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, context$$1, {
+      var props = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__["default"])({}, context$$1, {
         location: location,
         match: match
       });
@@ -7798,47 +7233,47 @@ function (_React$Component) {
         if (children === undefined) {
           if (true) {
             var path = _this.props.path;
-             true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(false, "You returned `undefined` from the `children` function of " + ("<Route" + (path ? " path=\"" + path + "\"" : "") + ">, but you ") + "should have returned a React element or `null`") : undefined;
+             true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(false, "You returned `undefined` from the `children` function of " + ("<Route" + (path ? " path=\"" + path + "\"" : "") + ">, but you ") + "should have returned a React element or `null`") : 0;
           }
 
           children = null;
         }
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(context.Provider, {
+      return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(context.Provider, {
         value: props
-      }, children && !isEmptyChildren(children) ? children : props.match ? component ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(component, props) : render ? render(props) : null : null);
+      }, children && !isEmptyChildren(children) ? children : props.match ? component ? react__WEBPACK_IMPORTED_MODULE_2___default().createElement(component, props) : render ? render(props) : null : null);
     });
   };
 
   return Route;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_2___default().Component));
 
 if (true) {
   Route.propTypes = {
-    children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node]),
+    children: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node)]),
     component: function component(props, propName) {
-      if (props[propName] && !Object(react_is__WEBPACK_IMPORTED_MODULE_9__["isValidElementType"])(props[propName])) {
+      if (props[propName] && !(0,react_is__WEBPACK_IMPORTED_MODULE_6__.isValidElementType)(props[propName])) {
         return new Error("Invalid prop 'component' supplied to 'Route': the prop is not a valid React component");
       }
     },
-    exact: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
-    location: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
-    path: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string)]),
-    render: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
-    sensitive: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
-    strict: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool
+    exact: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+    location: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+    path: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().string), prop_types__WEBPACK_IMPORTED_MODULE_3___default().arrayOf((prop_types__WEBPACK_IMPORTED_MODULE_3___default().string))]),
+    render: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+    sensitive: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+    strict: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
   };
 
   Route.prototype.componentDidMount = function () {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(!(this.props.children && !isEmptyChildren(this.props.children) && this.props.component), "You should not use <Route component> and <Route children> in the same route; <Route component> will be ignored") : undefined;
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(!(this.props.children && !isEmptyChildren(this.props.children) && this.props.render), "You should not use <Route render> and <Route children> in the same route; <Route render> will be ignored") : undefined;
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(!(this.props.component && this.props.render), "You should not use <Route component> and <Route render> in the same route; <Route render> will be ignored") : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(!(this.props.children && !isEmptyChildren(this.props.children) && this.props.component), "You should not use <Route component> and <Route children> in the same route; <Route component> will be ignored") : 0;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(!(this.props.children && !isEmptyChildren(this.props.children) && this.props.render), "You should not use <Route render> and <Route children> in the same route; <Route render> will be ignored") : 0;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(!(this.props.component && this.props.render), "You should not use <Route component> and <Route render> in the same route; <Route render> will be ignored") : 0;
   };
 
   Route.prototype.componentDidUpdate = function (prevProps) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(!(this.props.location && !prevProps.location), '<Route> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.') : undefined;
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(!(!this.props.location && prevProps.location), '<Route> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(!(this.props.location && !prevProps.location), '<Route> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.') : 0;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(!(!this.props.location && prevProps.location), '<Route> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.') : 0;
   };
 }
 
@@ -7848,7 +7283,7 @@ function addLeadingSlash(path) {
 
 function addBasename(basename, location) {
   if (!basename) return location;
-  return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, location, {
+  return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__["default"])({}, location, {
     pathname: addLeadingSlash(basename) + location.pathname
   });
 }
@@ -7857,18 +7292,18 @@ function stripBasename(basename, location) {
   if (!basename) return location;
   var base = addLeadingSlash(basename);
   if (location.pathname.indexOf(base) !== 0) return location;
-  return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, location, {
+  return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__["default"])({}, location, {
     pathname: location.pathname.substr(base.length)
   });
 }
 
 function createURL(location) {
-  return typeof location === "string" ? location : Object(history__WEBPACK_IMPORTED_MODULE_5__["createPath"])(location);
+  return typeof location === "string" ? location : (0,history__WEBPACK_IMPORTED_MODULE_10__.createPath)(location);
 }
 
 function staticHandler(methodName) {
   return function () {
-     true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_6__["default"])(false, "You cannot %s with <StaticRouter>", methodName) : undefined;
+     true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_11__["default"])(false, "You cannot %s with <StaticRouter>", methodName) : 0;
   };
 }
 
@@ -7884,7 +7319,7 @@ function noop() {}
 var StaticRouter =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(StaticRouter, _React$Component);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(StaticRouter, _React$Component);
 
   function StaticRouter() {
     var _this;
@@ -7923,7 +7358,7 @@ function (_React$Component) {
         _this$props$context = _this$props.context,
         context = _this$props$context === void 0 ? {} : _this$props$context;
     context.action = action;
-    context.location = addBasename(basename, Object(history__WEBPACK_IMPORTED_MODULE_5__["createLocation"])(location));
+    context.location = addBasename(basename, (0,history__WEBPACK_IMPORTED_MODULE_10__.createLocation)(location));
     context.url = createURL(context.location);
   };
 
@@ -7935,14 +7370,14 @@ function (_React$Component) {
         context = _this$props2$context === void 0 ? {} : _this$props2$context,
         _this$props2$location = _this$props2.location,
         location = _this$props2$location === void 0 ? "/" : _this$props2$location,
-        rest = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_10__["default"])(_this$props2, ["basename", "context", "location"]);
+        rest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_7__["default"])(_this$props2, ["basename", "context", "location"]);
 
     var history = {
       createHref: function createHref(path) {
         return addLeadingSlash(basename + createURL(path));
       },
       action: "POP",
-      location: stripBasename(basename, Object(history__WEBPACK_IMPORTED_MODULE_5__["createLocation"])(location)),
+      location: stripBasename(basename, (0,history__WEBPACK_IMPORTED_MODULE_10__.createLocation)(location)),
       push: this.handlePush,
       replace: this.handleReplace,
       go: staticHandler("go"),
@@ -7951,24 +7386,24 @@ function (_React$Component) {
       listen: this.handleListen,
       block: this.handleBlock
     };
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Router, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, rest, {
+    return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Router, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__["default"])({}, rest, {
       history: history,
       staticContext: context
     }));
   };
 
   return StaticRouter;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_2___default().Component));
 
 if (true) {
   StaticRouter.propTypes = {
-    basename: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
-    context: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
-    location: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object])
+    basename: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+    context: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+    location: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
   };
 
   StaticRouter.prototype.componentDidMount = function () {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(!this.props.history, "<StaticRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { StaticRouter as Router }`.") : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(!this.props.history, "<StaticRouter> ignores the history prop. To use a custom history, " + "use `import { Router }` instead of `import { StaticRouter as Router }`.") : 0;
   };
 }
 /**
@@ -7979,7 +7414,7 @@ if (true) {
 var Switch =
 /*#__PURE__*/
 function (_React$Component) {
-  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Switch, _React$Component);
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Switch, _React$Component);
 
   function Switch() {
     return _React$Component.apply(this, arguments) || this;
@@ -7990,24 +7425,24 @@ function (_React$Component) {
   _proto.render = function render() {
     var _this = this;
 
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(context.Consumer, null, function (context$$1) {
-      !context$$1 ?  true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_6__["default"])(false, "You should not use <Switch> outside a <Router>") : undefined : void 0;
+    return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(context.Consumer, null, function (context$$1) {
+      !context$$1 ?  true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_11__["default"])(false, "You should not use <Switch> outside a <Router>") : 0 : void 0;
       var location = _this.props.location || context$$1.location;
       var element, match; // We use React.Children.forEach instead of React.Children.toArray().find()
       // here because toArray adds keys to all child elements and we do not want
       // to trigger an unmount/remount for two <Route>s that render the same
       // component at different URLs.
 
-      react__WEBPACK_IMPORTED_MODULE_2___default.a.Children.forEach(_this.props.children, function (child) {
-        if (match == null && react__WEBPACK_IMPORTED_MODULE_2___default.a.isValidElement(child)) {
+      react__WEBPACK_IMPORTED_MODULE_2___default().Children.forEach(_this.props.children, function (child) {
+        if (match == null && react__WEBPACK_IMPORTED_MODULE_2___default().isValidElement(child)) {
           element = child;
           var path = child.props.path || child.props.from;
-          match = path ? matchPath(location.pathname, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, child.props, {
+          match = path ? matchPath(location.pathname, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__["default"])({}, child.props, {
             path: path
           })) : context$$1.match;
         }
       });
-      return match ? react__WEBPACK_IMPORTED_MODULE_2___default.a.cloneElement(element, {
+      return match ? react__WEBPACK_IMPORTED_MODULE_2___default().cloneElement(element, {
         location: location,
         computedMatch: match
       }) : null;
@@ -8015,17 +7450,17 @@ function (_React$Component) {
   };
 
   return Switch;
-}(react__WEBPACK_IMPORTED_MODULE_2___default.a.Component);
+}((react__WEBPACK_IMPORTED_MODULE_2___default().Component));
 
 if (true) {
   Switch.propTypes = {
-    children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node,
-    location: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object
+    children: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+    location: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)
   };
 
   Switch.prototype.componentDidUpdate = function (prevProps) {
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(!(this.props.location && !prevProps.location), '<Switch> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.') : undefined;
-     true ? Object(tiny_warning__WEBPACK_IMPORTED_MODULE_4__["default"])(!(!this.props.location && prevProps.location), '<Switch> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.') : undefined;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(!(this.props.location && !prevProps.location), '<Switch> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.') : 0;
+     true ? (0,tiny_warning__WEBPACK_IMPORTED_MODULE_9__["default"])(!(!this.props.location && prevProps.location), '<Switch> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.') : 0;
   };
 }
 /**
@@ -8038,11 +7473,11 @@ function withRouter(Component) {
 
   var C = function C(props) {
     var wrappedComponentRef = props.wrappedComponentRef,
-        remainingProps = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_10__["default"])(props, ["wrappedComponentRef"]);
+        remainingProps = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_7__["default"])(props, ["wrappedComponentRef"]);
 
-    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(context.Consumer, null, function (context$$1) {
-      !context$$1 ?  true ? Object(tiny_invariant__WEBPACK_IMPORTED_MODULE_6__["default"])(false, "You should not use <" + displayName + " /> outside a <Router>") : undefined : void 0;
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_8__["default"])({}, remainingProps, context$$1, {
+    return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(context.Consumer, null, function (context$$1) {
+      !context$$1 ?  true ? (0,tiny_invariant__WEBPACK_IMPORTED_MODULE_11__["default"])(false, "You should not use <" + displayName + " /> outside a <Router>") : 0 : void 0;
+      return react__WEBPACK_IMPORTED_MODULE_2___default().createElement(Component, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__["default"])({}, remainingProps, context$$1, {
         ref: wrappedComponentRef
       }));
     });
@@ -8053,11 +7488,11 @@ function withRouter(Component) {
 
   if (true) {
     C.propTypes = {
-      wrappedComponentRef: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object])
+      wrappedComponentRef: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object)])
     };
   }
 
-  return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_11___default()(C, Component);
+  return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_8___default()(C, Component);
 }
 
 if (true) {
@@ -8086,12 +7521,473 @@ if (true) {
 
 /***/ }),
 
+/***/ "./node_modules/react-router/node_modules/isarray/index.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/react-router/node_modules/isarray/index.js ***!
+  \*****************************************************************/
+/***/ ((module) => {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-router/node_modules/path-to-regexp/index.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/react-router/node_modules/path-to-regexp/index.js ***!
+  \************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isarray = __webpack_require__(/*! isarray */ "./node_modules/react-router/node_modules/isarray/index.js");
+/**
+ * Expose `pathToRegexp`.
+ */
+
+
+module.exports = pathToRegexp;
+module.exports.parse = parse;
+module.exports.compile = compile;
+module.exports.tokensToFunction = tokensToFunction;
+module.exports.tokensToRegExp = tokensToRegExp;
+/**
+ * The main path matching regexp utility.
+ *
+ * @type {RegExp}
+ */
+
+var PATH_REGEXP = new RegExp([// Match escaped characters that would otherwise appear in future matches.
+// This allows the user to escape special characters that won't transform.
+'(\\\\.)', // Match Express-style parameters and un-named parameters with a prefix
+// and optional suffixes. Matches appear as:
+//
+// "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?", undefined]
+// "/route(\\d+)"  => [undefined, undefined, undefined, "\d+", undefined, undefined]
+// "/*"            => ["/", undefined, undefined, undefined, undefined, "*"]
+'([\\/.])?(?:(?:\\:(\\w+)(?:\\(((?:\\\\.|[^\\\\()])+)\\))?|\\(((?:\\\\.|[^\\\\()])+)\\))([+*?])?|(\\*))'].join('|'), 'g');
+/**
+ * Parse a string for the raw tokens.
+ *
+ * @param  {string}  str
+ * @param  {Object=} options
+ * @return {!Array}
+ */
+
+function parse(str, options) {
+  var tokens = [];
+  var key = 0;
+  var index = 0;
+  var path = '';
+  var defaultDelimiter = options && options.delimiter || '/';
+  var res;
+
+  while ((res = PATH_REGEXP.exec(str)) != null) {
+    var m = res[0];
+    var escaped = res[1];
+    var offset = res.index;
+    path += str.slice(index, offset);
+    index = offset + m.length; // Ignore already escaped sequences.
+
+    if (escaped) {
+      path += escaped[1];
+      continue;
+    }
+
+    var next = str[index];
+    var prefix = res[2];
+    var name = res[3];
+    var capture = res[4];
+    var group = res[5];
+    var modifier = res[6];
+    var asterisk = res[7]; // Push the current path onto the tokens.
+
+    if (path) {
+      tokens.push(path);
+      path = '';
+    }
+
+    var partial = prefix != null && next != null && next !== prefix;
+    var repeat = modifier === '+' || modifier === '*';
+    var optional = modifier === '?' || modifier === '*';
+    var delimiter = res[2] || defaultDelimiter;
+    var pattern = capture || group;
+    tokens.push({
+      name: name || key++,
+      prefix: prefix || '',
+      delimiter: delimiter,
+      optional: optional,
+      repeat: repeat,
+      partial: partial,
+      asterisk: !!asterisk,
+      pattern: pattern ? escapeGroup(pattern) : asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?'
+    });
+  } // Match any characters still remaining.
+
+
+  if (index < str.length) {
+    path += str.substr(index);
+  } // If the path exists, push it onto the end.
+
+
+  if (path) {
+    tokens.push(path);
+  }
+
+  return tokens;
+}
+/**
+ * Compile a string to a template function for the path.
+ *
+ * @param  {string}             str
+ * @param  {Object=}            options
+ * @return {!function(Object=, Object=)}
+ */
+
+
+function compile(str, options) {
+  return tokensToFunction(parse(str, options));
+}
+/**
+ * Prettier encoding of URI path segments.
+ *
+ * @param  {string}
+ * @return {string}
+ */
+
+
+function encodeURIComponentPretty(str) {
+  return encodeURI(str).replace(/[\/?#]/g, function (c) {
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+  });
+}
+/**
+ * Encode the asterisk parameter. Similar to `pretty`, but allows slashes.
+ *
+ * @param  {string}
+ * @return {string}
+ */
+
+
+function encodeAsterisk(str) {
+  return encodeURI(str).replace(/[?#]/g, function (c) {
+    return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+  });
+}
+/**
+ * Expose a method for transforming tokens into the path function.
+ */
+
+
+function tokensToFunction(tokens) {
+  // Compile all the tokens into regexps.
+  var matches = new Array(tokens.length); // Compile all the patterns before compilation.
+
+  for (var i = 0; i < tokens.length; i++) {
+    if (typeof tokens[i] === 'object') {
+      matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$');
+    }
+  }
+
+  return function (obj, opts) {
+    var path = '';
+    var data = obj || {};
+    var options = opts || {};
+    var encode = options.pretty ? encodeURIComponentPretty : encodeURIComponent;
+
+    for (var i = 0; i < tokens.length; i++) {
+      var token = tokens[i];
+
+      if (typeof token === 'string') {
+        path += token;
+        continue;
+      }
+
+      var value = data[token.name];
+      var segment;
+
+      if (value == null) {
+        if (token.optional) {
+          // Prepend partial segment prefixes.
+          if (token.partial) {
+            path += token.prefix;
+          }
+
+          continue;
+        } else {
+          throw new TypeError('Expected "' + token.name + '" to be defined');
+        }
+      }
+
+      if (isarray(value)) {
+        if (!token.repeat) {
+          throw new TypeError('Expected "' + token.name + '" to not repeat, but received `' + JSON.stringify(value) + '`');
+        }
+
+        if (value.length === 0) {
+          if (token.optional) {
+            continue;
+          } else {
+            throw new TypeError('Expected "' + token.name + '" to not be empty');
+          }
+        }
+
+        for (var j = 0; j < value.length; j++) {
+          segment = encode(value[j]);
+
+          if (!matches[i].test(segment)) {
+            throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '", but received `' + JSON.stringify(segment) + '`');
+          }
+
+          path += (j === 0 ? token.prefix : token.delimiter) + segment;
+        }
+
+        continue;
+      }
+
+      segment = token.asterisk ? encodeAsterisk(value) : encode(value);
+
+      if (!matches[i].test(segment)) {
+        throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but received "' + segment + '"');
+      }
+
+      path += token.prefix + segment;
+    }
+
+    return path;
+  };
+}
+/**
+ * Escape a regular expression string.
+ *
+ * @param  {string} str
+ * @return {string}
+ */
+
+
+function escapeString(str) {
+  return str.replace(/([.+*?=^!:${}()[\]|\/\\])/g, '\\$1');
+}
+/**
+ * Escape the capturing group by escaping special characters and meaning.
+ *
+ * @param  {string} group
+ * @return {string}
+ */
+
+
+function escapeGroup(group) {
+  return group.replace(/([=!:$\/()])/g, '\\$1');
+}
+/**
+ * Attach the keys as a property of the regexp.
+ *
+ * @param  {!RegExp} re
+ * @param  {Array}   keys
+ * @return {!RegExp}
+ */
+
+
+function attachKeys(re, keys) {
+  re.keys = keys;
+  return re;
+}
+/**
+ * Get the flags for a regexp from the options.
+ *
+ * @param  {Object} options
+ * @return {string}
+ */
+
+
+function flags(options) {
+  return options.sensitive ? '' : 'i';
+}
+/**
+ * Pull out keys from a regexp.
+ *
+ * @param  {!RegExp} path
+ * @param  {!Array}  keys
+ * @return {!RegExp}
+ */
+
+
+function regexpToRegexp(path, keys) {
+  // Use a negative lookahead to match only capturing groups.
+  var groups = path.source.match(/\((?!\?)/g);
+
+  if (groups) {
+    for (var i = 0; i < groups.length; i++) {
+      keys.push({
+        name: i,
+        prefix: null,
+        delimiter: null,
+        optional: false,
+        repeat: false,
+        partial: false,
+        asterisk: false,
+        pattern: null
+      });
+    }
+  }
+
+  return attachKeys(path, keys);
+}
+/**
+ * Transform an array into a regexp.
+ *
+ * @param  {!Array}  path
+ * @param  {Array}   keys
+ * @param  {!Object} options
+ * @return {!RegExp}
+ */
+
+
+function arrayToRegexp(path, keys, options) {
+  var parts = [];
+
+  for (var i = 0; i < path.length; i++) {
+    parts.push(pathToRegexp(path[i], keys, options).source);
+  }
+
+  var regexp = new RegExp('(?:' + parts.join('|') + ')', flags(options));
+  return attachKeys(regexp, keys);
+}
+/**
+ * Create a path regexp from string input.
+ *
+ * @param  {string}  path
+ * @param  {!Array}  keys
+ * @param  {!Object} options
+ * @return {!RegExp}
+ */
+
+
+function stringToRegexp(path, keys, options) {
+  return tokensToRegExp(parse(path, options), keys, options);
+}
+/**
+ * Expose a function for taking tokens and returning a RegExp.
+ *
+ * @param  {!Array}          tokens
+ * @param  {(Array|Object)=} keys
+ * @param  {Object=}         options
+ * @return {!RegExp}
+ */
+
+
+function tokensToRegExp(tokens, keys, options) {
+  if (!isarray(keys)) {
+    options =
+    /** @type {!Object} */
+    keys || options;
+    keys = [];
+  }
+
+  options = options || {};
+  var strict = options.strict;
+  var end = options.end !== false;
+  var route = ''; // Iterate over the tokens and create our regexp string.
+
+  for (var i = 0; i < tokens.length; i++) {
+    var token = tokens[i];
+
+    if (typeof token === 'string') {
+      route += escapeString(token);
+    } else {
+      var prefix = escapeString(token.prefix);
+      var capture = '(?:' + token.pattern + ')';
+      keys.push(token);
+
+      if (token.repeat) {
+        capture += '(?:' + prefix + capture + ')*';
+      }
+
+      if (token.optional) {
+        if (!token.partial) {
+          capture = '(?:' + prefix + '(' + capture + '))?';
+        } else {
+          capture = prefix + '(' + capture + ')?';
+        }
+      } else {
+        capture = prefix + '(' + capture + ')';
+      }
+
+      route += capture;
+    }
+  }
+
+  var delimiter = escapeString(options.delimiter || '/');
+  var endsWithDelimiter = route.slice(-delimiter.length) === delimiter; // In non-strict mode we allow a slash at the end of match. If the path to
+  // match already ends with a slash, we remove it for consistency. The slash
+  // is valid at the end of a path match, not in the middle. This is important
+  // in non-ending mode, where "/test/" shouldn't match "/test//route".
+
+  if (!strict) {
+    route = (endsWithDelimiter ? route.slice(0, -delimiter.length) : route) + '(?:' + delimiter + '(?=$))?';
+  }
+
+  if (end) {
+    route += '$';
+  } else {
+    // In non-ending mode, we need the capturing groups to match as much as
+    // possible by using a positive lookahead to the end or next path segment.
+    route += strict && endsWithDelimiter ? '' : '(?=' + delimiter + '|$)';
+  }
+
+  return attachKeys(new RegExp('^' + route, flags(options)), keys);
+}
+/**
+ * Normalize the given path string, returning a regular expression.
+ *
+ * An empty array can be passed in for the keys, which will hold the
+ * placeholder key descriptions. For example, using `/user/:id`, `keys` will
+ * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
+ *
+ * @param  {(string|RegExp|Array)} path
+ * @param  {(Array|Object)=}       keys
+ * @param  {Object=}               options
+ * @return {!RegExp}
+ */
+
+
+function pathToRegexp(path, keys, options) {
+  if (!isarray(keys)) {
+    options =
+    /** @type {!Object} */
+    keys || options;
+    keys = [];
+  }
+
+  options = options || {};
+
+  if (path instanceof RegExp) {
+    return regexpToRegexp(path,
+    /** @type {!Array} */
+    keys);
+  }
+
+  if (isarray(path)) {
+    return arrayToRegexp(
+    /** @type {!Array} */
+    path,
+    /** @type {!Array} */
+    keys, options);
+  }
+
+  return stringToRegexp(
+  /** @type {string} */
+  path,
+  /** @type {!Array} */
+  keys, options);
+}
+
+/***/ }),
+
 /***/ "./node_modules/react/cjs/react.development.js":
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 /** @license React v16.8.6
@@ -10022,8 +9918,7 @@ if (true) {
 /*!*************************************!*\
   !*** ./node_modules/react/index.js ***!
   \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -10038,11 +9933,13 @@ if (false) {} else {
 /*!************************************************!*\
   !*** ./node_modules/resolve-pathname/index.js ***!
   \************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 function isAbsolute(pathname) {
   return pathname.charAt(0) === '/';
 } // About 1.5x faster than the two-arg version of Array#splice()
@@ -10109,7 +10006,7 @@ function resolvePathname(to) {
   return result;
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (resolvePathname);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (resolvePathname);
 
 /***/ }),
 
@@ -10117,8 +10014,7 @@ function resolvePathname(to) {
 /*!*********************************************************************!*\
   !*** ./node_modules/scheduler/cjs/scheduler-tracing.development.js ***!
   \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 /** @license React v0.13.6
@@ -10135,9 +10031,9 @@ if (true) {
   (function () {
     'use strict';
 
-    Object.defineProperty(exports, '__esModule', {
+    Object.defineProperty(exports, "__esModule", ({
       value: true
-    }); // Helps identify side effects in begin-phase lifecycle hooks and setState reducers:
+    })); // Helps identify side effects in begin-phase lifecycle hooks and setState reducers:
     // In some cases, StrictMode should also double-render lifecycles.
     // This can be confusing for tests though,
     // And it can be bad for performance in production.
@@ -10515,11 +10411,10 @@ if (true) {
 /*!*************************************************************!*\
   !*** ./node_modules/scheduler/cjs/scheduler.development.js ***!
   \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/** @license React v0.13.6
+/** @license React v0.13.6
  * scheduler.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -10533,9 +10428,9 @@ if (true) {
   (function () {
     'use strict';
 
-    Object.defineProperty(exports, '__esModule', {
+    Object.defineProperty(exports, "__esModule", ({
       value: true
-    });
+    }));
     var enableSchedulerDebugging = false;
     /* eslint-disable no-var */
     // TODO: Use symbols?
@@ -11023,8 +10918,8 @@ if (true) {
 
     if (typeof window !== 'undefined') {
       globalValue = window;
-    } else if (typeof global !== 'undefined') {
-      globalValue = global;
+    } else if (typeof __webpack_require__.g !== 'undefined') {
+      globalValue = __webpack_require__.g;
     }
 
     if (globalValue && globalValue._schedMock) {
@@ -11230,7 +11125,6 @@ if (true) {
     exports.unstable_getFirstCallbackNode = unstable_getFirstCallbackNode;
   })();
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -11238,8 +11132,7 @@ if (true) {
 /*!*****************************************!*\
   !*** ./node_modules/scheduler/index.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -11254,8 +11147,7 @@ if (false) {} else {
 /*!*******************************************!*\
   !*** ./node_modules/scheduler/tracing.js ***!
   \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -11270,11 +11162,13 @@ if (false) {} else {
 /*!****************************************************************!*\
   !*** ./node_modules/tiny-invariant/dist/tiny-invariant.esm.js ***!
   \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 var isProduction = "development" === 'production';
 var prefix = 'Invariant failed';
 
@@ -11290,7 +11184,7 @@ function invariant(condition, message) {
   }
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (invariant);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (invariant);
 
 /***/ }),
 
@@ -11298,11 +11192,13 @@ function invariant(condition, message) {
 /*!************************************************************!*\
   !*** ./node_modules/tiny-warning/dist/tiny-warning.esm.js ***!
   \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 var isProduction = "development" === 'production';
 
 function warning(condition, message) {
@@ -11323,7 +11219,7 @@ function warning(condition, message) {
   }
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (warning);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (warning);
 
 /***/ }),
 
@@ -11331,11 +11227,13 @@ function warning(condition, message) {
 /*!*******************************************!*\
   !*** ./node_modules/value-equal/index.js ***!
   \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
@@ -11371,197 +11269,7 @@ function valueEqual(a, b) {
   return false;
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (valueEqual);
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g; // This works in non-strict mode
-
-g = function () {
-  return this;
-}();
-
-try {
-  // This works if eval is allowed (see CSP)
-  g = g || new Function("return this")();
-} catch (e) {
-  // This works if the window reference is available
-  if (typeof window === "object") g = window;
-} // g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-
-module.exports = g;
-
-/***/ }),
-
-/***/ "./static/app.js":
-/*!***********************!*\
-  !*** ./static/app.js ***!
-  \***********************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _home_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./home.js */ "./static/home.js");
-/* harmony import */ var _ingredientForm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ingredientForm.js */ "./static/ingredientForm.js");
-/* harmony import */ var _login_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./login.js */ "./static/login.js");
-/* harmony import */ var _recover_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./recover.js */ "./static/recover.js");
-/* harmony import */ var _logout_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./logout.js */ "./static/logout.js");
-/* harmony import */ var _mealPlanForm_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./mealPlanForm.js */ "./static/mealPlanForm.js");
-/* harmony import */ var _mealPlanList_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./mealPlanList.js */ "./static/mealPlanList.js");
-/* harmony import */ var _pantryList_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pantryList.js */ "./static/pantryList.js");
-/* harmony import */ var _pwreset_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pwreset.js */ "./static/pwreset.js");
-/* harmony import */ var _emailVerify_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./emailVerify.js */ "./static/emailVerify.js");
-/* harmony import */ var _recipeDisplay_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./recipeDisplay.js */ "./static/recipeDisplay.js");
-/* harmony import */ var _recipeForm_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./recipeForm.js */ "./static/recipeForm.js");
-/* harmony import */ var _recipesHelp_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./recipesHelp.js */ "./static/recipesHelp.js");
-/* harmony import */ var _recipesList_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./recipesList.js */ "./static/recipesList.js");
-/* harmony import */ var _register_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./register.js */ "./static/register.js");
-/* harmony import */ var _search_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./search.js */ "./static/search.js");
-/* harmony import */ var _shoppingList_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shoppingList.js */ "./static/shoppingList.js");
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
-
- //all includes for each page alphabetical
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-  render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: ""
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/register",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_register_js__WEBPACK_IMPORTED_MODULE_17__["RegisterForm"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/login",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_login_js__WEBPACK_IMPORTED_MODULE_5__["LoginForm"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/recover",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recover_js__WEBPACK_IMPORTED_MODULE_6__["RecoverForm"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/logout",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_logout_js__WEBPACK_IMPORTED_MODULE_7__["LogoutForm"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_home_js__WEBPACK_IMPORTED_MODULE_3__["Home"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/pantry",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pantryList_js__WEBPACK_IMPORTED_MODULE_10__["PantryList"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/search",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_search_js__WEBPACK_IMPORTED_MODULE_18__["SearchList"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/pantry/",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ingredientForm_js__WEBPACK_IMPORTED_MODULE_4__["IngredientForm"], _extends({
-        isEdit: true
-      }, props))
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/public/recipes/",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipeForm_js__WEBPACK_IMPORTED_MODULE_14__["RecipeForm"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/verify",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_emailVerify_js__WEBPACK_IMPORTED_MODULE_12__["EmailValidate"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/verify/",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_emailVerify_js__WEBPACK_IMPORTED_MODULE_12__["EmailValidate"], _extends({
-        isVerify: true
-      }, props))
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/pwreset",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pwreset_js__WEBPACK_IMPORTED_MODULE_11__["ResetForm"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/pwreset/",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pwreset_js__WEBPACK_IMPORTED_MODULE_11__["ResetForm"], _extends({
-        isReset: true
-      }, props))
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/verify",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_pwreset_js__WEBPACK_IMPORTED_MODULE_11__["ResetForm"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/shopping",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shoppingList_js__WEBPACK_IMPORTED_MODULE_19__["ShoppingList"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/recipes",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipesList_js__WEBPACK_IMPORTED_MODULE_16__["RecipesList"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/mealplans",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mealPlanList_js__WEBPACK_IMPORTED_MODULE_9__["MealPlanList"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/mealplans/edit",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mealPlanForm_js__WEBPACK_IMPORTED_MODULE_8__["MealPlanForm"], _extends({
-        isEdit: true
-      }, props))
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/recipes/add",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipeForm_js__WEBPACK_IMPORTED_MODULE_14__["RecipeForm"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      exact: true,
-      path: "/recipes/help",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipesHelp_js__WEBPACK_IMPORTED_MODULE_15__["RecipesHelp"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/recipes/view/",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipeDisplay_js__WEBPACK_IMPORTED_MODULE_13__["RecipeDisplay"], props)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/recipes/edit/",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipeForm_js__WEBPACK_IMPORTED_MODULE_14__["RecipeForm"], _extends({
-        isEdit: true
-      }, props))
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-      path: "/home",
-      render: props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_home_js__WEBPACK_IMPORTED_MODULE_3__["Home"], props)
-    })));
-  }
-
-} // (<Redirect to="/login" />)
-// ========================================
-
-
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null)), document.getElementById('root'));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (valueEqual);
 
 /***/ }),
 
@@ -11569,20 +11277,20 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 /*!*******************************!*\
   !*** ./static/emailVerify.js ***!
   \*******************************/
-/*! exports provided: EmailValidate */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EmailValidate", function() { return EmailValidate; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EmailValidate": () => (/* binding */ EmailValidate)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
 
 
 
-class EmailValidate extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class EmailValidate extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     const {
@@ -11661,22 +11369,22 @@ class EmailValidate extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: this.props.location['pathname'].match('verify$') ? "Verify Email" : "Reset Password"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
       method: "POST",
       onSubmit: event => this.handleSubmit(event),
       className: "w3-card " + "w3-round " + "w3-form " + "w3-padding"
-    }, this.props.isVerify ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    }, this.props.isVerify ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
       className: "w3-yellow w3-center w3-xxlarge"
-    }, "Confirm Username"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, "Confirm Username"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "username"
-    }, "username"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, "username"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "text",
       className: "w3-input w3-round w3-padding-16",
       maxLength: 254,
@@ -11684,20 +11392,20 @@ class EmailValidate extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
       value: this.state.username,
       name: "username",
       onChange: event => this.handleChangeUser(event)
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-container w3-center w3-padding-16"
-    }, !this.state.isLoading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, !this.state.isLoading ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "submit",
       id: "cp_button",
       value: "Finish and Login",
-      className: "w3-action w3-button w3-hover-yellow w3-indigo"
-    }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      className: "call-to-action w3-button w3-hover-yellow"
+    }) : react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "cp_button"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fa fa-cog fa-spin fa-fw fa-3x"
-    })))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    })))) : react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
       className: "w3-green w3-center w3-xxlarge"
-    }, "Success!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "We have sent a verification to your e-mail. Please use the link provided there to login."))))));
+    }, "Success!"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "We have sent a verification to your e-mail. Please use the link provided there to login."))))));
   }
 
 }
@@ -11708,18 +11416,19 @@ class EmailValidate extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
 /*!**************************!*\
   !*** ./static/header.js ***!
   \**************************/
-/*! exports provided: Header */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Header", function() { return Header; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Header": () => (/* binding */ Header)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 
 
-class Header extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class Header extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props); //this.history = [];
 
@@ -11741,51 +11450,52 @@ class Header extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-card"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/home"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
+      className: "w3-margin-left w3-bar-item w3-round-large w3-button"
+    }, "Smart Recipe:"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
       className: "w3-bar-item"
-    }, "Smart Pantry")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-dropdown-click w3-bar-item w3-right w3-hover-orange w3-round"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-btn w3-orange w3-round-large w3-hover-yellow w3-xxlarge",
+    }, this.props.inner)), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-bar-item w3-right w3-round"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      className: "w3-button w3-round-large w3-xxlarge",
+      value: "all pages",
       onClick: this.toggleShow
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fas fa-hamburger"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-dropdown-content w3-orange w3-bar-block w3-border " + (this.state.show ? "w3-show" : ""),
+    }), " Menu"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-dropdown-content w3-bar-block w3-border " + (this.state.show ? "w3-show" : ""),
       style: {
         'position': 'absolute',
         'right': '0px'
       }
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/",
-      className: "w3-bar-item w3-hover-yellow w3-button"
-    }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      className: "w3-bar-item w3-button"
+    }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/recipes",
-      className: "w3-bar-item w3-hover-yellow w3-button"
-    }, "Recipes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      className: "w3-bar-item w3-button"
+    }, "Recipes"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/mealplans",
-      className: "w3-bar-item w3-hover-yellow w3-button"
-    }, "Meal Plans"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      className: "w3-bar-item w3-button"
+    }, "Meal Plans"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/shopping",
-      className: "w3-bar-item w3-hover-yellow w3-button"
-    }, "Shopping"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      className: "w3-bar-item w3-button"
+    }, "Shopping"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/pantry",
-      className: "w3-bar-item w3-hover-yellow w3-button"
-    }, "Pantry"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      className: "w3-bar-item w3-button"
+    }, "Pantry"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/search",
-      className: "w3-bar-item w3-hover-yellow w3-button"
-    }, "Search"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      className: "w3-bar-item w3-button"
+    }, "Search"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/logout",
-      className: "w3-bar-item w3-hover-yellow w3-button"
-    }, "Logout")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-      className: "w3-large w3-padding"
-    }, this.props.inner));
+      className: "w3-bar-item w3-button"
+    }, "Logout")))));
   }
 
 } //<Link to="/settings" className="w3-bar-item w3-hover-yellow w3-button">Settings</Link>
@@ -11796,23 +11506,24 @@ class Header extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 /*!************************!*\
   !*** ./static/home.js ***!
   \************************/
-/*! exports provided: Home */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Home", function() { return Home; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Home": () => (/* binding */ Home)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
 
-class Feature extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
+class Feature extends _utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList {
   // override render list to ensure items are populated.
   renderList() {
     let list = [];
@@ -11845,10 +11556,11 @@ class Feature extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
 
 }
 
-class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class Home extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
+      recipes: [],
       todayMeals: [],
       readyMeals: [],
       thriftyMeals: [],
@@ -11878,6 +11590,7 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 
         if (this.myIsMounted) {
           this.setState({
+            recipes: json.recipes,
             todayMeals: json.todayMeals,
             readyMeals: json.readyMeals,
             thriftyMeals: json.thriftyMeals,
@@ -11906,92 +11619,103 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       isLoading: true
     }); //console.log(settings)
 
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings);
     req.withAuth();
   }
 
   wrapper(funcCall) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-half w3-margin-bottom"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-card w3-container"
     }, funcCall()));
   }
 
+  recipes() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      to: "/recipes",
+      className: "w3-btn w3-margin-bottom"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Recipes")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Feature, {
+      isLoading: this.state.isLoading,
+      isError: this.state.isError,
+      items: this.state.recipes
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null));
+  }
+
   todaysMeals() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Todays Meals"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Feature, {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      to: "/mealplans",
+      className: "w3-btn w3-margin-bottom"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Todays Meals")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Feature, {
       isLoading: this.state.isLoading,
       isError: this.state.isError,
       items: this.state.todayMeals
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "/mealplans",
-      className: "w3-btn w3-orange w3-margin-bottom"
-    }, "Meal Planner"));
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null));
   }
 
   readyMeals() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Ready Meals"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Feature, {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      to: "/search/recipes/Ready",
+      className: "w3-btn w3-margin-bottom"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Ready Meals")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Feature, {
       isLoading: this.state.isLoading,
       isError: this.state.isError,
       items: this.state.readyMeals
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "/search/recipes/Ready",
-      className: "w3-btn w3-orange w3-margin-bottom"
-    }, "View More..."));
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null));
   }
 
   stretchMeals() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Thrifty Recipes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Feature, {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      to: "/search/recipes/Ready",
+      className: "w3-btn w3-margin-bottom"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Thrifty Recipes")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Feature, {
       isLoading: this.state.isLoading,
       isError: this.state.isError,
       items: this.state.thriftyMeals
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "/search/recipes/Ready",
-      className: "w3-btn w3-orange w3-margin-bottom"
-    }, "View More..."));
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null));
   }
 
   somethingDifferent() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Featured Recipes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Feature, {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      to: "/search/recipes/Public",
+      className: "w3-btn w3-margin-bottom"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Featured Recipes")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Feature, {
       isLoading: this.state.isLoading,
       isError: this.state.isError,
       items: this.state.featuredMeals
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "/search/recipes/Public",
-      className: "w3-btn w3-orange w3-margin-bottom"
-    }, "View More..."));
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null));
   }
 
-  recentChanges() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Expiring Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Feature, {
+  expiring() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      to: "/search/pantry/Check Soon",
+      className: "w3-btn w3-margin-bottom"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Expiring Items")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Feature, {
       isLoading: this.state.isLoading,
       isError: this.state.isError,
       items: this.state.ingToCheck
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      to: "/search/pantry/Check Soon",
-      className: "w3-btn w3-orange w3-margin-bottom"
-    }, "View More..."));
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null));
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Home"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-container w3-margin-top"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       to: "/recipes/add"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-indigo w3-hover-yellow w3-round w3-btn w3-block w3-card"
-    }, "Add Recipe"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      className: "call-to-action w3-round w3-button w3-block w3-card"
+    }, "Add Recipe"))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-row-padding w3-margin-top"
-    }, this.wrapper(() => this.todaysMeals()), this.wrapper(() => this.readyMeals())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, this.wrapper(() => this.recipes()), this.wrapper(() => this.stretchMeals())), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-row-padding"
-    }, this.wrapper(() => this.stretchMeals()), this.wrapper(() => this.somethingDifferent())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, this.wrapper(() => this.readyMeals()), this.wrapper(() => this.expiring())), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-row-padding"
-    }, this.wrapper(() => this.recentChanges()))));
+    }, this.wrapper(() => this.todaysMeals()), this.wrapper(() => this.somethingDifferent()))));
   }
 
 }
@@ -12002,22 +11726,22 @@ class Home extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 /*!**********************************!*\
   !*** ./static/ingredientForm.js ***!
   \**********************************/
-/*! exports provided: IngredientForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IngredientForm", function() { return IngredientForm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "IngredientForm": () => (/* binding */ IngredientForm)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class IngredientForm extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -12113,7 +11837,7 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
     };
 
     const settings = {
-      url: '/v1/inventory/' + this.state.name,
+      url: '/v1/inventory/' + encodeURIComponent(this.state.name),
       data: JSON.stringify({
         keepStocked: !this.state.keepStocked
       }),
@@ -12124,7 +11848,7 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
         "content-type": "application/json"
       }
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
   }
@@ -12136,7 +11860,9 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
       console.log('This browser only supports uploading pre-saved images.');
     }
 
-    this.renderThisRecipe();
+    if (this.props.isEdit) {
+      this.renderThisRecipe();
+    }
   }
 
   componentWillUnmount() {
@@ -12170,14 +11896,14 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
     };
 
     const settings = {
-      url: '/v1/inventory/image/' + this.state.name,
+      url: '/v1/inventory/image/' + encodeURIComponent(this.state.name),
       data: '{}',
       isFileUpload: true,
       method: 'DELETE',
       callBack: callBack,
       history: this.props.history
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -12215,13 +11941,13 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
     };
 
     const settings = {
-      url: '/v1/inventory/barcode/' + this.state.name,
+      url: '/v1/inventory/barcode/' + encodeURIComponent(this.state.name),
       data: '{}',
       method: 'DELETE',
       callBack: callBack,
       history: this.props.history
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -12265,14 +11991,14 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
         formData.append('file', f, f.name); //console.log(formData.has('file'))
 
         const settings = {
-          url: '/v1/inventory/barcode/' + this.state.name,
+          url: '/v1/inventory/barcode/' + encodeURIComponent(this.state.name),
           data: formData,
           isFileUpload: true,
           method: 'POST',
           callBack: callBack,
           history: this.props.history
         };
-        let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+        let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
         req.props = settings;
         req.withAuth();
 
@@ -12353,14 +12079,14 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
               formData.append('file', blob, f.name); //console.log(formData.has('file'))
 
               const settings = {
-                url: '/v1/inventory/image/' + this.state.name,
+                url: '/v1/inventory/image/' + encodeURIComponent(this.state.name),
                 data: formData,
                 isFileUpload: true,
                 method: 'POST',
                 callBack: callBack,
                 history: this.props.history
               };
-              let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+              let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
               req.props = settings;
               req.withAuth();
 
@@ -12386,21 +12112,36 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
     event.preventDefault();
 
     let callBack = xhr => {
-      //console.log(xhr.responseText);
+      console.log(xhr.responseText);
       let state = xhr.readyState;
       let status = xhr.status;
       let cat = Math.floor(status / 100);
 
       if (state == 4 && status == 200) {
+        console.log("state 4 , status 200");
         const recipe = JSON.parse(xhr.responseText)['recipe'];
 
         if (this.myIsMounted) {
+          console.log("isMounted true");
           this.setState({
             isLoading: false
           });
-          this.props.history.goBack();
+
+          if (this.props.isEdit) {
+            console.log("isEdit true");
+            this.props.history.goBack();
+          } else {
+            console.log("isEdit false");
+            this.props.history.push('/pantry/');
+          }
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
+        console.log("state 4, cat not 2 or 3");
+
+        if (status == 409) {
+          alert("duplicate entry");
+        }
+
         this.setState({
           IsLoading: false
         });
@@ -12416,25 +12157,50 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
       return;
     }
 
-    const settings = {
-      url: '/v1/inventory/' + this.state.previousName,
-      data: JSON.stringify({
-        "name": this.state.name,
-        "amount": this.state.amount,
-        "amountPkg": this.state.amountPkg,
-        "keepStocked": this.state.keepStocked,
-        "lastBuyDate": this.state.lastBuyDate,
-        "freshFor": this.state.freshFor,
-        "barcode": this.state.barcode
-      }),
-      method: 'PUT',
-      callBack: callBack,
-      history: this.props.history,
-      headers: {
-        "content-type": "application/json"
-      }
-    };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let settings = {};
+
+    if (this.props.isEdit) {
+      settings = {
+        url: '/v1/inventory/' + encodeURIComponent(this.state.previousName),
+        data: JSON.stringify({
+          "name": this.state.name,
+          "amount": this.state.amount,
+          "amountPkg": this.state.amountPkg,
+          "keepStocked": this.state.keepStocked,
+          "lastBuyDate": this.state.lastBuyDate,
+          "freshFor": this.state.freshFor,
+          "barcode": this.state.barcode
+        }),
+        method: 'PUT',
+        callBack: callBack,
+        history: this.props.history,
+        headers: {
+          "content-type": "application/json"
+        }
+      };
+    } else {
+      settings = {
+        url: '/v1/inventory/' + encodeURIComponent(this.state.name),
+        data: JSON.stringify({
+          "name": this.state.name,
+          "amount": this.state.amount,
+          "amountPkg": this.state.amountPkg,
+          "keepStocked": this.state.keepStocked,
+          "lastBuyDate": this.state.lastBuyDate,
+          "byWeight": this.state.byWeight,
+          "freshFor": this.state.freshFor,
+          "barcode": this.state.barcode
+        }),
+        method: 'POST',
+        callBack: callBack,
+        history: this.props.history,
+        headers: {
+          "content-type": "application/json"
+        }
+      };
+    }
+
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -12443,8 +12209,6 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
         IsLoading: true
       });
     }
-
-    ;
   }
 
   handleDelete(event) {
@@ -12474,7 +12238,7 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
     };
 
     const settings = {
-      url: '/v1/inventory/' + this.state.name,
+      url: '/v1/inventory/' + encodeURIComponent(this.state.name),
       data: '{}',
       method: 'DELETE',
       callBack: callBack,
@@ -12483,7 +12247,7 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
         "content-type": "application/json"
       }
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -12497,21 +12261,21 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
   }
 
   renderThisRecipe() {
-    console.log(this.props.location);
+    // console.log(this.props.location);
     const {
       pathname
-    } = this.props.location; //console.log(pathname);
+    } = this.props.location; // console.log(pathname);
 
-    const name = pathname.replace('/pantry/', ''); //console.log(recipeName);
+    const name = pathname.replace('/pantry/edit/', ''); // console.log(name);
 
     let callBack = xhr => {
-      //console.log(xhr.responseText);
+      // console.log(xhr.responseText);
       let state = xhr.readyState;
       let status = xhr.status;
       let cat = Math.floor(status / 100);
 
       if (state == 4 && status == 200) {
-        //console.log(JSON.parse(xhr.responseText))
+        // console.log(xhr.responseText)
         const json = JSON.parse(xhr.responseText);
 
         if (this.myIsMounted) {
@@ -12533,19 +12297,21 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
       } else if (state == 4 && cat != 2 && cat != 3) {
         this.setState({
           ValidateIsLoading: false
-        }); //console.log( xhr.responseText );
+        });
+        console.log(xhr.responseText);
       }
     };
 
     const settings = {
-      url: '/v1/inventory/' + name,
+      url: '/v1/inventory/' + encodeURIComponent(name),
       method: 'GET',
       callBack: callBack,
       history: this.props.history
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
-    req.props = settings;
-    console.log("making request");
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
+    req.props = settings; // console.log("making request")
+    // console.log(req)
+
     req.withAuth();
 
     if (this.myIsMounted) {
@@ -12603,31 +12369,31 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: (this.props.isEdit ? 'Edit' : 'Add') + " pantry"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-row"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-dropdown-hover w3-third w3-margin-bottom"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       className: "w3-button w3-bar"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-left w3-xlarge fas fa-carrot"
-    }, " Options")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, " Options")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar-block w3-dropdown-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-bar",
       htmlFor: "picture",
       "aria-label": "take a picture"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-left w3-bar-item w3-button w3-xlarge fas fa-camera w3-hover-yellow " + (this.state.pictureIsLoading ? "fa-spin" : ""),
       "aria-hidden": "true"
-    }, " Upload Picture")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, " Upload Picture")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "file",
       id: "picture",
       style: {
@@ -12637,14 +12403,14 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
       accept: "image/*",
       capture: true,
       onChange: this.state.pictureIsLoading ? undefined : event => this.handlePictureUpload(event.target.files)
-    }), !this.state.barcode ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }), !this.state.barcode ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-bar",
       htmlFor: "barcode",
       "aria-label": "scan in barcode id"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-barcode " + (this.state.barcodeIsLoading ? "fa-spin" : ""),
       "aria-hidden": "true"
-    }, " Add Barcode")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, " Add Barcode")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "file",
       id: "barcode",
       style: {
@@ -12654,165 +12420,165 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
       accept: "image/*",
       capture: true,
       onChange: event => this.handleBarcodeUpload(event.target.files)
-    })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })) : react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-bar",
       htmlFor: "delBarcode",
       "aria-label": "Remove barcode id"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-left w3-xlarge w3-hover-yellow w3-bar-item w3-button fas fa-barcode " + (this.state.barcodeIsLoading ? "fa-spin" : ""),
       "aria-hidden": "true"
-    }, !this.state.barcodeIsLoading ? " Remove Barcode" : "")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, !this.state.barcodeIsLoading ? " Remove Barcode" : "")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       id: "delBarcode",
       style: {
         display: "none"
       },
       onClick: () => this.handleBarcodeRemove()
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-bar",
       htmlFor: "stock",
       "aria-label": "keep stocked"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-cart-arrow-down " + (this.state.keepStocked ? "w3-yellow" : ""),
       "aria-hidden": "true"
-    }, " Keep Stocked")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, " Keep Stocked")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       style: {
         display: "none"
       },
       id: "stock",
       onClick: e => this.toggleKeepStocked(e)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-bar",
       htmlFor: "delete",
       "aria-label": "delete this recipe"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-trash-alt",
       "aria-hidden": "true"
-    }, " Delete")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, " Delete")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       style: {
         display: "none"
       },
       id: "delete",
       onClick: event => this.handleDelete(event)
-    })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    })))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
       method: "POST",
-      className: "w3-card",
+      className: "w3-card w3-container",
       onSubmit: event => this.handleSubmit(event)
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-display-container"
-    }, Object(_utils_js__WEBPACK_IMPORTED_MODULE_3__["thumbnail"])(this.state), this.state.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.thumbnail)(this.state), this.state.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       className: "fas fa-trash-alt w3-xlarge " + "w3-display-bottomright w3-display-hover w3-margin " + "w3-btn w3-opacity w3-orange",
       onClick: event => this.deletePicture(event)
-    }) : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: "w3-left"
-    }, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: "w3-input w3-center",
+    }) : ""), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
+      className: ""
+    }, "Name:"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      className: "",
       type: "text",
       placeholder: "Name",
       onChange: this.handleNameChange,
       value: this.state.name
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      className: "w3-button w3-hover-yellow",
+      onClick: e => this.toggleByWeight(e)
+    }, "Measure by: ", this.state.byWeight ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, "oz") : "oz, ", this.state.byWeight ? ", piece" : react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, "piece"))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-left"
-    }, "Amount in Package ", this.state.byWeight ? "(oz)" : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: "w3-input w3-center",
+    }, "Amount in Package ", this.state.byWeight ? "(oz)" : ""), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      className: "",
       type: "number",
+      size: "5",
       onChange: this.handleamountPkgChange,
       value: this.state.amountPkg
-    })), this.state.barcode ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })), this.state.barcode ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-left"
-    }, "Barcode"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, "Barcode"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       className: "w3-input w3-center",
       type: "text",
       readOnly: true,
       value: this.state.barcode
-    }))) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: "w3-bar",
+    }))) : "", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+      className: "w3-left",
       htmlFor: "gotIt",
       "aria-label": "Add Package to Amount"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-left w3-bar w3-button w3-hover-yellow",
       "aria-hidden": "true"
-    }, " Add Package to Amount")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, " Add a Package to pantry")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       style: {
         display: "none"
       },
       id: "gotIt",
       onClick: e => this.gotIt(e)
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-left"
-    }, "Amount ", this.state.byWeight ? "(oz)" : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: "w3-center w3-input",
+    }, "Amount ", this.state.byWeight ? "(oz)" : ""), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      className: "",
       type: "number",
+      size: "5",
       step: "any",
       onChange: this.handleAmountChange,
       value: this.state.amount
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-border-yellow w3-border w3-container"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), " ", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-margin-top w3-border-top w3-border-black"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Expiration:"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-bar",
       htmlFor: "setDate",
       "aria-label": "Set today as buy date"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-left w3-bar w3-button w3-hover-yellow",
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-button",
       "aria-hidden": "true"
-    }, " Set today as buy date")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, " Set today as buy date")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       style: {
         display: "none"
       },
       id: "setDate",
       onClick: e => this.setDate(e)
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-left"
-    }, "Item bought"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: "w3-input w3-center",
+    }, "Item bought"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      className: "",
       type: "text",
       onChange: e => this.handleLastBuyDate(e),
       value: this.state.lastBuyDate
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-left"
-    }, "Fresh for"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "Fresh for"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       key: "7",
-      className: "w3-bar-item w3-button w3-hover-yellow " + (this.state.freshFor == 7 ? 'w3-yellow' : ''),
+      className: "w3-bar-item w3-button " + (this.state.freshFor == 7 ? 'w3-yellow' : ''),
       onClick: () => this.freshFor(7)
-    }, "1 wk."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, "1 wk."), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       key: "14",
-      className: "w3-bar-item w3-button w3-hover-yellow " + (this.state.freshFor == 14 ? 'w3-yellow' : ''),
+      className: "w3-bar-item w3-button " + (this.state.freshFor == 14 ? 'w3-yellow' : ''),
       onClick: () => this.freshFor(14)
-    }, "2 wk."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, "2 wk."), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       key: "30",
-      className: "w3-bar-item w3-button w3-hover-yellow " + (this.state.freshFor == 30 ? 'w3-yellow' : ''),
+      className: "w3-bar-item w3-button " + (this.state.freshFor == 30 ? 'w3-yellow' : ''),
       onClick: () => this.freshFor(30)
-    }, "1 mo."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, "1 mo."), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       key: "90",
-      className: "w3-bar-item w3-button w3-hover-yellow " + (this.state.freshFor == 90 ? 'w3-yellow' : ''),
+      className: "w3-bar-item w3-button " + (this.state.freshFor == 90 ? 'w3-yellow' : ''),
       onClick: () => this.freshFor(90)
-    }, "3 mo."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, "3 mo."), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       key: "180",
-      className: "w3-bar-item w3-button w3-hover-yellow " + (this.state.freshFor == 180 ? 'w3-yellow' : ''),
+      className: "w3-bar-item w3-button " + (this.state.freshFor == 180 ? 'w3-yellow' : ''),
       onClick: () => this.freshFor(180)
-    }, "6 mo."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, "6 mo."), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       key: "354",
-      className: "w3-bar-item w3-button w3-hover-yellow " + (this.state.freshFor == 354 ? 'w3-yellow' : ''),
+      className: "w3-bar-item w3-button " + (this.state.freshFor == 354 ? 'w3-yellow' : ''),
       onClick: () => this.freshFor(354)
-    }, "1 yr."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: "w3-input w3-indigo w3-btn w3-block",
+    }, "1 yr."))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      className: "call-to-action w3-button",
       type: "submit",
-      value: !this.state.isLoading ? "Save" : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      value: !this.state.isLoading ? "Save" : react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
         className: "fa fa-cog fa-spin fa-fw fa-3x"
       })
-    }))), this.state.requiredBy.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Required by") : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"], {
+    }))), this.state.requiredBy.length ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Required by") : "", react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList, {
       path: '/recipes/view',
       items: this.state.requiredBy
     }))));
   }
 
 } // removed as hints are now working and this may not be needed.
-// <p>
-//   <button className="w3-button w3-bar w3-hover-yellow"
-//           onClick={e => this.toggleByWeight(e) }>Measure by: {
-//             this.state.byWeight ? (<b>oz</b>) : "oz, " }{
-//             this.state.byWeight ? ", piece" : (<b>piece</b>)}</button></p>
 
 /***/ }),
 
@@ -12820,23 +12586,24 @@ class IngredientForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compon
 /*!*************************!*\
   !*** ./static/login.js ***!
   \*************************/
-/*! exports provided: LoginForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginForm", function() { return LoginForm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LoginForm": () => (/* binding */ LoginForm)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-const c = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
-class LoginForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+const c = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.W3Color();
+class LoginForm extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -12872,7 +12639,7 @@ class LoginForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   }
 
   renderUsername() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "text",
       className: "w3-input w3-round w3-padding-16 " + (this.state.authError ? "w3-rightbar w3-border-red" : ""),
       value: this.state.username,
@@ -12883,7 +12650,7 @@ class LoginForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   }
 
   renderPassword() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "password",
       className: "w3-input w3-round w3-padding-16 " + (this.state.authError ? "w3-rightbar w3-border-red" : ""),
       value: this.state.password,
@@ -12942,46 +12709,46 @@ class LoginForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Login"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
       method: "POST",
       className: "w3-card w3-container w3-padding-32" + "w3-form ",
       onSubmit: event => this.handleSubmit(event)
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.authError ? "Failed to Authenticate" : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, this.state.authError ? "Failed to Authenticate" : ""), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-container w3-margin-top"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "username"
-    }, "User Name"), this.renderUsername(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, "User Name"), this.renderUsername(), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "password"
-    }, "Password"), this.renderPassword()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-bar w3-padding-16"
-    }, this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, "Password"), this.renderPassword()), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-padding-16"
+    }, this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "loginBtn"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fa fa-cog fa-spin fa-fw fa-3x"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "submit",
       style: {
         display: "none"
       },
       id: "loginBtn",
       value: "Log in",
-      className: "w3-button w3-hover-yellow w3-red"
-    })), !this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "w3-button w3-red"
+    })), !this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "submit",
       value: "Log in",
-      className: "w3-button w3-hover-yellow w3-indigo"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      className: "w3-button w3-hover-yellow",
+      className: "call-to-action w3-button"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      className: "w3-button",
       to: "/register"
-    }, "Sign up here!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      className: "w3-button w3-hover-yellow",
+    }, "Sign up here!"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      className: "w3-button",
       to: "/recover"
     }, "Forgot my Pssawrds!")))))));
   }
@@ -12994,25 +12761,25 @@ class LoginForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 /*!**************************!*\
   !*** ./static/logout.js ***!
   \**************************/
-/*! exports provided: LogoutForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogoutForm", function() { return LogoutForm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LogoutForm": () => (/* binding */ LogoutForm)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
 
-class LogoutForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class LogoutForm extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.handleAffirmative = this.handleAffirmative.bind(this);
@@ -13038,7 +12805,7 @@ class LogoutForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
       callBack: callBack,
       history: this.props.history
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_4__["Request"](settings);
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__.Request(settings);
     req.withAuth();
   }
 
@@ -13047,19 +12814,19 @@ class LogoutForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_3__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__.Header, {
       history: this.props.history,
       inner: "Logout"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-card w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-content"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       onClick: this.handleAffirmative,
-      className: "w3-btn w3-block w3-bar-item w3-hover-yellow"
-    }, "Logout"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "call-to-action w3-button w3-block w3-bar-item"
+    }, "Logout"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       onClick: this.handleDenied,
-      className: "w3-btn w3-block w3-bar-item w3-hover-yellow"
+      className: "w3-button w3-block w3-bar-item"
     }, "Return"))));
   }
 
@@ -13071,23 +12838,23 @@ class LogoutForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 /*!********************************!*\
   !*** ./static/mealPlanForm.js ***!
   \********************************/
-/*! exports provided: MealPlanForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MealPlanForm", function() { return MealPlanForm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MealPlanForm": () => (/* binding */ MealPlanForm)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
 
-class RecipeList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
+class RecipeList extends _utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList {
   renderDays(item) {
     let ret = [];
     let days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -13099,7 +12866,7 @@ class RecipeList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] 
         todayIsTheDay = true;
       }
 
-      ret.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      ret.push(react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
         key: day,
         className: "w3-bar-item w3-button w3-hover-yellow " + (todayIsTheDay ? 'w3-yellow' : ''),
         onClick: () => this.props.updateRepeat(item, day, 'dow')
@@ -13111,20 +12878,20 @@ class RecipeList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] 
   }
 
   renderItem(item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       key: item.id,
       className: "w3-card w3-left-align " + (this.state.selectedItems.has(item.id) ? "w3-border-yellow w3-rightbar" : "")
-    }, item.recipe, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, item.recipe, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-right w3-btn fas fa-trash",
       onClick: () => this.props.removeChoice(item.id)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Repeat on:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "Repeat on:", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar"
     }, this.renderDays(item)));
   }
 
 }
 
-class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class MealPlanForm extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -13212,9 +12979,9 @@ class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
     this.setState({
       isLoading: true
     });
-    let req1 = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings1);
+    let req1 = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings1);
     req1.withAuth();
-    let req2 = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings2);
+    let req2 = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings2);
     req2.withAuth();
   }
 
@@ -13258,7 +13025,7 @@ class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
         "content-type": "application/json"
       }
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -13275,11 +13042,11 @@ class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
     let options = []; //console.log(this.state.choiceList);
 
     for (let plan of this.state.choiceList) {
-      options.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      options.push(react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
         key: plan.id,
         value: plan.recipe,
         onClick: () => this.props.removeChoice(plan.id)
-      }, plan.recipe, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, plan.recipe, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
         className: "w3-right fas fa-minus"
       })));
     }
@@ -13331,7 +13098,7 @@ class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
         "content-type": "application/json"
       }
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -13352,11 +13119,11 @@ class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       let recipeName = recipe.name.toLowerCase();
 
       if (recipeName.includes(searchlc) || this.state.search == '') {
-        options.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        options.push(react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
           key: recipe.name,
           value: recipe.name,
           onClick: () => this.addChoice(recipe)
-        }, recipe.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        }, recipe.name, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
           className: "w3-right fas fa-plus"
         })));
       }
@@ -13411,7 +13178,7 @@ class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
         "content-type": "application/json"
       }
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
   }
@@ -13426,37 +13193,37 @@ class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "edit mealplan"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-card w3-form w3-container"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", {
       className: "w3-left"
-    }, this.state.date)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, this.state.date)), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin-top"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-ul"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RecipeList, {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RecipeList, {
       items: this.state.choiceList,
       removeChoice: id => this.removeChoice(id),
       updateRepeat: (item, step, stepType) => this.updateRepeat(item, step, stepType)
-    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-card w3-margin-top w3-form w3-container"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Filter", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, "Filter", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-bar-item w3-right fas fa-search"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      className: "w3-input w3-border-bottom w3-bar-item w3-round",
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      className: "call-to-action w3-input w3-border-bottom w3-bar-item w3-round",
       type: "search",
       value: this.state.search,
       onChange: event => this.filter(event)
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-ul"
     }, this.renderOptions())))));
   }
@@ -13469,34 +13236,35 @@ class MealPlanForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 /*!********************************!*\
   !*** ./static/mealPlanList.js ***!
   \********************************/
-/*! exports provided: MealPlanList */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MealPlanList", function() { return MealPlanList; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MealPlanList": () => (/* binding */ MealPlanList)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-const color = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
+const color = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.W3Color();
 
-class Plan extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
+class Plan extends _utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList {
   renderItem(item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       key: item,
       to: this.state.path + '/' + item
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       className: "w3-list-item w3-left-align",
       style: {
         height: "6em"
       }
-    }, item, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, item, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-gray",
       style: {
         height: "4px",
@@ -13517,7 +13285,7 @@ class Plan extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
 
 }
 
-class MealPlanList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class MealPlanList extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -13567,7 +13335,7 @@ class MealPlanList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
     this.setState({
       isLoading: true
     });
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings);
     req.withAuth();
   }
 
@@ -13578,7 +13346,7 @@ class MealPlanList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
     for (let plan of this.state.mealplans) {
       //console.log(plan.id);
       if (date == plan.date) {
-        list.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        list.push(react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
           key: plan.id,
           className: ""
         }, plan.recipe));
@@ -13588,7 +13356,7 @@ class MealPlanList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
     if (list.length > 0) {
       return list;
     } else {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         style: {
           height: "5em"
         }
@@ -13600,12 +13368,12 @@ class MealPlanList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
     let plans = [];
 
     for (const p of this.state.dates) {
-      plans.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      plans.push(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
         key: p,
         to: "/mealplans/edit/" + p
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "w3-card w3-border-bottom w3-border-yellow w3-container"
-      }, p, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, p, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "w3-ul"
       }, this.renderPlan(p)))));
     }
@@ -13614,11 +13382,12 @@ class MealPlanList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
-      history: this.props.history
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
+      history: this.props.history,
+      inner: "Mealplans"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
     }, this.renderPlans())));
   }
@@ -13631,22 +13400,23 @@ class MealPlanList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 /*!******************************!*\
   !*** ./static/pantryList.js ***!
   \******************************/
-/*! exports provided: PantryList */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PantryList", function() { return PantryList; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PantryList": () => (/* binding */ PantryList)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-class PantryList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class PantryList extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -13695,23 +13465,23 @@ class PantryList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
     this.setState({
       isLoading: true
     });
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings);
     req.withAuth();
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Pantry"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       to: "/pantry/add"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-orange w3-hover-yellow w3-btn w3-block w3-card"
-    }, "New Ingredient")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"], {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      className: "call-to-action w3-button w3-block w3-card"
+    }, "New Ingredient")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList, {
       path: '/pantry',
       items: this.state.recipes
     }))));
@@ -13725,23 +13495,23 @@ class PantryList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 /*!***************************!*\
   !*** ./static/pwreset.js ***!
   \***************************/
-/*! exports provided: ResetForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResetForm", function() { return ResetForm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ResetForm": () => (/* binding */ ResetForm)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-const color = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
-class ResetForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+const color = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.W3Color();
+class ResetForm extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     const {
@@ -13841,22 +13611,22 @@ class ResetForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: this.props.location['pathname'].match('verify$') ? "Verify Email" : "Reset Password"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
       method: "POST",
       className: "w3-card " + "w3-round " + "w3-form " + "w3-padding",
       onSubmit: event => this.handleSubmit(event)
-    }, !this.props.isReset ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    }, !this.props.isReset ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
       className: "w3-green w3-center w3-xxlarge"
-    }, "Success!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "An email has been sent to your address. Please click that link to continue.")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, "Success!"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "An email has been sent to your address. Please click that link to continue.")) : react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "password"
-    }, "New Password"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, "New Password"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "password",
       className: "w3-input w3-round w3-padding-16",
       maxLength: 254,
@@ -13864,9 +13634,9 @@ class ResetForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       value: this.state.password,
       name: "password",
       onChange: event => this.handleChangePass(event)
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "password-verify"
-    }, "New Password again"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, "New Password again"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "password",
       className: "w3-input w3-round w3-padding-16",
       value: this.state.password2,
@@ -13874,16 +13644,16 @@ class ResetForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       size: 254,
       name: "password-verify",
       onChange: event => this.handleChangePass2(event)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-container w3-center w3-padding-16"
-    }, !this.state.isLoading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, !this.state.isLoading ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "submit",
       id: "cp_button",
       value: "Change Password",
-      className: "w3-action w3-btn w3-hover-yellow w3-Indigo"
-    }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      className: "call-to-action w3-action w3-btn w3-hover-yellow w3-Indigo"
+    }) : react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "cp_button"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fa fa-cog fa-spin fa-fw fa-3x"
     }))))))));
   }
@@ -13896,38 +13666,54 @@ class ResetForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 /*!*********************************!*\
   !*** ./static/recipeDisplay.js ***!
   \*********************************/
-/*! exports provided: InstructionsListDisp, IngredientListDisp, RecipeDisplay */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstructionsListDisp", function() { return InstructionsListDisp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IngredientListDisp", function() { return IngredientListDisp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeDisplay", function() { return RecipeDisplay; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "IngredientListDisp": () => (/* binding */ IngredientListDisp),
+/* harmony export */   "InstructionsListDisp": () => (/* binding */ InstructionsListDisp),
+/* harmony export */   "RecipeDisplay": () => (/* binding */ RecipeDisplay)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-const color = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
-class InstructionsListDisp extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
+const color = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.W3Color();
+class InstructionsListDisp extends _utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList {
   renderItem(item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
       className: "w3-card w3-left-align ",
       key: item
     }, item);
   }
 
 }
-class IngredientListDisp extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
+class IngredientListDisp extends _utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList {
+  computeName(item) {
+    //this just checks for duplicates like "lemon lemons and prevents them from displaying."
+    //console.log(item.name + " " + item.amountMeasure)
+    let dispName = '';
+
+    if (item.name == item.amountMeasure.slice(0, -1) || item.name == item.amountMeasure || item.name.search(item.amountMeasure) != -1) {
+      dispName = "";
+    } else {
+      dispName = item.amountMeasure + " ";
+    }
+
+    dispName = dispName + (item.alias ? item.name + ' alias ' + item.alias + ' at ' + item.conversion + 'x' : item.name);
+    return dispName;
+  }
+
   renderItem(item) {
     //console.log(item)
     let viewAmount = 0;
-    let dispName = '';
     let color = 'w3-green';
     item.viewAmount > 1 ? viewAmount = 1 : viewAmount = item.viewAmount;
 
@@ -13937,22 +13723,15 @@ class IngredientListDisp extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDis
 
     if (viewAmount <= 0.25) {
       color = 'w3-red';
-    } //this just checks for duplicates like "lemon lemons and prevents them from displaying."
-    //console.log(item.name + " " + item.amountMeasure)
-
-
-    if (item.name == item.amountMeasure.slice(0, -1) || item.name == item.amountMeasure) {
-      dispName = item.amountMeasure;
-    } else {
-      dispName = item.amountMeasure + " " + item.name;
     }
 
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    let dispName = this.computeName(item);
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       key: item.name,
-      to: '/pantry/' + item.name
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-border-yellow"
-    }, item.amount + " " + dispName, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      to: item.alias ? '/pantry/edit/' + encodeURIComponent(item.alias) : '/pantry/edit/' + encodeURIComponent(item.name)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+      className: "w3-card "
+    }, item.dispAmount + " " + dispName, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: color,
       style: {
         height: "4px",
@@ -13963,7 +13742,7 @@ class IngredientListDisp extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDis
 
 } // TODO: https://www.npmjs.com/package/react-avatar-editor
 
-class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class RecipeDisplay extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -14025,7 +13804,7 @@ class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
       callBack: callBack,
       history: this.props.history
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -14067,13 +13846,62 @@ class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
       callBack: callBack,
       history: this.props.history
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
     if (this.myIsMounted) {
       this.setState({
         pictureIsLoading: true
+      });
+    }
+  }
+
+  handleDelete(event) {
+    event.preventDefault();
+
+    let callBack = xhr => {
+      //console.log(xhr.responseText)
+      let state = xhr.readyState;
+      let status = xhr.status;
+      let cat = Math.floor(status / 100);
+
+      if (state == 4 && status == 200) {
+        const recipe = JSON.parse(xhr.responseText)['recipe'];
+
+        if (this.myIsMounted) {
+          this.setState({
+            DeleteIsLoading: false,
+            isDeleted: true
+          });
+        }
+      } else if (state == 4 && cat != 2 && cat != 3) {
+        this.setState({
+          DeleteIsLoading: false
+        });
+        console.log(xhr.responseText);
+      }
+    };
+
+    const settings = {
+      url: '/v1/recipes/' + this.state.recipeName,
+      data: JSON.stringify({
+        "recipe": this.state.recipeField
+      }),
+      method: 'DELETE',
+      callBack: callBack,
+      history: this.props.history,
+      headers: {
+        "content-type": "application/json"
+      }
+    };
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
+    req.props = settings;
+    req.withAuth();
+
+    if (this.myIsMounted) {
+      this.setState({
+        DeleteIsLoading: true
       });
     }
   }
@@ -14153,7 +13981,7 @@ class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
                 callBack: callBack,
                 history: this.props.history
               };
-              let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+              let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
               req.props = settings;
               req.withAuth();
 
@@ -14204,7 +14032,7 @@ class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
     this.setState({
       isSubtracting: true
     });
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings);
     req.withAuth();
   }
 
@@ -14241,8 +14069,27 @@ class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
     this.setState({
       isStocking: true
     });
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings);
     req.withAuth();
+  }
+
+  renderDeleteButton() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+      className: "w3-bar",
+      htmlFor: "delete",
+      "aria-label": "delete this recipe"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-bar-item w3-button w3-xlarge fas fa-trash-alt",
+      "aria-hidden": "true"
+    }, " Delete Recipe")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      style: {
+        display: "none"
+      },
+      id: "delete",
+      onClick: event => this.handleDelete(event)
+    }), this.state.isDeleted && react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Redirect, {
+      to: "/recipes"
+    }));
   }
 
   renderThisRecipe() {
@@ -14295,7 +14142,7 @@ class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
       callBack: callBack,
       history: this.props.history
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -14309,40 +14156,40 @@ class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Recipe"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content "
-    }, this.state.recipeName ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    }, this.state.recipeName ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
       className: "w3-card"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, this.state.recipeName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Meals available:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, this.state.recipeName), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "Meals available:", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       className: "w3-badge " + color.random()
-    }, this.state.count)) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, this.state.count)) : '', react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-row"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-dropdown-hover w3-third w3-margin-bottom"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       className: "w3-button w3-bar"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-left w3-xlarge fas fa-carrot"
-    }, " Options")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, " Options")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar-block w3-dropdown-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar",
       onClick: () => this.togglePublic()
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: (this.state.isPublic ? " w3-yellow" : "") + (this.state.isPublicLoading ? " fa-spin" : "") + " w3-left w3-bar-item w3-button w3-hover-yellow" + " w3-xlarge" + (this.state.isPublic ? " fas fa-eye" : " fas fa-eye-slash")
-    }, " Make ", this.state.isPublic ? "Private" : "Public")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: (this.state.isPublic ? " w3-yellow" : "") + (this.state.isPublicLoading ? " fa-spin" : "") + " w3-left w3-bar-item w3-button " + " w3-xlarge" + (this.state.isPublic ? " fas fa-eye" : " fas fa-eye-slash")
+    }, " Make ", this.state.isPublic ? "Private" : "Public")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-bar",
       htmlFor: "picture",
       "aria-label": "Add a picture"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-camera" + (this.state.pictureIsLoading ? "fa-spin" : ""),
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-bar-item w3-button w3-xlarge fas fa-camera" + (this.state.pictureIsLoading ? "fa-spin" : ""),
       "aria-hidden": "true"
-    }, " Add a picture")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, " Add a picture")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "file",
       id: "picture",
       style: {
@@ -14352,36 +14199,36 @@ class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
       accept: "image/*",
       capture: true,
       onChange: this.state.pictureIsLoading ? undefined : event => this.handlePictureUpload(event.target.files)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       className: "w3-bar",
       to: '/recipes/edit/' + this.state.recipeName
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-left w3-bar-item w3-button" + " w3-xlarge w3-hover-yellow fas fa-edit",
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-bar-item w3-button" + " w3-xlarge fas fa-edit",
       "aria-hidden": "true"
-    }, " Edit Recipe")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, " Edit Recipe")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar",
       onClick: () => this.stockRecipe()
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: (this.state.keepStocked ? "w3-yellow " : "") + " w3-left w3-bar-item w3-button w3-hover-yellow" + " w3-xlarge fas fa-cart-arrow-down"
-    }, " Keep Stocked")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: (this.state.keepStocked ? "w3-yellow " : "") + " w3-left w3-bar-item w3-button" + " w3-xlarge fas fa-cart-arrow-down"
+    }, " Keep Stocked")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar",
       onClick: () => this.subtractIngredients()
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: (this.state.subtracted ? "w3-yellow" : "") + " w3-left w3-bar-item w3-button w3-hover-yellow " + " w3-xlarge fas fa-utensils"
-    }, " Use Ingredients"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: (this.state.subtracted ? "w3-yellow" : "") + " w3-left w3-bar-item w3-button " + " w3-xlarge fas fa-utensils"
+    }, " Use Ingredients")), this.renderDeleteButton()))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-display-container"
-    }, Object(_utils_js__WEBPACK_IMPORTED_MODULE_3__["thumbnail"])(this.state), this.state.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "fas fa-trash-alt w3-xlarge " + "w3-display-bottomright w3-display-hover w3-margin " + "w3-btn w3-opacity w3-orange",
+    }, (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.thumbnail)(this.state), this.state.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      className: "fas fa-trash-alt w3-xlarge " + "w3-display-bottomright w3-display-hover w3-margin " + "w3-btn w3-opacity",
       onClick: event => this.deletePicture(event)
-    }) : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(IngredientListDisp, {
+    }) : ""), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(IngredientListDisp, {
       items: this.state.ingredientList,
       ingredientUpdate: list => this.ingredientUpdate(list)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-padding"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InstructionsListDisp, {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(InstructionsListDisp, {
       items: this.state.instructions,
       instructionsUpdate: list => this.instructionsUpdate(list)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-padding"
     }))));
   }
@@ -14394,27 +14241,28 @@ class RecipeDisplay extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
 /*!******************************!*\
   !*** ./static/recipeForm.js ***!
   \******************************/
-/*! exports provided: ActionRecipe, InstructionsList, IngredientList, RecipeForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionRecipe", function() { return ActionRecipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InstructionsList", function() { return InstructionsList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IngredientList", function() { return IngredientList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeForm", function() { return RecipeForm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ActionRecipe": () => (/* binding */ ActionRecipe),
+/* harmony export */   "IngredientList": () => (/* binding */ IngredientList),
+/* harmony export */   "InstructionsList": () => (/* binding */ InstructionsList),
+/* harmony export */   "RecipeForm": () => (/* binding */ RecipeForm)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 
 
 
-class ActionRecipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class ActionRecipe extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -14459,7 +14307,7 @@ class ActionRecipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
           if (this.props.isEdit) {
             this.props.history.goBack();
           } else {
-            this.props.history.push('/recipes/' + this.props.name);
+            this.props.history.push('/recipes/');
           }
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
@@ -14485,7 +14333,7 @@ class ActionRecipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       } //console.log(settings)
 
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -14513,8 +14361,8 @@ class ActionRecipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: (!this.isDone() ? 'w3-disabled w3-red ' : 'w3-yellow ') + 'w3-btn w3-card w3-bar',
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      className: (!this.isDone() ? 'w3-disabled w3-red' : ' ') + 'w3-button w3-card w3-bar call-to-action',
       style: this.props.ingredients.length == 0 ? {
         display: 'none'
       } : {},
@@ -14523,10 +14371,10 @@ class ActionRecipe extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
   }
 
 }
-class InstructionsList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
+class InstructionsList extends _utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList {
   renderItem(item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item) ? "w3-border-yellow w3-rightbar" : ""),
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item) ? " w3-rightbar" : ""),
       key: item,
       onClick: () => this.handleSelect(item)
     }, item);
@@ -14536,9 +14384,9 @@ class InstructionsList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispL
     let list = [];
 
     if (this.props.items.length == 0) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "w3-yellow"
-      }, "Oops, put 'directions' above your list of directions. This is required");
+      }, "Oh No! Directions are missing!");
     }
 
     for (const item of this.props.items) {
@@ -14565,49 +14413,65 @@ class InstructionsList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispL
   }
 
 }
-class IngredientList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
+class IngredientList extends _utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList {
   constructor(props) {
     super(props);
-    this.convert = {
-      "pinch": 0.03,
-      "pinche": 0.03,
-      "teaspoon": 0.25,
-      "tablespoon": 0.5,
-      "ounce": 1.0,
-      "cup": 8.0,
-      "pint": 16.0,
-      "pound": 16.0,
-      "quart": 128.0,
-      "liter": 256.0,
-      "gallon": 512.0
-    };
   }
 
-  renderNameFormat(item) {
+  renderAmountMeasure(item) {
+    let amount = 0;
+    let isMetered = _utils_js__WEBPACK_IMPORTED_MODULE_2__.CONVERT__[item.amountMeasure];
+    return isMetered ? item.amountMeasure : '';
+  }
+
+  measureCorrectPlural(item) {
+    if (item.pantry[0].amount > 1 && item.amountMeasure != null) {
+      return item.amountMeasure + "(s)";
+    } else {
+      return item.amountMeasure;
+    }
+  }
+
+  renderInPantry(item) {
     //console.log(item)
     let amount = 0;
-    let isMetered = this.convert[item.amountMeasure];
+    let isMetered = _utils_js__WEBPACK_IMPORTED_MODULE_2__.CONVERT__[item.amountMeasure];
+    let text = '';
+    let measure = '';
 
     if (item.isMatching && item.isMatching == 'perfect') {
       if (isMetered) {
-        amount = item.pantry[0].amount / isMetered;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "In Panry: " + item.pantry[0].amount + " " + item.amountMeasure);
+        text = "In Panry: " + item.pantry[0].amount;
+        measure = this.measureCorrectPlural(item);
       } else {
-        amount = item.pantry[0].amount;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "In Panry: " + item.pantry[0].amount);
+        text = "In Panry: " + item.pantry[0].amount;
       }
+
+      measure = this.measureCorrectPlural(item);
     } else if (item.isMatching && item.isMatching == 'some') {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "In Panry: " + "New");
+      text = "In Panry: " + "New";
     } else if (item.isMatching && item.isMatching == 'no') {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), " ", "In Panry: " + "New");
+      text = "In Panry: " + "New";
     } else if (!item.isMatching) {
       if (isMetered) {
-        amount = item.amount / isMetered;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "In Panry: " + item.amount + " " + item.amountMeasure);
+        text = "In Panry: " + item.amount;
+        measure = this.measureCorrectPlural(item);
       } else {
-        amount = item.amount;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "In Panry: " + item.amount);
+        text = "In Panry: " + item.amount;
+        measure = this.measureCorrectPlural(item);
       }
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, text, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "w3-margin-left"
+    }, measure));
+  }
+
+  renderUserInputWarning(item) {
+    if (item.isMatching && item.isMatching == 'some') {
+      return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+        className: "w3-xxlarge w3-right fa-solid fa-triangle-exclamation"
+      });
     }
   }
 
@@ -14622,38 +14486,26 @@ class IngredientList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispLis
       perfect: 'in pantry',
       some: ' choose one'
     };
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-row",
-      onClick: () => this.checkItems(item.name),
-      key: item.name
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-column"
-    }, this.renderNameFormat(item)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-column w3-right-align"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: (item.isMatching ? type[item.isMatching] : type['some']) + " w3-large "
-    }), item.isMatching ? label[item.isMatching] : label['some']));
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+      className: "w3-card w3-row w3-margin-bottom",
+      key: item.name,
+      onClick: () => this.props.optionCallback(item)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-column w3-margin-bottom"
+    }, item.dispAmount, " ", this.renderAmountMeasure(item), " ", item.name, this.renderUserInputWarning(item), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), this.renderInPantry(item)));
   }
 
   renderList(name) {
     let list = [];
 
     if (this.props.items.length == 0) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
         className: "w3-yellow"
-      }, "Oops, put 'ingredients' above your list of ingredients. This is required.");
+      }, "oh No! Ingredients missing?");
     }
 
     for (const item of this.props.items) {
-      if (item["isMatching"] == 'some') {
-        list.push(this.renderItem(item));
-
-        for (const suggest of item['pantry']) {
-          list.push(this.renderItem(suggest));
-        }
-      } else {
-        list.push(this.renderItem(item));
-      }
+      list.push(this.renderItem(item));
     }
 
     return list;
@@ -14751,20 +14603,29 @@ class IngredientList extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispLis
 
 } // TODO: https://www.npmjs.com/package/react-avatar-editor
 
-class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class RecipeForm extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
+      modalItem: false,
+      modalVisable: false,
+      modalChoice: false,
+      modalConversion: 1,
+      modalNameSelect: 'Choose One',
+      modalNameSelectBlank: false,
+      modalConvertionMeasure: 'whole item(s)',
       recipeField: '',
       ocrisLoading: false,
       isLoading: false,
       DeleteIsLoading: false,
       isDeleted: false,
       isDuplicate: false,
+      modalUndo: [],
       recipeName: '',
       newRecipeName: '',
       IngredientList: [],
-      instructions: []
+      instructions: [],
+      example: "Bacon and egg tacos\n" + "\n" + "ingredients\n" + "1 slice bacon\n" + "3 eggs\n" + "2 tortillas\n" + "\n" + "directions\n" + "First scrabble the eggs, cook and season\n" + "second warm up the tortillas on a pan\n" + "third plate tortillas fill with 1 bacon slice and half the egg\n"
     };
     this.myIsMounted = false; // These are just handlers being registered with the running process.
 
@@ -14796,6 +14657,283 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
     });
   }
 
+  ingredientDeepCopy(ing) {
+    let savePoint = Object();
+    savePoint.index = ing.index;
+    savePoint.alias = ing.alias;
+    savePoint.name = ing.name;
+    savePoint.isMatching = ing.isMatching;
+    savePoint.id = ing.id;
+    savePoint.pantry = ing.pantry;
+    return savePoint;
+  }
+
+  handleModalClose() {
+    this.setState({
+      modalVisable: false
+    });
+  }
+
+  handleModalUndo() {
+    let item = this.state.modalItem;
+    let newList = this.state.IngredientList;
+    let newUndo = this.state.modalUndo;
+    this.state.IngredientList.forEach((element, index) => {
+      if (element.name == item.name) {
+        this.state.modalUndo.forEach((savePoint, pos) => {
+          if (savePoint.index == index) {
+            element = this.ingredientDeepCopy(savePoint); // the index is savePoint meta data
+            // its really not a property of an ingredient
+
+            delete element.index;
+            newUndo.splice(pos, 1);
+          }
+        });
+        console.log(element);
+        newList[index] = element;
+      }
+    });
+    this.setState({
+      IngredientList: newList,
+      modalUndo: newUndo,
+      modalChoiceType: false,
+      modalNameSelect: 'Choose One',
+      modalVisable: false
+    });
+  }
+
+  handleModalSave() {
+    let newList = this.state.IngredientList;
+    let item = this.state.modalItem;
+    let history = this.state.modalUndo;
+
+    if (this.state.modalNameSelect != 'Choose One') {
+      newList.forEach((ingredient, index) => {
+        if (ingredient.name == item.name) {
+          let savePoint = this.ingredientDeepCopy(ingredient);
+          savePoint.index = index;
+          history.push(savePoint);
+          ingredient.alias = this.state.modalNameSelect;
+          ingredient.conversion = this.state.modalConversion;
+          ingredient.conversionMeasure = this.state.modalConvertionMeasure;
+          ingredient.isMatching = 'perfect';
+          console.log('this is the saved item');
+          console.log(ingredient);
+          newList[index] = ingredient;
+        }
+      });
+      this.setState({
+        modalNameSelectBlank: false,
+        IngredientList: newList,
+        modalVisable: false
+      });
+    } else {
+      this.setState({
+        modalNameSelectBlank: true
+      });
+    }
+  }
+
+  handleModalNameSelect(e) {
+    this.setState({
+      modalNameSelect: e.target.value
+    });
+  }
+
+  handleModalMeasureSelect(e) {
+    this.setState({
+      modalConvertionMeasure: e.target.value
+    });
+  }
+
+  renderModalMeasures() {
+    let list = Object.keys(_utils_js__WEBPACK_IMPORTED_MODULE_2__.CONVERT__);
+    list.push('whole item(s)');
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+      value: this.state.modalConvertionMeasure,
+      className: "w3-input w3-white",
+      onChange: e => this.handleModalMeasureSelect(e)
+    }, list.map(x => react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+      key: x
+    }, x)));
+  }
+
+  renderModalReplacements() {
+    const visable = {
+      name: 'none',
+      uses: 'none',
+      0: 'block',
+      false: 'block',
+      add: 'block',
+      replace: 'block'
+    };
+    let item = this.state.modalItem;
+    let list = [];
+
+    for (const rep in item.pantry) {
+      // console.log(item.pantry[rep])
+      list.push(react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+        key: item.pantry[rep].name,
+        className: this.renderModalClasses(item.pantry[rep].name),
+        onClick: () => this.handleModalChoiceReplace(item.pantry[rep])
+      }, "Replace it with \"", item.pantry[rep].name, "\" from my pantry"));
+    }
+
+    return list;
+  }
+
+  renderModalClasses(selectionKey) {
+    return "w3-input w3-hover-gray " + (this.state.modalChoiceType == selectionKey ? "w3-yellow" : "");
+  }
+
+  handleModalChoiceReplace(replacement) {
+    // This just sets the type of thing thats happening.
+    let history = this.state.modalUndo;
+    let newList = this.state.IngredientList;
+    newList.forEach((ingredient, index) => {
+      if (ingredient.name == this.state.modalItem.name) {
+        let savePoint = this.ingredientDeepCopy(ingredient);
+        savePoint.index = index;
+        history.push(savePoint);
+        ingredient.name = replacement.name;
+        ingredient.id = replacement.id;
+        ingredient.isMatching = 'perfect';
+        newList[index] = ingredient;
+      }
+    });
+    this.setState({
+      modalChoiceType: 'replace',
+      IngredientList: newList,
+      modalUndo: history,
+      modalVisable: false,
+      modalNameSelect: 'Choose One',
+      modalConversion: 1,
+      modalConvertionMeasure: 'whole item(s)',
+      modalNameSelectBlank: false
+    });
+  }
+
+  handleModalConversion(e) {
+    this.setState({
+      modalConversion: e.target.value
+    });
+  }
+
+  handleModalChoiceAdd() {
+    // This just sets the type of thing thats happening.
+    let item = this.state.modalItem;
+    let newList = this.state.IngredientList;
+    let history = this.state.modalUndo;
+    newList.forEach((ingredient, index) => {
+      if (ingredient.name == item.name) {
+        let savePoint = this.ingredientDeepCopy(ingredient);
+        savePoint.index = index;
+        history.push(savePoint);
+        ingredient.isMatching = 'no';
+        newList[index] = ingredient;
+      }
+    });
+    this.setState({
+      IngredientList: newList,
+      modalVisable: false,
+      modalUndo: history,
+      modalNameSelect: 'Choose One',
+      modalConversion: 1,
+      modalConvertionMeasure: 'whole item(s)',
+      modalNameSelectBlank: false
+    });
+  }
+
+  handleModalChoiceUses() {
+    this.setState({
+      modalChoiceType: 'uses',
+      modalNameSelect: 'Choose One',
+      modalConversion: 1,
+      modalConvertionMeasure: 'whole item(s)',
+      modalNameSelectBlank: false
+    });
+  }
+
+  renderModalConversion() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      type: "number",
+      size: "3",
+      value: this.state.modalConversion,
+      onChange: e => this.handleModalConversion(e)
+    });
+  }
+
+  renderModalDropdown(item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+      className: 'w3-input ' + (this.state.modalNameSelectBlank ? 'w3-border-red w3-bottombar ' + 'w3-topbar w3-rightbar w3-leftbar' : ''),
+      value: this.state.modalNameSelect,
+      onChange: e => this.handleModalNameSelect(e)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+      key: "Choose One"
+    }, "Choose One"), this.state.allIngs.map(option => react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+      key: option.name
+    }, option.name)));
+  }
+
+  renderModalOptions() {
+    let item = this.state.modalItem;
+    const visable = {
+      name: true,
+      uses: true
+    };
+
+    if (item) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
+        className: "w3-margin w3-border-bottom w3-border-white"
+      }, "For ", item.name, "..."), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+        className: "w3-ul"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+        className: this.renderModalClasses('add'),
+        key: "add",
+        onClick: () => this.handleModalChoiceAdd()
+      }, "Add it to my pantry."), this.renderModalReplacements(item), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+        className: this.renderModalClasses('uses'),
+        key: "uses",
+        onClick: () => this.handleModalChoiceUses()
+      }, "Use another item in my pantry")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "w3-card w3-content ",
+        style: {
+          display: visable[this.state.modalChoiceType] ? 'block' : 'none'
+        }
+      }, "Which item in the pantry?", this.renderModalDropdown(), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "w3-border-left w3-content",
+        style: {
+          display: this.state.modalChoiceType == 'uses' ? 'block' : 'none'
+        }
+      }, "Consume at this rate", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), this.renderModalConversion(), "x ", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "in what measure?", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), this.renderModalMeasures())), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "w3-button",
+        onClick: () => this.handleModalSave()
+      }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "w3-button w3-margin-left",
+        onClick: () => this.handleModalUndo()
+      }, "Undo"));
+    }
+  }
+
+  renderModalwindow() {
+    if (this.state.modalVisable) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        id: "id01",
+        style: this.state.modalVisable ? {
+          display: 'block'
+        } : {
+          display: 'none'
+        },
+        className: "w3-modal"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "w3-modal-content w3-card w3-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+        onClick: () => this.handleModalClose(),
+        className: "w3-button w3-display-topright"
+      }, "\xD7"), this.renderModalOptions())));
+    }
+  }
+
   componentDidMount() {
     this.myIsMounted = true;
 
@@ -14806,6 +14944,10 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 
   componentWillUnmount() {
     this.myIsMounted = false;
+  }
+
+  checkCompatVideo() {
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   }
 
   handleFileUpload(event) {
@@ -14870,7 +15012,7 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
           callBack: callBack,
           history: this.props.history
         };
-        let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+        let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
         req.props = settings;
         req.withAuth();
 
@@ -14891,8 +15033,11 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
     }
   }
 
-  checkCompatVideo() {
-    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  handleListPress(item) {
+    this.setState({
+      modalItem: item,
+      modalVisable: true
+    });
   }
 
   handleSubmit(event) {
@@ -14916,14 +15061,15 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
             newRecipeName: recipe['name'],
             isDuplicate: recipe['isDuplicate'],
             IngredientList: recipe['ingredients'],
-            instructions: recipe['instructions']
+            instructions: recipe['instructions'],
+            allIngs: recipe['allIngs']
           });
           this.refs.name.scrollIntoView();
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
         if (cat == 4) {
           this.setState({
-            newRecipeName: "Error:",
+            newRecipeName: xhr.responseText,
             isLoading: false
           });
           console.log(xhr.responseText);
@@ -14949,7 +15095,7 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
       history: this.props.history //console.log(settings)
 
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -14998,7 +15144,7 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
         "content-type": "application/json"
       }
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -15009,7 +15155,107 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
     }
   }
 
-  renderThisRecipe() {
+  renderOcrButton() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, this.state.ocrisLoading && react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+      className: "w3-bar",
+      htmlFor: "OCR",
+      "aria-label": " processing image upload"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-bar-item w3-button w3-xlarge fa fas fa-print fa-spin"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "font-override w3-large"
+    }, " processing image"))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      type: "file",
+      id: "OCR",
+      style: {
+        display: "none"
+      },
+      name: "uploadedfile",
+      accept: "image/*",
+      capture: true
+    })), !this.state.ocrisLoading && react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+      className: "w3-bar",
+      htmlFor: "OCR",
+      "aria-label": " use text recognition on a image"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-bar-item w3-button w3-xlarge fas fa-print"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "font-override w3-large"
+    }, " read image"))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      type: "file",
+      id: "OCR",
+      style: {
+        display: "none"
+      },
+      name: "uploadedfile",
+      accept: "image/*",
+      capture: true,
+      onChange: event => this.handleImageUpload(event.target.files)
+    })));
+  }
+
+  renderFileUploadButton() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+      className: "w3-bar",
+      htmlFor: "upload",
+      "aria-label": "file upload"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-bar-item w3-button w3-xlarge fas fa-file-word"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "font-override w3-large"
+    }, " read text file"))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+      type: "file",
+      style: {
+        display: "none"
+      },
+      id: "upload",
+      onChange: event => this.handleFileUpload(event)
+    }));
+  }
+
+  renderDeleteButton() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, this.isAdd && react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-bar",
+      "aria-label": "delete this recipe",
+      onClick: event => this.handleDelete(event)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-bar-item w3-button w3-xlarge fas fa-trash-alt"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "font-override w3-large"
+    }, " Delete Recipe"))), this.state.isDeleted && react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Redirect, {
+      to: "/recipes"
+    })));
+  }
+
+  renderFoodDotComUrl() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-bar",
+      "aria-label": "read url pasted in the textarea",
+      onClick: () => this.renderThisRecipe(this.state.recipeField),
+      alt: " Paste a url into the recipe field then hit this button."
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-bar-item w3-button w3-xlarge fa-solid fa-link"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "font-override w3-large"
+    }, " food.com address"))));
+  }
+
+  renderExampleButton() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-bar",
+      "aria-label": "insert example recipe",
+      onClick: event => this.setState({
+        recipeField: this.state.example
+      }),
+      alt: "This button adds example to the Recipe field of the form."
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
+      className: "w3-left w3-bar-item w3-button w3-xlarge fa-solid fa-link"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "font-override w3-large"
+    }, " Insert Example")))));
+  }
+
+  renderThisRecipe(target_url = false) {
     //console.log(this.props.location)
     const {
       pathname
@@ -15017,20 +15263,21 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 
     let recipeName = '';
     let id = '-1';
-    let url = ''; //console.log(pathname)
+    let url = '';
+    let method = 'GET'; //console.log(pathname)
 
     if (pathname.match(/^\/recipes\/edit\/.*/)) {
       recipeName = pathname.replace('/recipes/edit/', '');
       url = '/v1/recipes/' + recipeName;
-    }
+    } else if (pathname.match(/^\/public\/recipes\/.*/)) {
+      recipeName = pathname.replace(/\/public\/recipes\//, '').replace(/\/.*$/, ''); // console.log(recipeName)
 
-    if (pathname.match(/^\/public\/recipes\/.*/)) {
-      recipeName = pathname.replace(/\/public\/recipes\//, '').replace(/\/.*$/, '');
-      console.log(recipeName);
-      id = pathname.replace(/\/public\/recipes\/.*\//, '');
-      console.log(id);
+      id = pathname.replace(/\/public\/recipes\/.*\//, ''); // console.log(id)
+
       url = '/v1/public/recipes/' + recipeName + '/' + id;
-      console.log(url);
+    } else if (target_url) {
+      url = '/v1/recipes/scrape';
+      method = 'POST';
     } //console.log(recipeName)
 
 
@@ -15046,17 +15293,22 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
         let ingredients = JSON.parse(xhr.responseText)['ingredients'];
 
         let dedupDisplay = x => {
-          if (x['amountMeasure'] == x['name']) {
-            return x['amount'] + ' ' + x['amountMeasure'];
+          // disable dedup for scraped data
+          if (target_url) {
+            return x;
           } else {
-            return x['amount'] + ' ' + x['amountMeasure'] + ' ' + x['name'];
+            // dedup stuff
+            if (x['amountMeasure'] == x['name']) {
+              return x['amount'] + ' ' + x['amountMeasure'];
+            } else {
+              return x['amount'] + ' ' + x['amountMeasure'] + ' ' + x['name'];
+            }
           }
         };
 
         let ingredientsDisplay = ingredients.map(x => dedupDisplay(x));
         let instructions = JSON.parse(xhr.responseText)['instructions'];
-        let recipeText = recipe.concat('\n', '\n', 'Ingredients', '\n', ingredientsDisplay.join('\n'), '\n', '\n', 'Directions', '\n', instructions);
-        instructions = instructions.split('\n');
+        let recipeText = recipe.concat('\n', '\n', 'Ingredients', '\n', ingredientsDisplay.join('\n'), '\n', '\n', 'Directions', '\n', instructions.join('\n'));
 
         if (this.myIsMounted) {
           this.setState({
@@ -15075,11 +15327,17 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 
     const settings = {
       url: url,
-      method: 'GET',
+      method: method,
+      headers: {
+        "content-type": "application/json"
+      },
+      data: JSON.stringify({
+        "target_url": target_url
+      }),
       callBack: callBack,
       history: this.props.history
     };
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
     req.props = settings;
     req.withAuth();
 
@@ -15090,134 +15348,67 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
     }
   }
 
-  renderOcrButton() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, this.state.ocrisLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: "w3-bar",
-      htmlFor: "OCR",
-      "aria-label": "use picture"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-left w3-bar-item w3-button w3-hover-yellow w3-xlarge fa fas fa-print fa-spin",
-      "aria-hidden": "true"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      type: "file",
-      id: "OCR",
-      style: {
-        display: "none"
-      },
-      name: "uploadedfile",
-      accept: "image/*",
-      capture: true
-    })), !this.state.ocrisLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: "w3-bar",
-      htmlFor: "OCR",
-      "aria-label": "use picture"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-print",
-      "aria-hidden": "true"
-    }, " Optical Text Recognition")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      type: "file",
-      id: "OCR",
-      style: {
-        display: "none"
-      },
-      name: "uploadedfile",
-      accept: "image/*",
-      capture: true,
-      onChange: event => this.handleImageUpload(event.target.files)
-    })));
-  }
-
-  renderFileUploadButton() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: "w3-bar",
-      htmlFor: "upload",
-      "aria-label": "file upload"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-file-word",
-      "aria-hidden": "true"
-    }, " Upload a File")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-      type: "file",
-      style: {
-        display: "none"
-      },
-      id: "upload",
-      onChange: event => this.handleFileUpload(event)
-    }));
-  }
-
-  renderDeleteButton() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, this.props.isEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-      className: "w3-bar",
-      htmlFor: "delete",
-      "aria-label": "delete this recipe"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      className: "w3-left w3-bar-item w3-button w3-xlarge w3-hover-yellow fas fa-trash-alt",
-      "aria-hidden": "true"
-    }, " Delete Recipe")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      style: {
-        display: "none"
-      },
-      id: "delete",
-      onClick: event => this.handleDelete(event)
-    }), this.state.isDeleted && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-      to: "/recipes"
-    })) : '');
-  }
-
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: (this.props.isEdit ? 'Edit' : 'Add') + " Recipe"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content w3-row-padding"
-    }, this.state.recipeName ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    }, this.state.recipeName ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
       className: "w3-card"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, this.state.recipeName)) : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, this.state.recipeName)) : '', react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-row"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-dropdown-hover w3-third w3-margin-bottom"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
       className: "w3-button w3-bar"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-left w3-rest w3-xlarge fas fa-carrot"
-    }, "Options")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "font-override"
+    }), " Options")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-bar-block w3-dropdown-content"
-    }, this.renderOcrButton(), this.renderFileUploadButton(), this.renderDeleteButton()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    }, this.renderFileUploadButton(), this.renderOcrButton(), this.renderDeleteButton(), this.renderFoodDotComUrl(), this.renderExampleButton()))), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
       method: "POST",
       className: "w3-card " + "w3-round-large" + "w3-form ",
       onSubmit: event => this.handleSubmit(event)
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
+      htmlFor: "recipeField",
+      className: "w3-large"
+    }, "Recipe: "), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("textarea", {
+      id: "recipeField",
       rows: "15",
       className: "w3-input w3-margin-16",
       onChange: e => this.handleRecipeChange(e),
-      placeholder: "Bacon and egg tacos\n" + "\n" + "ingredients\n" + "1 slice bacon\n" + "3 eggs\n" + "2 tortillas\n" + "\n" + "directions\n" + "First scrabble the eggs, cook and season\n" + "second warm up the tortillas on a pan\n" + "third plate tortillas fill with 1 bacon slice and half the egg\n",
       value: this.state.recipeField
-    })), this.state.isLoading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })), this.state.isLoading ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "review"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fa fa-cog fa-spin fa-fw fa-3x"
-    })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    })) : react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "submit",
       id: "review",
       value: "Review Recipe",
-      className: "w3-btn w3-indigo w3-input " + "w3-block w3-hover-yellow"
-    })), this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "call-to-action w3-button " + "w3-block "
+    })), this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       ref: "name"
-    }, "Scroll up to edit, down to Add", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-card w3-xlarge"
-    }, this.state.newRecipeName)) : '', this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Matching Ingredients") : '', this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(IngredientList, {
+    }, this.state.newRecipeName)) : '', react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, " Smart Ingredient Helper") : '', this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement(IngredientList, {
       items: this.state.IngredientList,
+      allIngs: this.state.allIngs,
+      optionCallback: e => this.handleListPress(e),
       ingredientUpdate: list => this.ingredientUpdate(list)
-    }) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }) : "", this.renderModalwindow(), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-padding"
-    }), this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Directions") : "", this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InstructionsList, {
+    }), this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Directions") : "", this.state.newRecipeName ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement(InstructionsList, {
       items: this.state.instructions,
       instructionsUpdate: list => this.instructionsUpdate(list)
-    }) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }) : "", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-padding"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ActionRecipe, _extends({}, this.props, {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ActionRecipe, _extends({}, this.props, {
       name: this.state.recipeName,
       newName: this.state.newRecipeName,
       isEdit: this.props.isEdit,
@@ -15234,35 +15425,35 @@ class RecipeForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 /*!*******************************!*\
   !*** ./static/recipesHelp.js ***!
   \*******************************/
-/*! exports provided: RecipesHelp */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipesHelp", function() { return RecipesHelp; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RecipesHelp": () => (/* binding */ RecipesHelp)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
 
 
 
-class RecipesHelp extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class RecipesHelp extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Add Recipe"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content "
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-white w3-left-align w3-card"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Recipe Definition"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "title"), "Any text can be here, it's ignored", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Any text can be here, it's ignored", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Any text can be here, it's ignored", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "ingredients"), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "directions"), "step 1", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "step 2", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "step 3", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Explination"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "1. The top most line is always the title of the recipe.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "2. The next section starts with the word \"ingredients\"", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "3. This section has one ingredient per line. 4. The next section starts with one of \"make it\" or \"instructions\" or \"directions\" on it.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "5. This section can have any plain text in it, it's broken up per line"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, " Numbers "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " Numbers must be of the following forms to be recognized"), "1 2/3", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1/2", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "1.2", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " Lastly when parentheses are seen something special happens "), "Tomato Juice 1 cup (2 cans)", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, " The part with the parentheses is stripped out. One day I may start using this information. But as of right now it's ignored. so the following is invalid: "), "Tomato Juice (2 cans)", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)))));
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Recipe Definition"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "title"), "Any text can be here, it's ignored", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "Any text can be here, it's ignored", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "Any text can be here, it's ignored", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "ingredients"), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "ingredient", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "directions"), "step 1", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "step 2", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "step 3", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Explination"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "1. The top most line is always the title of the recipe.", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "2. The next section starts with the word \"ingredients\"", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "3. This section has one ingredient per line. 4. The next section starts with one of \"make it\" or \"instructions\" or \"directions\" on it.", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "5. This section can have any plain text in it, it's broken up per line"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, " Numbers "), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, " Numbers must be of the following forms to be recognized"), "1 2/3", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "1/2", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "1", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "1.2", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, " Lastly when parentheses are seen something special happens "), "Tomato Juice 1 cup (2 cans)", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, " The part with the parentheses is stripped out. One day I may start using this information. But as of right now it's ignored. so the following is invalid: "), "Tomato Juice (2 cans)", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null)))));
   }
 
 }
@@ -15273,46 +15464,47 @@ class RecipesHelp extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
 /*!*******************************!*\
   !*** ./static/recipesList.js ***!
   \*******************************/
-/*! exports provided: RecipesList */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipesList", function() { return RecipesList; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RecipesList": () => (/* binding */ RecipesList)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-const color = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
+const color = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.W3Color();
 
-class Recipes extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
+class Recipes extends _utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList {
   renderItem(item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       key: item.name,
       to: '/recipes/view/' + item.name
-    }, item.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    }, item.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
       className: "cover",
       src: item.imagePath,
       width: "100%"
-    }) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item.name) ? "w3-border-yellow w3-rightbar" : "")
-    }, item.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }) : "", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+      className: "w3-card w3-left-align " + (this.state.selectedItems.has(item.name) ? " w3-rightbar" : "")
+    }, item.name, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       className: "w3-right w3-badge " + color.random()
-    }, item.value), item.keepStocked ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    }, item.value), item.keepStocked ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
       "aria-label": "use picture"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "w3-large w3-margin-left fas fa-cart-arrow-down"
     })) : ''));
   }
 
 }
 
-class RecipesList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class RecipesList extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -15361,23 +15553,23 @@ class RecipesList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
     this.setState({
       isLoading: true
     });
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings);
     req.withAuth();
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Recipes"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       to: "/recipes/add"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "w3-indigo w3-hover-yellow w3-btn w3-block w3-card"
-    }, "Add Recipe")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Recipes, {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+      className: "call-to-action w3-button w3-block w3-card"
+    }, "Add Recipe")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Recipes, {
       items: this.state.recipes
     }))));
   }
@@ -15390,23 +15582,24 @@ class RecipesList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
 /*!***************************!*\
   !*** ./static/recover.js ***!
   \***************************/
-/*! exports provided: RecoverForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecoverForm", function() { return RecoverForm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RecoverForm": () => (/* binding */ RecoverForm)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-const c = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
-class RecoverForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+const c = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.W3Color();
+class RecoverForm extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -15442,7 +15635,7 @@ class RecoverForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
   }
 
   renderUsername() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "text",
       className: "w3-input w3-round w3-padding-16 " + (this.state.authError ? "w3-rightbar w3-border-red" : ""),
       value: this.state.username,
@@ -15452,7 +15645,7 @@ class RecoverForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
   }
 
   renderEmail() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "email",
       className: "w3-input w3-round w3-padding-16 " + (this.state.authError ? "w3-rightbar w3-border-red" : ""),
       value: this.state.eMail,
@@ -15515,43 +15708,43 @@ class RecoverForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Recover Password"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
       method: "POST",
       className: "w3-card w3-container w3-padding-32" + "w3-form ",
       onSubmit: event => this.handleSubmit(event)
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.authError ? "Failed to Authenticate" : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, this.state.authError ? "Failed to Authenticate" : ""), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-container w3-margin-top"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "username"
-    }, "User Name"), this.renderUsername(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, "User Name"), this.renderUsername(), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "email"
-    }, "E-Mail"), this.renderEmail()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-bar w3-padding-16"
-    }, this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, "E-Mail"), this.renderEmail()), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "w3-padding-16"
+    }, this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "loginBtn"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fa fa-cog fa-spin fa-fw fa-3x"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "submit",
       style: {
         display: "none"
       },
       id: "loginBtn",
       value: "Log in",
-      className: "w3-button w3-hover-yellow w3-red"
-    })), !this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      className: "call-to-action w3-button w3-red"
+    })), !this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "submit",
       value: "Send Recovery E-mail",
-      className: "w3-button w3-hover-yellow w3-Indigo"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      className: "w3-button w3-hover-yellow",
+      className: "call-to-action w3-button"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+      className: "call-to-action w3-button",
       to: "/register"
     }, "Sign up here!")))))));
   }
@@ -15564,23 +15757,23 @@ class RecoverForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component
 /*!****************************!*\
   !*** ./static/register.js ***!
   \****************************/
-/*! exports provided: RegisterForm */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RegisterForm", function() { return RegisterForm; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RegisterForm": () => (/* binding */ RegisterForm)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-const color = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["W3Color"]();
-class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+const color = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.W3Color();
+class RegisterForm extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -15692,20 +15885,20 @@ class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Sign up"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
       method: "POST",
       className: "w3-card " + "w3-round " + "w3-form " + "w3-padding",
       onSubmit: event => this.handleSubmit(event)
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "username"
-    }, "User Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, "User Name"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "text",
       className: "w3-input w3-round w3-padding-16",
       value: this.state.username,
@@ -15713,9 +15906,9 @@ class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       size: 254,
       name: "username",
       onChange: event => this.handleChangeUser(event)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "password"
-    }, "Password"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, "Password"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "password",
       className: "w3-input w3-round w3-padding-16",
       maxLength: 254,
@@ -15723,9 +15916,9 @@ class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       value: this.state.password,
       name: "password",
       onChange: event => this.handleChangePass(event)
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "password2"
-    }, "Verify Password"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, "Verify Password"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "password",
       className: "w3-input w3-round w3-padding-16",
       maxLength: 254,
@@ -15733,9 +15926,9 @@ class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       value: this.state.password2,
       name: "password2",
       onChange: event => this.handleChangePass2(event)
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "email"
-    }, "E-Mail"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, "E-Mail"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "email",
       className: "w3-input w3-round w3-padding-16",
       value: this.state.email,
@@ -15743,13 +15936,13 @@ class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       size: 254,
       name: "email",
       onChange: event => this.handleChangeEmail(event)
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-container w3-center w3-padding-16"
-    }, this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "loginBtn"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fa fa-cog fa-spin fa-fw fa-3x"
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "submit",
       style: {
         display: "none"
@@ -15757,7 +15950,7 @@ class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       id: "loginBtn",
       value: "Register",
       className: "w3-button w3-hover-yellow w3-red"
-    })), !this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    })), !this.state.isLoading && react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "submit",
       value: "Register",
       className: "w3-button w3-hover-yellow w3-Indigo"
@@ -15772,23 +15965,23 @@ class RegisterForm extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 /*!**************************!*\
   !*** ./static/search.js ***!
   \**************************/
-/*! exports provided: SearchList */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchList", function() { return SearchList; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SearchList": () => (/* binding */ SearchList)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
 
-class SearchResults extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"] {
+class SearchResults extends _utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList {
   constructor(props) {
     super(props);
     this.state = {
@@ -15844,7 +16037,7 @@ class SearchResults extends _utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList
 
 }
 
-class SearchList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class SearchList extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     const {
@@ -15947,7 +16140,7 @@ class SearchList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
     this.setState({
       isLoading: true
     });
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings);
     req.withAuth();
   }
 
@@ -15970,13 +16163,13 @@ class SearchList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
   }
 
   renderCatagory() {
-    let options = [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    let options = [react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
       key: "bags",
       defaultValue: true
     }, "Choose an option")];
 
     for (const cat in this.state.dispCats) {
-      options.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      options.push(react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
         key: cat,
         value: cat
       }, cat));
@@ -15987,13 +16180,13 @@ class SearchList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 
   renderOrderBy() {
     //console.log(this.state.dispOrders)
-    let orders = [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    let orders = [react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
       key: "button",
       defaultValue: true
     }, "Choose an option")];
 
     for (const orderType in this.state.dispOrderType) {
-      orders.push(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      orders.push(react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
         key: this.state.dispOrderType[orderType],
         value: this.state.dispOrderType[orderType]
       }, this.state.dispOrderType[orderType]));
@@ -16011,40 +16204,40 @@ class SearchList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
   renderOptions() {}
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Search"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
       method: "POST",
       className: "w3-card " + "w3-round " + "w3-form " + "w3-padding",
       onSubmit: event => event.preventDefault()
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "catagory"
-    }, "Catagory"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    }, "Catagory"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
       id: "catagory",
       className: "w3-select w3-round w3-padding-16",
       value: this.state.catagory,
       onChange: event => this.handleChangeCatagory(event)
-    }, this.renderCatagory())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, this.renderCatagory())), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "order"
-    }, "Order By"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    }, "Order By"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
       id: "order",
       className: "w3-select w3-round w3-padding-16",
       value: this.state.orderBy,
       onChange: event => this.handleChangeOrderBy(event)
-    }, this.renderOrderBy())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, this.renderOrderBy())), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       htmlFor: "searchBar"
-    }, "Filter"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, "Filter"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       className: "w3-select w3-round w3-padding-16",
       id: "searchBar",
       type: "search",
       value: this.state.search,
       onChange: event => this.filter(event)
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SearchResults, {
+    })), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(SearchResults, {
       items: this.state.optionList,
       search: this.state.search,
       isLoading: this.state.isLoading
@@ -16059,22 +16252,23 @@ class SearchList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
 /*!********************************!*\
   !*** ./static/shoppingList.js ***!
   \********************************/
-/*! exports provided: ShoppingList */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShoppingList", function() { return ShoppingList; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ShoppingList": () => (/* binding */ ShoppingList)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
-/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header.js */ "./static/header.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils.js */ "./static/utils.js");
 
 
 
 
-class ShoppingList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class ShoppingList extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -16137,7 +16331,7 @@ class ShoppingList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
           callBack: callBack,
           history: this.props.history
         };
-        let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"]();
+        let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request();
         req.props = settings;
         req.withAuth();
 
@@ -16181,30 +16375,30 @@ class ShoppingList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
     this.setState({
       isLoading: true
     });
-    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_3__["Request"](settings);
+    let req = new _utils_js__WEBPACK_IMPORTED_MODULE_2__.Request(settings);
     req.withAuth();
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_header_js__WEBPACK_IMPORTED_MODULE_2__["Header"], {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_header_js__WEBPACK_IMPORTED_MODULE_1__.Header, {
       history: this.props.history,
       inner: "Shopping"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-margin w3-row-padding"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-content"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
       to: "/recipes"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "w3-xlarge w3-hover-yellow w3-button w3-block w3-card"
-    }, "Recipe List")), !this.state.barcode ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    }, "Recipe List")), !this.state.barcode ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-xlarge w3-hover-yellow w3-button w3-block w3-card",
       htmlFor: "barcode",
       "aria-label": "scan in barcode id"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fas fa-barcode " + (this.state.barcodeIsLoading ? "fa-spin" : ""),
       "aria-hidden": "true"
-    }, " Scan Barcode")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, " Scan Barcode")), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
       type: "file",
       id: "barcode",
       style: {
@@ -16214,23 +16408,23 @@ class ShoppingList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       accept: "image/*",
       capture: true,
       onChange: event => this.scanBarcode(event.target.files)
-    })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    })) : react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
       className: "w3-xlarge w3-orange w3-hover-yellow w3-btn w3-block w3-card",
       "aria-label": "scan in barcode id"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fas fa-barcode " + (this.state.barcodeIsLoading ? "fa-spin" : ""),
       "aria-hidden": "true"
-    })), this.state.recipes.length > 0 || this.state.ingredients.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Recipies"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"], {
+    })), this.state.recipes.length > 0 || this.state.ingredients.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Recipies"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList, {
       path: "/recipes/view",
       items: this.state.recipes
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Pantry Items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_utils_js__WEBPACK_IMPORTED_MODULE_3__["LinkDispList"], {
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Pantry Items"), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_utils_js__WEBPACK_IMPORTED_MODULE_2__.LinkDispList, {
       path: "/pantry",
       items: this.state.ingredients
-    })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    })) : react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
       className: "w3-card w3-content w3-xlarge"
-    }, "This list is filled as you run out of supplies for recipes marked ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "keep stocked"), ". ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    }, "This list is filled as you run out of supplies for recipes marked ", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, "keep stocked"), ". ", react__WEBPACK_IMPORTED_MODULE_0___default().createElement("i", {
       className: "fas fa-cart-plus"
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "You can mark individual ingredients to be kept stocked. It will show up here when that item is less then 25% full."))));
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null), "You can mark individual ingredients to be kept stocked. It will show up here when that item is less then 25% full."))));
   }
 
 }
@@ -16241,21 +16435,38 @@ class ShoppingList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 /*!*************************!*\
   !*** ./static/utils.js ***!
   \*************************/
-/*! exports provided: Request, W3Color, thumbnail, LinkDispList */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Request", function() { return Request; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "W3Color", function() { return W3Color; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "thumbnail", function() { return thumbnail; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LinkDispList", function() { return LinkDispList; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CONVERT__": () => (/* binding */ CONVERT__),
+/* harmony export */   "LinkDispList": () => (/* binding */ LinkDispList),
+/* harmony export */   "Request": () => (/* binding */ Request),
+/* harmony export */   "W3Color": () => (/* binding */ W3Color),
+/* harmony export */   "thumbnail": () => (/* binding */ thumbnail)
+/* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 
 
-class Request extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+const CONVERT__ = {
+  "pinch": 0.03,
+  "pinche": 0.03,
+  "teaspoon": 0.25,
+  "tbs": 0.5,
+  "tbsp": 0.5,
+  "tablespoon": 0.5,
+  "ounce": 1.0,
+  "cup": 8.0,
+  "pint": 16.0,
+  "pound": 16.0,
+  "quart": 128.0,
+  "liter": 256.0,
+  "gallon": 512.0
+};
+class Request extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   withAuth() {
     let r1 = new XMLHttpRequest();
     r1.open(this.props.method, this.props.url, true);
@@ -16328,14 +16539,14 @@ class W3Color {
 
 }
 function thumbnail(item) {
-  return item.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+  return item.imagePath ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     className: "cover",
     src: item.imagePath,
     height: "300px",
     width: "100%"
   }) : "";
 }
-class LinkDispList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+class LinkDispList extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
   constructor(props) {
     super(props);
     this.state = {
@@ -16345,12 +16556,18 @@ class LinkDispList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 
   renderItem(item) {
     let viewAmount = 0;
-    let color = 'w3-green';
+    let color = 'app-inactive';
+    let isActive = false;
 
     if (item.viewAmount > 1) {
       viewAmount = 1;
     } else {
       viewAmount = item.viewAmount;
+    }
+
+    if (viewAmount > 0) {
+      color = 'w3-green';
+      isActive = true;
     }
 
     if (viewAmount <= 0.5) {
@@ -16361,24 +16578,34 @@ class LinkDispList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
       color = 'w3-red';
     }
 
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      key: item.name,
-      to: item.hasContent ? item.path + item.name : ""
-    }, thumbnail(item), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: "w3-card w3-left-align " + (item.isLoading ? "w3-animate-fading " : "") + (this.state.selectedItems.has(item.name) ? "w3-border-yellow w3-rightbar" : "")
-    }, item.hasContent ? item.name : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "w3-orange w3-opacity w3-round-large",
-      style: {
-        height: "20px",
-        width: "100%"
-      }
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: color,
-      style: {
-        height: "4px",
-        width: 100 * item.viewAmount + "%"
-      }
-    })));
+    if (item.hasContent) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+        key: item.name,
+        to: item.path + encodeURIComponent(item.name)
+      }, thumbnail(item), react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+        className: "w3-card w3-left-align " + (item.isLoading ? "w3-animate-fading " : "") + (this.state.selectedItems.has(item.name) ? " w3-rightbar" : "")
+      }, item.name, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: color,
+        style: {
+          height: isActive ? "4px" : "6px",
+          width: 100 * item.viewAmount + "%"
+        },
+        "aria-label": item.viewDescription
+      })));
+    } else {
+      return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        key: "blank"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+        className: "w3-card w3-left-align " + (item.isLoading ? "w3-animate-fading " : "")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "w3-opacity w3-round-large",
+        style: {
+          height: "20px",
+          width: "100%"
+        },
+        "aria-label": "No Items"
+      })));
+    }
   }
 
   renderList() {
@@ -16392,7 +16619,7 @@ class LinkDispList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
   }
 
   render() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
       className: "w3-ul w3-border-yellow w3-round-xlarge"
     }, this.renderList());
   }
@@ -16401,5 +16628,252 @@ class LinkDispList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Componen
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!***********************!*\
+  !*** ./static/app.js ***!
+  \***********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _home_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home.js */ "./static/home.js");
+/* harmony import */ var _ingredientForm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ingredientForm.js */ "./static/ingredientForm.js");
+/* harmony import */ var _login_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login.js */ "./static/login.js");
+/* harmony import */ var _recover_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./recover.js */ "./static/recover.js");
+/* harmony import */ var _logout_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./logout.js */ "./static/logout.js");
+/* harmony import */ var _mealPlanForm_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./mealPlanForm.js */ "./static/mealPlanForm.js");
+/* harmony import */ var _mealPlanList_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./mealPlanList.js */ "./static/mealPlanList.js");
+/* harmony import */ var _pantryList_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pantryList.js */ "./static/pantryList.js");
+/* harmony import */ var _pwreset_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pwreset.js */ "./static/pwreset.js");
+/* harmony import */ var _emailVerify_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./emailVerify.js */ "./static/emailVerify.js");
+/* harmony import */ var _recipeDisplay_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./recipeDisplay.js */ "./static/recipeDisplay.js");
+/* harmony import */ var _recipeForm_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./recipeForm.js */ "./static/recipeForm.js");
+/* harmony import */ var _recipesHelp_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./recipesHelp.js */ "./static/recipesHelp.js");
+/* harmony import */ var _recipesList_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./recipesList.js */ "./static/recipesList.js");
+/* harmony import */ var _register_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./register.js */ "./static/register.js");
+/* harmony import */ var _search_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./search.js */ "./static/search.js");
+/* harmony import */ var _shoppingList_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./shoppingList.js */ "./static/shoppingList.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+ //all includes for each page alphabetical
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class App extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
+  render() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: ""
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Switch, null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/register",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_register_js__WEBPACK_IMPORTED_MODULE_16__.RegisterForm, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/login",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_login_js__WEBPACK_IMPORTED_MODULE_4__.LoginForm, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/recover",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_recover_js__WEBPACK_IMPORTED_MODULE_5__.RecoverForm, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/logout",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_logout_js__WEBPACK_IMPORTED_MODULE_6__.LogoutForm, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_home_js__WEBPACK_IMPORTED_MODULE_2__.Home, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/pantry",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pantryList_js__WEBPACK_IMPORTED_MODULE_9__.PantryList, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/search",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_search_js__WEBPACK_IMPORTED_MODULE_17__.SearchList, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/pantry/add",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ingredientForm_js__WEBPACK_IMPORTED_MODULE_3__.IngredientForm, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/pantry/edit/",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ingredientForm_js__WEBPACK_IMPORTED_MODULE_3__.IngredientForm, _extends({
+        isEdit: true
+      }, props))
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/public/recipes/",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_recipeForm_js__WEBPACK_IMPORTED_MODULE_13__.RecipeForm, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/verify",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_emailVerify_js__WEBPACK_IMPORTED_MODULE_11__.EmailValidate, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/verify/",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_emailVerify_js__WEBPACK_IMPORTED_MODULE_11__.EmailValidate, _extends({
+        isVerify: true
+      }, props))
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/pwreset",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pwreset_js__WEBPACK_IMPORTED_MODULE_10__.ResetForm, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/pwreset/",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pwreset_js__WEBPACK_IMPORTED_MODULE_10__.ResetForm, _extends({
+        isReset: true
+      }, props))
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/verify",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pwreset_js__WEBPACK_IMPORTED_MODULE_10__.ResetForm, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/shopping",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_shoppingList_js__WEBPACK_IMPORTED_MODULE_18__.ShoppingList, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/recipes",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_recipesList_js__WEBPACK_IMPORTED_MODULE_15__.RecipesList, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/mealplans",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mealPlanList_js__WEBPACK_IMPORTED_MODULE_8__.MealPlanList, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/mealplans/edit",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mealPlanForm_js__WEBPACK_IMPORTED_MODULE_7__.MealPlanForm, _extends({
+        isEdit: true
+      }, props))
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/recipes/add",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_recipeForm_js__WEBPACK_IMPORTED_MODULE_13__.RecipeForm, _extends({
+        isAdd: true
+      }, props))
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      exact: true,
+      path: "/recipes/help",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_recipesHelp_js__WEBPACK_IMPORTED_MODULE_14__.RecipesHelp, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/recipes/view/",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_recipeDisplay_js__WEBPACK_IMPORTED_MODULE_12__.RecipeDisplay, props)
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/recipes/edit/",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_recipeForm_js__WEBPACK_IMPORTED_MODULE_13__.RecipeForm, _extends({
+        isEdit: true
+      }, props))
+    }), react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Route, {
+      path: "/home",
+      render: props => react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_home_js__WEBPACK_IMPORTED_MODULE_2__.Home, props)
+    })));
+  }
+
+} // (<Redirect to="/login" />)
+// ========================================
+
+
+react_dom__WEBPACK_IMPORTED_MODULE_1___default().render(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.BrowserRouter, null, react__WEBPACK_IMPORTED_MODULE_0___default().createElement(App, null)), document.getElementById('root'));
+})();
+
+/******/ })()
+;
 //# sourceMappingURL=main.js.map

@@ -15,7 +15,7 @@ class Recipes extends LinkDispList {
                       "" }
                 <li className={"w3-card w3-left-align " +
                    (this.state.selectedItems.has(item.name) ?
-                   "w3-border-yellow w3-rightbar" :
+                   " w3-rightbar" :
                    "")}>
                         { item.name }
                       <span className={"w3-right w3-badge "+color.random()}>
@@ -85,7 +85,7 @@ export class RecipesList extends React.Component {
         <div className="w3-margin w3-row-padding">
           <div className="w3-content">
             <Link to="/recipes/add">
-              <button className="w3-indigo w3-hover-yellow w3-btn w3-block w3-card" >Add Recipe</button>
+              <button className="call-to-action w3-button w3-block w3-card" >Add Recipe</button>
             </Link>
             <br />
             <Recipes items={ this.state.recipes } />

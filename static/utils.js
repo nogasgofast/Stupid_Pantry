@@ -1,6 +1,23 @@
 import React from 'react';
 import { Link, Redirect } from "react-router-dom";
 
+
+export const CONVERT__ = {
+        "pinch": 0.03,
+        "pinche": 0.03,
+        "teaspoon": 0.25,
+        "tbs": 0.5,
+        "tbsp": 0.5,
+        "tablespoon": 0.5,
+        "ounce": 1.0,
+        "cup": 8.0,
+        "pint": 16.0,
+        "pound": 16.0,
+        "quart": 128.0,
+        "liter": 256.0,
+        "gallon": 512.0}
+
+
 export class Request extends React.Component {
     withAuth() {
         let r1 = new XMLHttpRequest()
@@ -75,33 +92,47 @@ export class LinkDispList extends React.Component {
 
     renderItem(item){
         let viewAmount = 0
-        let color = 'w3-green'
+        let color = 'app-inactive'
+        let isActive = false
         if (item.viewAmount > 1){
             viewAmount = 1}
         else {
             viewAmount = item.viewAmount}
+        if ( viewAmount > 0 ){
+           color = 'w3-green'
+           isActive = true
+        }
         if ( viewAmount <= 0.5 ){
             color = 'w3-yellow'}
         if ( viewAmount <= 0.25){
             color = 'w3-red'}
-        return <Link key={ item.name } to={
-            item.hasContent ? item.path + item.name : "" } >
-            { thumbnail(item) }
-            <li className={"w3-card w3-left-align " +
-                (item.isLoading ?
-                    "w3-animate-fading "
-                :
-                    "" ) +
-                (this.state.selectedItems.has(item.name) ?
-                    "w3-border-yellow w3-rightbar"
-                :
-                    "")}>
-                { item.hasContent ?  item.name : (
-                    <div className="w3-orange w3-opacity w3-round-large"
-                         style={{height: "20px", width: "100%"}} />) }
-                <div className={ color }
-                    style={{height:"4px",
-                    width: 100 * item.viewAmount + "%" }}></div></li></Link>}
+        if (item.hasContent) {
+          return <Link key={ item.name }
+                       to={item.path + encodeURIComponent(item.name)} >
+              { thumbnail(item) }
+              <li className={"w3-card w3-left-align " +
+                  (item.isLoading ?
+                      "w3-animate-fading "
+                  :
+                      "" ) +
+                  (this.state.selectedItems.has(item.name) ?
+                      " w3-rightbar"
+                  :
+                      "")}>
+                  { item.name  }
+                  <div className={ color }
+                      style={{height: (isActive ? "4px" : "6px"),
+                      width: 100 * item.viewAmount + "%" }}
+                      aria-label={item.viewDescription}></div></li></Link>
+          }else{
+            return <div key="blank" >
+                <li className={"w3-card w3-left-align " +
+                    (item.isLoading ? "w3-animate-fading " : "" )}>
+                    <div className="w3-opacity w3-round-large"
+                         style={{height: "20px", width: "100%"}}
+                         aria-label="No Items" />
+                    </li></div>}
+          }
 
   renderList(){
     let list = [];

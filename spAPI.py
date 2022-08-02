@@ -6,51 +6,57 @@ from flask_jwt_extended import (JWTManager,
                                 set_access_cookies,
                                 set_refresh_cookies,
                                 create_access_token,
-                                create_refresh_token,
-                                jwt_refresh_token_required)
-from flask_limiter.util import get_remote_address
-from itsdangerous import URLSafeTimedSerializer
+                                create_refresh_token)
+from itsdangerous import (URLSafeTimedSerializer,
+                          BadSignature,
+                          BadTimeSignature)
 from werkzeug.utils import secure_filename
 from passlib.context import CryptContext
 from flask import (Flask,
                    abort,
-                   flash,
-                   session,
                    request,
                    jsonify,
-                   url_for,
                    Blueprint,
-                   make_response,
                    render_template)
-from flask import current_app as app
-from flask_limiter import Limiter
+# from flask import current_app as app
 from fractions import Fraction
 import pyzbar.pyzbar as pyzbar
 from flask_images import Images, resized_img_src
 from flask_mail import Mail, Message
-from pony.orm import *
+from pony.orm import (ConstraintError,
+                      db_session,
+                      select,
+                      commit,
+                      flush)
+from urllib.parse import parse_qs
 from PIL import Image
 import configparser
 from spDatabase import SPDB
+from bs4 import BeautifulSoup
 import filetype
 import requests
 import datetime
+import unicodedata
 import uuid
 import re
 import os
 
 myctx = CryptContext(schemes="sha256_crypt",
                      sha256_crypt__min_rounds=131072)
-limiter = Limiter(key_func=get_remote_address,
-                  default_limits=[])   # "200 per day", "50 per hour"])
+# limiter = Limiter(key_func=get_remote_address)
+# "200 per day", "50 per hour"])
+
 mail = Mail()
 bp = Blueprint('main', __name__)
 
+
 @db_session
 def authenticate(username, password):
+    print(username, password)
     user = SPDB.Users.get(lambda u: u.username == username)
     if user is not None:
         valid, newHash = myctx.verify_and_update(password, user.pwHash)
+        print(valid, newHash)
         if valid:
             if newHash:
                 user.pwHash = newHash
@@ -67,22 +73,15 @@ def identify(username):
     return user
 
 
-def singular(name):
-    # prevent multiple word names from being worked on here. (slices bacon)
-    if ' ' in name:
-        return name
-    noPlural = r'(\w+?)s\b'
-    sName = re.match(noPlural, name)
-    if sName:
-        name = sName.group(1)
-    return name
-
 # measurement conversions
 convert = {
  "pinch": 0.03,
  "pinche": 0.03,
  "teaspoon": 0.25,
+ "tsp": 0.25,
  "tablespoon": 0.5,
+ "tbs": 0.5,
+ "tbsp": 0.5,
  "ounce": 1.0,
  "cup": 8.0,
  "pint": 16.0,
@@ -92,11 +91,55 @@ convert = {
  "gallon": 512.0}
 
 
+def singular(name):
+    # prevent multiple word names from being worked on here. (slices bacon)
+    if ' ' in name:
+        return name
+    # these things are known to be singular so we can stop here. (most cases)
+    if name in convert.keys():
+        return name
+    if name:
+        if name[-1] == 's':
+            name = name[:-1]
+    return name
+
+@bp.route('/v1/recipes/scrape', methods=['POST'])
+@jwt_required()
+def scrapeRecipeFoodDotCom():
+    if not request.is_json:
+        return jsonify({"Must use json and set json header": 400}), 400
+    target_url = request.json.get('target_url')
+    if not 'https://www.food.com/' in target_url:
+        return jsonify({"Only supports Food.com": 400}), 400
+    response = requests.get(target_url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    title = soup.title.text
+    ingredients = []
+    for ul in soup.find_all('ul'):
+          if 'ingredients' in ul['class']:
+              for li in ul.find_all('li'):
+                  t = re.sub(r'\n', r'', li.text)
+                  t = re.sub(r' +', r' ', t)
+                  ingredients.append(t)
+    directions = []
+    for ul in soup.find_all('ul'):
+          if 'directions' in ul['class']:
+              for li in ul.find_all('li'):
+                  t = re.sub(r'\n', r'', li.text)
+                  t = re.sub(r' +', r' ', t)
+                  directions.append(t)
+    print(ingredients)
+    data = {'name': title,
+            'ingredients': ingredients,
+            'instructions': directions}
+    return jsonify(data)
+
+
 @bp.route('/v1/recipes/parse', methods=['POST'])
-@jwt_required
+@jwt_required()
 @db_session
 def parseRecipe():
-    if not request.json:
+    if not request.is_json:
         return jsonify({"Must use json and set json header": 400}), 400
     recipe = request.json.get('recipe')
     if recipe is None:
@@ -138,15 +181,18 @@ def parseRecipe():
 
         # The ingredient parsing section.
         if start and not stop:
-            ing = ingredientLineParse(line.lower())
+            try:
+                ing = ingredientLineParse(line.lower())
+            except ValueError as e:
+                return f"{e}", 400
             if ing is None:
                 # this ingredient is not parsable, we got little out of it.
-                # display it anyhow
+                # display it anyhow ?
                 if re.search(r'\w+', line.lower()):
                     ing = {
                         # strips whitespace from before and after line.
                         "uid": user.id,
-                        "name": line.strip(),
+                        "name": "Skipped: " + line.strip(),
                         "amount": 0,  # in oz always!!!!
                         "amountPkg": 0,
                         "keepStocked": False}
@@ -193,11 +239,17 @@ def parseRecipe():
     if len(data['ingredients']) < 1:
         return jsonify({"Bad Request":
                         "No ingredients found, \
-                        did you use the correct format?"}), 400
+    Hint: first item of the list should be just the word ingredients."}), 400
     if len(data['instructions']) < 1:
         return jsonify({"Bad Request":
                         "No instructions found, \
                         did you use the correct format?"}), 400
+    allIngs = select(ing for ing in SPDB.Ingredients
+                     if ing.tid == user.team)[:]
+    data['allIngs'] = [i.to_dict(exclude=['uid',
+                                          'tid',
+                                          'requiredBy'])
+                       for i in allIngs]
     return jsonify({"recipe": data}), 200
 
 
@@ -213,18 +265,23 @@ def ingredientSearch(name, user):
                 return (item,)
         # score ingredients on word association and offer suggestions
         scores = {}
-        words = re.split('\W', name)
+        words = re.split(r'\W', name)
         for word in words:
             for ing in ings:
-                for ingNameWrd in re.split('\W', ing.name):
+                for ingNameWrd in re.split(r'\W', ing.name):
                     # case insensitive scrore match
                     if word and word in ingNameWrd:
                         if not scores.get(ing.name):
                             scores[ing.name] = 1
                         else:
                             scores[ing.name] += 1
+                    elif word and singular(word) in ingNameWrd:
+                        if not scores.get(ing.name):
+                            scores[ing.name] = 1
+                        else:
+                            scores[ing.name] += 1
         sortedByValue = sorted(scores.items(), key=lambda kv: kv[1])
-        topThree = dict(sortedByValue[0:2]).keys()
+        topThree = dict(sortedByValue[0:20]).keys()
         topThreeMatches = []
         for ing in ings:
             if ing.name in topThree:
@@ -235,98 +292,104 @@ def ingredientSearch(name, user):
 
 
 def ingredientLineParse(line):
-    amount, measure = (None, None)
-    # pattern building
-    # a simple space
-    space = r'\s*'
-    # possible leading characters that could foul things up.
-    leadingChars = space + r'[-*.]*'
-    # match preference 1 2/3 | 1/2 | 1 | 1.2
-    num = space + r'(\d+\s\d+[^\d]\d+|\d+[^\d]\d+|\d+|\d+\.\d+)'
-    # match a word
-    word = space + r'(\w+)'
-    # matches any phrases that might be a description don't be greedy though.
-    desc = space + r'((\w+\s?)+)'
-    # number, w-spaces, a word, the end.
-    numWord = '^' + leadingChars + num + word + '$'
-    # number, w-spaces, a word, w-space, desc
-    numWordDesc = '^' + leadingChars + num + word + desc + '$'
-    # desc, w-spaces, number, w-spaces, a word
-    descNumWord = '^' + leadingChars + desc + num + word + '$'
-    # end patterns
-
-    # clean up space before and after
+    # clean up the line a bit
+    if not line:
+        return None
     line = line.strip(' ')
     line = line.replace(',', '')
-    # Capture data in parens, this can only handle one set in a line.
-    prensCheck = r'\(([^)]*)\)'
-    perens = re.search(prensCheck, line)
-    if perens:
-        ''' check for parens and strip that section out
-            writing any good looking data to amount, measure '''
-        # print("format1:{}".format(perens.group(1),))
-        # format0 = re.search(num_wrd, perens.group(1))
-        # amount, measure = format0.group(1), singular(format0.group(2))
-        line = re.sub(prensCheck, '', line)
+    # matches 1/3 | 3 | 3.3
+    num = r'(\d+[^\d]\d+|\d+|\d+\.\d+)'
+    # stop parsing return an error if there is a value range here.
+    m = re.search(num + r'-' + num + r'.*$', line)
+    if m:
+        raise ValueError(f"Sorry, Hyphens not supported: {m.group(0)}")
+    # matches all unicode fractions ¾ | ½ | ¼
+    uniFraction = r'([\u00BC-\u00BE\u2150-\u215E])'
+    # matches single words
+    word = r'(\w)'
+    # matches (somthing)
+    perens = r'([(][^)]+[)])'
+    # look at each character group and identity them.
 
-    format1 = re.search(numWord, line)
-    format2 = re.search(descNumWord, line)
-    format3 = re.search(numWordDesc, line)
-
-    if format1 and not perens:
-        # print("format1 not perens:{}".format(format1.group(2)))
-        return {"name": format1.group(2),
-                "amount": float(toMath(format1.group(1))),
-                "amountPkg": 0,
-                "amountMeasure": "",
-                "keepStocked": False}
-    if format1 and perens:
-        # print("format1 with perens:{}".format(format1.group(2)))
-        return {"name": format1.group(2),
-                "amount": float(toMath(format1.group(1))),
-                "amountPkg": 0,
-                "keepStocked": False,
-                "amountMeasure": "",
-                "conversion": "({} {})".format(amount, measure)}
-    if format2 and not perens:
-        # print("format2 not perens:{}".format(format2.group(3)))
-        return {"name": format2.group(1),
-                "amount": float(toMath(format2.group(2))),
-                "amountPkg": 0,
-                "keepStocked": False,
-                "amountMeasure": singular(format2.group(3))}
-    if format2 and perens:
-        # print("format2 with perens:{}".format(format2.group(3)))
-        return {"name": format2.group(1),
-                "amount": float(toMath(format2.group(2))),
-                "amountPkg": 0,
-                "keepStocked": False,
-                "amountMeasure": singular(format2.group(3)),
-                "conversion": "({} {})".format(amount, measure)}
-    if format3 and not perens:
-        # print("format3 not perens:{}-{}-{}".format(format3.group(1),
-        #                                            format3.group(2),
-        #                                            format3.group(3)))
-        if not convert.get(singular(format3.group(2))):
-            name = format3.group(2) + " " + format3.group(3)
+    def identifyCharGroup(cg):
+        if re.match(uniFraction, cg):
+            return 1
+        if re.match(num, cg):
+            return 2
+        if re.match(word, cg):
+            return 3
+        if re.match(perens, cg):
+            return 4
+        raise RuntimeError('unknown CharGroup identification')
+    # creating a profile of the ingredient description.
+    profile = ''
+    rawLineList = line.split(' ')
+    print(rawLineList)
+    # testing if this is okay
+    dispAmount = f"{rawLineList[0]}"
+    words = list()
+    # cg = character group
+    # remove all contents of a prenthesized area
+    skip = False
+    for cg in rawLineList:
+        if cg:
+            if skip:
+                if ')' in cg:
+                    skip = False
+                continue
+            if '(' in cg:
+                skip = True
+                continue
+            words.append(cg)
+    for word in words:
+        id = identifyCharGroup(word)
+        # TODO: add a way to capture paren groups maybe ()
+        if id != 4:
+            profile += str(id)
         else:
-            name = format3.group(3)
-        return {"name":  name,
-                "amount": float(toMath(format3.group(1))),
-                "amountPkg": 0,
-                "keepStocked": False,
-                "amountMeasure": singular(format3.group(2))}
-    if format3 and perens:
-        # print("format3 with perens:{}".format(format3.group(3)))
-        return {"name": format3.group(3),
-                "amount": float(toMath(format3.group(1))),
-                "amountPkg": 0,
-                "keepStocked": False,
-                "amountMeasure": singular(format3.group(2)),
-                "conversion": "({} {})".format(amount, measure)}
-    # This is not a parsable ingredient!
-    # print("not an ingredient: {}".format(line))
-    return None
+            raise NotImplementedError('help! I can not read these things:()')
+    # examine that profile to pull out the amount, name, amountMeasure.
+    # Deal with compound numbers by adding them togeather as needed.
+    if re.match(r'21', profile):
+        amount = float(toMath(words[0]))
+        amount += float(toMath(unicodedata.numeric(words[1])))
+    elif re.match(r'22', profile):
+        amount = float(toMath(words[0]))
+        amount += float(toMath(words[1]))
+    # Deal with unicode starters with unicode conversion
+    elif re.match(r'1', profile):
+        amount = float(toMath(unicodedata.numeric(words[0])))
+    # Deal with single numbers or fractions e.g. 1/2 | 3
+    elif re.match(r'2', profile):
+        amount = float(toMath(words[0]))
+    else:
+        raise RuntimeError('Ingredient has no number for a value?')
+    # Deal with the possible descriptions
+    # single word (not a measure)
+    # print(profile)
+    m = re.match(r'[12]+(3)$', profile)
+    if m:
+        measure = None
+        name = words[m.start(1)]
+        print("single word ", name, amount, measure)
+    m = re.match(r'[12]+(3(3+))', profile)
+    if m:
+        # account for (tbs) being a measurment of honey
+        # account for (slices) in slices of bread being not a measurement.
+        measure = singular(words[m.start(1)])
+        if measure in convert.keys():
+            nameStart = m.start(2)
+        else:
+            nameStart = m.start(1)
+        name = ' '.join(words[nameStart:])
+        print("more then one word names ", name, amount, measure)
+    # print(words)
+    return {"name": name,
+            "amount": amount,
+            "dispAmount": dispAmount,
+            "amountPkg": 0,
+            "keepStocked": False,
+            "amountMeasure": measure}
 
 
 def toDisplay(aNumber):
@@ -346,6 +409,9 @@ def toDisplay(aNumber):
 def toMath(aString):
     'converts a string number to a nice integer/fraction representation'
     aString = str(aString)
+    # It never ends! this takes some various way of protraying different
+    # unicode slashes and converts them to one type of slash.
+    aString = re.sub('[\u2044\u2215]', '/', aString)
     m = re.split(' ', aString)
     if len(m) == 2:
         wholeNum, fraction = m
@@ -357,16 +423,12 @@ def toMath(aString):
         except ValueError:
             fraction = Fraction(0)
         return fraction + wholeNum
-    try:
-        num = Fraction(m[0])
-    except ValueError:
-        num = None
-    return num
+    return Fraction(m[0])
 
 
 def getConfig():
-    config = configparser.ConfigParser(interpolation = None)
-    config.read('stupidPantry.conf')
+    config = configparser.ConfigParser(interpolation=None)
+    config.read('smartPantry.conf')
     return config
 
 
@@ -405,32 +467,30 @@ def appSetup(app, config=False):
     app.config['JWT_ACCESS_COOKIE_PATH'] = '/v1'
     app.config['JWT_REFRESH_COOKIE_PATH'] = '/v1/auth/refresh'
     app.config['JWT_TOKEN_LOCATION'] = ['cookies']
-    # going to leave this off for now, extra work to enable
-    # flask-jwt-extended.readthedocs.io/en/stable/tokens_in_cookies/
-    app.config['JWT_COOKIE_CSRF_PROTECT'] = False
     app.config['UPLOAD_FOLDER'] = r'static/images'
     app.config['IMAGES_PATH'] = ['static/images']
     # app.config['SERVER_NAME'] = 'localhost'
     # used to build external urls to this website
     # debug setting for testing refresh token functions.
     # app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 10
-    requiredArgsStr=[
+    requiredArgsStr = [
           'SERVER_NAME',
           'SECRET_KEY',
           'OCR_SERVICE',
           'JWT_SECRET_KEY',
-          'JWT_COOKIE_SECURE',
+          'JWT_COOKIE_SAMESITE',
           'SECURITY_PASSWORD_SALT',
           'MAIL_SERVER',
           'MAIL_DEFAULT_SENDER',
           'MAIL_USERNAME',
           'MAIL_PASSWORD']
-    requiredArgsInt=[
+    requiredArgsInt = [
           'MAIL_PORT']
-    requiredArgsBool=[
+    requiredArgsBool = [
+          'JWT_COOKIE_SECURE',
           'MAIL_USE_TLS',
           'MAIL_USE_SSL']
-    results=dict()
+    results = dict()
 
     if config.has_section('app'):
         for arg in requiredArgsStr:
@@ -470,7 +530,7 @@ def appSetup(app, config=False):
     return app
 
 
-@jwt_required
+@jwt_required()
 def deleteUser(username):
     # TODO-later: IT would be nice if user accounts could be active/inactive.
     currentUser = get_jwt_identity()
@@ -489,7 +549,7 @@ def deleteUser(username):
 @bp.route('/v1/users', methods=['POST', 'DELETE'])
 @db_session
 def users():
-    if not request.json:
+    if not request.is_json:
         return jsonify({"Must use json and set json header": 400}), 400
     username = request.json.get('username')
     if username is None:
@@ -529,7 +589,7 @@ def users():
             link = f'https://{server_name}/verify/{token}'
         else:
             link = f'https://localhost:5001/verify/{token}'
-        #msg.body = render_template('email_verify.html', link=link)
+        # msg.body = render_template('email_verify.html', link=link)
         msg.html = render_template('email_verify.html', link=link)
         mail.send(msg)
         return jsonify({'username': user.username}), 201
@@ -548,9 +608,11 @@ def confirm_token(token, expiration=3600):
         email = serializer.loads(token,
                                  salt=app.config['SECURITY_PASSWORD_SALT'],
                                  max_age=expiration)
-    except itsdangerous:
+        return email
+    except BadSignature:
         return None
-    return email
+    except BadTimeSignature:
+        return None
 
 
 @bp.route('/v1/users/confirm', methods=['POST'])
@@ -564,12 +626,12 @@ def userConfirm():
     username = request.json.get('username')
     if not username:
         return jsonify({"Missing attribute: username": 400}), 400
-    try:
-        email = confirm_token(token)
-    except itsdangerous:
+    email = confirm_token(token)
+    if email is None:
         return jsonify({"The confirmation link is invalid or has expired.":
                         400}), 400
-    user = SPDB.Users.get(lambda u: u.email == email and u.username == username)
+    user = SPDB.Users.get(lambda u: u.email == email and
+                          u.username == username)
     if user.isAuthenticated:
         return jsonify({"Account already confirmed. Please login.": 400}), 400
     else:
@@ -584,9 +646,8 @@ def userConfirm():
 
 @bp.route('/v1/users/reset', methods=['POST'])
 @db_session
-@limiter.limit('10 per hour')
 def userReset():
-    if not request.json:
+    if not request.is_json:
         return jsonify({"Must use json and set json header": 400}), 400
     password = request.json.get('password')
     if len(password) < 20 or len(password) > 254:
@@ -615,9 +676,8 @@ def userReset():
 
 @bp.route('/v1/users/recover', methods=['POST'])
 @db_session
-@limiter.limit('30 per hour')
 def userRecover():
-    if not request.json:
+    if not request.is_json:
         return jsonify({"Must use json and set json header": 400}), 400
     username = request.json.get('username')
     if username is None:
@@ -646,7 +706,7 @@ def userRecover():
 
 @bp.route('/v1/auth', methods=['POST'])
 def auth():
-    if not request.json:
+    if not request.is_json:
         return jsonify({"Must use json and set json header": 400}), 400
     username = request.json.get('username')
     if username is None:
@@ -675,7 +735,7 @@ def authOut():
 
 
 @bp.route('/v1/auth/refresh', methods=['POST'])
-@jwt_refresh_token_required
+@jwt_required(refresh=True)
 def authRefresh():
     user = get_jwt_identity()
     access_token = create_access_token(identity=user)
@@ -685,9 +745,10 @@ def authRefresh():
 
 
 @bp.route('/v1/inventory/use/<recipeName>', methods=['PUT'])
-@jwt_required
+@jwt_required()
 @db_session
 def inventoryUse(recipeName=None):
+    print("are we getting use?")
     username = get_jwt_identity()
     user = identify(username)
     if user is None:
@@ -710,9 +771,10 @@ def inventoryUse(recipeName=None):
 
 @bp.route('/v1/inventory/image/<ingredientName>', methods=['POST'])
 @bp.route('/v1/recipe/image/<recipeName>', methods=['POST'])
-@jwt_required
+@jwt_required()
 @db_session
 def imageAdd(ingredientName=None, recipeName=None):
+    print("are we getting image?")
     username = get_jwt_identity()
     user = identify(username)
     if user is None:
@@ -741,16 +803,11 @@ def imageAdd(ingredientName=None, recipeName=None):
          and prevents (some) attacks'''
         filename = uuid.uuid4().hex + secure_filename(file.filename)[-5:]
         year = datetime.date.today().strftime('%y')
-        path = os.path.join(app.config['UPLOAD_FOLDER'], str(user.team))
-        try:
-            os.mkdir(path)
-        except FileExistsError:
-            pass
-        path = os.path.join(app.config['UPLOAD_FOLDER'], str(user.team), year)
-        try:
-            os.mkdir(path)
-        except FileExistsError:
-            pass
+        # check and build up the image storage area.
+        path = os.path.join(app.config['UPLOAD_FOLDER'],
+                            str(user.team),
+                            year)
+        os.makedirs(path, exist_ok=True)
         path = os.path.join(app.config['UPLOAD_FOLDER'],
                             str(user.team), year, filename)
         file.save(path)
@@ -761,9 +818,10 @@ def imageAdd(ingredientName=None, recipeName=None):
 
 @bp.route('/v1/inventory/image/<ingredientName>', methods=['DELETE'])
 @bp.route('/v1/recipe/image/<recipeName>', methods=['DELETE'])
-@jwt_required
+@jwt_required()
 @db_session
 def imageRemove(ingredientName=None, recipeName=None):
+    print("are we getting here?")
     username = get_jwt_identity()
     user = identify(username)
     if user is None:
@@ -782,18 +840,23 @@ def imageRemove(ingredientName=None, recipeName=None):
 
 
 @bp.route('/v1/inventory', methods=['GET'])
-@bp.route('/v1/inventory/<ingredientName>', methods=['GET', 'POST',
-                                                     'PUT', 'DELETE'])
-@jwt_required
+@bp.route('/v1/inventory/<path:ingredientName>', methods=['GET', 'POST',
+                                                          'PUT', 'DELETE'])
+@jwt_required()
 @db_session
 def inventory(ingredientName=None):
     username = get_jwt_identity()
     user = identify(username)
+    if ingredientName:
+        # parse_qs decodes urlEncoded strings but does to to a dict.
+        for name in parse_qs(ingredientName,
+                             keep_blank_values=True).keys():
+            ingredientName = name
     if user is None:
         return jsonify({'please verify your e-mail': 401}), 401
     if request.method == 'GET':
         ret = None
-        if not request.json:
+        if not request.is_json:
             if ingredientName:
                 ret = SPDB.Ingredients.get(name=ingredientName, tid=user.team)
             else:
@@ -830,7 +893,7 @@ def inventory(ingredientName=None):
         return jsonify(ing)
 
     if request.method == 'POST':
-        if not request.json:
+        if not request.is_json:
             return jsonify({"Must use json and set json header": 400}), 400
         name = ingredientName
         if name is None:
@@ -841,15 +904,18 @@ def inventory(ingredientName=None):
         amountPkg = request.json.get('amountPkg')
         if amountPkg is None:
             return jsonify({"Missing attribute: amountPkg": 400}), 400
-        meteric = request.json.get('measure')
-        if meteric is None:
-            return jsonify({"Missing attribute: meteric": 400}), 400
+        byWeight = request.json.get('byWeight')
+        if byWeight is None:
+            return jsonify({"Missing or currupt attribute: byWeight": 400}), 400
+        if bool(byWeight):
+            byWeight = True
+        else:
+            byWeight = False
         keepStocked = request.json.get('keepStocked')
         if keepStocked is None or (keepStocked is not True and
                                    keepStocked is not False):
             return jsonify({"Missing or Not Bool type attribute: keepStocked":
                             400}), 400
-        meteric = meteric.strip()
         # verify the primary key is not taken before submit.
         if not SPDB.Ingredients.get(tid=user.team, name=name):
             ing = SPDB.Ingredients(
@@ -857,13 +923,14 @@ def inventory(ingredientName=None):
                 tid=user.team,
                 name=name,
                 amount=int(toMath(amount)),
+                byWeight=bool(byWeight),
                 amountPkg=int(toMath(amountPkg)),
                 keepStocked=bool(request.json.get('keepStocked')))
         else:
             return jsonify({"Conflict: Duplicate Ingredient Name": 409}), 409
         return jsonify({"Created": 201}), 201
     if request.method == 'PUT':
-        if not request.json:
+        if not request.is_json:
             return jsonify({"Must set json or json header": 400}), 400
         previousName = ingredientName
         item = SPDB.Ingredients.get(tid=user.team, name=previousName)
@@ -879,7 +946,7 @@ def inventory(ingredientName=None):
         if amountPkg is not None:
             item.amountPkg = int(toMath(amountPkg))
         lastBuyDate = request.json.get('lastBuyDate')
-        if lastBuyDate is not None and lastBuyDate is not '':
+        if lastBuyDate is not None and lastBuyDate != '':
             lastBuyDate = datetime.datetime.strptime(lastBuyDate, '%b %d %Y')
             item.lastBuyDate = lastBuyDate
         freshFor = request.json.get('freshFor')
@@ -897,7 +964,7 @@ def inventory(ingredientName=None):
         if item:
             try:
                 item.delete()
-            except pony.orm.core.ConstraintError:
+            except ConstraintError:
                 return jsonify({"A Recipe uses this.": 409}), 409
             return jsonify({"DELETED": 200}), 200
         else:
@@ -915,7 +982,7 @@ def allowedFile(file):
 
 
 @bp.route('/v1/recipes/ocr', methods=['POST'])
-@jwt_required
+@jwt_required()
 def ocrRequest():
     username = get_jwt_identity()
     user = identify(username)
@@ -945,9 +1012,10 @@ def ocrRequest():
 
 @bp.route('/v1/inventory/barcode/<ingName>', methods=['POST', 'DELETE'])
 @bp.route('/v1/inventory/barcode', methods=['POST'])
-@jwt_required
+@jwt_required()
 @db_session
 def barcode(ingName=None):
+    print("are we getting barcode?")
     username = get_jwt_identity()
     user = identify(username)
     if user is None:
@@ -967,14 +1035,15 @@ def barcode(ingName=None):
             data = ''
             bcObjects = pyzbar.decode(Image.open(file))
             if len(bcObjects) == 0:
-                return jsonify({"response": "Could not decode barcode" }), 404
+                return jsonify({"response": "Could not decode barcode"}), 404
             for code in bcObjects:
                 data = code.data.decode('utf-8')
             if request.files.get('check'):
                 print("working")
                 ing = SPDB.Ingredients.get(barcode=data, tid=user.team)
                 if ing is None:
-                    return jsonify({"response": "You have no items with this barcode assigned."}), 404
+                    msg = "You have no items with this barcode assigned."
+                    return jsonify({"response": msg}), 404
                 return jsonify({"response": ing.to_dict()}), 200
             else:
                 print("wrong route")
@@ -1000,22 +1069,25 @@ def testing():
     print(request.content_type)
     print(request.data)
     print(request.json)
-    if request.json:
+    if request.is_json:
         return jsonify({"text": request.json["name"]}), 200
     else:
         return jsonify({"text": "Nope"}), 200
 
 
 def applyIngredients(user, recipe, ingredients):
-    inPantry = []
     for item in ingredients:
         name = item.get('name')
         if name is None:
             return jsonify({"Missing attribute: name": 400}), 400
+        alias = item.get('alias')
+        # aliases need switching around to work with the rest of this code.
+        if alias:
+            name, alias = alias, name
         amount = item.get('amount')
         if amount is None:
             amount = 1
-        if amount is 0:
+        if amount == 0:
             amount = 1
         if amount < 0:
             amount = amount * -1
@@ -1027,14 +1099,23 @@ def applyIngredients(user, recipe, ingredients):
             meteric = ''
         else:
             byWeight = True
+
+        # print(f"found name: {name}")
+        # print(f"found alias: {alias}")
         # verify the primary key is not taken before submit.
         ing = SPDB.Ingredients.get(tid=user.team, name=name)
+        # print(f'indredient {ing}')
+        # verify this is not an alias of another item.
         if ing is None:
             ing = SPDB.Ingredients(uid=user.id,
                                    tid=user.team,
                                    name=name,
                                    byWeight=byWeight)
             # print("preped: " + str(ing.to_dict()))
+        # conversion from requirement to ingredient is an alias with a
+        # conversion from one item to another specified. for this we should
+        # put the conversion directly in.
+
         if ing is None:
             return jsonify({"Missing attribute ingredient during linking":
                             404}), 404
@@ -1044,19 +1125,35 @@ def applyIngredients(user, recipe, ingredients):
         req = SPDB.Requirements.get(tid=user.team,
                                     recipe=recipe,
                                     ingredient=ing)
+        print("values item: ", end='')
+        print(item)
         if req is None:
-            req = SPDB.Requirements(uid=user.id,
-                                    tid=user.team,
-                                    recipe=recipe,
-                                    ingredient=ing,
-                                    amount=toMath(amount),
-                                    amountMeasure=singular(meteric))
-            # print("req: " + str(req.to_dict()))
+            if alias:
+                req = SPDB.Requirements(uid=user.id,
+                                        tid=user.team,
+                                        alias=alias,
+                                        recipe=recipe,
+                                        ingredient=ing,
+                                        conversion=item.get('conversion', 1),
+                                        amount=toMath(amount),
+                                        dispAmount=item.get('dispAmount', 'N/A'),
+                                        amountMeasure=singular(meteric))
+            else:
+                req = SPDB.Requirements(uid=user.id,
+                                        tid=user.team,
+                                        recipe=recipe,
+                                        ingredient=ing,
+                                        conversion=item.get('conversion', 1),
+                                        amount=toMath(amount),
+                                        dispAmount=item.get('dispAmount', 'N/A'),
+                                        amountMeasure=singular(meteric))
+            print("req: " + str(req.to_dict()))
         else:
             return jsonify({"Conflict: Duplicating requirement": 409}), 409
 
+
 @bp.route('/v1/recipes/togglePublic/<recipeName>', methods=['POST'])
-@jwt_required
+@jwt_required()
 @db_session
 def recipesTogglePublic(recipeName=None):
     username = get_jwt_identity()
@@ -1068,13 +1165,13 @@ def recipesTogglePublic(recipeName=None):
         return jsonify({"not found": 404}), 404
     else:
         recipe.public = not recipe.public
-    return jsonify({"public": recipe.public }), 200
+    return jsonify({"public": recipe.public}), 200
 
 
 @bp.route('/v1/recipes', methods=['GET', 'POST'])
 @bp.route('/v1/recipes/<recipeName>', methods=['GET', 'PUT', 'DELETE'])
 @bp.route('/v1/<public>/recipes/<recipeName>/<int:id>')
-@jwt_required
+@jwt_required()
 @db_session
 def recipes(recipeName=None, public=False, id=-1):
     username = get_jwt_identity()
@@ -1099,20 +1196,28 @@ def recipes(recipeName=None, public=False, id=-1):
                 ozs = meteric2oz(r.amount, r.amountMeasure)
                 req['viewAmount'] = max(r.ingredient.amount / ozs, 0.05)
                 req['amount'] = toDisplay(r.amount)
+                req['dispAmount'] = r.dispAmount
                 req['amountMeasure'] = r.amountMeasure
-                req['name'] = r.ingredient.name
+                req['conversion'] = r.conversion
+                # yep, the client wants this backwards. # don't worry i switch
+                # them back when they are re-applied.
+                if r.alias:
+                    req['alias'] = r.ingredient.name
+                    req['name'] = r.alias
+                else:
+                    req['name'] = r.ingredient.name
                 # forcing pluralness
                 if r.amount > 1:
                     # This is empty in most casses but is sometimes used.
                     if r.amountMeasure:
-                        req['amountMeasure'] = singular(r.amountMeasure) + 's'
+                        am = singular(r.amountMeasure)
+                        if am[-1] != 's':
+                            req['amountMeasure'] = am + 's'
                     else:
                         # prevent the addition of a s on
                         # multiple word names here (slices bacon)
-                        if ' ' in r.ingredient.name:
-                            req['name'] = r.ingredient.name
-                        else:
-                            req['name'] = singular(r.ingredient.name) + 's'
+                        if ' ' not in req['name']:
+                            req['name'] = singular(req['name']) + 's'
                 else:
                     if r.amountMeasure:
                         req['amountMeasure'] = singular(r.amountMeasure)
@@ -1132,7 +1237,7 @@ def recipes(recipeName=None, public=False, id=-1):
             return jsonify({"not found": 404}), 404
     if request.method == 'POST':
         # Test for missing fields
-        if not request.json:
+        if not request.is_json:
             return jsonify({"Must set json or json header": 400}), 400
         recipeName = request.json.get('recipeName')
         if recipeName is None:
@@ -1157,7 +1262,7 @@ def recipes(recipeName=None, public=False, id=-1):
         applyIngredients(user, recipe, ingredients)
         return jsonify({"created": 201}), 201
     if request.method == 'PUT':
-        if not request.json:
+        if not request.is_json:
             return jsonify({"Must set json or json header": 400}), 400
         if recipeName is None:
             return jsonify({"Missing attribute name on url": 400}), 400
@@ -1202,7 +1307,7 @@ def recipes(recipeName=None, public=False, id=-1):
 
 
 @bp.route('/v1/requirements/search', methods=['GET'])
-@jwt_required
+@jwt_required()
 @db_session
 def requirementsSearch():
     username = get_jwt_identity()
@@ -1210,7 +1315,7 @@ def requirementsSearch():
     if user is None:
         return jsonify({'please verify your e-mail': 401}), 401
     ret = None
-    if not request.json:
+    if not request.is_json:
         # TODO use lambda's instead of keywords
         ret = SPDB.Requirements.select(lambda r: r.uid == user)[:]
         all = [r.to_dict(exclude=['uid']) for r in ret]
@@ -1227,9 +1332,9 @@ def requirementsSearch():
     if rname is not None:
         recipe = SPDB.Recipes.get(uid=user, name=rname)
     if ingredient is not None and recipe is not None:
-        ret = SPDB.Requirements.select(lambda r: r.uid == user and
-                                       r.recipe == recipe,
-                                       r.ingredient == ingredient)[:]
+        ret = select(r for r in SPDB.Requirements if r.uid == user and
+                     r.recipe == recipe and
+                     r.ingredient == ingredient)[:]
     elif recipe is not None:
         ret = SPDB.Requirements.select(lambda r: r.uid == user and
                                        r.recipe == recipe)[:]
@@ -1243,7 +1348,7 @@ def requirementsSearch():
 
 
 @bp.route('/v1/requirements/<recipeName>', methods=['PUT'])
-@jwt_required
+@jwt_required()
 @db_session
 def toggleKeepStocked(recipeName=None):
     # print("hello")
@@ -1252,8 +1357,8 @@ def toggleKeepStocked(recipeName=None):
     if user is None:
         return jsonify({'please verify your e-mail': 401}), 401
     # print(recipeName)
-    getMyRecipe = lambda x: x.uid == user and x.name == recipeName
-    recipe = SPDB.Recipes.get(getMyRecipe)
+    recipe = SPDB.Recipes.get(lambda r: r.uid == user and
+                              r.name == recipeName)
     # print(recipe)
     if recipe is None:
         return jsonify({"not found": 404}), 404
@@ -1264,7 +1369,7 @@ def toggleKeepStocked(recipeName=None):
 
 @bp.route('/v1/mealplans/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 @bp.route('/v1/mealplans', methods=['POST'])
-@jwt_required
+@jwt_required()
 @db_session
 def mealplans(id=None):
     username = get_jwt_identity()
@@ -1275,8 +1380,8 @@ def mealplans(id=None):
         rname = request.json.get('recipe')
         if rname is None:
             return jsonify({"Missing attribute recipe": 400}), 400
-        myRecipe = lambda i: (i.uid == user and i.name == rname)
-        recipe = SPDB.Recipes.get(myRecipe)
+        recipe = SPDB.Recipes.get(lambda i: i.uid == user and
+                                  i.name == rname)
         if recipe is None:
             return jsonify({"Recipe not found": 404}), 404
         date = request.json.get('date')
@@ -1298,14 +1403,14 @@ def mealplans(id=None):
         commit()
         return jsonify({"Created": 201, "id": plan.id}), 201
     if request.method == 'GET':
-        allUserItems = lambda i: (i.uid == user and i.id == id)
-        plan = SPDB.Mealplans.get(allUserItems)
+        plan = select(i for i in SPDB.Mealplans if i.uid == user and
+                      i.id == id)
         if plan is None:
             return jsonify({"not found": 404}), 404
         return jsonify({"mealplan": plan.to_dict()}), 200
     if request.method == 'PUT':
-        allUserItems = lambda i: (i.uid == user and i.id == id)
-        plan = SPDB.MealPlans.get(allUserItems)
+        plan = SPDB.MealPlans.get(lambda i: i.uid == user and
+                                  i.id == id)
         if plan is None:
             return jsonify({"not found": 404}), 404
         step = request.json.get('step')
@@ -1319,8 +1424,8 @@ def mealplans(id=None):
             plan.keepStocked = keepStocked
         return jsonify({"Modified": 200, "id": plan.id}), 200
     if request.method == 'DELETE':
-        allUserItems = lambda i: (i.uid == user and i.id == id)
-        plan = SPDB.MealPlans.get(allUserItems)
+        plan = select(i for i in SPDB.MealPlans if i.uid == user and
+                      i.id == id)
         if plan is None:
             return jsonify({"not found": 404}), 404
         plan.delete()
@@ -1329,7 +1434,7 @@ def mealplans(id=None):
 
 @bp.route('/v1/requirements/<int:id>', methods=['GET'])
 @bp.route('/v1/requirements', methods=['GET', 'POST', 'PUT', 'DELETE'])
-@jwt_required
+@jwt_required()
 @db_session
 def requirements(id=None):
     username = get_jwt_identity()
@@ -1338,7 +1443,7 @@ def requirements(id=None):
         return jsonify({'please verify your e-mail': 401}), 401
     if request.method == 'GET':
         ret = None
-        if not request.json and id is None:
+        if not request.is_json and id is None:
             ret = SPDB.Requirements.select(lambda r: r.uid == user)[:]
             all = [r.to_dict(exclude=['uid']) for r in ret]
             return jsonify(all), 200
@@ -1387,18 +1492,18 @@ def requirements(id=None):
         if not SPDB.Requirements.get(uid=user.id,
                                      recipe=recipe,
                                      ingredient=ingredient):
-            ing = SPDB.Requirements(uid=user.id,
-                                    recipe=recipe,
-                                    ingredient=ingredient,
-                                    amount=amount)
+            SPDB.Requirements(uid=user.id,
+                              recipe=recipe,
+                              ingredient=ingredient,
+                              amount=amount)
+            return jsonify({"created": 201}), 201
         else:
             return jsonify({"Conflict: Duplicate requirement": 409}), 409
-        return jsonify({"created": 201}), 201
 
     if request.method == 'PUT':
         ingredient = None
         recipe = None
-        if not request.json:
+        if not request.is_json:
             return jsonify({"Must set json or json header": 400}), 400
         iname = request.json.get('ingredient')
         rname = request.json.get('recipe')
@@ -1461,10 +1566,9 @@ def home(path):
 
 
 @bp.route('/v1/views/catagories', methods=['GET'])
-@jwt_required
+@jwt_required()
 @db_session
 def catagoriesView():
-    data = {}
     username = get_jwt_identity()
     user = identify(username)
     if user is None:
@@ -1474,9 +1578,8 @@ def catagoriesView():
         ingredients = SPDB.Ingredients.select(lambda r: r.uid == user).count()
         mealplans = SPDB.MealPlans.select(lambda r: r.uid == user).count()
         shopping = []
-        keepStocked = lambda i: (i.uid == user and
-                                 i.keepStocked)
-        recips = SPDB.Recipes.select(keepStocked)
+        recips = select(i for i in SPDB.Recipes if i.uid == user and
+                        i.keepStocked)
         for recipe in recips:
             recipe.requirements.load()
             for r in recipe.requirements:
@@ -1488,7 +1591,8 @@ def catagoriesView():
                 else:
                     if r.ingredient.amount < r.amount:
                         shopping.append(r.ingredient.name)
-        ings = SPDB.Ingredients.select(keepStocked)
+        ings = select(i for i in SPDB.Ingredients if i.uid == user and
+                      i.keepStocked)
         for i in ings:
             if i.amount < (.25 * i.amountPkg):
                 shopping.append(i.name)
@@ -1500,22 +1604,20 @@ def catagoriesView():
 
 
 @bp.route('/v1/views/pantry', methods=['GET'])
-@jwt_required
+@jwt_required()
 @db_session
 def pantryView():
-    data = {}
     username = get_jwt_identity()
     user = identify(username)
     if user is None:
         return jsonify({'please verify your e-mail': 401}), 401
     if request.method == 'GET':
-        allUserItems = lambda i: (i.uid == user)
-        allItems = SPDB.Ingredients.select(allUserItems)
+        allItems = SPDB.Ingredients.select(lambda i: i.tid == user.team)
         pantry = [i.to_dict() for i in allItems]
         for i in pantry:
             i['viewAmount'] = getViewAmount(i)
             i['hasContent'] = True
-            i['path'] = '/pantry/'
+            i['path'] = '/pantry/edit/'
             if i.get('imagePath'):
                 i['imagePath'] = getThubnail(i['imagePath'])
         return jsonify({"list": pantry}), 200
@@ -1593,8 +1695,7 @@ def todayMeals(user):
     'this grabs meals for just today.'
     todayMeals = []
     viewLengthDays = 1
-    allTeamItems = lambda i: (i.tid == user.team)
-    allMealPlans = SPDB.MealPlans.select(allTeamItems)
+    allMealPlans = select(i for i in SPDB.MealPlans if i.tid == user.team)
     for plan in allMealPlans:
         itemDates = getApperentDates(plan.date,
                                      plan.stepType,
@@ -1614,9 +1715,8 @@ def todayMeals(user):
 @db_session
 def readyMeals(user):
     'only meals that can be made'
-    allTeamItems = lambda i: (i.tid == user.team)
     readyMeals = []
-    recipes = SPDB.Recipes.select(allTeamItems)
+    recipes = select(i for i in SPDB.Recipes if i.tid == user.team)
     for recipe in recipes:
         (_, missing) = viewAmountAndIngMissing(recipe)
         if not missing:
@@ -1629,14 +1729,14 @@ def readyMeals(user):
 @db_session
 def thriftyMeals(user):
     'only meals missing less then 2 items'
-    allTeamItems = lambda i: (i.tid == user.team)
     thriftyMeals = []
-    recipes = SPDB.Recipes.select(allTeamItems)
+    recipes = select(i for i in SPDB.Recipes if i.tid == user.team)
     for recipe in recipes:
         (viewAmount, missing) = viewAmountAndIngMissing(recipe)
         if missing > 0 and missing <= 3:
             r = recipe.to_dict()
             r['viewAmount'] = viewAmount
+            r['viewDescription'] = f'Number of missing ingredients {missing}'
             r['path'] = '/recipes/view/'
             thriftyMeals.append(r)
     return thriftyMeals
@@ -1646,11 +1746,11 @@ def thriftyMeals(user):
 def featuredMeals(user):
     'External Meals you might enjoy (random 3)'
     myRecipNames = select(r.name for r in SPDB.Recipes if r.tid == user.team)
-    External = lambda r: (r.public is True and
-                          r.tid != user.team and
-                          r.name not in myRecipNames)
     featuredMeals = []
-    recipes = SPDB.Recipes.select(External)
+    # get only External
+    recipes = select(r for r in SPDB.Recipes if r.public is True and
+                     r.tid != user.team and
+                     r.name not in myRecipNames)
     for r in recipes.random(3):
         recipe = r.to_dict()
         recipe['path'] = '/public/recipes/{}/{}?a='.format(r.name, r.id)
@@ -1659,36 +1759,58 @@ def featuredMeals(user):
 
 
 @db_session
+def userRecipes(user):
+    'External Meals you might enjoy (random 3)'
+    recipes = select(r for r in SPDB.Recipes if r.tid == user.team)
+    selectedRecipes = []
+    for r in recipes.random(3):
+        recipe = r.to_dict()
+        recipe['path'] = '/recipes/view/'
+        selectedRecipes.append(recipe)
+    return selectedRecipes
+
+
+@db_session
 def ingToCheck(user):
     'Ingredients that expire this week or after.'
-    MyIngredients = lambda i: (i.tid == user.team)
     ingToCheck = []
-    ingredients = SPDB.Ingredients.select(MyIngredients)
+    ingredients = select(i for i in SPDB.Ingredients if i.tid == user.team)
     for i in ingredients:
-        # lastBuyDate the 10th + fresh for = when the item will expire
-        # today + 7 days = look ahead 7 days into the future. has anything expired?
-        if i.lastBuyDate and ((i.lastBuyDate + datetime.timedelta(i.freshFor)) <=
-           (datetime.datetime.today() + datetime.timedelta(7))):
-            ing = i.to_dict()
-            ing['path'] = '/pantry/'
-            ing['viewAmount'] = getViewAmount(ing)
-            ingToCheck.append(ing)
+        # today + 7 days = look ahead 7 days into the future.
+        # has anything expired?
+        # augest 05
+        nowPlusSevenDays = datetime.datetime.today() + datetime.timedelta(7)
+        if i.lastBuyDate:
+            expireTime = i.lastBuyDate + datetime.timedelta(i.freshFor)
+            if expireTime <= nowPlusSevenDays:
+                ing = i.to_dict()
+                ing['path'] = '/pantry/edit/'
+                dateDiff = nowPlusSevenDays - expireTime
+                timeLeft = (7 - dateDiff.days)/7
+                if timeLeft < 0:
+                    timeLeft = 0
+                # i'll make this adjustable later
+                ing['viewAmount'] = timeLeft
+                ing['viewDescription'] = "days left: " + str(7 - dateDiff.days)
+                ingToCheck.append(ing)
     return ingToCheck
 
 
 @bp.route('/v1/views/home', methods=['GET'])
-@jwt_required
+@jwt_required()
 def viewMealPlanList():
     username = get_jwt_identity()
     user = identify(username)
     if user is None:
         return jsonify({'please verify your e-mail': 401}), 401
+    r = userRecipes(user)
     tM = todayMeals(user)
     rM = readyMeals(user)
     thrM = thriftyMeals(user)
     fM = featuredMeals(user)
     iC = ingToCheck(user)
-    return jsonify({"todayMeals": tM,
+    return jsonify({"recipes": r,
+                    "todayMeals": tM,
                     "readyMeals": rM,
                     "thriftyMeals": thrM,
                     "featuredMeals": fM,
@@ -1696,7 +1818,7 @@ def viewMealPlanList():
 
 
 @bp.route('/v1/views/search', methods=['POST'])
-@jwt_required
+@jwt_required()
 @db_session
 def searchView():
     username = get_jwt_identity()
@@ -1713,9 +1835,8 @@ def searchView():
     if orderBy is None:
         return jsonify({"Missing attribute orderBy": 400}), 400
     res = []
-    allTeamItems = lambda i: i.tid == user.team
     if catagory == 'recipes':
-        allItems = SPDB.Recipes.select(allTeamItems)[:]
+        allItems = SPDB.Recipes.select(lambda i: i.tid == user.team)[:]
         for recipe in allItems:
             (viewAmount, missing) = viewAmountAndIngMissing(recipe)
             r = recipe.to_dict()
@@ -1736,35 +1857,41 @@ def searchView():
             res.sort(key=lambda x: x.get('lastUsed'))
         elif orderBy == 'Public':
             res = []
-            myRecipNames = select(r.name for r in SPDB.Recipes if r.tid == user.team)
-            External = lambda r: (r.public is True and
-                                  r.tid != user.team and
-                                  r.name not in myRecipNames)
+            myRecipNames = select(r.name for r in SPDB.Recipes
+                                  if r.tid == user.team)
+
+            def External(r):
+                return (r.public is True and
+                        r.tid != user.team and
+                        r.name not in myRecipNames)
             allItems = SPDB.Recipes.select(External)
             for recipe in allItems.random(50):
                 r = recipe.to_dict()
-                r['path'] = '/public/recipes/{}/{}?a='.format(r['name'], r['id'])
+                r['path'] = '/public/recipes/{}/{}?a='.format(r['name'],
+                                                              r['id'])
                 res.append(r)
         else:
             return jsonify({"Not a valid search order": 400}), 400
         return jsonify(res), 200
     elif catagory == 'pantry':
-        allItems = SPDB.Ingredients.select(allTeamItems)
+        allItems = SPDB.Ingredients.select(lambda i: i.tid == user.team)
         for ing in allItems:
             i = ing.to_dict()
-            i['path'] = '/pantry/'
+            i['path'] = '/pantry/edit/'
             res.append(i)
         if orderBy == 'Check Soon':
-            res = [ {'checkDate': r['lastBuyDate'] + datetime.timedelta(r['freshFor']), **r} for r in res
-                    if r.get('lastBuyDate') is not None and
-                       r.get('freshFor') is not None and
-                       r.get('freshFor') is not 0 ]
+            res = [{'checkDate': r['lastBuyDate'] +
+                   datetime.timedelta(r['freshFor']), **r} for r in res
+                   if r.get('lastBuyDate') is not None and
+                   r.get('freshFor') is not None and
+                   r.get('freshFor') != 0]
             res.sort(key=lambda x: x['checkDate'])
         elif orderBy == 'Check Later':
-            res = [ {'checkDate': r['lastBuyDate'] + datetime.timedelta(r['freshFor']), **r} for r in res
-                    if r.get('lastBuyDate') is not None and
-                       r.get('freshFor') is not None and
-                       r.get('freshFor') is not 0 ]
+            res = [{'checkDate': r['lastBuyDate'] +
+                   datetime.timedelta(r['freshFor']), **r} for r in res
+                   if r.get('lastBuyDate') is not None and
+                   r.get('freshFor') is not None and
+                   r.get('freshFor') != 0]
             res.sort(key=lambda x: x['checkDate'], reverse=True)
         elif orderBy == 'Largest Amount':
             res.sort(key=lambda x: x.get('amount', 0), reverse=True)
@@ -1782,7 +1909,7 @@ def searchView():
             return jsonify({"Not a valid search order": 400}), 400
         return jsonify(res), 200
     elif catagory == 'mealPlans':
-        allPlans = SPDB.MealPlans.select(allTeamItems)
+        allPlans = SPDB.MealPlans.select(lambda m: m.tid == user.team)
         for plan in allPlans:
             itemDates = getApperentDates(plan.date,
                                          plan.stepType,
@@ -1791,15 +1918,18 @@ def searchView():
             for date in itemDates:
                 res.append({
                     'id': plan.id,
-                    'path': '/mealplans/edit/' + date.strftime("%a, %b %d %Y") + '?a=',
+                    'path': '/mealplans/edit/' +
+                            date.strftime("%a, %b %d %Y") + '?a=',
                     'date': date.strftime("%a, %b %d %Y"),
-                    'name': date.strftime("%a, %b %d %Y") + " " + plan.recipe.name,
+                    'name': date.strftime("%a, %b %d %Y") +
+                            " " + plan.recipe.name,
                     'recipe': plan.recipe.name,
                     'keepStocked': plan.keepStocked,
                     'stepType': plan.stepType,
                     'step': plan.step})
         if orderBy == 'Present -> Future':
-            res.sort(key=lambda m: m.get('date') or datetime.datetime.today(), reverse=True)
+            res.sort(key=lambda m: m.get('date') or datetime.datetime.today(),
+                     reverse=True)
         elif orderBy == 'Future -> Present':
             res.sort(key=lambda m: m.get('date') or datetime.datetime.today())
         else:
@@ -1809,9 +1939,10 @@ def searchView():
         return jsonify({"Not a valid search catagory": 400}), 400
     return jsonify({"OK": 200}), 200
 
+
 @bp.route('/v1/views/mealplans', methods=['GET'])
 @bp.route('/v1/views/mealplans/<int:viewLengthDays>', methods=['GET'])
-@jwt_required
+@jwt_required()
 @db_session
 def mealPlansView(viewLengthDays=None):
     username = get_jwt_identity()
@@ -1820,8 +1951,7 @@ def mealPlansView(viewLengthDays=None):
         return jsonify({'please verify your e-mail': 401}), 401
     if not viewLengthDays:
         viewLengthDays = 14
-    allUserItems = lambda i: (i.tid == user.team)
-    allItems = SPDB.MealPlans.select(allUserItems)
+    allItems = SPDB.MealPlans.select(lambda i: (i.tid == user.team))
     mealplans = []
     for plan in allItems:
         itemDates = getApperentDates(plan.date,
@@ -1875,10 +2005,9 @@ def checkRequirement(needs, ing):
 
 
 @bp.route('/v1/views/shopping', methods=['GET'])
-@jwt_required
+@jwt_required()
 @db_session
 def shoppingView():
-    data = {}
     username = get_jwt_identity()
     user = identify(username)
     recipes_wanting = []
@@ -1886,16 +2015,15 @@ def shoppingView():
         return jsonify({'please verify your e-mail': 401}), 401
     if request.method == 'GET':
         shopping = dict()
-        keepStocked = lambda i: (i.uid == user and
-                                 i.keepStocked)
-        recipes = SPDB.Recipes.select(keepStocked)
+        recipes = SPDB.Recipes.select(lambda i: (i.uid == user and
+                                      i.keepStocked))
         for recipe in recipes:
             recipe.requirements.load()
             for r in recipe.requirements:
                 measure = singular(r.amountMeasure)
                 isMetered = convert.get(measure)
                 ing = r.ingredient.to_dict()
-                ing['path'] = '/pantry/'
+                ing['path'] = '/pantry/edit/'
                 ing['hasContent'] = True
                 if isMetered:
                     needs = meteric2oz(r.amount, measure)
@@ -1919,15 +2047,15 @@ def shoppingView():
 
         ret = [v for v in shopping.values() if v['amount'] < v['needs']]
 
-        ingredients = SPDB.Ingredients.select(keepStocked)
+        ingredients = SPDB.Ingredients.select(lambda i: i.keepStocked)
         # ret has a list of all meal requred items, this part adds items in the
         # pantry which are low on supplies.
         for i in ingredients:
             if i.amount < (i.amountPkg * .25):
-                if i.name not in [ i['name'] for i in ret ]:
+                if i.name not in [i['name'] for i in ret]:
                     ing = i.to_dict()
                     ing['hasContent'] = True
-                    ing['path'] = '/pantry/'
+                    ing['path'] = '/pantry/edit/'
                     ing['viewAmount'] = getViewAmount(ing, None)
                     ret.append(ing)
         return jsonify({"recipes": recipes_filtered, "ingredients": ret}), 200
@@ -1969,7 +2097,7 @@ def getThubnail(imgPath):
 
 
 @bp.route('/v1/views/recipes', methods=['GET'])
-@jwt_required
+@jwt_required()
 @db_session
 def recipesView():
     username = get_jwt_identity()
@@ -1977,8 +2105,7 @@ def recipesView():
     if user is None:
         return jsonify({'please verify your e-mail': 401}), 401
     if request.method == 'GET':
-        allUserItems = lambda i: (i.uid == user)
-        Recipes = SPDB.Recipes.select(allUserItems)
+        Recipes = SPDB.Recipes.select(lambda i: (i.uid == user))
         data = []
         for recipe in Recipes:
             # go to each requirement and find out how many of
@@ -1994,7 +2121,6 @@ def recipesView():
 def appFactory():
     app = Flask(__name__)
     app.register_blueprint(bp)
-    limiter.init_app(app)
     return app
 
 
@@ -2004,6 +2130,9 @@ if __name__ == "__main__":
     host, port = getSocket(config)
     app = appFactory()
     app = appSetup(app, config)
+    # going to leave this off for testing
+    # flask-jwt-extended.readthedocs.io/en/stable/tokens_in_cookies/
+    app.config['JWT_COOKIE_CSRF_PROTECT'] = False
     mail.init_app(app)
     jwt = JWTManager(app)
     images = Images(app)

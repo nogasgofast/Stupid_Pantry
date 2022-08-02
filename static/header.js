@@ -25,30 +25,29 @@ export class Header extends React.Component {
       <div className="w3-card">
         <div className="w3-bar">
             <Link to="/home">
-              <h2 className="w3-bar-item">Smart Pantry</h2>
+              <h1 className="w3-margin-left w3-bar-item w3-round-large w3-button">Smart Recipe:</h1>
+              <h1 className="w3-bar-item">{ this.props.inner }</h1>
             </Link>
-            <div className="w3-dropdown-click w3-bar-item w3-right w3-hover-orange w3-round">
-              <button className="w3-btn w3-orange w3-round-large w3-hover-yellow w3-xxlarge" onClick={ this.toggleShow }>
-                <i className="fas fa-hamburger"></i>
+            <div className="w3-bar-item w3-right w3-round">
+              <button className="w3-button w3-round-large w3-xxlarge"
+                      value="all pages" onClick={ this.toggleShow }>
+                <i className="fas fa-hamburger"></i> Menu
               </button>
-              <div className={"w3-dropdown-content w3-orange w3-bar-block w3-border " +
+              <div className={"w3-dropdown-content w3-bar-block w3-border " +
                               ( this.state.show ? "w3-show" : "" )}
                     style={{'position': 'absolute',
                             'right': '0px'}}>
-                <Link to="/" className="w3-bar-item w3-hover-yellow w3-button">Home</Link>
-                <Link to="/recipes" className="w3-bar-item w3-hover-yellow w3-button">Recipes</Link>
-                <Link to="/mealplans" className="w3-bar-item w3-hover-yellow w3-button">Meal Plans</Link>
-                <Link to="/shopping" className="w3-bar-item w3-hover-yellow w3-button">Shopping</Link>
-                <Link to="/pantry" className="w3-bar-item w3-hover-yellow w3-button">Pantry</Link>
-                <Link to="/search" className="w3-bar-item w3-hover-yellow w3-button">Search</Link>
+                <Link to="/" className="w3-bar-item w3-button">Home</Link>
+                <Link to="/recipes" className="w3-bar-item w3-button">Recipes</Link>
+                <Link to="/mealplans" className="w3-bar-item w3-button">Meal Plans</Link>
+                <Link to="/shopping" className="w3-bar-item w3-button">Shopping</Link>
+                <Link to="/pantry" className="w3-bar-item w3-button">Pantry</Link>
+                <Link to="/search" className="w3-bar-item w3-button">Search</Link>
 
-                <Link to="/logout" className="w3-bar-item w3-hover-yellow w3-button">Logout</Link>
+                <Link to="/logout" className="w3-bar-item w3-button">Logout</Link>
               </div>
             </div>
         </div>
-            <span className="w3-large w3-padding">
-               { this.props.inner }
-            </span>
       </div>
     )
   }

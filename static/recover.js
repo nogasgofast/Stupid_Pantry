@@ -113,7 +113,7 @@ export class RecoverForm extends React.Component {
               </label>
               { this.renderEmail() }
               </p>
-              <div className="w3-bar w3-padding-16">
+              <div className="w3-padding-16">
                 { this.state.isLoading && <>
                   <label htmlFor="loginBtn">
                     <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>
@@ -122,14 +122,14 @@ export class RecoverForm extends React.Component {
                           style={{display: "none"}}
                           id="loginBtn"
                           value="Log in"
-                          className="w3-button w3-hover-yellow w3-red" /></>
+                          className="call-to-action w3-button w3-red" /></>
                 }
                 { !this.state.isLoading &&
                   <input  type="submit"
                           value="Send Recovery E-mail"
-                          className="w3-button w3-hover-yellow w3-Indigo"/>
+                          className="call-to-action w3-button"/>
                 }
-                <Link className="w3-button w3-hover-yellow" to='/register' >
+                <Link className="call-to-action w3-button" to='/register' >
                   Sign up here!
                 </Link>
               </div>

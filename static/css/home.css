@@ -1,7 +1,9 @@
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "cursive", Arial, sans-serif;
+h1, h2, h3, h4, h5, h6, label {
+  font-family: sans-serif, Arial;
+  /* color: #FFF; */
 }
+
 
 html {
   overscroll-behavior: none;
@@ -9,39 +11,45 @@ html {
 }
 
 body {
-  background-color: #ffbb22;
+  /*Apricot*/
+  background-color: #F1C7B8;
 }
 
+.call-to-action {
+  background-color: #522A29 !important;
+  color: #FFFFFF !important;
+}
+
+.font-override {
+  font-family: sans-serif, Arial;
+}
 
 .cover {
   object-fit: cover;
 }
 
 .bags {
-  color: #fff;
-}
-
-h2 {
-  color: #333;
+  /* color: #fff; */
 }
 
 tr {
-  border-bottom:1px solid #000;
+  border-bottom:1px solid #FFF;
 }
 
 a:link {
   text-decoration: none;
-  color: #550;
+  /* background-color: #F1C7B8;
+  color: #550; */
 }
 
 a:visited {
   text-decoration: none;
-  color: #000;
+  /* background-color: #F1C7B8;
+  color: #550; */
 }
 
 a:hover {
   text-decoration: underline;
-  color: #ff0;
 }
 
 a:active {
@@ -49,24 +57,38 @@ a:active {
 }
 
 .w3-card {
-  background-color: #ffaa11;
+  background-color: #DABDB5;
+  color: #000
 }
 
 .w3-card-toolbar {
-  background-color: #ff9900;
+  /* background-color: #ff9900; */
   margin-bottom: 10px;
 }
 
 .w3-bar {
-  background-color: #ffaa11;
+  /* background-color: #464146;
+  color: #FFF; */
 }
 
 .w3-button {
-  background-color: #ff9900;
+  background-color: #A17C76;
+  color: #FFF;
+}
+
+.w3-opacity {
+    opacity: 0.5;
+    background-color: #522A29;
+}
+
+.app-inactive {
+    opacity: 0.5;
+    background-color: #522A29;
 }
 
 .w3-input {
-  background-color: #ffaa11 ;
+  /* background-color: #DABDB5 ;
+  color: #000; */
   boarder-bottom: 1px;
 }
 

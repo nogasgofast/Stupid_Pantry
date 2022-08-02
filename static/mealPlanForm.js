@@ -298,7 +298,7 @@ export class MealPlanForm extends React.Component {
           <div className={"w3-card w3-margin-top w3-form w3-container"} >
             <div className="w3-bar">
               <label>Filter<i className="w3-bar-item w3-right fas fa-search" /></label>
-              <input  className="w3-input w3-border-bottom w3-bar-item w3-round"
+              <input  className="call-to-action w3-input w3-border-bottom w3-bar-item w3-round"
                       type="search"
                       value={ this.state.search }
                       onChange={ (event) => this.filter(event) } />

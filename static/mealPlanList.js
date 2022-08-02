@@ -113,7 +113,7 @@ export class MealPlanList extends React.Component {
   render() {
     return(
       <>
-        <Header history={ this.props.history } />
+        <Header history={ this.props.history } inner="Mealplans"/>
         <div className="w3-margin w3-row-padding">
           <div className="w3-content">
             { this.renderPlans() }

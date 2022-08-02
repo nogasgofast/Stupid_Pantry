@@ -123,7 +123,7 @@ export class ResetForm extends React.Component {
                         <input  type="submit"
                                 id="cp_button"
                                 value="Change Password"
-                                className="w3-action w3-btn w3-hover-yellow w3-Indigo" />
+                                className="call-to-action w3-action w3-btn w3-hover-yellow w3-Indigo" />
                       ) : (
                         <label htmlFor="cp_button">
                           <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>

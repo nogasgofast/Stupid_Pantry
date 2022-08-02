@@ -86,7 +86,7 @@ export class IngredientForm extends React.Component {
       }
     };
     const settings = {
-      url: '/v1/inventory/' + this.state.name,
+      url: '/v1/inventory/' + encodeURIComponent(this.state.name),
       data: JSON.stringify({ keepStocked: !this.state.keepStocked }),
       method: 'PUT',
       callBack: callBack,
@@ -103,7 +103,9 @@ export class IngredientForm extends React.Component {
     if (!this.checkCompatVideo()) {
       console.log('This browser only supports uploading pre-saved images.');
     }
-    this.renderThisRecipe();
+    if (this.props.isEdit) {
+        this.renderThisRecipe();
+    }
   }
 
   componentWillUnmount() {
@@ -130,7 +132,7 @@ export class IngredientForm extends React.Component {
       }
     };
     const settings = {
-      url: '/v1/inventory/image/' + this.state.name,
+      url: '/v1/inventory/image/' + encodeURIComponent(this.state.name),
       data: '{}',
       isFileUpload: true,
       method: 'DELETE',
@@ -166,7 +168,7 @@ export class IngredientForm extends React.Component {
      }
    };
    const settings = {
-     url: '/v1/inventory/barcode/' + this.state.name,
+     url: '/v1/inventory/barcode/' + encodeURIComponent(this.state.name),
      data: '{}',
      method: 'DELETE',
      callBack: callBack,
@@ -208,7 +210,7 @@ export class IngredientForm extends React.Component {
         formData.append('file', f , f.name );
         //console.log(formData.has('file'))
         const settings = {
-          url: '/v1/inventory/barcode/' + this.state.name,
+          url: '/v1/inventory/barcode/' + encodeURIComponent(this.state.name),
           data: formData,
           isFileUpload: true,
           method: 'POST',
@@ -283,7 +285,7 @@ export class IngredientForm extends React.Component {
               formData.append('file', blob, f.name );
               //console.log(formData.has('file'))
               const settings = {
-                url: '/v1/inventory/image/' + this.state.name,
+                url: '/v1/inventory/image/' + encodeURIComponent(this.state.name),
                 data: formData,
                 isFileUpload: true,
                 method: 'POST',
@@ -312,46 +314,68 @@ export class IngredientForm extends React.Component {
   handleSubmit(event){
     event.preventDefault();
     let callBack = (xhr) => {
-      //console.log(xhr.responseText);
+      console.log(xhr.responseText);
       let state = xhr.readyState;
       let status = xhr.status;
       let cat = Math.floor(status/100);
       if ((state == 4) && status == 200) {
+        console.log("state 4 , status 200")
         const recipe = JSON.parse(xhr.responseText)['recipe'];
         if (this.myIsMounted) {
+          console.log("isMounted true")
           this.setState({ isLoading: false });
-          this.props.history.goBack();
-        }
-      } else if (state == 4 && cat != 2 && cat != 3) {
-        this.setState({ IsLoading: false});
-        console.log( xhr.responseText );
-      }};
+          if (this.props.isEdit){
+              console.log("isEdit true")
+              this.props.history.goBack();
+          }else{
+              console.log("isEdit false")
+              this.props.history.push('/pantry/');}}
+      }else if (state == 4 && cat != 2 && cat != 3) {
+        console.log("state 4, cat not 2 or 3")
+        if (status == 409){
+          alert("duplicate entry")}
+        this.setState({ IsLoading: false})
+        console.log( xhr.responseText )}};
     const userKeyRegExp = /^[a-zA-Z]{3}\ [0-9]{2}\ [0-9]{4}$/;
     const valid = userKeyRegExp.test(this.state.lastBuyDate);
     if (! valid && ! this.state.lastBuyDate == '') {
       alert("Item bought must be formated like 'Mon Jan 01 2020'")
-      return
-    }
-    const settings = {
-      url: '/v1/inventory/' + this.state.previousName,
-      data: JSON.stringify({"name": this.state.name,
-                            "amount": this.state.amount,
-                            "amountPkg": this.state.amountPkg,
-                            "keepStocked": this.state.keepStocked,
-                            "lastBuyDate": this.state.lastBuyDate,
-                            "freshFor": this.state.freshFor,
-                            "barcode": this.state.barcode }),
-      method: 'PUT',
-      callBack: callBack,
-      history: this.props.history,
-      headers: {"content-type": "application/json"}
-    };
+      return}
+    let settings = {}
+    if (this.props.isEdit) {
+      settings = {
+        url: '/v1/inventory/' + encodeURIComponent(this.state.previousName),
+        data: JSON.stringify({"name": this.state.name,
+                              "amount": this.state.amount,
+                              "amountPkg": this.state.amountPkg,
+                              "keepStocked": this.state.keepStocked,
+                              "lastBuyDate": this.state.lastBuyDate,
+                              "freshFor": this.state.freshFor,
+                              "barcode": this.state.barcode }),
+        method: 'PUT',
+        callBack: callBack,
+        history: this.props.history,
+        headers: {"content-type": "application/json"}};
+    }else{
+      settings = {
+        url: '/v1/inventory/' + encodeURIComponent(this.state.name),
+        data: JSON.stringify({"name": this.state.name,
+                              "amount": this.state.amount,
+                              "amountPkg": this.state.amountPkg,
+                              "keepStocked": this.state.keepStocked,
+                              "lastBuyDate": this.state.lastBuyDate,
+                              "byWeight": this.state.byWeight,
+                              "freshFor": this.state.freshFor,
+                              "barcode": this.state.barcode }),
+        method: 'POST',
+        callBack: callBack,
+        history: this.props.history,
+        headers: {"content-type": "application/json"}};}
     let req = new Request();
     req.props = settings;
     req.withAuth();
     if (this.myIsMounted) {
-      this.setState({ IsLoading: true});
-    };
+      this.setState({ IsLoading: true})}
   }
 
   handleDelete(event){
@@ -372,7 +396,7 @@ export class IngredientForm extends React.Component {
         alert( xhr.responseText );
       }};
     const settings = {
-      url: '/v1/inventory/' + this.state.name,
+      url: '/v1/inventory/' + encodeURIComponent(this.state.name),
       data: '{}',
       method: 'DELETE',
       callBack: callBack,
@@ -388,18 +412,18 @@ export class IngredientForm extends React.Component {
   }
 
   renderThisRecipe(){
-    console.log(this.props.location);
+    // console.log(this.props.location);
     const {pathname} = this.props.location;
-    //console.log(pathname);
-    const name = pathname.replace('/pantry/', '')
-    //console.log(recipeName);
+    // console.log(pathname);
+    const name = pathname.replace('/pantry/edit/', '')
+    // console.log(name);
     let callBack = (xhr) => {
-      //console.log(xhr.responseText);
+      // console.log(xhr.responseText);
       let state = xhr.readyState;
       let status = xhr.status;
       let cat = Math.floor(status/100);
       if ((state == 4) && status == 200) {
-        //console.log(JSON.parse(xhr.responseText))
+        // console.log(xhr.responseText)
         const json = JSON.parse(xhr.responseText)
         if (this.myIsMounted) {
           this.setState({ ValidateIsLoading: false,
@@ -417,17 +441,18 @@ export class IngredientForm extends React.Component {
         }
       } else if (state == 4 && cat != 2 && cat != 3) {
         this.setState({ ValidateIsLoading: false});
-        //console.log( xhr.responseText );
+        console.log( xhr.responseText );
       }};
     const settings = {
-      url: '/v1/inventory/' + name,
+      url: '/v1/inventory/' + encodeURIComponent(name),
       method: 'GET',
       callBack: callBack,
       history: this.props.history
     };
     let req = new Request();
     req.props = settings;
-    console.log("making request")
+    // console.log("making request")
+    // console.log(req)
     req.withAuth();
     if (this.myIsMounted) {
       this.setState({ValidateIsLoading: true});
@@ -540,101 +565,114 @@ export class IngredientForm extends React.Component {
               </div>
             </div>
             <form method="POST"
-                  className="w3-card"
+                  className="w3-card w3-container"
                   onSubmit={ (event) => this.handleSubmit(event) } >
 
-              <div className="w3-display-container" >
-                { thumbnail(this.state) }
-                { this.state.imagePath ? (
-                      <button className={"fas fa-trash-alt w3-xlarge " +
-                                         "w3-display-bottomright w3-display-hover w3-margin " +
-                                         "w3-btn w3-opacity w3-orange"}
-                              onClick={ (event) => this.deletePicture(event) }/>) : ""}</div>
+                <div className="w3-display-container" >
+                    { thumbnail(this.state) }
+                    { this.state.imagePath ? (
+                          <button className={"fas fa-trash-alt w3-xlarge " +
+                                             "w3-display-bottomright w3-display-hover w3-margin " +
+                                             "w3-btn w3-opacity w3-orange"}
+                                  onClick={ (event) => this.deletePicture(event) }/>) : ""}</div>
 
-              <p>
-                <label className="w3-left" >Name</label>
-                <b>
-                  <input className="w3-input w3-center"
-                         type="text"
-                         placeholder="Name"
-                         onChange={ this.handleNameChange }
-                         value={this.state.name} /></b></p>
+                <h2 className="" >Name:</h2>
+                <p><b>
+                  <input className=""
+                    type="text"
+                    placeholder="Name"
+                    onChange={ this.handleNameChange }
+                    value={this.state.name} /></b></p>
 
-              <label className="w3-left" >Amount in Package { this.state.byWeight ? "(oz)" : "" }</label>
-              <b>
-                <input className="w3-input w3-center"
+                <p>
+                  <button className="w3-button w3-hover-yellow"
+                          onClick={e => this.toggleByWeight(e) }>Measure by: {
+                            this.state.byWeight ? (<b>oz</b>) : "oz, " }{
+                            this.state.byWeight ? ", piece" : (<b>piece</b>)}</button></p>
+                <label className="w3-left" >Amount in Package { this.state.byWeight ? "(oz)" : "" }</label>
+                <br />
+                  <b>
+                  <input className=""
                        type="number"
+                       size="5"
                        onChange={ this.handleamountPkgChange }
                        value={ this.state.amountPkg } /></b>
-              { this.state.barcode ? (<p><label className="w3-left">Barcode</label>
+                { this.state.barcode ? (<p><label className="w3-left">Barcode</label>
                                         <b>
                                          <input className="w3-input w3-center"
                                                 type="text"
                                                 readOnly
                                                 value={ this.state.barcode } />
                                         </b></p>) : "" }
-              <p>
-                <label className="w3-bar"
+                <p>
+                  <label className="w3-left"
                        htmlFor="gotIt"
                        aria-label="Add Package to Amount">
-                  <i className="w3-left w3-bar w3-button w3-hover-yellow"
-                     aria-hidden="true" > Add Package to Amount</i></label>
-                <button style={{display: "none"}}
-                        id="gotIt"
-                        onClick={ e => this.gotIt(e) }></button></p>
-              <label className="w3-left" >Amount { this.state.byWeight ? "(oz)" : "" }</label>
-              <b>
-                <input className="w3-center w3-input"
-                       type="number"
-                       step='any'
-                       onChange={ this.handleAmountChange }
-                       value={ this.state.amount } /></b>
+                    <i className="w3-left w3-bar w3-button w3-hover-yellow"
+                       aria-hidden="true" > Add a Package to pantry</i></label>
+                  <button style={{display: "none"}}
+                          id="gotIt"
+                          onClick={ e => this.gotIt(e) }></button>
+                  </p>
+                  <br /><br />
+                <label className="w3-left" >Amount { this.state.byWeight ? "(oz)" : "" }</label>
                 <br />
-              <div className="w3-border-yellow w3-border w3-container">
+                <b>
+                  <input className=""
+                         type="number"
+                         size="5"
+                         step='any'
+                         onChange={ this.handleAmountChange }
+                         value={ this.state.amount } /></b>
+                  <br /> <br />
+
+
+              <div className="w3-margin-top w3-border-top w3-border-black">
+                <h2>Expiration:</h2>
                 <p>
                   <label className="w3-bar"
                          htmlFor="setDate"
                          aria-label="Set today as buy date">
-                    <i className="w3-left w3-bar w3-button w3-hover-yellow"
+                    <i className="w3-left w3-button"
                        aria-hidden="true" > Set today as buy date</i></label>
                   <button style={{display: "none"}}
                           id="setDate"
                           onClick={ e => this.setDate(e) }></button></p>
                 <p>
                   <label className="w3-left" >Item bought</label>
-                  <b>
-                    <input className="w3-input w3-center"
+                  <b><br />
+                    <input className=""
                            type="text"
                            onChange={ e => this.handleLastBuyDate(e) }
                            value={ this.state.lastBuyDate  } /></b></p>
                 <label className="w3-left" >Fresh for</label>
                   <div className="w3-bar" >
-                    <span key="7" className={"w3-bar-item w3-button w3-hover-yellow " +
+                    <span key="7" className={"w3-bar-item w3-button " +
                                               (this.state.freshFor == 7 ? 'w3-yellow' : '')}
                                   onClick={() => this.freshFor(7) }>
                                   1 wk.</span>
-                    <span key="14" className={"w3-bar-item w3-button w3-hover-yellow " +
+                    <span key="14" className={"w3-bar-item w3-button " +
                                               (this.state.freshFor == 14 ? 'w3-yellow' : '')}
                                   onClick={() => this.freshFor(14) }>
                                   2 wk.</span>
-                    <span key="30" className={"w3-bar-item w3-button w3-hover-yellow " +
+                    <span key="30" className={"w3-bar-item w3-button " +
                                               (this.state.freshFor == 30 ? 'w3-yellow' : '')}
                                   onClick={() => this.freshFor(30) }>
                                   1 mo.</span>
-                    <span key="90" className={"w3-bar-item w3-button w3-hover-yellow " +
+                    <span key="90" className={"w3-bar-item w3-button " +
                                               (this.state.freshFor == 90 ? 'w3-yellow' : '')}
                                   onClick={() => this.freshFor(90) }>
                                   3 mo.</span>
-                    <span key="180" className={"w3-bar-item w3-button w3-hover-yellow " +
+                    <span key="180" className={"w3-bar-item w3-button " +
                                               (this.state.freshFor == 180 ? 'w3-yellow' : '')}
                                   onClick={() => this.freshFor(180) }>
                                   6 mo.</span>
-                    <span key="354" className={"w3-bar-item w3-button w3-hover-yellow " +
+                    <span key="354" className={"w3-bar-item w3-button " +
                                               (this.state.freshFor == 354 ? 'w3-yellow' : '')}
                                   onClick={() => this.freshFor(354) }>
                                   1 yr.</span></div></div>
               <p>
-                <input className="w3-input w3-indigo w3-btn w3-block"
+                <input className="call-to-action w3-button"
                        type="submit"
                        value={ !this.state.isLoading ? "Save" : (<i className="fa fa-cog fa-spin fa-fw fa-3x"></i>) } /></p>
             </form>
@@ -650,8 +688,3 @@ export class IngredientForm extends React.Component {
 }
 
 // removed as hints are now working and this may not be needed.
-// <p>
-//   <button className="w3-button w3-bar w3-hover-yellow"
-//           onClick={e => this.toggleByWeight(e) }>Measure by: {
-//             this.state.byWeight ? (<b>oz</b>) : "oz, " }{
-//             this.state.byWeight ? ", piece" : (<b>piece</b>)}</button></p>
