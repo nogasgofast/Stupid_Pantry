@@ -1,4 +1,4 @@
-FROM tiangolo/uwsgi-nginx-flask:python3.7
+FROM tiangolo/uwsgi-nginx-flask:python3.8
 MAINTAINER Gene Guido "nogasgofast@gmail.com"
 COPY . /app
 WORKDIR /app
