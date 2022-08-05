@@ -16,3 +16,5 @@ PyJWT
 pyzbar
 six
 Werkzeug
+Image
+bs4
