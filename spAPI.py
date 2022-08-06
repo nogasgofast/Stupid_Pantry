@@ -584,8 +584,8 @@ def users():
                       sender="nogasgofast@nogasgofast.net",
                       recipients=[user.email])
         token = generate_confirmation_token(app, user.email)
-        if app.config['SERVER_NAME']:
-            server_name = app.config['SERVER_NAME']
+        if current_app.config['SERVER_NAME']:
+            server_name = current_app.config['SERVER_NAME']
             link = f'https://{server_name}/verify/{token}'
         else:
             link = f'https://localhost:5001/verify/{token}'
@@ -597,16 +597,16 @@ def users():
         return deleteUser(get_jwt_identity())
 
 
-def generate_confirmation_token(app, email):
-    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-    return serializer.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
+def generate_confirmation_token(email):
+    serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+    return serializer.dumps(email, salt=current_app.config['SECURITY_PASSWORD_SALT'])
 
 
 def confirm_token(app, token, expiration=3600):
-    serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
     try:
         email = serializer.loads(token,
-                                 salt=app.config['SECURITY_PASSWORD_SALT'],
+                                 salt=current_app.config['SECURITY_PASSWORD_SALT'],
                                  max_age=expiration)
         return email
     except BadSignature:
@@ -692,8 +692,8 @@ def userRecover():
                       sender="nogasgofast@nogasgofast.net",
                       recipients=[user.email])
         token = generate_confirmation_token(app, user.email)
-        if app.config['SERVER_NAME']:
-            server_name = app.config['SERVER_NAME']
+        if current_app.config['SERVER_NAME']:
+            server_name = current_app.config['SERVER_NAME']
             link = f'https://{server_name}/pwreset/{token}'
         else:
             link = f'https://localhost:5001/pwreset/{token}'
@@ -787,7 +787,7 @@ def imageAdd(ingredientName=None, recipeName=None):
         return jsonify({"not found": 404}), 404
     # clean-up the old image before adding a new one.
     if obj.imagePath:
-        path = os.path.join(app.config['UPLOAD_FOLDER'], obj.imagePath)
+        path = os.path.join(current_app.config['UPLOAD_FOLDER'], obj.imagePath)
         os.unlink(path)
         obj.imagePath = ''
     if 'file' not in request.files:
@@ -804,11 +804,11 @@ def imageAdd(ingredientName=None, recipeName=None):
         filename = uuid.uuid4().hex + secure_filename(file.filename)[-5:]
         year = datetime.date.today().strftime('%y')
         # check and build up the image storage area.
-        path = os.path.join(app.config['UPLOAD_FOLDER'],
+        path = os.path.join(current_app.config['UPLOAD_FOLDER'],
                             str(user.team),
                             year)
         os.makedirs(path, exist_ok=True)
-        path = os.path.join(app.config['UPLOAD_FOLDER'],
+        path = os.path.join(current_app.config['UPLOAD_FOLDER'],
                             str(user.team), year, filename)
         file.save(path)
         obj.imagePath = os.path.join(str(user.team), year, filename)
@@ -833,7 +833,7 @@ def imageRemove(ingredientName=None, recipeName=None):
         obj = SPDB.Recipes.get(tid=user.team, name=recipeName)
     if obj is None:
         return jsonify({"not found": 404}), 404
-    path = os.path.join(app.config['UPLOAD_FOLDER'], obj.imagePath)
+    path = os.path.join(current_app.config['UPLOAD_FOLDER'], obj.imagePath)
     os.unlink(path)
     obj.imagePath = ''
     return jsonify({"OK": 200}), 200
@@ -1000,7 +1000,7 @@ def ocrRequest():
     if file and allowedFile(file.read(265)):
         file.seek(0)
         myfile = {'file': file.read()}
-        response = requests.post(app.config['OCR_SERVICE'], files=myfile)
+        response = requests.post(current_app.config['OCR_SERVICE'], files=myfile)
         # response = requests.post('http://192.168.1.70:5001/v1/test',
         # files=myfile)
         if response.status_code == 200:
