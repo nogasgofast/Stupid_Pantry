@@ -583,7 +583,7 @@ def users():
         msg = Message("Smart Pantry: E-mail Verification",
                       sender="nogasgofast@nogasgofast.net",
                       recipients=[user.email])
-        token = generate_confirmation_token(user.email)
+        token = generate_confirmation_token(current_app, user.email)
         if current_app.config['SERVER_NAME']:
             server_name = current_app.config['SERVER_NAME']
             link = f'https://{server_name}/verify/{token}'
@@ -597,12 +597,12 @@ def users():
         return deleteUser(get_jwt_identity())
 
 
-def generate_confirmation_token(email):
+def generate_confirmation_token(current_app, email):
     serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
     return serializer.dumps(email, salt=current_app.config['SECURITY_PASSWORD_SALT'])
 
 
-def confirm_token(token, expiration=3600):
+def confirm_token(current_app, token, expiration=3600):
     serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
     try:
         email = serializer.loads(token,
@@ -626,7 +626,7 @@ def userConfirm():
     username = request.json.get('username')
     if not username:
         return jsonify({"Missing attribute: username": 400}), 400
-    email = confirm_token(token)
+    email = confirm_token(current_app, token)
     if email is None:
         return jsonify({"The confirmation link is invalid or has expired.":
                         400}), 400
@@ -654,7 +654,7 @@ def userReset():
         return jsonify({"Password length out of scope": 400}), 400
     token = request.json.get('token')
     print(token)
-    email = confirm_token(token)
+    email = confirm_token(current_app, token)
     if email is None:
         return jsonify({"The confirmation link is invalid or has expired.":
                         400}), 400
@@ -691,7 +691,7 @@ def userRecover():
         msg = Message("Smart Pantry: Password Recovery",
                       sender="nogasgofast@nogasgofast.net",
                       recipients=[user.email])
-        token = generate_confirmation_token(user.email)
+        token = generate_confirmation_token(current_app, user.email)
         if current_app.config['SERVER_NAME']:
             server_name = current_app.config['SERVER_NAME']
             link = f'https://{server_name}/pwreset/{token}'
