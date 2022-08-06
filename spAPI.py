@@ -18,7 +18,7 @@ from flask import (Flask,
                    jsonify,
                    Blueprint,
                    render_template)
-# from flask import current_app as app
+from flask import current_app
 from fractions import Fraction
 import pyzbar.pyzbar as pyzbar
 from flask_images import Images, resized_img_src
