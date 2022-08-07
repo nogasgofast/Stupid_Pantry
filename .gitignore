@@ -1,11 +1,10 @@
 static/images/*
 static/fontawesome-free-5.12.0-web/*
-example recipes
-example recipes/*
 node_modules
 node_modules/*
 __pycache__/*
 *.pyc
+docker-compose.yml
 smartPantry.conf
 sp.sqlite
 .env/*
