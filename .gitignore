@@ -1,5 +1,6 @@
 static/images/*
 static/fontawesome-free-5.12.0-web/*
+static/dist/*
 node_modules
 node_modules/*
 __pycache__/*

@@ -52,11 +52,9 @@ bp = Blueprint('main', __name__)
 
 @db_session
 def authenticate(username, password):
-    print(username, password)
     user = SPDB.Users.get(lambda u: u.username == username)
     if user is not None:
         valid, newHash = myctx.verify_and_update(password, user.pwHash)
-        print(valid, newHash)
         if valid:
             if newHash:
                 user.pwHash = newHash
@@ -449,6 +447,7 @@ def dbSetup(config=False):
         dbconfig = {
             'host': config.get('database', 'DB_HOST',
                                fallback=os.getenv('DB_HOST')),
+            'unix_socket': '/var/run/mysqld/mysqld.sock',
             'user': config.get('database', 'DB_USER',
                                fallback=os.getenv('DB_USER')),
             'passwd': config.get('database', 'DB_PASSWD',
@@ -456,6 +455,10 @@ def dbSetup(config=False):
             'db': config.get('database', 'DB_NAME',
                              fallback=os.getenv('DB_NAME')),
             'port': int(3306)}
+        if not dbconfig['host']:
+            dbconfig.pop('host', None)
+        else:
+            dbconfig.pop('unix_socket', None)
         SPDB.bind(provider='mysql', **dbconfig)
     else:
         SPDB.bind('sqlite', filename='sp.sqlite', create_db=True)
@@ -486,9 +489,10 @@ def appSetup(app, config=False):
           'MAIL_PASSWORD']
     requiredArgsInt = [
           'MAIL_PORT']
+    # this program only accepts integer bools. Due to inconsistancies
+    # with docker-compose.yml not allowing bool types.
     requiredArgsBool = [
           'JWT_COOKIE_SECURE',
-          'MAIL_USE_TLS',
           'MAIL_USE_SSL']
     results = dict()
 
@@ -584,11 +588,8 @@ def users():
                       sender="nogasgofast@nogasgofast.net",
                       recipients=[user.email])
         token = generate_confirmation_token(current_app, user.email)
-        if current_app.config['SERVER_NAME']:
-            server_name = current_app.config['SERVER_NAME']
-            link = f'https://{server_name}/verify/{token}'
-        else:
-            link = f'https://localhost:5001/verify/{token}'
+        server_name = current_app.config['SERVER_NAME']
+        link = f'https://{server_name}/verify/{token}'
         # msg.body = render_template('email_verify.html', link=link)
         msg.html = render_template('email_verify.html', link=link)
         mail.send(msg)
@@ -1766,6 +1767,8 @@ def userRecipes(user):
     for r in recipes.random(3):
         recipe = r.to_dict()
         recipe['path'] = '/recipes/view/'
+        if recipe.get('imagePath'):
+            recipe['imagePath'] = getThubnail(recipe['imagePath'])
         selectedRecipes.append(recipe)
     return selectedRecipes
 

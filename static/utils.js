@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from "react-router-dom";
 
-
 export const CONVERT__ = {
         "pinch": 0.03,
         "pinche": 0.03,
@@ -26,9 +25,25 @@ export class Request extends React.Component {
             if (this.props.headers.hasOwnProperty(key)){
                 r1.setRequestHeader(key, this.props.headers[key])}}
         r1.setRequestHeader("Accept", "application/json")
+        // console.log(this.getCookie('csrf_access_token'))
+        r1.setRequestHeader('X-CSRF-TOKEN', this.getCookie('csrf_access_token'))
         r1.onreadystatechange = () => this.wrapCallBack(r1)
-        //console.log(":" + this.props.data + ":")
+        // console.log(":" + this.props.data + ":")
         r1.send(this.props.data)}
+
+    getCookie(name){
+      const allCookies  =  document.cookie;
+      const cookieArray = allCookies.split(';');
+      for (const key in cookieArray){
+        const cookie = cookieArray[key].split('=');
+        // console.log(cookie)
+        if (cookie.length > 1 && cookie[0] == name){
+          return cookie[1];
+        } else {
+          return '';
+        }
+      }
+    }
 
     wrapCallBack(xhr){
         /*This function intercepts 401 responses before they get to
@@ -39,6 +54,8 @@ export class Request extends React.Component {
             r2.open('POST', url, true)
             r2.setRequestHeader("Content-Type", "application/json")
             r2.setRequestHeader("Accept", "application/json")
+            r2.setRequestHeader('X-CSRF-TOKEN', this.getCookie('csrf_refresh_token'))
+            // console.log(this.getCookie('csrf_access_token'))
             r2.onreadystatechange = () => this.refreshResend(r2)
             r2.send()}
         if (xhr.readyState > 1 && xhr.status != 401) {
