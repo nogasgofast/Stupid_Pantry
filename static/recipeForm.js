@@ -606,9 +606,11 @@ export class RecipeForm extends React.Component {
                     if ((state == 4) && status == 200){
                         const recipeText = JSON.parse(xhr.responseText)['text']
                         if (this.myIsMounted) {
-                            this.setState({ ocrisLoading: false })}}
+                            this.setState({ recipeField: recipeText,
+                                            ocrisLoading: false })}}
                         else if (state == 4 && cat != '2' && cat != '3'){
-                            this.setState({ ocrisLoading: false })}}
+                            this.setState({ ocrisLoading: false })
+                            alert(xhr.responseText)}}
         let formData = new FormData()
         //console.log(f)
         formData.append('file', f , f.name)
