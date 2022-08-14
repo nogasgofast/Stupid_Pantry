@@ -1279,6 +1279,7 @@ def recipes(recipeName=None, public=False, id=-1):
         recipe = SPDB.Recipes.get(uid=user.id, name=newName)
         if recipe is None:
             recipe = SPDB.Recipes(uid=user.id,
+                                  tid=user.team,
                                   name=newName,
                                   instructions='\n'.join(instructions))
             applyIngredients(user, recipe, ingredients)

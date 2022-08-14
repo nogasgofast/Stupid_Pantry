@@ -812,8 +812,7 @@ export class RecipeForm extends React.Component {
                                x['name']}}}
                 let ingredientsDisplay = ingredients.map( x => dedupDisplay(x) )
                 let instructions = JSON.parse(xhr.responseText)['instructions']
-                let recipeText = recipe.concat(recipe,
-                                              '\n','\n',
+                let recipeText = recipe.concat('\n','\n',
                                               'Ingredients','\n',
                                               ingredientsDisplay.join('\n'),
                                               '\n','\n',
