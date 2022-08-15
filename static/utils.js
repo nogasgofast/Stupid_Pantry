@@ -54,6 +54,7 @@ export class Request extends React.Component {
             r2.open('POST', url, true)
             r2.setRequestHeader("Content-Type", "application/json")
             r2.setRequestHeader("Accept", "application/json")
+            r2.setRequestHeader('X-CSRF-TOKEN', this.getCookie('csrf_access_token'))
             r2.setRequestHeader('X-CSRF-TOKEN', this.getCookie('csrf_refresh_token'))
             // console.log(this.getCookie('csrf_access_token'))
             r2.onreadystatechange = () => this.refreshResend(r2)

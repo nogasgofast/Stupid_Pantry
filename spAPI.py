@@ -849,7 +849,7 @@ def inventory(ingredientName=None):
     username = get_jwt_identity()
     user = identify(username)
     if ingredientName:
-        # parse_qs decodes urlEncoded strings but does to to a dict.
+        # parse_qs decodes urlEncoded strings but does it to a dict.
         for name in parse_qs(ingredientName,
                              keep_blank_values=True).keys():
             ingredientName = name
@@ -939,7 +939,28 @@ def inventory(ingredientName=None):
             return jsonify({"Not Found": 404}), 404
         name = request.json.get('name')
         if name is not None:
-            item.name = str(name)
+            # create a copy
+            newItem = SPDB.Ingredients(uid=user.id,
+                                       tid=user.team,
+                                       name=str(name),
+                                       amount=item.amount,
+                                       amountPkg=item.amountPkg,
+                                       byWeight=item.byWeight,
+                                       barcode=item.barcode,
+                                       lastBuyDate=item.lastBuyDate,
+                                       freshFor=item.freshFor,
+                                       keepStocked=item.keepStocked,
+                                       imagePath=item.imagePath,
+                                       used=item.used,
+                                       lastUsed=item.lastUsed,
+                                       requiredBy=item.requiredBy)
+            # modify all connections?
+            modList = SPDB.Requirements.select(lambda x: x.ingredient == item)
+            for mod in modList:
+                mod.ingredient = newItem
+            # delete the old record and replace it
+            item.delete()
+            item = newItem
         amount = request.json.get('amount')
         if amount is not None:
             item.amount = int(toMath(amount))
@@ -970,6 +991,8 @@ def inventory(ingredientName=None):
             return jsonify({"DELETED": 200}), 200
         else:
             return jsonify({"Not Found": 404}), 404
+
+
 
 
 def allowedFile(file):

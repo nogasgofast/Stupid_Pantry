@@ -25,8 +25,7 @@ export class Header extends React.Component {
       <div className="w3-card">
         <div className="w3-bar">
             <Link to="/home">
-              <h1 className="w3-margin-left w3-bar-item w3-round-large w3-button">Smart Recipe:</h1>
-              <h1 className="w3-bar-item">{ this.props.inner }</h1>
+              <h1 className="w3-margin-left w3-bar-item w3-round-large w3-button">{ this.props.inner }</h1>
             </Link>
             <div className="w3-bar-item w3-right w3-round">
               <button className="w3-button w3-round-large w3-xxlarge"

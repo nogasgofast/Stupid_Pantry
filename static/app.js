@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 //all includes for each page alphabetical
 import { Home } from './home.js'
-import { IngredientForm } from './ingredientForm.js'
+import { PantryForm } from './pantryForm.js'
 import { LoginForm } from './login.js'
 import { RecoverForm } from './recover.js'
 import { LogoutForm } from './logout.js'
@@ -48,10 +48,10 @@ class App extends React.Component {
                         render={(props)=><SearchList {...props} /> } />
                 <Route
                         path="/pantry/add"
-                        render={(props)=><IngredientForm {...props} /> } />
+                        render={(props)=><PantryForm {...props} /> } />
                 <Route
                         path="/pantry/edit/"
-                        render={(props)=><IngredientForm isEdit {...props} /> } />
+                        render={(props)=><PantryForm isEdit {...props} /> } />
                 <Route
                         path="/public/recipes/"
                         render={(props)=><RecipeForm {...props} /> } />

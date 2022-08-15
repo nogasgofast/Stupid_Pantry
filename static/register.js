@@ -46,7 +46,7 @@ export class RegisterForm extends React.Component {
         return false
       }
       if (this.state.password.length < 20 || this.state.password.length > 254){
-        alert("password must be 20-254 characters in length, the security of which is your responsibility.")
+        alert("password must be 20-254 characters in length, try a random sentence.")
         return false
       }
       if (!this.state.password2) {

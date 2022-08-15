@@ -4,7 +4,7 @@ import { Header } from './header.js';
 import { Request, LinkDispList, thumbnail } from './utils.js';
 
 
-export class IngredientForm extends React.Component {
+export class PantryForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -23,7 +23,8 @@ export class IngredientForm extends React.Component {
       barcode: '',
       keepStocked: false,
       requiredBy: [],
-      imagePath: ''
+      imagePath: '',
+      warnNameChange: false
     };
     this.myIsMounted= false;
     // These are just handlers being registered with the running process.
@@ -51,6 +52,10 @@ export class IngredientForm extends React.Component {
   }
 
   handleNameChange(event){
+    if (this.state.warnNameChange == false){
+      alert("By clicking save you will change the name of this item in all related recipies!")
+      this.setState({warnNameChange: true})
+    }
     this.setState({ name: event.target.value });
   }
 
@@ -147,7 +152,7 @@ export class IngredientForm extends React.Component {
     }
   }
 
- handleBarcodeRemove(){
+  handleBarcodeRemove(){
    //console.log("activated")
    let callBack = (xhr) => {
      //console.log(xhr.responseText);
