@@ -279,14 +279,14 @@ def ingredientSearch(name, user):
                         else:
                             scores[ing.name] += 1
         sortedByValue = sorted(scores.items(), key=lambda kv: kv[1])
-        topThree = dict(sortedByValue[0:20]).keys()
-        topThreeMatches = []
+        top = dict(sortedByValue[0:20]).keys()
+        topMatches = []
         for ing in ings:
-            if ing.name in topThree:
+            if ing.name in top:
                 item = ing.to_dict()
                 item['name'] = ing.name
-                topThreeMatches.append(item)
-        return topThreeMatches
+                topMatches.append(item)
+        return topMatches
 
 
 def ingredientLineParse(line):
@@ -849,6 +849,8 @@ def inventory(ingredientName=None):
     username = get_jwt_identity()
     user = identify(username)
     if ingredientName:
+        # When updating a name the url describes the old name in the request.
+        # But we have to de-encode it.
         # parse_qs decodes urlEncoded strings but does it to a dict.
         for name in parse_qs(ingredientName,
                              keep_blank_values=True).keys():
@@ -938,7 +940,7 @@ def inventory(ingredientName=None):
         if item is None:
             return jsonify({"Not Found": 404}), 404
         name = request.json.get('name')
-        if name is not None:
+        if name is not None and name != previousName:
             # create a copy
             newItem = SPDB.Ingredients(uid=user.id,
                                        tid=user.team,

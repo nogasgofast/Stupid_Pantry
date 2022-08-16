@@ -128,13 +128,17 @@ export class IngredientList extends LinkDispList {
 
 
     renderAmountMeasure(item){
+      // I think this prevents things like 1 lemon lemon from showing up.
       let amount = 0
+      // it does this by determining if the would-be requirement uses a well known
+      // measure like tablespoon or tbs or something.
       let isMetered = CONVERT__[item.amountMeasure]
       return isMetered ? item.amountMeasure : ''}
 
     measureCorrectPlural(item){
+      // this calculates the mesurement the ingredie
       if (item.pantry[0].amount > 1 && (item.amountMeasure != null)) {
-          return item.amountMeasure + "(s)"
+          return item.amountMeasure + "s"
       }else{
         return item.amountMeasure}
     }
@@ -147,11 +151,12 @@ export class IngredientList extends LinkDispList {
       let measure = ''
       if (item.isMatching && item.isMatching == 'perfect') {
           if (isMetered) {
-              text = "In Panry: " + item.pantry[0].amount
+              text = "In Panry: " + item.pantry[0].amount / isMetered
               measure = this.measureCorrectPlural(item)}
           else {
-              text = "In Panry: " + item.pantry[0].amount}
-              measure = this.measureCorrectPlural(item)}
+               text = "In Panry: " + item.pantry[0].amount
+               measure = this.measureCorrectPlural(item)
+          }}
       else if (item.isMatching && item.isMatching == 'some') {
            text = "In Panry: " + "New"}
       else if (item.isMatching && item.isMatching == 'no') {
@@ -163,9 +168,7 @@ export class IngredientList extends LinkDispList {
           else {
               text = "In Panry: " + item.amount
               measure = this.measureCorrectPlural(item)}}
-      return <>{text}
-               <span className="w3-margin-left">
-               {measure}</span></>
+      return <>{text} {measure}</>
     }
 
     renderUserInputWarning(item){
