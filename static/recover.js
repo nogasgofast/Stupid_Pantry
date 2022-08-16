@@ -92,7 +92,7 @@ export class RecoverForm extends React.Component {
   render () {
     return  (
       <>
-        <Header history={ this.props.history } inner="Recover Password" />
+        <Header history={ this.props.history } inner="PW reset" />
         <div className={"w3-margin w3-row-padding"}>
           <div className="w3-content" >
           <form method="POST"
@@ -113,26 +113,25 @@ export class RecoverForm extends React.Component {
               </label>
               { this.renderEmail() }
               </p>
-              <div className="w3-padding-16">
-                { this.state.isLoading && <>
-                  <label htmlFor="loginBtn">
-                    <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>
-                  </label>
-                  <input  type="submit"
-                          style={{display: "none"}}
-                          id="loginBtn"
-                          value="Log in"
-                          className="call-to-action w3-button w3-red" /></>
-                }
-                { !this.state.isLoading &&
-                  <input  type="submit"
-                          value="Send Recovery E-mail"
-                          className="call-to-action w3-button"/>
-                }
-                <Link className="call-to-action w3-button" to='/register' >
-                  Sign up here!
-                </Link>
-              </div>
+              { this.state.isLoading && <>
+                <label htmlFor="loginBtn">
+                  <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>
+                </label>
+                <input  type="submit"
+                        style={{display: "none"}}
+                        id="loginBtn"
+                        value="Log in"
+                        className="call-to-action w3-button w3-red" /></>
+              }
+              { !this.state.isLoading &&
+                <input  type="submit"
+                        value="Send Recovery E-mail"
+                        className="call-to-action w3-button"/>
+              }
+              <br />
+              <Link className="w3-button w3-margin-top w3-margin-bottom" to='/register' >
+                Sign up here!
+              </Link>
             </div>
           </form>
           </div>

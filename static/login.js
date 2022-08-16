@@ -113,29 +113,29 @@ export class LoginForm extends React.Component {
               </label>
               { this.renderPassword() }
               </p>
-              <div className="w3-padding-16">
-                { this.state.isLoading && <>
-                  <label htmlFor="loginBtn">
-                    <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>
-                  </label>
-                  <input  type="submit"
-                          style={{display: "none"}}
-                          id="loginBtn"
-                          value="Log in"
-                          className="w3-button w3-red" /></>
-                }
-                { !this.state.isLoading &&
-                  <input  type="submit"
-                          value="Log in"
-                          className="call-to-action w3-button"/>
-                }
-                <Link className="w3-button" to='/register' >
-                  Sign up here!
-                </Link>
-                <Link className="w3-button" to='/recover' >
-                  Forgot my Pssawrds!
-                </Link>
-              </div>
+              { this.state.isLoading && <>
+                <label htmlFor="loginBtn">
+                  <i className="fa fa-cog fa-spin fa-fw fa-3x"></i>
+                </label>
+                <input  type="submit"
+                        style={{display: "none"}}
+                        id="loginBtn"
+                        value="Log in"
+                        className="w3-button w3-red" /></>
+              }
+              { !this.state.isLoading &&
+                <input  type="submit"
+                        value="Log in"
+                        className="call-to-action w3-button w3-margin-top"/>
+              }
+              <br />
+              <Link className="w3-button w3-margin-top" to='/register' >
+                Sign up here!
+              </Link>
+              <br />
+              <Link className="w3-button w3-margin-top w3-margin-bottom" to='/recover' >
+                Forgot my Pssawrds!
+              </Link>
             </div>
           </form>
           </div>
