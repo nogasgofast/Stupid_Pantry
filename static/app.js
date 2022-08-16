@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 
 //all includes for each page alphabetical
+import { AboutUs } from './aboutUs.js'
+import { Account } from './account.js'
 import { EmailValidate } from './emailVerify.js'
 import { Home } from './home.js'
 import { LoginForm } from './login.js'
@@ -29,6 +31,12 @@ class App extends React.Component {
                 <Route exact
                         path="/"
                         render={(props)=><Home {...props} /> } />
+                <Route exact
+                        path="/about_us"
+                        render={(props)=><AboutUs {...props} /> } />
+                <Route exact
+                        path="/account"
+                        render={(props)=><Account {...props} /> } />
                 <Route
                         path="/home"
                         render={(props)=><Home {...props} /> } />

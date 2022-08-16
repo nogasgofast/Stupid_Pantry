@@ -36,13 +36,14 @@ export class Header extends React.Component {
                               ( this.state.show ? "w3-show" : "" )}
                     style={{'position': 'absolute',
                             'right': '0px'}}>
+                <Link to="/about_us" className="w3-bar-item w3-button">About Us</Link>
                 <Link to="/" className="w3-bar-item w3-button">Home</Link>
-                <Link to="/recipes" className="w3-bar-item w3-button">Recipes</Link>
                 <Link to="/mealplans" className="w3-bar-item w3-button">Meal Plans</Link>
-                <Link to="/shopping" className="w3-bar-item w3-button">Shopping</Link>
                 <Link to="/pantry" className="w3-bar-item w3-button">Pantry</Link>
+                <Link to="/recipes" className="w3-bar-item w3-button">Recipes</Link>
                 <Link to="/search" className="w3-bar-item w3-button">Search</Link>
-
+                <Link to="/shopping" className="w3-bar-item w3-button">Shopping</Link>
+                <Link to="/account" className="w3-bar-item w3-button">Not the Account</Link>
                 <Link to="/logout" className="w3-bar-item w3-button">Logout</Link>
               </div>
             </div>
